@@ -1,6 +1,5 @@
 @extends('layouts.main')
 @section('content')
-
     <div class=banner>
         <div class=container>
             <div class=row>
@@ -38,279 +37,111 @@
                         <div class=dst2>
                             Meet With Carefully Selected Destinations!
                             <div class=darrow>
-                                <img data-src="{{ asset('assets/images/darrow.webp')}}" alt=image class="imgFluid lazy" width=100
-                                    height=20.36>
+                                <img data-src="{{ asset('assets/images/darrow.webp') }}" alt=image class="imgFluid lazy"
+                                    width=100 height=20.36>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class=col-md-8>
                     <div class="row destinations-slider">
-                        <div class=col-md>
-                            <div class=dst-card>
-                                <div class=destinations-img>
-                                    <img data-src="{{ asset('assets/images/dubai-600.webp') }}" alt=image
-                                        class="imgFluid lazy">
-                                </div>
-                                <div class=dst-location>
-                                    dubai
-                                </div>
-                                <div class=dst-num>3</div>
+                        @foreach ($cities as $city)
+                            <div class=col-md>
+                                <a href="{{ route('city.details', $city->slug) }}" class=dst-card>
+                                    <div class=destinations-img>
+
+                                        <img data-src="{{ asset($city->img_path ?? 'assets/images/placeholder.png') }}"
+                                            alt={{ $city->name }} class="imgFluid lazy">
+                                    </div>
+                                    <div class=dst-location>
+                                        {{ $city->name }}
+                                    </div>
+                                    @if ($city->tours->count() > 0)
+                                        <div class=dst-num>{{ $city->tours->count() }}</div>
+                                    @endif
+                                </a>
                             </div>
-                        </div>
-                        <div class=col-md>
-                            <div class=dst-card>
-                                <div class=destinations-img>
-                                    <img data-src="{{ asset('assets/images/belek1.webp') }}" alt=image
-                                        class="imgFluid lazy">
-                                </div>
-                                <div class=dst-location>
-                                    belek
-                                </div>
-                                <div class=dst-num>3</div>
-                            </div>
-                        </div>
-                        <div class=col-md>
-                            <div class=dst-card>
-                                <div class=destinations-img>
-                                    <img data-src="{{ asset('assets/images/antalya-600.webp') }}" alt=image
-                                        class="imgFluid lazy">
-                                </div>
-                                <div class=dst-location>
-                                    antalya
-                                </div>
-                                <div class=dst-num>3</div>
-                            </div>
-                        </div>
-                        <div class=col-md>
-                            <div class=dst-card>
-                                <div class=destinations-img>
-                                    <img data-src="{{ asset('assets/images/alanya2.webp') }}" alt=image
-                                        class="imgFluid lazy">
-                                </div>
-                                <div class=dst-location>
-                                    alanya
-                                </div>
-                                <div class=dst-num>3</div>
-                            </div>
-                        </div>
-                        <div class=col-md>
-                            <div class=dst-card>
-                                <div class=destinations-img>
-                                    <img data-src="{{ asset('assets/images/side.webp') }}" alt=image class="imgFluid lazy">
-                                </div>
-                                <div class=dst-location>
-                                    manavgat
-                                </div>
-                                <div class=dst-num>3</div>
-                            </div>
-                        </div>
-                        <div class=col-md>
-                            <div class=dst-card>
-                                <div class=destinations-img>
-                                    <img data-src="{{ asset('assets/images/side.webp') }}" alt=image class="imgFluid lazy">
-                                </div>
-                                <div class=dst-location>
-                                    manavgat
-                                </div>
-                                <div class=dst-num>3</div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class=tours>
-        <div class=container>
-            <div class=tours-content>
-                <div class=section-content>
-                    <div class=heading>Top Tours</div>
-                </div>
-                <div class=more-link>
-                    <a href=#>More<i class="bx bx-right-arrow-alt"></i></a>
-                </div>
-            </div>
-            <div class="row pt-3">
-                <div class=col-md>
-                    <div class=card-content>
-                        <a href=# class=card_img>
-                            <img data-src="{{ asset('assets/images/alanya-tandem-paragliding-tour.webp')}}" alt=image
-                                class="imgFluid lazy" loading="lazy">
-                            <div class=price-details>
-                                <div class=price>
-                                    <span>
-                                        <b>€30</b>
-                                        From
-                                    </span>
-                                </div>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <div class=card-details>
-                            <a href=# class=card-title>Mezze Grill Restaurant</a>
-                            <div class=location-details><i class="bx bx-location-plus"></i>Alanya<span> $ - $$</span>
-                            </div>
-                            <div class=card-rating>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star"></i>
-                                <span>1 Reviews</span>
-                            </div>
-                        </div>
+    @if (!$tours->isEmpty())
+        <div class=tours>
+            <div class=container>
+                <div class=tours-content>
+                    <div class=section-content>
+                        <div class=heading>Top Tours</div>
+                    </div>
+                    <div class=more-link>
+                        <a href={{ route('tours.listing') }}>More<i class="bx bx-right-arrow-alt"></i></a>
                     </div>
                 </div>
-                <div class=col-md>
-                    <div class=card-content>
-                        <a href=# class=card_img>
-                            <img data-src="{{ asset('assets/images/rafting.webp') }}" alt=image class="imgFluid lazy"
-                                loading="lazy">
-                            <div class=price-details>
-                                <div class=price>
-                                    <span>
-                                        <b>€30</b>
-                                        From
-                                    </span>
-                                </div>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
+                <div class="row pt-3">
+                    @foreach ($tours as $tour)
+                        <div class=col-md>
+                            <div class=card-content>
+                                <a href={{ route('tours.details', $tour->slug) }} class=card_img>
+                                    <img data-src="{{ asset($tour->img_path ?? 'assets/images/placeholder.png') }}"
+                                        alt='{{ $tour->title }}' class="imgFluid lazy" loading="lazy">
+                                    <div class=price-details>
+                                        <div class=price>
+                                            <span>
+                                                <b>
+                                                    @if ($tour->price_type == 'per_person')
+                                                        {{ $tour->for_adult_price }}
+                                                    @elseif($tour->price_type == 'per_car')
+                                                        {{ $tour->for_car_price }}
+                                                    @endif
+                                                </b>
+                                                From
+                                            </span>
+                                        </div>
+                                        <div class=heart-icon>
+                                            <div class=service-wishlis>
+                                                <i class="bx bx-heart"></i>
+                                            </div>
+                                        </div>
                                     </div>
+                                </a>
+                                <div class=card-details>
+                                    <a href={{ route('tours.details', $tour->slug) }}
+                                        class=card-title>{{ $tour->title }}</a>
+                                    <div class=location-details><i
+                                            class="bx bx-location-plus"></i>{{ $tour->cities[0]->name }}<span> $ -
+                                            $$</span>
+                                    </div>
+                                    <div class="card-rating">
+                                        <x-star-rating :rating="$tour->average_rating" />
+                                        <span class="average-rating">
+                                            {{ $tour->average_rating }}
+                                        </span>
+                                        <span class="total">
+                                            @if ($tour->reviews->count() > 0)
+                                                ({{ $tour->reviews->count() }}
+                                                Review{{ $tour->reviews->count() > 1 ? 's' : '' }})
+                                            @else
+                                                (No Reviews Yet)
+                                            @endif
+                                        </span>
+                                    </div>
+
+
                                 </div>
-                            </div>
-                        </a>
-                        <div class=card-details>
-                            <a href=# class=card-title>Mezze Grill Restaurant</a>
-                            <div class=location-details><i class="bx bx-location-plus"></i>Alanya<span> $ - $$</span>
-                            </div>
-                            <div class=card-rating>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star"></i>
-                                <span>1 Reviews</span>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class=col-md>
-                    <div class=card-content>
-                        <a href=# class=card_img>
-                            <img data-src="{{ asset('assets/images/quad.webp') }}" alt=image class="imgFluid lazy"
-                                loading="lazy">
-                            <div class=price-details>
-                                <div class=price>
-                                    <span>
-                                        <b>€30</b>
-                                        From
-                                    </span>
-                                </div>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <div class=card-details>
-                            <a href=# class=card-title>Mezze Grill Restaurant</a>
-                            <div class=location-details><i class="bx bx-location-plus"></i>Alanya<span> $ - $$</span>
-                            </div>
-                            <div class=card-rating>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star"></i>
-                                <span>1 Reviews</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class=col-md>
-                    <div class=card-content>
-                        <a href=# class=card_img>
-                            <img data-src="{{ asset('assets/images/buggy.webp') }}" alt=image class="imgFluid lazy"
-                                loading="lazy">
-                            <div class=price-details>
-                                <div class=price>
-                                    <span>
-                                        <b>€30</b>
-                                        From
-                                    </span>
-                                </div>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <div class=card-details>
-                            <a href=# class=card-title>Mezze Grill Restaurant</a>
-                            <div class=location-details><i class="bx bx-location-plus"></i>Alanya<span> $ - $$</span>
-                            </div>
-                            <div class=card-rating>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star"></i>
-                                <span>1 Reviews</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class=col-md>
-                    <div class=card-content>
-                        <a href=# class=card_img>
-                            <img data-src="{{ asset('assets/images/jeep.webp') }}" alt=image class="imgFluid lazy"
-                                loading="lazy">
-                            <div class=price-details>
-                                <div class=price>
-                                    <span>
-                                        <b>€30</b>
-                                        From
-                                    </span>
-                                </div>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <div class=card-details>
-                            <a href=# class=card-title>Mezze Grill Restaurant</a>
-                            <div class=location-details><i class="bx bx-location-plus"></i>Alanya<span> $ - $$</span>
-                            </div>
-                            <div class=card-rating>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star"></i>
-                                <span>1 Reviews</span>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
-    </div>
+    @endif
     <div class=offers-section>
         <div class=container>
             <div class=offers-section__details>
                 <div class=offers-section__img>
-                    <img data-src="{{ asset('assets/images/group_tour_desktop_banner_image.webp')}}" alt=image class="imgFluid lazy"
-                        loading="lazy" height="200">
+                    <img data-src="{{ asset('assets/images/group_tour_desktop_banner_image.webp') }}" alt=image
+                        class="imgFluid lazy" loading="lazy" height="200">
                 </div>
                 <div class=GroupTourCard_content>
                     <span class=GroupTourCard_title>Bigger Group? Get special offers up to 50% Off!</span>
@@ -322,395 +153,209 @@
             </div>
         </div>
     </div>
-    <div class=tour-activity__cards2>
-        <div class=container>
-            <div class=tours-content>
-                <div class=section-content>
-                    <div class=heading>Top Tours</div>
+    @if (!$tours->isEmpty())
+        <div class="tour-activity__cards2">
+            <div class="container">
+                <div class="tours-content">
+                    <div class="section-content">
+                        <div class="heading">Top Tours</div>
+                    </div>
+                    <div class="more-link">
+                        <a href="{{ route('tours.listing') }}">More<i class="bx bx-right-arrow-alt"></i></a>
+                    </div>
                 </div>
-                <div class=more-link>
-                    <a href=#>More<i class="bx bx-right-arrow-alt"></i></a>
-                </div>
-            </div>
-            <div class="row pt-3">
-                <div class=col-md-4>
-                    <div class=card-content>
-                        <a href=# class=card_img>
-                            <img data-src="{{ asset('assets/images/8c (1).webp')}}" alt=image class="imgFluid lazy" loading="lazy">
-                            <div class=price-details>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
+                <div class="row pt-3">
+                    @foreach ($tours as $tour)
+                        <div class="col-md-4">
+                            <div class="card-content">
+                                <a href="{{ route('tours.details', $tour->slug) }}" class="card_img">
+                                    <img data-src="{{ asset($tour->img_path ?? 'assets/images/placeholder.png') }}"
+                                        alt="{{ $tour->title }}" class="imgFluid lazy" loading="lazy">
+                                    <div class="price-details">
+                                        <div class="price">
+                                            <span>
+                                                <b>
+                                                    @if ($tour->price_type == 'per_person')
+                                                        {{ $tour->for_adult_price }}
+                                                    @elseif($tour->price_type == 'per_car')
+                                                        {{ $tour->for_car_price }}
+                                                    @endif
+                                                </b>
+                                                From
+                                            </span>
+                                        </div>
+                                        <div class="heart-icon">
+                                            <div class="service-wishlis">
+                                                <i class="bx bx-heart"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <div class="tour-activity-card__details">
+                                    <div class="vertical-activity-card__header">
+                                        <div><span> From
+                                                {{ $tour->price_type == 'per_person' ? $tour->for_adult_price : $tour->for_car_price }}</span>
+                                        </div>
+                                        <div class="tour-activity-card__details--title">
+                                            {{ $tour->title }}
+                                        </div>
+                                    </div>
+                                    <div class="tour-activity__RL">
+                                        <div class="card-rating">
+                                            <x-star-rating :rating="$tour->average_rating" />
+                                            <span class="average-rating">
+                                                {{ $tour->average_rating }}
+                                            </span>
+                                            <span class="total">
+                                                @if ($tour->reviews->count() > 0)
+                                                    ({{ $tour->reviews->count() }}
+                                                    Review{{ $tour->reviews->count() > 1 ? 's' : '' }})
+                                                @else
+                                                    (No Reviews Yet)
+                                                @endif
+                                            </span>
+                                        </div>
+                                        <div class="card-location">
+                                            <i class="bx bx-location-plus"></i>
+                                            {{ $tour->cities->first()->name ?? 'Location Not Available' }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </a>
-                        <div class=tour-activity-card__details>
-                            <div class=vertical-activity-card__header>
-                                <div><span> From $159
-                                    </span></div>
-                                <div class="tour-activity-card__details--title">
-                                    Karachi Sightseeing Private Tour: Explore the Captivating City of Lights
-                                </div>
-                            </div>
-                            <div class=tour-activity__RL>
-                                <div class=card-rating>
-                                    <i class="bx bxs-star"></i>
-                                    <span>5.0 1 Rating</span>
-                                </div>
-                                <div class=card-location>
-                                    <i class="bx bx-location-plus"></i>
-                                    Dubai
-                                </div>
-                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class=col-md-4>
-                    <div class=card-content>
-                        <a href=# class=card_img>
-                            <img data-src="{{ asset('assets/images/1b.webp') }}" alt=image class="imgFluid lazy"
-                                loading="lazy">
-                            <div class=price-details>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <div class=tour-activity-card__details>
-                            <div class=vertical-activity-card__header>
-                                <div><span> From $159
-                                    </span></div>
-                                <div class="tour-activity-card__details--title">
-                                    Karachi Sightseeing Private Tour: Explore the Captivating City of Lights
-                                </div>
-                            </div>
-                            <div class=tour-activity__RL>
-                                <div class=card-rating>
-                                    <i class="bx bxs-star"></i>
-                                    <span>5.0 1 Rating</span>
-                                </div>
-                                <div class=card-location>
-                                    <i class="bx bx-location-plus"></i>
-                                    Dubai
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class=col-md-4>
-                    <div class=card-content>
-                        <a href=# class=card_img>
-                            <img data-src="{{ asset('assets/images/8c.webp') }}" alt=image class="imgFluid lazy"
-                                loading="lazy">
-                            <div class=price-details>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <div class=tour-activity-card__details>
-                            <div class=vertical-activity-card__header>
-                                <div><span> From $159
-                                    </span></div>
-                                <div class="tour-activity-card__details--title">
-                                    Karachi Sightseeing Private Tour: Explore the Captivating City of Lights
-                                </div>
-                            </div>
-                            <div class=tour-activity__RL>
-                                <div class=card-rating>
-                                    <i class="bx bxs-star"></i>
-                                    <span>5.0 1 Rating</span>
-                                </div>
-                                <div class=card-location>
-                                    <i class="bx bx-location-plus"></i>
-                                    Dubai
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
-    </div>
-    <div class=tour-activity__cards>
-        <div class=container>
-            <div class=tours-content>
-                <div class=section-content>
-                    <div class=heading>Top Tours</div>
-                </div>
-                <div class=more-link>
-                    <a href=#>More<i class="bx bx-right-arrow-alt"></i></a>
-                </div>
-            </div>
-            <div class="row pt-3">
-                <div class=col-md-3>
-                    <div class=card-content>
-                        <a href=# class=card_img>
-                            <img data-src="{{ asset('assets/images/132.webp') }}" alt=image class="imgFluid lazy"
-                                loading="lazy">
-                            <div class=price-details>
-                                <div class=price>
-                                    <span>
-                                        Top pick
-                                    </span>
-                                </div>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <div class=tour-activity-card__details>
-                            <div class=vertical-activity-card__header>
-                                <div><span>Day trip</span></div>
-                                <div class="tour-activity-card__details--title">Dubai: Safari, Quad Bike, Camel Ride, and
-                                    Buffet Dinner</div>
-                            </div>
-                            <div class=card-rating>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star"></i>
-                                <span>1 Reviews</span>
-                            </div>
-                            <div class="baseline-pricing__value baseline-pricing__value--high">
-                                <p class=baseline-pricing__from>
-                                    <span class="baseline-pricing__from--text receive">Receive voucher instantly</span>
-                                </p>
-                            </div>
-                            <div class="baseline-pricing__value baseline-pricing__value--high">
-                                <p class=baseline-pricing__from>
-                                    <span class=baseline-pricing__from--text>From</span>
-                                    <span class=baseline-pricing__from--value>$50.77</span>
-                                </p>
-                            </div>
-                            <div class="baseline-pricing__value baseline-pricing__value--low">
-                                <p class=baseline-pricing__from> $33.00</p>
-                                <p class=baseline-pricing__category>per person</p>
-                            </div>
+    @endif
 
-                        </div>
+    @if (!$tours->isEmpty())
+        <div class=tour-activity__cards>
+            <div class=container>
+                <div class=tours-content>
+                    <div class=section-content>
+                        <div class=heading>Top Tours</div>
+                    </div>
+                    <div class=more-link>
+                        <a href={{ route('tours.listing') }}>More<i class="bx bx-right-arrow-alt"></i></a>
                     </div>
                 </div>
-                <div class=col-md-3>
-                    <div class=card-content>
-                        <a href=# class=card_img>
-                            <img data-src="{{ asset('assets/images/132 (1).webp')}}" alt=image class="imgFluid lazy" loading="lazy">
-                            <div class=price-details>
-                                <div class=price>
-                                    <span>
-                                        Top pick
-                                    </span>
-                                </div>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
+                <div class="row pt-3">
+                    @foreach ($tours as $tour)
+                        <div class="col-md-3">
+                            <div class="card-content">
+                                <a href="{{ route('tours.details', $tour->slug) }}" class="card_img">
+                                    <img src="{{ asset($tour->img_path ?? 'assets/images/placeholder.png') }}"
+                                        alt='image' class='imgFluid' loading='lazy'>
+                                    <div class="price-details">
+                                        <div class="price">
+                                            <span>
+                                                Top pick
+                                            </span>
+                                        </div>
+                                        <div class="heart-icon">
+                                            <div class="service-wishlis">
+                                                <i class='bx bx-heart'></i>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </a>
-                        <div class=tour-activity-card__details>
-                            <div class=vertical-activity-card__header>
-                                <div><span>Day trip</span></div>
-                                <div class="tour-activity-card__details--title">Dubai: Safari, Quad Bike, Camel Ride, and
-                                    Buffet Dinner</div>
-                            </div>
-                            <div class=card-rating>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star"></i>
-                                <span>1 Reviews</span>
-                            </div>
-                            <div class="baseline-pricing__value baseline-pricing__value--high">
-                                <p class=baseline-pricing__from>
-                                    <span class="baseline-pricing__from--text receive">Receive voucher instantly</span>
-                                </p>
-                            </div>
-                            <div class="baseline-pricing__value baseline-pricing__value--high">
-                                <p class=baseline-pricing__from>
-                                    <span class=baseline-pricing__from--text>From</span>
-                                    <span class=baseline-pricing__from--value>$50.77</span>
-                                </p>
-                            </div>
+                                </a>
+                                <div class="tour-activity-card__details">
+                                    <div class="vertical-activity-card__header">
+                                        @if ($tour->categories && !$tour->categories->isEmpty())
+                                            @php
+                                                $categories = '';
+                                                foreach ($tour->categories as $category) {
+                                                    $categories .= $category->name . '<br>';
+                                                }
+                                            @endphp
+                                            <div class="tours-categories"><span>{{ $tour->categories[0]->name }}</span>
+                                                <button type="button" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="{!! $categories !!}">
+                                                    <i class='bx bxs-info-circle'></i>
+                                                </button>
+                                            </div>
+                                        @endif
+                                        <a href="{{ route('tours.details', $tour->slug) }}"
+                                            class="tour-activity-card__details--title">{{ $tour->title }}</a>
+                                    </div>
 
-                            <div class="baseline-pricing__value baseline-pricing__value--low">
-                                <p class=baseline-pricing__from> $33.00</p>
-                                <p class=baseline-pricing__category>per person</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class=col-md-3>
-                    <div class=card-content>
-                        <a href=# class=card_img>
-                            <img data-src="{{ asset('assets/images/132 (2).webp')}}" alt=image class="imgFluid lazy" loading="lazy">
-                            <div class=price-details>
-                                <div class=price>
-                                    <span>
-                                        Top pick
-                                    </span>
-                                </div>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
+
+
+                                    <div class="card-rating">
+                                        <x-star-rating :rating="$tour->average_rating" />
+                                        @if ($tour->reviews && $tour->reviews->count() > 0)
+                                            <span>{{ $tour->reviews->count() }}
+                                                Review{{ $tour->reviews->count() > 1 ? 's' : '' }}</span>
+                                        @else
+                                            <span>No Reviews Yet</span>
+                                        @endif
                                     </div>
+
+
+                                    <!--<div class="baseline-pricing__value baseline-pricing__value--high">-->
+                                    <!--    <p class="baseline-pricing__from">-->
+                                    <!--        <span class="baseline-pricing__from--text">From</span>-->
+                                    <!--        <span class="baseline-pricing__from--value">$50.77</span>-->
+                                    <!--    </p>-->
+                                    <!--</div>-->
+                                    @if ($tour->price_type == 'per_person')
+                                        <div class="baseline-pricing__value baseline-pricing__value--low">
+                                            <p class="baseline-pricing__from">From</p>
+                                            <p class="baseline-pricing__from">{{ $tour->for_adult_price }}</p>
+
+                                            <p class="baseline-pricing__category">Per Person</p>
+                                        </div>
+                                    @elseif($tour->price_type == 'per_car')
+                                        <div class="baseline-pricing__value baseline-pricing__value--low">
+                                            <p class="baseline-pricing__from">From</p>
+                                            <p class="baseline-pricing__from">{{ $tour->for_car_price }}</p>
+
+                                            <p class="baseline-pricing__category">Per Car</p>
+                                        </div>
+                                    @endif
+
                                 </div>
-                            </div>
-                        </a>
-                        <div class=tour-activity-card__details>
-                            <div class=vertical-activity-card__header>
-                                <div><span>Day trip</span></div>
-                                <div class="tour-activity-card__details--title">Dubai: Safari, Quad Bike, Camel Ride, and
-                                    Buffet Dinner</div>
-                            </div>
-                            <div class=card-rating>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star"></i>
-                                <span>1 Reviews</span>
-                            </div>
-                            <div class="baseline-pricing__value baseline-pricing__value--high">
-                                <p class=baseline-pricing__from>
-                                    <span class="baseline-pricing__from--text receive">Receive voucher instantly</span>
-                                </p>
-                            </div>
-                            <div class="baseline-pricing__value baseline-pricing__value--high">
-                                <p class=baseline-pricing__from>
-                                    <span class=baseline-pricing__from--text>From</span>
-                                    <span class=baseline-pricing__from--value>$50.77</span>
-                                </p>
-                            </div>
-                            <div class="baseline-pricing__value baseline-pricing__value--low">
-                                <p class=baseline-pricing__from> $33.00</p>
-                                <p class=baseline-pricing__category>per person</p>
+
+
+
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class=col-md-3>
-                    <div class=card-content>
-                        <a href=# class=card_img>
-                            <img data-src="{{ asset('assets/images/132 (3).webp')}}" alt=image class="imgFluid lazy" loading="lazy">
-                            <div class=price-details>
-                                <div class=price>
-                                    <span>
-                                        Top pick
-                                    </span>
-                                </div>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <div class=tour-activity-card__details>
-                            <div class=vertical-activity-card__header>
-                                <div><span>Day trip</span></div>
-                                <div class="tour-activity-card__details--title">Dubai: Safari, Quad Bike, Camel Ride, and
-                                    Buffet Dinner</div>
-                            </div>
-                            <div class=card-rating>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star"></i>
-                                <span>1 Reviews</span>
-                            </div>
-                            <div class="baseline-pricing__value baseline-pricing__value--high">
-                                <p class=baseline-pricing__from>
-                                    <span class="baseline-pricing__from--text receive">Receive voucher instantly</span>
-                                </p>
-                            </div>
-                            <div class="baseline-pricing__value baseline-pricing__value--high">
-                                <p class=baseline-pricing__from>
-                                    <span class=baseline-pricing__from--text>From</span>
-                                    <span class=baseline-pricing__from--value>$50.77</span>
-                                </p>
-                            </div>
-                            <div class="baseline-pricing__value baseline-pricing__value--low">
-                                <p class=baseline-pricing__from> $33.00</p>
-                                <p class=baseline-pricing__category>per person</p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
-    </div>
-    <div class=event-promotions>
-        <div class=container>
-            <div class=section-content>
-                <h2 class=heading>
-                    Latest travel promotions
-                </h2>
-            </div>
-            <div class="row pt-3 promotions-slider">
-                <div class=col-md-4>
-                    <div class=card-event-item>
-                        <div class=card-event-item__img>
-                            <img data-src="{{ asset('assets/images/jpg (1).webp')}}" alt=image class="imgFluid lazy" loading="lazy">
-                        </div>
-                        <div class=event-detail>
-                            <p>
-                                Our Birthday, Your Travel Party
-                            </p> <span>Learn more<i class="bx bx-chevron-right"></i></span>
-                        </div>
-                    </div>
+    @endif
+
+    @if (!$promotions->isEmpty())
+        <div class=event-promotions>
+            <div class=container>
+                <div class=section-content>
+                    <h2 class=heading>
+                        Latest travel promotions
+                    </h2>
                 </div>
-                <div class=col-md-4>
-                    <div class=card-event-item>
-                        <div class=card-event-item__img>
-                            <img data-src="{{ asset('assets/images/jpg.webp') }}" alt=image class="imgFluid lazy"
-                                loading="lazy">
+                <div class="row pt-3 promotions-slider">
+                    @foreach ($promotions as $promotion)
+                        <div class=col-md-4>
+                            <a href="{{ $promotion->link }}" target="_blank" class=card-event-item>
+                                <div class=card-event-item__img>
+                                    <img data-src="{{ asset($promotion->img_path ?? 'assets/images/placeholder.png') }}"
+                                        alt={{ $promotion->title }} class="imgFluid lazy" loading="lazy">
+                                </div>
+                                <div class=event-detail>
+                                    <p>
+                                        {{ $promotion->title }}
+                                    </p>
+                                    <span>Learn more<i class="bx bx-chevron-right"></i></span>
+                                </div>
+                            </a>
                         </div>
-                        <div class=event-detail>
-                            <p>
-                                Our Birthday, Your Travel Party
-                            </p> <span>Learn more<i class="bx bx-chevron-right"></i></span>
-                        </div>
-                    </div>
-                </div>
-                <div class=col-md-4>
-                    <div class=card-event-item>
-                        <div class=card-event-item__img>
-                            <img data-src="{{ asset('assets/images/jpg (1).webp')}}" alt=image class="imgFluid lazy" loading="lazy">
-                        </div>
-                        <div class=event-detail>
-                            <p>
-                                Our Birthday, Your Travel Party
-                            </p> <span>Learn more<i class="bx bx-chevron-right"></i></span>
-                        </div>
-                    </div>
-                </div>
-                <div class=col-md-4>
-                    <div class=card-event-item>
-                        <div class=card-event-item__img>
-                            <img data-src="{{ asset('assets/images/jpg.webp') }}" alt=image class="imgFluid lazy"
-                                loading="lazy">
-                        </div>
-                        <div class=event-detail>
-                            <p>
-                                Our Birthday, Your Travel Party
-                            </p> <span>Learn more<i class="bx bx-chevron-right"></i></span>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
-    </div>
+    @endif
     <div class=top10-trending-products>
         <div class=container>
             <div class=section-content>
@@ -937,7 +582,8 @@
                                 Ambient music system for atmosphere.<br>
                                 warm cozy bone fire will put charm in the environment.</p>
                             <div class=more-offers__img
-                                style="background:url({{ asset('assets/images/private-arabic-desert-camp.webp') }})"></div>
+                                style="background:url({{ asset('assets/images/private-arabic-desert-camp.webp') }})">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -949,7 +595,8 @@
                             <p class=more-offers-sub-title>Beachside setup Decor<br>
                                 Relish the live BBQ feasts<br>
                                 Seating setup for 2 - 50 People.</p>
-                            <div class=more-offers__img style="background:url({{ asset('assets/images/beach-party.webp') }})"></div>
+                            <div class=more-offers__img
+                                style="background:url({{ asset('assets/images/beach-party.webp') }})"></div>
                         </div>
                     </div>
                 </div>
@@ -961,184 +608,82 @@
                             <p class=more-offers-sub-title>Private setup Decor<br>
                                 Relish the live BBQ feasts<br>
                                 Seating setup for 2 - 50 People.</p>
-                            <div class=more-offers__img style="background:url({{ asset('assets/images/private-dinner.webp') }})"></div>
+                            <div class=more-offers__img
+                                style="background:url({{ asset('assets/images/private-dinner.webp') }})"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="water-list-tour normal-card">
-        <div class=container>
-            <div class=section-content>
-                <h2 class=heading>
-                    Top Water Activities in Dubai
-                </h2>
-            </div>
-            <div class="row pt-3">
-                <div class=col-md-3>
-                    <div class="card-content normal-card__content">
-                        <a href=# class="card_img normal-card__img">
-                            <img data-src="{{ asset('assets/images/132 (3).webp')}}" alt=image class="imgFluid lazy" loading="lazy">
-                            <div class=price-details>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
-                                    </div>
-                                </div>
-                                <div class=sale_info>
-                                    38%
-                                </div>
-                            </div>
-                        </a>
-                        <div class="tour-activity-card__details normal-card__details">
-                            <div class=vertical-activity-card__header>
-                                <div class=normal-card__location>
-                                    <i class="bx bxs-paper-plane"></i>Sharjah
-                                </div>
-                                <div class="tour-activity-card__details--title"> Sharjah Experience Jet Ski Thrill with
-                                    aesthetic view - Morning Time</div>
-                            </div>
-                            <div class="tour-listing__info normal-card__info">
-                                <div class=duration>
-                                    <i class="bx bx-stopwatch"></i>
-                                    5H
-                                </div>
-                                <div class="baseline-pricing__value baseline-pricing__value--high">
-                                    <p class=baseline-pricing__from>
-                                        <span class=baseline-pricing__from--value>130.00د.إ</span>
-                                    </p>
-                                    <div class="baseline-pricing__value baseline-pricing__value--low">
-                                        <p class=baseline-pricing__from>80.00د.إ</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+    @if (!$waterActivityTours->isEmpty())
+        <div class="water-list-tour normal-card">
+            <div class=container>
+                <div class=section-content>
+                    <h2 class=heading>
+                        Top Water Activities
+                    </h2>
                 </div>
-                <div class=col-md-3>
-                    <div class="card-content normal-card__content">
-                        <a href=# class="card_img normal-card__img">
-                            <img data-src="{{ asset('assets/images/132 (3).webp')}}" alt=image class="imgFluid lazy" loading="lazy">
-                            <div class=price-details>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
+                <div class="row pt-3">
+                    @foreach ($waterActivityTours as $tour)
+                        <div class=col-md-3>
+                            <div class="card-content normal-card__content">
+                                <a href={{ route('tours.details', $tour->slug) }} class="card_img normal-card__img">
+                                    <img data-src="{{ asset($tour->img_path ?? 'assets/images/placeholder.png') }}"
+                                        alt='{{ $tour->title }}' class="imgFluid lazy" loading="lazy">
+                                    <div class=price-details>
+                                        <div class=heart-icon>
+                                            <div class=service-wishlis>
+                                                <i class="bx bx-heart"></i>
+                                            </div>
+                                        </div>
+                                        <div class=sale_info>
+                                            38%
+                                        </div>
                                     </div>
-                                </div>
-                                <div class=sale_info>
-                                    38%
-                                </div>
-                            </div>
-                        </a>
-                        <div class="tour-activity-card__details normal-card__details">
-                            <div class=vertical-activity-card__header>
-                                <div class=normal-card__location>
-                                    <i class="bx bxs-paper-plane"></i>Sharjah
-                                </div>
-                                <div class="tour-activity-card__details--title"> Sharjah Experience Jet Ski Thrill with
-                                    aesthetic view - Morning Time</div>
-                            </div>
-                            <div class="tour-listing__info normal-card__info">
-                                <div class=duration>
-                                    <i class="bx bx-stopwatch"></i>
-                                    5H
-                                </div>
-                                <div class="baseline-pricing__value baseline-pricing__value--high">
-                                    <p class=baseline-pricing__from>
-                                        <span class=baseline-pricing__from--value>130.00د.إ</span>
-                                    </p>
-                                    <div class="baseline-pricing__value baseline-pricing__value--low">
-                                        <p class=baseline-pricing__from>80.00د.إ</p>
+                                </a>
+                                <div class="tour-activity-card__details normal-card__details">
+                                    <div class=vertical-activity-card__header>
+                                        <div class=normal-card__location>
+                                            <i class="bx bxs-paper-plane"></i>
+                                            {{ $tour->cities[0]->name }}
+                                        </div>
+                                        <div class="tour-activity-card__details--title"> {{ $tour->title }}</div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class=col-md-3>
-                    <div class="card-content normal-card__content">
-                        <a href=# class="card_img normal-card__img">
-                            <img data-src="{{ asset('assets/images/132 (3).webp')}}" alt=image class="imgFluid lazy" loading="lazy">
-                            <div class=price-details>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
-                                    </div>
-                                </div>
-                                <div class=sale_info>
-                                    38%
-                                </div>
-                            </div>
-                        </a>
-                        <div class="tour-activity-card__details normal-card__details">
-                            <div class=vertical-activity-card__header>
-                                <div class=normal-card__location>
-                                    <i class="bx bxs-paper-plane"></i>Sharjah
-                                </div>
-                                <div class="tour-activity-card__details--title"> Sharjah Experience Jet Ski Thrill with
-                                    aesthetic view - Morning Time</div>
-                            </div>
-                            <div class="tour-listing__info normal-card__info">
-                                <div class=duration>
-                                    <i class="bx bx-stopwatch"></i>
-                                    5H
-                                </div>
-                                <div class="baseline-pricing__value baseline-pricing__value--high">
-                                    <p class=baseline-pricing__from>
-                                        <span class=baseline-pricing__from--value>130.00د.إ</span>
-                                    </p>
-                                    <div class="baseline-pricing__value baseline-pricing__value--low">
-                                        <p class=baseline-pricing__from>80.00د.إ</p>
+                                    <div class="tour-listing__info normal-card__info">
+                                        <div class=duration>
+                                            @if (!$tour->tour_attributes->isEmpty())
+                                                <i class="{{ $tour->tour_attributes[0]->icon_class }}"></i>
+                                                {{ $tour->tour_attributes[0]->title }}
+                                            @endif
+                                        </div>
+
+
+                                        <div class="baseline-pricing__value baseline-pricing__value--high">
+                                            @if ($tour->price_type == 'per_person')
+                                                <p class=baseline-pricing__from>
+                                                    <span class=baseline-pricing__from--value>{{ $tour->for_adult_price }}
+                                                        per person</span>
+                                                </p>
+                                            @elseif($tour->price_type == 'per_car')
+                                                <p class=baseline-pricing__from>
+                                                    <span class=baseline-pricing__from--value>
+                                                        {{ $tour->for_car_price }}
+                                                        per car</span>
+                                                </p>
+                                            @endif
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class=col-md-3>
-                    <div class="card-content normal-card__content">
-                        <a href=# class="card_img normal-card__img">
-                            <img data-src="{{ asset('assets/images/132 (3).webp')}}" alt=image class="imgFluid lazy" loading="lazy">
-                            <div class=price-details>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
-                                    </div>
-                                </div>
-                                <div class=sale_info>
-                                    38%
-                                </div>
-                            </div>
-                        </a>
-                        <div class="tour-activity-card__details normal-card__details">
-                            <div class=vertical-activity-card__header>
-                                <div class=normal-card__location>
-                                    <i class="bx bxs-paper-plane"></i>Sharjah
-                                </div>
-                                <div class="tour-activity-card__details--title"> Sharjah Experience Jet Ski Thrill with
-                                    aesthetic view - Morning Time</div>
-                            </div>
-                            <div class="tour-listing__info normal-card__info">
-                                <div class=duration>
-                                    <i class="bx bx-stopwatch"></i>
-                                    5H
-                                </div>
-                                <div class="baseline-pricing__value baseline-pricing__value--high">
-                                    <p class=baseline-pricing__from>
-                                        <span class=baseline-pricing__from--value>130.00د.إ</span>
-                                    </p>
-                                    <div class="baseline-pricing__value baseline-pricing__value--low">
-                                        <p class=baseline-pricing__from>80.00د.إ</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
-    </div>
+    @endif
     {{--
     <div class=local-guide>
         <div class=container>
@@ -1777,8 +1322,8 @@
                     <div class=Desti-Pract__activities>
                         <div class=activities-details>
                             <div class=activities-img>
-                                <img data-src="{{ asset('assets/images/GettyImages-1392454769.webp')}}" alt=image class="imgFluid lazy"
-                                    loading="lazy">
+                                <img data-src="{{ asset('assets/images/GettyImages-1392454769.webp') }}" alt=image
+                                    class="imgFluid lazy" loading="lazy">
                             </div>
                             <div class=activities-content>
                                 <p><b>Hiking</b></p>
@@ -1790,8 +1335,8 @@
                     <div class=Desti-Pract__activities>
                         <div class=activities-details>
                             <div class=activities-img>
-                                <img data-src="{{ asset('assets/images/GettyImages-1392454769.webp')}}" alt=image class="imgFluid lazy"
-                                    loading="lazy">
+                                <img data-src="{{ asset('assets/images/GettyImages-1392454769.webp') }}" alt=image
+                                    class="imgFluid lazy" loading="lazy">
                             </div>
                             <div class=activities-content>
                                 <p><b>Hiking</b></p>
@@ -1803,8 +1348,8 @@
                     <div class=Desti-Pract__activities>
                         <div class=activities-details>
                             <div class=activities-img>
-                                <img data-src="{{ asset('assets/images/GettyImages-1392454769.webp')}}" alt=image class="imgFluid lazy"
-                                    loading="lazy">
+                                <img data-src="{{ asset('assets/images/GettyImages-1392454769.webp') }}" alt=image
+                                    class="imgFluid lazy" loading="lazy">
                             </div>
                             <div class=activities-content>
                                 <p><b>Hiking</b></p>
@@ -1955,8 +1500,8 @@
             <div class="row g-0">
                 <div class=col-md-6>
                     <div class=newsletter-signup__img>
-                        <img data-src="{{ asset('assets/images/newsletter-background.webp')}}" alt=image class="imgFluid lazy"
-                            loading="lazy">
+                        <img data-src="{{ asset('assets/images/newsletter-background.webp') }}" alt=image
+                            class="imgFluid lazy" loading="lazy">
                     </div>
                 </div>
                 <div class=col-md-6>
@@ -2010,12 +1555,12 @@
                                 <h2 class=link-title>Download App</h2>
                                 <div class=download-wrapper>
                                     <a href=# class=download-details__btn>
-                                        <img data-src="{{ asset('assets/images/apple.webp')}}" alt=image class="imgFluid lazy"
-                                            loading="lazy">
+                                        <img data-src="{{ asset('assets/images/apple.webp') }}" alt=image
+                                            class="imgFluid lazy" loading="lazy">
                                     </a>
                                     <a href=# class=download-details__btn>
-                                        <img data-src="{{ asset('assets/images/gp.webp')}}" alt=image class="imgFluid lazy"
-                                            loading="lazy">
+                                        <img data-src="{{ asset('assets/images/gp.webp') }}" alt=image
+                                            class="imgFluid lazy" loading="lazy">
                                     </a>
                                 </div>
                             </div>
@@ -2032,45 +1577,11 @@
             </div>
             <div class="top-location__list pt-4">
                 <ul>
-                    <li><a href=#>Alanya
-                            <span>36</span>
-                        </a></li>
-                    <li><a href=#>Kemer
-                            <span>31</span>
-                        </a></li>
-                    <li><a href=#>Belek
-                            <span>23</span>
-                        </a></li>
-                    <li><a href=#>Antalya
-                            <span>141</span>
-                        </a></li>
-                    <li><a href=#>Manavgat
-                            <span>25</span>
-                        </a></li>
-                    <li><a href=#>Marmaris
-                            <span>21</span>
-                        </a></li>
-                    <li><a href=#>Fethiye
-                            <span>18</span>
-                        </a></li>
-                    <li><a href=#>Bodrum
-                            <span>18</span>
-                        </a></li>
-                    <li><a href=#>Cappadocia
-                            <span>8</span>
-                        </a></li>
-                    <li><a href=#>Dubai
-                            <span>3</span>
-                        </a></li>
-                    <li><a href=#>Muğla
-                            <span>57</span>
-                        </a></li>
-                    <li><a href=#>Turkey
-                            <span>206</span>
-                        </a></li>
-                    <li><a href=#>United Arab Emirates
-                            <span>3</span>
-                        </a></li>
+                    @foreach ($cities as $city)
+                        <li><a href=#>{{ $city->name }}
+                                <span>{{ $city->tours->count() }}</span>
+                            </a></li>
+                    @endforeach
                 </ul>
             </div>
         </div>
@@ -2081,50 +1592,20 @@
                 <h2 class=heading>Popular Related Destinations</h2>
             </div>
             <div class="row mt-4">
-                <div class=col-md-3>
-                    <div class=popular-related-destinations__content>
-                        <div class=popular-related-destinations__img>
-                            <img data-src="{{ asset('assets/images/popular1.webp') }}" alt=image class="imgFluid lazy"
-                                loading="lazy">
-                        </div>
-                        <div class=popular-related-destinations__title>
-                            <a href=#>Vietnam</a>
-                        </div>
+                @foreach ($countries as $country)
+                    <div class=col-md-3>
+                        <a href="{{ route('country.details', $country->slug) }}"
+                            class=popular-related-destinations__content>
+                            <div class=popular-related-destinations__img>
+                                <img data-src="{{ asset($country->img_path ?? 'assets/images/placeholder.png') }}"
+                                    alt={{ $country->name }} class="imgFluid lazy" loading="lazy">
+                            </div>
+                            <div class=popular-related-destinations__title>
+                                <div class="title">{{ $country->name }}</div>
+                            </div>
+                        </a>
                     </div>
-                </div>
-                <div class=col-md-3>
-                    <div class=popular-related-destinations__content>
-                        <div class=popular-related-destinations__img>
-                            <img data-src="{{ asset('assets/images/popular1.webp') }}" alt=image class="imgFluid lazy"
-                                loading="lazy">
-                        </div>
-                        <div class=popular-related-destinations__title>
-                            <a href=#>Vietnam</a>
-                        </div>
-                    </div>
-                </div>
-                <div class=col-md-3>
-                    <div class=popular-related-destinations__content>
-                        <div class=popular-related-destinations__img>
-                            <img data-src="{{ asset('assets/images/popular1.webp') }}" alt=image class="imgFluid lazy"
-                                loading="lazy">
-                        </div>
-                        <div class=popular-related-destinations__title>
-                            <a href=#>Vietnam</a>
-                        </div>
-                    </div>
-                </div>
-                <div class=col-md-3>
-                    <div class=popular-related-destinations__content>
-                        <div class=popular-related-destinations__img>
-                            <img data-src="{{ asset('assets/images/popular1.webp') }}" alt=image class="imgFluid lazy"
-                                loading="lazy">
-                        </div>
-                        <div class=popular-related-destinations__title>
-                            <a href=#>Vietnam</a>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>

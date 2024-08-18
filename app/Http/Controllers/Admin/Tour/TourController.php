@@ -21,8 +21,8 @@ use App\Traits\Sluggable;
 
 class TourController extends Controller
 {
-   use UploadImageTrait;
-   use Sluggable;
+    use UploadImageTrait;
+    use Sluggable;
     public function index()
     {
         $tours = Tour::with(['category', 'city'])->latest()->get();
@@ -31,16 +31,16 @@ class TourController extends Controller
 
     public function create()
     {
-        $categories = Category::where("is_active",1)->get();
-      
-        $cities = City::where("is_active",1)->get();
+        $categories = Category::where("is_active", 1)->get();
+
+        $cities = City::where("is_active", 1)->get();
         return view('admin.tours-management.add', compact('categories', 'cities'))->with('title', 'Add New Tour');
     }
 
     public function store(Request $request)
     {
-        
-        
+
+
         $priceType = $request->input('price_type');
 
         // Define validation rules
@@ -51,6 +51,7 @@ class TourController extends Controller
             'price_type' => 'required|in:per_person,per_car',
             'city_ids' => 'required|array',
             'category_ids' => 'required|array',
+            'show_on_homepage' => 'nullable',
         ];
 
         if ($priceType === 'per_person') {
@@ -76,9 +77,9 @@ class TourController extends Controller
         $tour->categories()->attach($validatedData['category_ids']);
 
         // Handle image upload
-       $this->uploadImg('img_path', 'img_path', 'Tour/Cover-images', $tour);
+        $this->uploadImg('img_path', 'img_path', 'Tour/Cover-images', $tour);
 
-        return redirect()->route('admin.tours.edit',$tour->id)->with('notify_success', 'Tour Added successfully.')->with('active_tab', 'details');
+        return redirect()->route('admin.tours.edit', $tour->id)->with('notify_success', 'Tour Added successfully.')->with('active_tab', 'details');
     }
 
 
@@ -98,8 +99,8 @@ class TourController extends Controller
     {
         try {
             $tour = Tour::findOrFail($id);
-            $categories = Category::where("is_active",1)->get();
-            $cities = City::where("is_active",1)->get();
+            $categories = Category::where("is_active", 1)->get();
+            $cities = City::where("is_active", 1)->get();
             $faqs = ToursFaq::where("tour_id", $tour->id)->with('tour')->get();
             $itineraries = TourItinerary::where("tour_id", $tour->id)->orderBy('day', 'asc')->get();
             $attributes = TourAttribute::where("tour_id", $tour->id)->get();
@@ -107,14 +108,14 @@ class TourController extends Controller
             $exclusions = TourExclusion::where("tour_id", $tour->id)->get();
             $additionals = ToursAdditional::where("is_active", 1)->get();
             $additionalItems = AdditionalItem::where("tour_id", $tour->id)->get();
-            $data = compact('tour', 'categories', 'cities','faqs','itineraries','attributes','inclusions','exclusions','additionals','additionalItems');
+            $data = compact('tour', 'categories', 'cities', 'faqs', 'itineraries', 'attributes', 'inclusions', 'exclusions', 'additionals', 'additionalItems');
             return view('admin.tours-management.edit', $data)->with('title', 'Edit Tour');
         } catch (ModelNotFoundException $e) {
             return redirect()->route('admin.tours.index')->with('notify_error', 'Tour not found.');
         }
     }
 
-public function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $tour = Tour::findOrFail($id);
         $priceType = $request->input('price_type');
@@ -126,8 +127,8 @@ public function update(Request $request, $id)
             'price_type' => 'required|in:per_person,per_car',
             'city_ids' => 'required|array',
             'category_ids' => 'required|array',
+            'show_on_homepage' => 'nullable',
         ];
-
         if ($priceType === 'per_person') {
             $rules['for_adult_price'] = 'required|numeric|min:0';
             $rules['for_child_price'] = 'required|numeric|min:0';
@@ -138,10 +139,14 @@ public function update(Request $request, $id)
             $rules['for_child_price'] = 'nullable'; // Ensure 'for_child_price' is not validated if not needed
         }
 
+        if (!$request->show_on_homepage) {
+            $show_on_homepage = 0;
+        }
+
         $validatedData = $request->validate($rules);
 
         // Set price_type and other fields
-        $data = array_merge($validatedData, ['price_type' => $priceType]);
+        $data = array_merge($validatedData, ['price_type' => $priceType, 'show_on_homepage' => isset($show_on_homepage) ? $show_on_homepage :$request->show_on_homepage ]);
 
         // Handle price fields based on price_type
         if ($priceType === 'per_person') {
@@ -194,24 +199,24 @@ public function update(Request $request, $id)
             return redirect()->route('admin.tours.index')->with('notify_error', 'Tour not found.');
         }
     }
-    
-    
-    
+
+
+
     public function save_highlights(Request $request)
     {
-        
+
         $validator = Validator::make($request->all(), [
             'highlights' => 'required',
         ]);
-        
-         if ($validator->fails()) {
-        return redirect()->back()
-            ->withErrors($validator)
-            ->withInput()
-            ->with('active_tab', 'highlights');
-    }
-        Tour::where("id",$request->tour_id)->update(['highlights'=>$request->highlights]);
 
-       return redirect()->back()->with('notify_success', 'Highlights added successfully.')->with('active_tab', 'highlights');
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput()
+                ->with('active_tab', 'highlights');
+        }
+        Tour::where("id", $request->tour_id)->update(['highlights' => $request->highlights]);
+
+        return redirect()->back()->with('notify_success', 'Highlights added successfully.')->with('active_tab', 'highlights');
     }
 }

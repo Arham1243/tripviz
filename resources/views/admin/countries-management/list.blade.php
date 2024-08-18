@@ -26,6 +26,7 @@
                                         <th>S.No</th>
                                         <th>Continent</th>
                                         <th>Name</th>
+                                        <th>Featured on Homepage</th>
                                         <th>Status</th>
                                         <th>Added On</th>
                                         <th>Actions</th>
@@ -39,6 +40,7 @@
                                             <td>{{ $i }}</td>
                                              <td>{{ $country->continent ? $country->continent->name : 'N/A' }}</td>
                                             <td>{{ $country->name }}</td>
+                                            <td>{{ $country->show_on_homepage == 1 ? 'yes' : 'no' }}</td>
                                            
                                             
                                             <td>

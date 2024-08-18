@@ -42,7 +42,7 @@
         <h3>Create an account</h3>
         <div class="prev-data">
             <input class="prev-data__email" name="email" value="" readonly>
-            <a href="{{ route('index') }}" class="changeEmailButton">Change</a>
+            <a href="{{ request()->url() }}" class="changeEmailButton">Change</a>
         </div>
         <div class="loginSignup-popup__email">
             <input type="text" placeholder="Full name" class="check-fields" name="full_name" required>

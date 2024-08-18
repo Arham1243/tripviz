@@ -13,13 +13,13 @@
                 </div>
 
                 <!-- <div class="col-4">
-                            <div class="for-dates">
-                                <form action="#" class="input-details generic-form"><i class='bx bx-calendar'></i>
-                                    <input type="text" name="" placeholder="Add Dates" class="mobile-number-app app-input ">
-                                    <i class='bx bx-chevron-down'></i>
-                                </form>
-                            </div>
-                        </div> -->
+                                        <div class="for-dates">
+                                            <form action="#" class="input-details generic-form"><i class='bx bx-calendar'></i>
+                                                <input type="text" name="" placeholder="Add Dates" class="mobile-number-app app-input ">
+                                                <i class='bx bx-chevron-down'></i>
+                                            </form>
+                                        </div>
+                                    </div> -->
 
             </div>
 
@@ -55,29 +55,29 @@
             </div>
 
             <!-- <div class="header-form__bannerBtns">
-                        <div class="header-btns mt-4">
-                            <div class="currencys">
-                                <div class="themeBtn themeBtn-white">Price</div>
-                                <div class="themeBtn themeBtn-white">Languages</div>
-                                <div class="themeBtn themeBtn-white">Duration</div>
-                                <div class="themeBtn themeBtn-white">Time</div>
+                                    <div class="header-btns mt-4">
+                                        <div class="currencys">
+                                            <div class="themeBtn themeBtn-white">Price</div>
+                                            <div class="themeBtn themeBtn-white">Languages</div>
+                                            <div class="themeBtn themeBtn-white">Duration</div>
+                                            <div class="themeBtn themeBtn-white">Time</div>
 
-                            </div>
-                        </div>
-                        <div class="header-btns mt-4">
-                            <div class="currencys">
-                                <div class="themeBtn themeBtn-white filter-icon">
+                                        </div>
+                                    </div>
+                                    <div class="header-btns mt-4">
+                                        <div class="currencys">
+                                            <div class="themeBtn themeBtn-white filter-icon">
 
-                                    <i class='bx bx-filter'></i>
+                                                <i class='bx bx-filter'></i>
 
 
-                                    filter
+                                                filter
+                                            </div>
+                                        </div>
+                                  </div>
+
                                 </div>
-                            </div>
-                      </div>
-
-                    </div>
-                     -->
+                                 -->
             <div class="activity-sorting-block">
                 <div class="search-header__activity">
                     <div class="activities-found">
@@ -349,7 +349,6 @@
             <div class="container">
                 <div class="row" id="tours-row">
                     @foreach ($tours as $tour)
-                    
                         <div class="col-md-3">
                             <div class="card-content">
                                 <a href="{{ route('tours.details', $tour->slug) }}" class="card_img">
@@ -388,28 +387,15 @@
                                             class="tour-activity-card__details--title">{{ $tour->title }}</a>
                                     </div>
 
-                                    @php
-                                        $averageRating = $tour->average_rating; // Get the average rating, e.g., 4.3
-                                        $filledStars = floor($averageRating); // Number of filled stars
-                                        $halfStar = $averageRating - $filledStars >= 0.5 ? 1 : 0; // Half star if average is a decimal >= 0.5
-                                        $emptyStars = 5 - ($filledStars + $halfStar); // Remaining stars are empty
-                                    @endphp
 
 
                                     <div class="card-rating">
-                                        @for ($i = 0; $i < $filledStars; $i++)
-                                            <i class="bx bxs-star yellow-star"></i>
-                                        @endfor
-
-                                        @if ($halfStar)
-                                            <i class="bx bxs-star-half yellow-star"></i>
-                                        @endif
-
-                                        @for ($i = 0; $i < $emptyStars; $i++)
-                                            <i class="bx bx-star yellow-star"></i>
-                                        @endfor
-                                        @if ($tour->reviews)
-                                            <span>{{ $tour->reviews->count() }} Reviews</span>
+                                        <x-star-rating :rating="$tour->average_rating" />
+                                        @if ($tour->reviews && $tour->reviews->count() > 0)
+                                            <span>{{ $tour->reviews->count() }}
+                                                Review{{ $tour->reviews->count() > 1 ? 's' : '' }}</span>
+                                        @else
+                                            <span>No Reviews Yet</span>
                                         @endif
                                     </div>
 
@@ -802,20 +788,6 @@
 @endsection
 @section('js')
     <script type="text/javascript">
-        // ToolTips
-        const showTooltips = () => {
-            document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function(element) {
-                new bootstrap.Tooltip(element, {
-                    html: true
-                });
-            });
-        }
-
-
-        document.addEventListener("DOMContentLoaded", function() {
-            showTooltips()
-        })
-
         let loadMore = document.getElementById('load-more')
         if (loadMore) {
             loadMore.addEventListener('click', function() {
@@ -866,8 +838,6 @@
             const detailPageStart = `${baseUrl}/tours/details/`;
 
             tours.forEach(tour => {
-                
-
                 const imgUrl = tour.img_path ? `${imgUrlStart}/${tour.img_path}` : placeholderImgUrl;
 
                 // Calculate star ratings
@@ -875,6 +845,12 @@
                 const filledStars = Math.floor(averageRating);
                 const halfStar = averageRating - filledStars >= 0.5 ? 1 : 0;
                 const emptyStars = 5 - (filledStars + halfStar);
+
+                // Determine review text
+                const reviewCount = tour.reviews.length;
+                const reviewText = reviewCount > 0 ?
+                    `${reviewCount} Review${reviewCount > 1 ? 's' : ''}` :
+                    'No Reviews Yet';
 
                 newContent += `
         <div class="col-md-3">
@@ -901,14 +877,14 @@
                                         <i class='bx bxs-info-circle'></i>
                                     </button>
                                 </div>
-                                ` : ''}
+                            ` : ''}
                         <a href="/tours/details/${tour.slug}" class="tour-activity-card__details--title">${tour.title}</a>
                     </div>
                     <div class="card-rating">
                         ${'<i class="bx bxs-star yellow-star"></i>'.repeat(filledStars)}
                         ${halfStar ? '<i class="bx bxs-star-half yellow-star"></i>' : ''}
                         ${'<i class="bx bx-star yellow-star"></i>'.repeat(emptyStars)}
-                        <span>${tour.reviews.length} Reviews</span>
+                        <span>${reviewText}</span>
                     </div>
                     ${tour.price_type === 'per_person' ? `
                             <div class="baseline-pricing__value baseline-pricing__value--low">
@@ -916,14 +892,14 @@
                                 <p class="baseline-pricing__from">${tour.for_adult_price}</p>
                                 <p class="baseline-pricing__category">Per Person</p>
                             </div>
-                            ` : ''}
+                        ` : ''}
                     ${tour.price_type === 'per_car' ? `
                             <div class="baseline-pricing__value baseline-pricing__value--low">
                                 <p class="baseline-pricing__from">From</p>
                                 <p class="baseline-pricing__from">${tour.for_car_price}</p>
                                 <p class="baseline-pricing__category">Per Car</p>
                             </div>
-                            ` : ''}
+                        ` : ''}
                 </div>
             </div>
         </div>`;

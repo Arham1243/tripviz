@@ -120,28 +120,22 @@
                             <div class=tour-content__headerLocation>
                                 <div class=tour-content__headerReviews>
                                     <div class=headerReviews-content>
-                        @php
-                            $averageRating = $tour->average_rating; // Get the average rating, e.g., 4.3
-                            $filledStars = floor($averageRating); // Number of filled stars
-                            $halfStar = ($averageRating - $filledStars) >= 0.5 ? 1 : 0; // Half star if average is a decimal >= 0.5
-                            $emptyStars = 5 - ($filledStars + $halfStar); // Remaining stars are empty
-                        @endphp
-                        
-                        <ul class="headerReviews--icon">
-                            @for ($i = 0; $i < $filledStars; $i++)
-                                <li><i class="bx bxs-star yellow-star"></i></li>
-                            @endfor
-                        
-                            @if ($halfStar)
-                                <li><i class="bx bxs-star-half yellow-star"></i></li>
-                            @endif
-                        
-                            @for ($i = 0; $i < $emptyStars; $i++)
-                                <li><i class="bx bx-star yellow-star"></i></li>
-                            @endfor
-                        </ul>
 
-<span>{{ $tour->reviews->count() }} Review{{ $tour->reviews->count() > 1 ? 's' : '' }}</span>
+
+                                        <ul class="headerReviews--icon">
+                                            <li>
+                                                <x-star-rating :rating="$tour->average_rating" />
+                                            </li>
+                                        </ul>
+                                        
+                                        <span>
+                                            @if ($tour->reviews->count() > 0)
+                                                {{ $tour->reviews->count() }} Review{{ $tour->reviews->count() > 1 ? 's' : '' }}
+                                            @else
+                                                No Reviews Yet
+                                            @endif
+                                        </span>
+                                        
                                     </div>
                                 </div>
                                 <div class=tour-content__headerLocation--details>
@@ -494,14 +488,14 @@
                     </div>
 
                     <div class=tour-content__line></div>
-                     
+
                     @if (!$tour->reviews->isEmpty())
                         <div class=main-reviews__details>
                             <div class=tour-content__SubTitle>
                                 Reviews
                             </div>
                             @php
-                            
+
                                 $reviews = $tour->reviews;
                                 $excellentCount = $reviews->where('rating', 5)->count();
                                 $veryGoodCount = $reviews->where('rating', 4)->count();
@@ -734,13 +728,13 @@
                                     <div class=tour-content_book_pricing>
 
                                         <b class="tour-content_book__realPrice ml-1">
-                                            {{ $tour->for_adult_price }}
+                                            {{ $tour->for_adult_price }} Per Person
                                         </b>
                                     </div>
                                 @elseif($tour->price_type == 'per_car')
                                     <div class=tour-content_book_pricing>
                                         <b class="tour-content_book__realPrice ml-1">
-                                            {{ $tour->for_car_price }}
+                                            {{ $tour->for_car_price }} Per Car
                                         </b>
                                     </div>
                                 @endif

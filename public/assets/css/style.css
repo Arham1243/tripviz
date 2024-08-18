@@ -1777,7 +1777,7 @@ span.GroupTourCard_subtitle {
   object-fit: cover;
 }
 
-.popular-related-destinations__title a {
+.popular-related-destinations__title .title {
   font-weight: 900;
   font-size: 18px;
   color: #fff;
@@ -2261,6 +2261,9 @@ p.highlight__description {
   background-color: var(--supportive-transparent);
   color: #63687a;
   text-transform: uppercase;
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
 }
 .tour-activity-card__details {
     padding: 0.25rem 0.35rem 0.35rem;
@@ -2401,18 +2404,20 @@ p.baseline-pricing__from {
 .event-promotions {
   padding: 2rem 0 0;
 }
+.event-promotions .slick-slide{
+  margin-inline: 0.5rem;
+}
 
 .card-event-item {
+  width: 100%;
   position: relative;
   overflow: hidden;
   transition: transform 0.3s ease-in-out;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
-  margin: 0 10px;
 }
 
-.card-event-item:hover {
-  transform: scale(1.05);
+.card-event-item:hover img {
 }
 
 .card-event-item__img {
@@ -2434,9 +2439,7 @@ p.baseline-pricing__from {
 
 .event-detail {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+  inset: 0;
   background: rgba(0, 0, 0, 0.5);
   color: white;
   padding: 50px;
@@ -2455,7 +2458,7 @@ p.baseline-pricing__from {
 }
 
 .card-event-item:hover .card-event-item__img img {
-  transform: scale(1.1);
+  transform: scale(1.2) rotate(-1deg);
   filter: blur(5px);
 }
 
@@ -2838,8 +2841,12 @@ ul.headerReviews--icon {
 ul.headerReviews--icon i {
   display: flex;
   align-items: center;
+  font-size: 1.1rem;
 }
-
+ul.headerReviews--icon li {
+    display: flex;
+    gap: 0.2rem;
+}
 /* 
 .tour-content__headerLocation--details i {
   font-size: 1.25rem;
@@ -5126,7 +5133,6 @@ button.filter-button i {
   font-weight: 700;
   font-size: 16px;
   margin: 8px 0;
-  min-height: 72px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -5147,6 +5153,8 @@ button.filter-button i {
 .Book-popular-activities__img {
   overflow: hidden;
   border-radius: 11px;
+  height: 280px;
+  width: 100%;
 }
 
 .Book-popular-activities__card {
@@ -5528,4 +5536,11 @@ a.country-card__details {
     font-size: 0.95rem;
     font-weight: 600;
     margin-bottom: 0.75rem;
+}
+.vertical-activity-card__header strong {
+    font-weight: 600;
+}
+.location1-beyond__img a {
+  height: 220px;
+  width: 100%;
 }

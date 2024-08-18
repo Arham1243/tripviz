@@ -179,6 +179,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-lg-12 col-md-12 col-12">
+                                <div class="form-group">
+                                    <label>Show On Homepage:</label>
+                                    <div class="input-field--check">
+                                        <input type="checkbox" name="show_on_homepage" id="show_on_homepage" value="1" {{ $tour->show_on_homepage == 1 ? 'checked' : '' }}>
+                                        <label for="show_on_homepage" class="toggle">Yes</label>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-lg-4 text-center">
                                 <div class="img-upload-wrapper mc-b-3">
                                     <h3>Tour Image</h3>
@@ -460,11 +469,15 @@
                                 <div class="form-group">
                                     <label>Icon class <a href="//boxicons.com"
                                             target="_blank">(boxicons.com)</a>*:</label>
-                                    <input type="text" name="icon_class" class="form-control"
+                                    <input type="text" name="icon_class"
+                                        oninput="showIcon(this,document.querySelector('#attr-icon'))" class="form-control"
                                         placeholder="Enter class" required value="{{ old('icon_class') }}">
                                     @if ($errors->has('icon_class'))
                                         <span class="error">{{ $errors->first('icon_class') }}</span>
                                     @endif
+                                    <div class="my-3">
+                                        <i id="attr-icon"></i>
+                                    </div>
                                 </div>
                             </div>
 
@@ -1147,13 +1160,14 @@
         });
 
         document.getElementById("attribute-icon").addEventListener("input", (e) => {
-            showIcon(e.target)
+            showIcon(e.target, document.getElementById("preview-icon"))
         });
 
 
 
-        const showIcon = (iconField) => {
-            document.getElementById("preview-icon").setAttribute("class", `${iconField.value} bx-md`);
+
+        const showIcon = (iconField, previewElement) => {
+            previewElement.setAttribute("class", `${iconField.value} bx-md`);
         }
 
         const fillFormInfo = (btn, formId, fields) => {
@@ -1235,7 +1249,8 @@
                         }
                     ]
                 });
-                showIcon(document.getElementById("attribute-icon"));
+                showIcon(document.getElementById("attribute-icon"), document.getElementById(
+                    "preview-icon"));
             });
         });
 

@@ -6,9 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\City;
 use App\Models\Country;
+use App\Traits\UploadImageTrait;
+use App\Traits\Sluggable;
 
 class CityController extends Controller
 {
+    use UploadImageTrait;
+    use Sluggable;
     /**
      * Display a listing of the resource.
      *
@@ -40,15 +44,30 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        // Validate the request data
+        $validatedData = $request->validate([
             'country_id' => 'required|int',
             'name' => 'required|string|max:255',
+            'img_path' => 'required|image|mimes:jpeg,png,webp,jpg,gif|max:2048',
+            'show_on_homepage' => 'nullable',
+            'short_desc' => 'required',
         ]);
 
-        City::create($request->all());
+        // Generate a unique slug based on the name
+        $slug = $this->createSlug($validatedData['name'], 'cities');
+
+        // Add the slug to the validated data
+        $data = array_merge($validatedData, ['slug' => $slug]);
+
+        // Create the city record
+        $city = City::create($data);
+
+        // Handle the image upload
+        $this->uploadImg('img_path', 'img_path', 'City/Thumbnail', $city);
 
         return redirect()->route('admin.cities.index')->with('notify_success', 'City created successfully.');
     }
+
 
     /**
      * Display the specified resource.
@@ -82,15 +101,35 @@ class CityController extends Controller
      */
     public function update(Request $request, City $city)
     {
-        $request->validate([
+        // Validate the request data
+        $validatedData = $request->validate([
             'country_id' => 'required|int',
             'name' => 'required|string|max:255',
+            'img_path' => 'nullable|image|mimes:jpeg,png,webp,jpg,gif|max:2048',
+            'show_on_homepage' => 'nullable', // Ensure this is a boolean
+            'short_desc' => 'required',
         ]);
-
-        $city->update($request->all());
-
+    
+        // Generate a unique slug based on the name
+        $slug = $this->createSlug($request->input('name'), 'cities');
+    
+        // Add the slug to the validated data
+        $data = array_merge($validatedData, ['slug' => $slug]);
+    
+        // Set show_on_homepage to 0 if not present in the request
+        $data['show_on_homepage'] = $request->has('show_on_homepage') ? $validatedData['show_on_homepage'] : 0;
+    
+        // Update the city record
+        $city->update($data);
+    
+        // Handle the image upload if a new image is provided
+        if ($request->hasFile('img_path')) {
+            $this->uploadImg('img_path', 'img_path', 'City/Thumbnail', $city);
+        }
+    
         return redirect()->route('admin.cities.index')->with('notify_success', 'City updated successfully.');
     }
+    
 
     /**
      * Remove the specified resource from storage.

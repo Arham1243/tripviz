@@ -8,9 +8,15 @@ use App\Models\ImageTable;
 use App\Models\TourReview;
 use App\Models\Newsletter;
 use App\Models\Tour;
+use App\Models\City;
+use App\Models\Country;
+use App\Models\Category;
+use App\Models\Promotion;
+use App\Traits\Sluggable;
 
 class IndexController extends Controller
 {
+    use Sluggable;
     public function __construct()
     {
         $logo = Imagetable::where('table_name', 'logo')->latest()->first();
@@ -37,7 +43,40 @@ class IndexController extends Controller
     }
     public function index()
     {
-        return view('index')->with('title', 'Home');
+        $tours = Tour::where("is_active", 1)->where("show_on_homepage", 1)->with('reviews', 'cities', 'categories')->latest()->get()->sortByDesc('average_rating');
+
+
+        $waterActivityCategory = Category::where("name", "Water Activities")
+            ->where("is_active", 1)
+            ->first();
+
+        if ($waterActivityCategory) {
+            $categoryId = $waterActivityCategory->id;
+
+
+            $waterActivityTours = Tour::whereHas('categories', function ($query) use ($categoryId) {
+                $query->where('category_id', $categoryId);
+            })->where('is_active', 1)
+                ->with('cities', 'categories', 'tour_attributes')
+                ->latest()
+                ->get()->sortByDesc('average_rating');
+        } else {
+
+            $waterActivityTours = collect();
+        }
+
+
+        $cities = City::where("is_active", 1)
+            ->where("show_on_homepage", 1)
+            ->withCount('tours') // Count the number of related tours
+            ->orderBy('tours_count', 'desc') // Order by the count of tours in descending order
+            ->latest() // Order cities by the most recent
+            ->get();
+
+        $countries = Country::where("is_active", 1)->where("show_on_homepage", 1)->latest()->get();
+        $promotions = Promotion::where("is_active", 1)->latest()->get();
+        $data  = compact('cities', 'promotions', 'tours', 'waterActivityTours', 'countries');
+        return view('index')->with('title', 'Home')->with($data);
     }
 
     public function cart()
@@ -55,14 +94,34 @@ class IndexController extends Controller
         return view('country')->with('title', 'Country');
     }
 
-    public function location_1()
+    public function city_details($slug)
     {
-        return view('location-1')->with('title', 'Location 1');
+        $city = City::where('slug', $slug)->with('country')->first();
+        $country = $city->country;
+        $relatedCities = City::where('country_id', $country->id)->whereNot('id', $city->id)->get();
+
+        $tours = $city->tours()->get()->sortByDesc('average_rating');
+        $data  = compact('city', 'tours', 'relatedCities');
+        return view('city-details')->with('title', $city->name)->with($data);
     }
 
-    public function location_2()
+    public function country_details($slug)
     {
-        return view('location-2')->with('title', 'Location 2');
+        $country = Country::where('slug', $slug)->with('continent', 'cities')->first();
+        $tours = $country->tours()->with('tour_attributes', 'reviews')->get()->sortByDesc('average_rating');
+        $data  = compact('country', 'tours');
+        return view('country-details')->with('title', $country->name)->with($data);
+    }
+
+    public function make_slug()
+    {
+        $entries = City::all();
+        foreach ($entries as $entry) {
+            $slug = $this->createSlug($entry['name'], 'cities');
+            $entry->slug = $slug;
+            $entry->save();
+        }
+        return "Done";
     }
     public function wishlist()
     {

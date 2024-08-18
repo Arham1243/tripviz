@@ -515,3 +515,17 @@ quantityWrappers.forEach((counter) => {
     console.error("Maintain HTML Structure for quantity counter");
   }
 });
+
+   // ToolTips
+   const showTooltips = () => {
+    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function(element) {
+        new bootstrap.Tooltip(element, {
+            html: true
+        });
+    });
+}
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    showTooltips()
+})

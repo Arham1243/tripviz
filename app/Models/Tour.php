@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tour extends Model
 {
-     protected $fillable = [
+    protected $fillable = [
         'title',
         'slug',
         'short_desc',
@@ -16,58 +16,59 @@ class Tour extends Model
         'for_adult_price',
         'for_child_price',
         'for_car_price',
+        'show_on_homepage',
         'price_type',
-        'highlights'.
-        'is_active',
+        'highlights' .
+            'is_active',
     ];
-    
+
     protected $appends = ['average_rating'];
-    
-   
-   public function getForAdultPriceAttribute($value)
-   {
-       return env('APP_CURRENCY') . $value;
-   }
 
-   public function getForChildPriceAttribute($value)
-   {
-       return env('APP_CURRENCY') . $value;
-   }
 
-   public function getForCarPriceAttribute($value)
-   {
-       return env('APP_CURRENCY') . $value;
-   }
-   
-       public function normalForAdultPrice()
+    public function getForAdultPriceAttribute($value)
+    {
+        return env('APP_CURRENCY') . $value;
+    }
+
+    public function getForChildPriceAttribute($value)
+    {
+        return env('APP_CURRENCY') . $value;
+    }
+
+    public function getForCarPriceAttribute($value)
+    {
+        return env('APP_CURRENCY') . $value;
+    }
+
+    public function normalForAdultPrice()
     {
         return $this->attributes['for_adult_price'];
     }
-    
+
     public function normalForChildPrice()
     {
         return $this->attributes['for_child_price'];
     }
-    
+
     public function normalForCarPrice()
     {
         return $this->attributes['for_car_price'];
     }
 
 
-     public function city()
+    public function city()
     {
         return $this->belongsTo(City::class);
     }
-    
+
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
-   
-    
-     public function cities()
+
+
+    public function cities()
     {
         return $this->belongsToMany(City::class);
     }
@@ -76,52 +77,52 @@ class Tour extends Model
     {
         return $this->belongsToMany(Category::class);
     }
-    
-      public function reviews()
+
+    public function reviews()
     {
-        return $this->hasMany(TourReview::class);
+        return $this->hasMany(TourReview::class)->where('tour_reviews.is_active', true);
     }
     public function getAverageRatingAttribute()
-{
-    $totalReviews = $this->reviews()->count();
-    $sumOfRatings = $this->reviews()->sum('rating');
-    
+    {
+        $totalReviews = $this->reviews()->count();
+        $sumOfRatings = $this->reviews()->sum('rating');
 
-    return $totalReviews > 0 ? round($sumOfRatings / $totalReviews, 1) : null;
-}
 
-    
-      public function faqs()
+        return $totalReviews > 0 ? round($sumOfRatings / $totalReviews, 1) : null;
+    }
+
+
+    public function faqs()
     {
         return $this->hasMany(ToursFaq::class, 'tour_id');
     }
-      public function itineraries()
+    public function itineraries()
     {
         return $this->hasMany(TourItinerary::class, 'tour_id');
     }
-      public function tour_attributes()
+    public function tour_attributes()
     {
         return $this->hasMany(TourAttribute::class, 'tour_id');
     }
-      public function inclusions()
+    public function inclusions()
     {
         return $this->hasMany(TourInclusion::class, 'tour_id');
     }
-      public function exclusions()
+    public function exclusions()
     {
         return $this->hasMany(TourExclusion::class, 'tour_id');
     }
 
-    
-     protected static function boot()
+
+    protected static function boot()
     {
         parent::boot();
 
         static::deleting(function ($tour) {
             $tour->cities()->detach();
             $tour->categories()->detach();
-            
-            
+
+
             $tour->faqs()->each(function ($faq) {
                 $faq->delete();
             });
