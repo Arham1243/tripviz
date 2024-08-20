@@ -78,6 +78,10 @@
                     <i class="bx bxs-chat" aria-hidden="true"></i> Testimonials Management
                 </a>
             </li>
+            <li><a href="{{ route('admin.tour-stories.index') }}">
+                    <i class="bx bxs-book" aria-hidden="true"></i> Stories And News
+                </a>
+            </li>
             <li><a href="{{ route('admin.newsletters') }}">
                     <i class="fa fa-envelope" aria-hidden="true"></i> Newsletter
                 </a>
@@ -85,7 +89,7 @@
 
 
             <li
-                class="custom-dropdown {{ in_array(Request::url(), [route('admin.showLogo'), route('admin.socialInfo')]) ? 'open' : '' }}">
+                class="custom-dropdown {{ in_array(Request::url(), [route('admin.showLogo'), route('admin.socialInfo'), route('admin.sections.index')]) ? 'open' : '' }}">
                 <a href="javascript:void(0)" class="custom-dropdown__active">
                     <i class="fa fa-location-dot" aria-hidden="true"></i> Site Settings
                 </a>
@@ -93,12 +97,15 @@
                     <ul class="values-wrapper">
                         <li><a class="{{ Request::url() == route('admin.showLogo') ? 'active' : '' }}"
                                 href="{{ route('admin.showLogo') }}">Logo Management</a></li>
-                        <li><a class="{{ Request::url() == route('admin.socialInfo') ? 'active' : '' }}"
-                                href="{{ route('admin.socialInfo') }}">Contact/social Info</a></li>
-                    </ul>
-                </div>
+                        <li><a class="{{ Request::url() == route('admin.sections.index') ? 'active' : '' }}"
+                                href="{{ route('admin.sections.index') }}">Sections Management</a></li>
             </li>
-
+            <li><a class="{{ Request::url() == route('admin.socialInfo') ? 'active' : '' }}"
+                    href="{{ route('admin.socialInfo') }}">Contact/social Info</a></li>
         </ul>
     </div>
+    </li>
+
+    </ul>
+</div>
 </div>

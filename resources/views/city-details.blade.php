@@ -120,18 +120,19 @@
                                             </span>
                                             <span class="total">
                                                 @if ($tour->reviews->count() > 0)
-                                                    ({{ $tour->reviews->count() }} Review{{ $tour->reviews->count() > 1 ? 's' : '' }})
+                                                    ({{ $tour->reviews->count() }}
+                                                    Review{{ $tour->reviews->count() > 1 ? 's' : '' }})
                                                 @else
                                                     (No Reviews Yet)
                                                 @endif
                                             </span>
                                         </div>
-                                        
+
 
                                     </div>
                                 </div>
                             </div>
-                        </div>)
+                        </div>
                     @endforeach
                 </div>
             </div>
@@ -142,79 +143,75 @@
 
 
 
-    <div class="latest-stories-loc-2">
-        <div class="container">
-            <div class="latest-stories__title">03 / ARTICLES</div>
-            <div class="latest-stories__details">
-                <div class="section-content">
-                    <h2 class="subHeading">
-                        Latest stories from Dubai
-                    </h2>
-                </div>
-                <div class="latest-stories__btns">
-                    <button class="themeBtn-round">Read more articles</button>
-                </div>
-            </div>
-            <div class="row pt-3">
-                <div class="col-md-7">
-                    <div class="Desti-Pract__details">
-                        <div class="Desti-Pract__img">
-                            <img data-src="{{ asset('assets/images/BEAR_GRYLLS_RAK720desat.webp') }}" alt="image"
-                                class="imgFluid lazy" loading="lazy" src="assets/images/BEAR_GRYLLS_RAK720desat.webp">
-                        </div>
-                        <div class="Desti-Pract__content">
-                            <div class="sub-title">Destination Practicalities</div>
-                            <h3 href="#" class="Desti-Pract__title">8 things to know before visiting Savannah</h3>
-                            <div class="date">Jun 21, 2024 • 6 min read</div>
-                            <p>With its grand leafy streets and beautiful architecture, Savannah is an incredible city to
-                                visit. Here's everything you need to know before you go.</p>
-                        </div>
+    @if (!$stories->isEmpty())
+        <div class=latest-stories>
+            <div class=container>
+                <div class=latest-stories__title>TRAVEL STORIES AND NEWS</div>
+                <div class=latest-stories__details>
+                    <div class=section-content>
+                        <h2 class=subHeading>
+                            Latest stories from {{ $city->name }}
+                        </h2>
                     </div>
+                   
                 </div>
-                <div class="col-md-5">
-                    <div class="Desti-Pract__activities">
-                        <div class="activities-details">
-                            <div class="activities-img">
-                                <img data-src="{{ asset('assets/images/GettyImages-1392454769.webp') }}" alt="image"
-                                    class="imgFluid lazy" loading="lazy" src="assets/images/GettyImages-1392454769.webp">
-                            </div>
-                            <div class="activities-content">
-                                <p><b>Hiking</b></p>
-                                <a href="#">9 best places to visit in Georgia </a>
-                                <p>Jun 21, 2024 • 7 min read</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="Desti-Pract__activities">
-                        <div class="activities-details">
-                            <div class="activities-img">
-                                <img data-src="{{ asset('assets/images/GettyImages-1392454769.webp') }}" alt="image"
-                                    class="imgFluid lazy" loading="lazy" src="assets/images/GettyImages-1392454769.webp">
-                            </div>
-                            <div class="activities-content">
-                                <p><b>Hiking</b></p>
-                                <a href="#">9 best places to visit in Georgia </a>
-                                <p>Jun 21, 2024 • 7 min read</p>
+                <div class="row pt-3">
+                    @if ($stories->count() > 0)
+                        @php
+                            // Get the first story for the main section
+                            $mainStory = $stories->shift();
+                        @endphp
+
+                        <div class="col-md-7">
+                            <div class="Desti-Pract__details">
+                                <div class="Desti-Pract__img">
+                                    <img data-src="{{ asset($mainStory->img_path ?? 'assets/images/placeholder.png') }}"
+                                        alt="{{ $mainStory->title }}" class="imgFluid lazy" loading="lazy">
+                                </div>
+                                <div class="Desti-Pract__content">
+                                    <div class="sub-title">{{ $mainStory->city->name ?? '' }}</div>
+                                    <a href="{{ route('stories.details', $mainStory->slug) }}"
+                                        class="Desti-Pract__title">{{ $mainStory->title }}</a>
+                                    <div class="date">{{ $mainStory->created_at->format('M d, Y') }} •
+                                        {{ $mainStory->estimated_read_time }} min read</div>
+                                    <p>{{ $mainStory->short_desc }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="Desti-Pract__activities">
-                        <div class="activities-details">
-                            <div class="activities-img">
-                                <img data-src="{{ asset('assets/images/GettyImages-1392454769.webp') }}" alt="image"
-                                    class="imgFluid lazy" loading="lazy" src="assets/images/GettyImages-1392454769.webp">
-                            </div>
-                            <div class="activities-content">
-                                <p><b>Hiking</b></p>
-                                <a href="#">9 best places to visit in Georgia </a>
-                                <p>Jun 21, 2024 • 7 min read</p>
-                            </div>
+
+                        <div class="col-md-5">
+                            @if ($stories->count() > 0)
+                                @foreach ($stories as $story)
+                                    <div class="Desti-Pract__activities">
+                                        <div class="activities-details">
+                                            <a href="{{ route('stories.details', $story->slug) }}" class="activities-img">
+                                                <img data-src="{{ asset($story->img_path ?? 'assets/images/placeholder.png') }}"
+                                                    alt="{{ $story->title }}" class="imgFluid lazy" loading="lazy">
+                                            </a>
+                                            <div class="activities-content">
+                                                <p><b>{{ $story->city->name ?? '' }}</b></p>
+                                                <a
+                                                    href="{{ route('stories.details', $story->slug) }}">{{ $story->title }}</a>
+                                                <p>{{ $story->created_at->format('M d, Y') }} •
+                                                    {{ $story->estimated_read_time }} min read</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                <p class="text-center">No additional stories added yet.</p>
+                            @endif
                         </div>
-                    </div>
+                    @else
+                        <div class="col-12">
+                            <p class="text-center">No stories found.</p>
+                        </div>
+                    @endif
                 </div>
+
             </div>
         </div>
-    </div>
+    @endif
 
     @if (!$tours->isEmpty())
         <div class="Book-popular-activities">
@@ -257,13 +254,14 @@
                                     </span>
                                     <span class="total">
                                         @if ($tour->reviews->count() > 0)
-                                            ({{ $tour->reviews->count() }} Review{{ $tour->reviews->count() > 1 ? 's' : '' }})
+                                            ({{ $tour->reviews->count() }}
+                                            Review{{ $tour->reviews->count() > 1 ? 's' : '' }})
                                         @else
                                             (No Reviews Yet)
                                         @endif
                                     </span>
                                 </div>
-                                
+
 
                             </div>
                         </div>)

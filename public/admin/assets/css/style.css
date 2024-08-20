@@ -2246,3 +2246,6 @@ li.heading {
     margin-bottom: 30px;
 }
 /*select2*/
+.fancybox-container {
+    z-index: 1000000000000;
+}

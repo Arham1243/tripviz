@@ -779,12 +779,29 @@ a#loginBtn {
   padding: 10rem 0 2rem;
   position: relative;
 }
-
+.comment-card {
+    margin: 1rem 0;
+}
 .comment-pra {
-  font-size: 14px;
-  margin-bottom: 35px;
+  font-size: 12px;
+  height: 50px;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+  margin: 0.85rem 0;
 }
 
+.comment-pra::-webkit-scrollbar {
+  width: 7px;
+}
+
+.comment-pra::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+.comment-pra::-webkit-scrollbar-thumb {
+  background: var(--color-primary); 
+  border-radius: 100px;
+}
 .card-review i {
   font-size: 20px;
   color: #BDC2DE;
@@ -1906,7 +1923,7 @@ img.ocizgi.imgFluid {
   background: url(../images/download.webp) no-repeat top right;
   padding: 57px 0px 56px 0px;
   color: #fff;
-  object-fit: cover;
+  background-size: cover;
 }
 
 .download-app__details p {
@@ -2543,7 +2560,7 @@ a.card_img.trending-products__img {
 .card-rating span {
   color: #666;
   margin-top: 3px;
-  margin-left: 4px;
+  margin-left: 1px;
 }
 
 .card-content.trending-products__content h3 {
@@ -2689,6 +2706,7 @@ a.card_img.trending-products__img {
   font-size: 14px;
   font-weight: 500;
   padding: 7px 20px;
+  display: none;
 }
 
 h2.more-offers-title {
@@ -2726,6 +2744,7 @@ h2.more-offers-title {
   width: 100%;
   z-index: -1;
   filter: brightness(0.8);
+  background-position: center;
 }
 
 .featured-icon i {
@@ -5543,4 +5562,57 @@ a.country-card__details {
 .location1-beyond__img a {
   height: 220px;
   width: 100%;
+}
+
+.stories-content__img {
+    width: 100%;
+    height: 460px;
+    margin-bottom: 2rem;
+    border-radius: 2rem;
+    overflow: hidden;
+}
+
+.stories-content__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin: 1rem 0;
+}
+
+.stories-content__details {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.stories-content__details li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+}
+
+.stories-content__details li i {
+    font-size: 1.25rem;
+    color: var(--color-primary);
+}
+
+.stories-content__details li span {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.stories-content__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 1rem 0;
+}
+
+.stories-content__desc {
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.65;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 1.5rem;
 }

@@ -12,6 +12,8 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\Category;
 use App\Models\Testimonial;
+use App\Models\TourStory;
+use App\Models\Section;
 use App\Models\Promotion;
 use App\Traits\Sluggable;
 
@@ -69,18 +71,29 @@ class IndexController extends Controller
 
         $cities = City::where("is_active", 1)
             ->where("show_on_homepage", 1)
-            ->withCount('tours') // Count the number of related tours
-            ->orderBy('tours_count', 'desc') // Order by the count of tours in descending order
-            ->latest() // Order cities by the most recent
+            ->withCount('tours')
+            ->orderBy('tours_count', 'desc')
+            ->latest()
             ->get();
 
-        $countries = Country::where("is_active", 1)->where("show_on_homepage", 1)->latest()->get();
+        $countries = Country::where("is_active", 1)
+            ->where("show_on_homepage", 1)
+            ->latest()
+            ->get();
+
         $testimonials = Testimonial::where("is_active", 1)->with('images')->latest()->get();
+        $stories = TourStory::where("is_active", 1)->where("show_on_homepage", 1)->with('city')->latest()->get();
         $promotions = Promotion::where("is_active", 1)->latest()->get();
-        $data  = compact('cities', 'promotions', 'tours', 'waterActivityTours', 'countries', 'testimonials');
+        $sections = Section::where("is_active", 1)->latest()->get();
+        $data  = compact('stories', 'cities', 'promotions', 'tours', 'waterActivityTours', 'countries', 'testimonials', 'sections');
         return view('index')->with('title', 'Home')->with($data);
     }
 
+    public function storyDetails($slug)
+    {
+        $story = TourStory::where('slug', $slug)->with('city')->first();
+        return view('story-details')->with('title', $story->title)->with(compact('story'));
+    }
     public function cart()
     {
         return view('cart')->with('title', 'Cart');
@@ -101,9 +114,9 @@ class IndexController extends Controller
         $city = City::where('slug', $slug)->with('country')->first();
         $country = $city->country;
         $relatedCities = City::where('country_id', $country->id)->whereNot('id', $city->id)->get();
-
+        $stories = TourStory::where("is_active", 1)->where('city_id', $city->id)->where("show_on_homepage", 1)->with('city')->latest()->get();
         $tours = $city->tours()->get()->sortByDesc('average_rating');
-        $data  = compact('city', 'tours', 'relatedCities');
+        $data  = compact('city', 'tours', 'relatedCities','stories');
         return view('city-details')->with('title', $city->name)->with($data);
     }
 

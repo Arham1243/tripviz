@@ -29,6 +29,8 @@ use App\Http\Controllers\Admin\Tour\AdditionalItemController as AdminAdditionalI
 use App\Http\Controllers\Admin\Tour\ReviewController as AdminTourReviewController;
 use App\Http\Controllers\Admin\PromotionController as AdminPromotionController;
 use App\Http\Controllers\Admin\TestimonialController as AdminTestimonialController;
+use App\Http\Controllers\Admin\SectionController as AdminSectionController;
+use App\Http\Controllers\Admin\TourStoryController as AdminTourStoryController;
 
 
 // ---------------------------------------All Pages---------------------------------------
@@ -58,6 +60,12 @@ Route::prefix('tours')->name('tours.')->group(function () {
    Route::get('/details/{slug}', [TourController::class, 'details'])->name('details');
    Route::get('/listing', [TourController::class, 'listing'])->name('listing');
    Route::get('/show-more', [TourController::class, 'loadMore'])->name('loadMore');
+});
+// ---------------------------------------Tours---------------------------------------
+
+// ---------------------------------------Tours---------------------------------------
+Route::prefix('stories')->name('stories.')->group(function () {
+   Route::get('/details/{slug}', [IndexController::class, 'storyDetails'])->name('details');
 });
 // ---------------------------------------Tours---------------------------------------
 
@@ -221,6 +229,18 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
    Route::delete('testimonials/images/{id}', [AdminTestimonialController::class, 'deleteOtherImage'])->name('testimonials.image.delete');
 
    // ---------------------------------------testimonial management---------------------------------------
+
+
+   // ---------------------------------------sections management---------------------------------------
+   Route::resource('sections', AdminSectionController::class);
+   Route::get('sections/{id}/suspend', [AdminSectionController::class, 'suspend'])->name('sections.suspend');
+   Route::get('sections/{section_name}/edit', [AdminSectionController::class, 'edit_section'])->name('sections.edit_section');
+   // ---------------------------------------sections management---------------------------------------
+
+   // ---------------------------------------tour stories management---------------------------------------
+   Route::resource('tour-stories', AdminTourStoryController::class);
+   Route::get('tour-stories/{id}/suspend', [AdminTourStoryController::class, 'suspend'])->name('tour-stories.suspend');
+   // ---------------------------------------tour stories management---------------------------------------
 
 });
 
