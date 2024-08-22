@@ -16,6 +16,7 @@ use App\Models\TourStory;
 use App\Models\Section;
 use App\Models\Promotion;
 use App\Traits\Sluggable;
+use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller
 {
@@ -94,15 +95,11 @@ class IndexController extends Controller
         $story = TourStory::where('slug', $slug)->with('city')->first();
         return view('story-details')->with('title', $story->title)->with(compact('story'));
     }
-    public function cart()
-    {
-        return view('cart')->with('title', 'Cart');
-    }
 
-    public function checkout()
-    {
-        return view('checkout')->with('title', 'Checkout');
-    }
+
+
+   
+
 
     public function country()
     {
@@ -116,7 +113,7 @@ class IndexController extends Controller
         $relatedCities = City::where('country_id', $country->id)->whereNot('id', $city->id)->get();
         $stories = TourStory::where("is_active", 1)->where('city_id', $city->id)->where("show_on_homepage", 1)->with('city')->latest()->get();
         $tours = $city->tours()->get()->sortByDesc('average_rating');
-        $data  = compact('city', 'tours', 'relatedCities','stories');
+        $data  = compact('city', 'tours', 'relatedCities', 'stories');
         return view('city-details')->with('title', $city->name)->with($data);
     }
 

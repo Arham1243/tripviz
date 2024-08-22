@@ -54,35 +54,39 @@
             </div>
         </div>
         <button class="loginSignup-popup__btn disabled">Create an account</button>
-        <div class="info">By creating an account, you agree to our <a href="{{ route('privacy_policy') }}">Privacy Policy</a>.
+        <div class="info">By creating an account, you agree to our <a href="{{ route('privacy_policy') }}">Privacy
+                Policy</a>.
             See our <a href="{{ route('terms_conditions') }}">Terms and Conditions</a>.</div>
     </form>
 
-    <form action="{{ route('auth.perfrom-auth') }}" method="POST" class="authForm loginSignup-popup signUpStep for-login">
-    <input type="hidden" name="auth_type" value="login">
-    @csrf
-    <a href="javascript:void(0)" class="loginSignup-popup__close closePopup" title="close"><i class='bx bx-x'></i></a>
-    <h3>Welcome back!</h3>
-    <div class="prev-data">
-        <input class="prev-data__email" name="email" value="" readonly>
-        <a href="{{ route('index') }}" class="changeEmailButton">Change</a>
-    </div>
-    <div class="loginSignup-popup__email">
-        <div class="password-field">
-            <input type="password" placeholder="Password" class="check-fields" name="password" required>
-            <button type="button" class="password-field__show"><i class='bx bxs-show'></i></button>
+    <form action="{{ route('auth.perfrom-auth') }}" method="POST"
+        class="authForm loginSignup-popup signUpStep for-login">
+        <input type="hidden" name="auth_type" value="login">
+        @csrf
+        <a href="javascript:void(0)" class="loginSignup-popup__close closePopup" title="close"><i
+                class='bx bx-x'></i></a>
+        <h3>Welcome back!</h3>
+        <div class="prev-data">
+            <input class="prev-data__email" name="email" value="" readonly>
+            <a href="{{ route('index') }}" class="changeEmailButton">Change</a>
         </div>
-    </div>
-    <div class="info d-flex align-items-center justify-content-between">
-        <div class="remember-me">
-        <input type="checkbox" name="remember" id="remember" value="1">
-        <label for="remember">Remember me</label>
-    </div>
-        <a href="javascript:void(0)" id="forgotPassword">Forgot password?</a></div>
-    
-    <button class="loginSignup-popup__btn disabled">Log in</button>
-    
-</form>
+        <div class="loginSignup-popup__email">
+            <div class="password-field">
+                <input type="password" placeholder="Password" class="check-fields" name="password" required>
+                <button type="button" class="password-field__show"><i class='bx bxs-show'></i></button>
+            </div>
+        </div>
+        <div class="info d-flex align-items-center justify-content-between">
+            <div class="remember-me">
+                <input type="checkbox" name="remember" id="remember" value="1">
+                <label for="remember">Remember me</label>
+            </div>
+            <a href="javascript:void(0)" id="forgotPassword">Forgot password?</a>
+        </div>
+
+        <button class="loginSignup-popup__btn disabled">Log in</button>
+
+    </form>
 
 
     <form action="{{ route('send_reset_password_link') }}" method="POST"
@@ -97,9 +101,9 @@
 
         </p>
         <div class="loginSignup-popup__email">
-            
-                <input type="email" placeholder="Email address" class="check-fields" name="email" required>
-            
+
+            <input type="email" placeholder="Email address" class="check-fields" name="email" required>
+
         </div>
         <button class="loginSignup-popup__btn disabled">Send Reset Link</button>
 
@@ -152,7 +156,8 @@
                         </a>
                     </li>
                     <li class="header-btns__item">
-                        <a href="{{ route('cart') }}" title="Cart" class="li__link">
+                        <a href="{{ route('cart.index') }}" title="Cart" class="li__link cart-btn-show"
+                            cart-items="{{ session('cart') ? count(session('cart')) : 0 }}">
                             <div class="header-btns__icon">
                                 <i class='bx bx-cart'></i>
                             </div>
@@ -224,7 +229,7 @@
         <li><a href="#">Help</a></li>
 
         <li><a href="{{ route('wishlist') }}">Wishlist</a></li>
-        <li><a href="{{ route('cart') }}">Cart</a></li>
+        <li><a href="{{ route('cart.index') }}">Cart</a></li>
         <li class="drop-down--toggle"><a class="dropdown-click-link" href="javascript:void(0)">Profile<i
                     class="bx bx-chevron-down"></i></a>
             <div class="toggle-wrapper">

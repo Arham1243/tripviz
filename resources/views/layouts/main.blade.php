@@ -23,7 +23,7 @@
 
     <script type="text/javascript">
         (() => {
-          
+
             @if (session('notify_success') || isset($_GET['notify_success']))
                 $.toast({
                     heading: 'Success!',
@@ -49,7 +49,7 @@
         })()
     </script>
 </body>
-@include('admin.core.editor')
+{{-- @include('admin.core.editor') --}}
 <div id="preloader" style="display:none;">
     <div class="loading">
         <span>Loading...</span>

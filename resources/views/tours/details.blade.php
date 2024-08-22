@@ -127,15 +127,16 @@
                                                 <x-star-rating :rating="$tour->average_rating" />
                                             </li>
                                         </ul>
-                                        
+
                                         <span>
                                             @if ($tour->reviews->count() > 0)
-                                                {{ $tour->reviews->count() }} Review{{ $tour->reviews->count() > 1 ? 's' : '' }}
+                                                {{ $tour->reviews->count() }}
+                                                Review{{ $tour->reviews->count() > 1 ? 's' : '' }}
                                             @else
                                                 No Reviews Yet
                                             @endif
                                         </span>
-                                        
+
                                     </div>
                                 </div>
                                 <div class=tour-content__headerLocation--details>
@@ -744,85 +745,158 @@
                                 <div class=enquiry-item><a href=#><span>Enquiry</span></a></div>
                             </div>
                             <div class=form-book>
-                                <form class=form-book_details>
-                                    <div class=form-book_content>
+                                <form class="form-book_details" action="{{ route('cart.add') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="tour_id" value="{{ $tour->id }}">
+                                    <input type="hidden" name="price_type" value="{{ $tour->price_type }}">
 
-                                        <div class="tour-content__pra form-book__pra">
-                                            Start Date
-                                        </div>
+                                    <div class="form-book_content">
+                                        <div class="tour-content__pra form-book__pra">Start Date</div>
                                         <div class="tour-content__title form-book__title">
-                                            <input type="date" class="form-book__date">
-                                        </div>
-
-                                    </div>
-                                    <div class="form-group form-guest-search">
-                                        <div class="tour-content__pra form-book__pra form-guest-search__details">
-                                            Adult
-                                            <div class=form-guest-search__items>
-                                                <div class="form-book__title form-guest-search__title">
-                                                    Age 18+
-                                                    <div class=form-guest-search__smallTitle>$1.000 per person</div>
-                                                </div>
-                                                <div class="quantity-counter">
-                                                    <button class="quantity-counter__btn quantity-counter__btn--minus"
-                                                        type="button"><i class='bx bx-chevron-down'></i></button>
-                                                    <input type="number" value="0"
-                                                        class="quantity-counter__btn quantity-counter__btn--quantity"
-                                                        min="0" name="adult_count">
-                                                    <button class="quantity-counter__btn quantity-counter__btn--plus"
-                                                        type="button"><i class='bx bx-chevron-up'></i></button>
-                                                </div>
-
-                                            </div>
+                                            <input type="date" class="form-book__date" name="start_date"
+                                                value="{{ old('start_date') }}" required>
+                                            @error('start_date')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
-                                    <div class="form-group form-guest-search">
-                                        <div class="tour-content__pra form-book__pra form-guest-search__details">
-                                            Child
-                                            <div class=form-guest-search__items>
-                                                <div class="form-book__title form-guest-search__title">
-                                                    Age 6-17 <div class=form-guest-search__smallTitle>$1.000 per person
+
+                                    @if ($tour->price_type == 'per_person')
+                                        <div class="form-group form-guest-search">
+                                            <div class="tour-content__pra form-book__pra form-guest-search__details">
+                                                Adult
+                                                <div class="form-guest-search__items">
+                                                    <div class="form-book__title form-guest-search__title">
+                                                        Age 18+
+                                                        <div class="form-guest-search__smallTitle">
+                                                            {{ $tour->for_adult_price }} per person
+                                                        </div>
+                                                    </div>
+                                                    <div class="quantity-counter">
+                                                        <button class="quantity-counter__btn quantity-counter__btn--minus"
+                                                            type="button">
+                                                            <i class='bx bx-chevron-down'></i>
+                                                        </button>
+                                                        <input type="number" value="{{ old('no_of_adults', 0) }}"
+                                                            class="quantity-counter__btn quantity-counter__btn--quantity"
+                                                            min="0" name="no_of_adults" required>
+
+                                                        <button class="quantity-counter__btn quantity-counter__btn--plus"
+                                                            type="button">
+                                                            <i class='bx bx-chevron-up'></i>
+                                                        </button>
                                                     </div>
                                                 </div>
-                                                <div class="quantity-counter">
-                                                    <button class="quantity-counter__btn quantity-counter__btn--minus"
-                                                        type="button"><i class='bx bx-chevron-down'></i></button>
-                                                    <input type="number" value="0"
-                                                        class="quantity-counter__btn quantity-counter__btn--quantity"
-                                                        min="0" name="child_count">
-                                                    <button class="quantity-counter__btn quantity-counter__btn--plus"
-                                                        type="button"><i class='bx bx-chevron-up'></i></button>
-                                                </div>
+                                                @error('no_of_adults')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
-                                    </div>
+                                        <div class="form-group form-guest-search">
+                                            <div class="tour-content__pra form-book__pra form-guest-search__details">
+                                                Child
+                                                <div class="form-guest-search__items">
+                                                    <div class="form-book__title form-guest-search__title">
+                                                        Age 6-17
+                                                        <div class="form-guest-search__smallTitle">
+                                                            {{ $tour->for_child_price }} per person
+                                                        </div>
+                                                    </div>
+                                                    <div class="quantity-counter">
+                                                        <button class="quantity-counter__btn quantity-counter__btn--minus"
+                                                            type="button">
+                                                            <i class='bx bx-chevron-down'></i>
+                                                        </button>
+                                                        <input type="number" value="{{ old('no_of_childs', 0) }}"
+                                                            class="quantity-counter__btn quantity-counter__btn--quantity"
+                                                            min="0" name="no_of_childs">
+
+                                                        <button class="quantity-counter__btn quantity-counter__btn--plus"
+                                                            type="button">
+                                                            <i class='bx bx-chevron-up'></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                @error('no_of_childs')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    @elseif($tour->price_type == 'per_car')
+                                        <div class="form-group form-guest-search">
+                                            <div class="tour-content__pra form-book__pra form-guest-search__details">
+                                                Car
+                                                <div class="form-guest-search__items">
+                                                    <div class="form-book__title form-guest-search__title">
+                                                        Car
+                                                        <div class="form-guest-search__smallTitle">
+                                                            {{ $tour->for_car_price }} per car
+                                                        </div>
+                                                    </div>
+                                                    <div class="quantity-counter">
+                                                        <button class="quantity-counter__btn quantity-counter__btn--minus"
+                                                            type="button">
+                                                            <i class='bx bx-chevron-down'></i>
+                                                        </button>
+                                                        <input type="number" value="{{ old('no_of_cars', 0) }}"
+                                                            class="quantity-counter__btn quantity-counter__btn--quantity"
+                                                            min="0" name="no_of_cars">
+
+                                                        <button class="quantity-counter__btn quantity-counter__btn--plus"
+                                                            type="button">
+                                                            <i class='bx bx-chevron-up'></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                @error('no_of_cars')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    @endif
+
                                     <div class="form-group form-guest-search">
                                         <div class="tour-content__title form-book__title form-guest-search__title">
                                             Extra prices:
                                             <div class="form-guest-search__items form-guest-search__details">
                                                 <div class="form-book__title form-guest-search__title">
-                                                    <label class=form-guest-search__item-clean><input type=checkbox>
-                                                        Clean</label>
+                                                    <label class="form-guest-search__item-clean">
+                                                        <input type="checkbox" value="100" name="clean_service">
+                                                        Clean
+                                                    </label>
                                                 </div>
-                                                <div class="tour-content__pra form-book__pra">
-                                                    $100
-                                                </div>
+                                                <div class="tour-content__pra form-book__pra">$100</div>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="form-group form-guest-search">
-                                        <div class=form-guest-search__title>
+                                        <div class="form-guest-search__title">
                                             <div class="form-guest-search__items Service-fee__content">
-                                                <div class=form-guest-search__title>
+                                                <div class="form-guest-search__title">
                                                     Service fee
                                                     <i class="bx bxs-info-circle"></i>
                                                 </div>
-                                                <div class="tour-content__pra form-book__pra">
-                                                    $100
+                                                <div class="tour-content__pra form-book__pra">$100
+                                                    <input type="hidden" name="service_fee" value="100">
                                                 </div>
                                             </div>
-                                            <div class=form-guest__btn>
-                                                <button class="app-btn themeBtn">Book Now</button>
+                                            <div class="form-guest__btn">
+                                                @php
+                                                    $cart = session('cart');
+                                                    $alreadyAdded =
+                                                        isset($cart) && isset($cart[$tour->id]) ? true : false;
+
+                                                @endphp
+                                                @if ($alreadyAdded)
+                                                    <a href="{{ route('cart.index') }}" class="app-btn themeBtn">
+                                                        Tour Already Added
+                                                    </a>
+                                                @else
+                                                    <button class="app-btn themeBtn">
+                                                        Add to Cart
+                                                    </button>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
