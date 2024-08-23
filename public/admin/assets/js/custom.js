@@ -1,17 +1,17 @@
-$(function() {
-            $('.custom-select2').each(function() {
-                $(this).select2({
-                    theme: 'bootstrap4',
-                    width: 'style',
-                    placeholder: $(this).attr('placeholder'),
-                    allowClear: Boolean($(this).data('allow-clear')),
-                });
-            });
+$(function () {
+    $(".custom-select2").each(function () {
+        $(this).select2({
+            theme: "bootstrap4",
+            width: "style",
+            placeholder: $(this).attr("placeholder"),
+            allowClear: Boolean($(this).data("allow-clear")),
         });
-        
-            document.addEventListener('DOMContentLoaded', function () {
-    const ckeditorInstances = document.querySelectorAll('.ckeditor');
-    ckeditorInstances.forEach(function(textarea) {
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const ckeditorInstances = document.querySelectorAll(".ckeditor");
+    ckeditorInstances.forEach(function (textarea) {
         CKEDITOR.replace(textarea);
     });
 });
@@ -302,12 +302,14 @@ makeColor(95, "--color-primary-light");
 
 $(document).ready(function () {
     const labelElement = document.querySelector("#user-table_filter label");
-    const inputElement = labelElement.firstChild;
-    const searchElement = document.querySelector(
-        "#user-table_filter label input"
-    );
-    labelElement.removeChild(labelElement.firstChild);
-    searchElement.placeholder = "Search";
+    if (labelElement) {
+        const inputElement = labelElement.firstChild;
+        const searchElement = document.querySelector(
+            "#user-table_filter label input"
+        );
+        labelElement.removeChild(labelElement.firstChild);
+        searchElement.placeholder = "Search";
+    }
 });
 
 $(".custom-dropdown__active").click(function () {
@@ -334,11 +336,9 @@ function readURL(input, targetId) {
     }
 }
 
-
-$(document).ready(function() {
-    var selected_option = $('.is-selected').html().trim()
-    if(selected_option){
-        
-    var selected_value = $('.select-styled').html(selected_option)
+$(document).ready(function () {
+    var selected_option = $(".is-selected").html();
+    if (selected_option) {
+        var selected_value = $(".select-styled").html(selected_option.trim());
     }
- });
+});

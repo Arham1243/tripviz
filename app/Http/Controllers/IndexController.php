@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ReviewAdded;
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Models\ImageTable;
 use App\Models\TourReview;
@@ -15,6 +17,7 @@ use App\Models\Testimonial;
 use App\Models\TourStory;
 use App\Models\Section;
 use App\Models\Promotion;
+use App\Notifications\ReviewNotification;
 use App\Traits\Sluggable;
 use Illuminate\Support\Facades\Auth;
 
@@ -98,7 +101,7 @@ class IndexController extends Controller
 
 
 
-   
+
 
 
     public function country()
@@ -159,6 +162,14 @@ class IndexController extends Controller
             'rating' => 'required',
         ]);
         $review = TourReview::create($validated);
+        $data = [
+            'message' => 'A new review has been added. - ' . $review->title,
+            'review_id' => $review->id,
+            'link' => route('admin.tour-reviews.edit', $review->id),
+        ];
+        event(new ReviewAdded($data));
+        $admin = Admin::first(); 
+        $admin->notify(new ReviewNotification($data));
 
         return back()->with('notify_success', 'Review Pending For Admin Approval!');
     }

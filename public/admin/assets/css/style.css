@@ -401,7 +401,7 @@ li {
 
 .dashboard-section header {
     position: relative;
-    padding: 20px 50px;
+    padding: 20px 20px;
     margin-left: auto;
     background: #fff;
     border-bottom: 2px solid #cccccc69;
@@ -2248,4 +2248,120 @@ li.heading {
 /*select2*/
 .fancybox-container {
     z-index: 1000000000000;
+}
+
+.header-actions__item {
+    width: 42px;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    font-size: 1.35rem;
+    color: #000;
+    border: 2px solid #cccccc94;
+    position: relative;
+    opacity: 0.5;
+}
+
+.header-actions__item:hover {
+    opacity: 0.75;
+    color: #000;
+    border-color: #0000001a;
+}
+
+.header-actions__item .new {
+    width: 20px;
+    aspect-ratio: 1/1;
+    font-size: 0.85rem;
+    background: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    color: #fff;
+    position: absolute;
+    right: -12px;
+    top: -10px;
+    transition: all 300ms ease-in-out;
+    transform: scale(0);
+}
+.header-actions__item .new.show {
+    transform: scale(1);
+}
+.header-actions li {
+    position: relative;
+}
+
+.notification-wrapper {
+    position: absolute;
+    width: 320px;
+    right: 80%;
+    top: 100%;
+    background: #fff;
+    box-shadow: 0 0 20px 3px #00000020;
+    z-index: 100;
+    border-radius: 0.5rem;
+    height: 266px;
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 300ms;
+}
+.header-actions li:hover .notification-wrapper {
+    opacity: 1;
+    visibility: visible;
+}
+.notification-wrapper::-webkit-scrollbar {
+    width: 7px;
+}
+
+.notification-wrapper::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.notification-wrapper::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: 100px;
+}
+.notification * {
+    font-size: 0.85rem;
+}
+
+.notification {
+    color: #000;
+}
+
+.notification .time {
+    opacity: 0.5;
+    text-transform: lowercase;
+    font-weight: 600;
+}
+
+.notification .title {
+    font-weight: 600;
+    opacity: 0.55;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 0.15rem;
+}
+
+.notification {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+}
+.notifications {
+    width: 100%;
+}
+
+.notifications li:not(:last-child) .notification {
+    border-bottom: 1px solid #ccc;
+}
+
+.notification:hover {
+    background: #0000000d;
+    color: #000;
 }
