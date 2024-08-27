@@ -162,14 +162,27 @@ class IndexController extends Controller
             'rating' => 'required',
         ]);
         $review = TourReview::create($validated);
+
+
+        // Create the notification
+        $admin = Admin::first();
+        $notification = $admin->notify(new ReviewNotification([
+            'message' => 'A new review has been added. - ' . $review->title,
+            'link' => route('admin.tour-reviews.edit', $review->id),
+        ]));
+
+        // Retrieve the notification ID
+        $notificationId = $admin->notifications()->latest()->first()->id;
+
+        // Dispatch the event with the notification ID
         $data = [
             'message' => 'A new review has been added. - ' . $review->title,
             'review_id' => $review->id,
             'link' => route('admin.tour-reviews.edit', $review->id),
+            'notification_id' => $notificationId, // Include the notification ID
         ];
+
         event(new ReviewAdded($data));
-        $admin = Admin::first(); 
-        $admin->notify(new ReviewNotification($data));
 
         return back()->with('notify_success', 'Review Pending For Admin Approval!');
     }

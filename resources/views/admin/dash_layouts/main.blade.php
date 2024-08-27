@@ -22,14 +22,24 @@
     @yield('content')
     @include('admin.dash_layouts.footer')
     @include('admin.dash_layouts.scripts')
-    @vite('resources/js/app.js')
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
     @yield('js')
 
     <script type="text/javascript">
-       
+        const notificationSoundUrl = "{{ asset('admin/assets/audios/notification.mp3') }}";
+        const notificationSound = new Audio(notificationSoundUrl);
 
+        // Flag to check if the user has interacted
+        let hasUserInteracted = false;
+
+        // Event listener to handle user interaction
+        document.addEventListener('click', () => {
+            hasUserInteracted = true;
+        }, {
+            once: true
+        });
 
 
         (() => {

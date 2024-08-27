@@ -18,8 +18,10 @@ class ShareAdminNotifications
     {
         // Check if the admin is authenticated
         if (auth()->guard('admin')->check()) {
-            $notifications = auth()->guard('admin')->user()->unreadNotifications;
+            $notifications = auth()->guard('admin')->user()->notifications;
+            $unreadNotifications = auth()->guard('admin')->user()->unreadNotifications;
             View::share('notifications', $notifications);
+            View::share('unreadNotifications', $unreadNotifications);
         }
 
         return $next($request);

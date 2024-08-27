@@ -33,6 +33,7 @@ use App\Http\Controllers\Admin\PromotionController as AdminPromotionController;
 use App\Http\Controllers\Admin\TestimonialController as AdminTestimonialController;
 use App\Http\Controllers\Admin\SectionController as AdminSectionController;
 use App\Http\Controllers\Admin\TourStoryController as AdminTourStoryController;
+use App\Http\Controllers\Admin\NotificationController as AdminNotificationController;
 
 
 // ---------------------------------------All Pages---------------------------------------
@@ -259,6 +260,11 @@ Route::middleware(['admin', 'admin.notifications'])->prefix('admin')->name('admi
    Route::resource('tour-stories', AdminTourStoryController::class);
    Route::get('tour-stories/{id}/suspend', [AdminTourStoryController::class, 'suspend'])->name('tour-stories.suspend');
    // ---------------------------------------tour stories management---------------------------------------
+
+   // ---------------------------------------Notifications---------------------------------------
+   Route::post('/notifications/{id}/read', [AdminNotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+   // ---------------------------------------Notifications---------------------------------------
+
 
 });
 

@@ -35,28 +35,43 @@
                 </div> --}}
 
                 <ul class="header-actions">
+                    @php
+                        $unreadNotificationsCheck =
+                            !$unreadNotifications->isEmpty() && $unreadNotifications->count() > 0 ? true : false;
+                    @endphp
                     <li>
                         <a href="javascript:void(0)" class="header-actions__item" id="notification-icon">
-                            <i class='bx bxs-bell-ring' id="notification-icon-class"></i>
-                            <span class="new"
-                                id="notification-count">{{ $notifications ? auth()->guard('admin')->user()->unreadNotifications->count() : 0 }}</span>
+                            <i class='bx bxs-bell-ring {{ $unreadNotificationsCheck ? 'bx-tada' : '' }}'
+                                id="notification-icon-class"></i>
+                            <span class="new {{ $unreadNotificationsCheck ? 'show' : '' }}"
+                                id="notification-count">{{ $unreadNotificationsCheck ? $unreadNotifications->count() : 0 }}</span>
                         </a>
                         <div class="notification-wrapper">
                             <ul class="notifications" id="notifications">
-                                @if ($notifications)
+                                @if (!$notifications->isEmpty())
                                     @foreach ($notifications as $notification)
                                         <li>
-                                            <a href="{{ $notification->data['link'] }}" class="notification">
+                                            <div class="notification">
                                                 <div class="content">
-                                                    <div class="title">
+                                                    <a href="{{ $notification->data['link'] }}" class="title"
+                                                        data-id="{{ $notification->id }}"
+                                                        @if (!$notification->read_at) onclick="markAsRead(event)" @endif>
                                                         {{ $notification->data['message'] }}
-                                                    </div>
+                                                    </a>
                                                     <div class="time"
                                                         data-timestamp="{{ $notification->created_at }}">
                                                         {{ $notification->created_at->diffForHumans() }}
                                                     </div>
                                                 </div>
-                                            </a>
+                                                <button
+                                                    title="{{ !$notification->read_at ? 'Mark as Read' : 'Already Read' }}"
+                                                    type="button"
+                                                    class="mark-as-read {{ $notification->read_at ? 'read' : '' }}"
+                                                    data-id="{{ $notification->id }}"
+                                                    @if (!$notification->read_at) onclick="markAsRead(event)" @endif>
+                                                    <i class='bx bx-check-circle'></i>
+                                                </button>
+                                            </div>
                                         </li>
                                     @endforeach
                                 @else
@@ -66,6 +81,7 @@
                         </div>
                     </li>
                 </ul>
+
 
 
                 <div class="header-main__menu">
