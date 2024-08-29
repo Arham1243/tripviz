@@ -107,6 +107,10 @@ document.addEventListener("DOMContentLoaded", () => {
             let currentCount =
                 parseInt(notificationCountElement.textContent) || 0;
             notificationCountElement.textContent = currentCount + 1;
+            let ogTitle = document.title;
+            document.title = `${currentCount + 1} new notification${
+                currentCount + 1 > 2 ? "s" : ""
+            }`;
 
             // Show the notification count and apply the class if it's not already visible
             notificationCountElement.classList.add("show");
