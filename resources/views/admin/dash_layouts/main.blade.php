@@ -28,6 +28,7 @@
     @yield('js')
 
     <script type="text/javascript">
+        const  originalTitle = document.title;
         const notificationSoundUrl = "{{ asset('admin/assets/audios/notification.mp3') }}";
         const notificationSound = new Audio(notificationSoundUrl);
 

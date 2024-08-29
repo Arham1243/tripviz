@@ -37,6 +37,13 @@ async function markAsRead(event) {
             // Remove the 'show' class if count is 0
             if (parseInt(notificationCountElement.textContent) === 0) {
                 notificationCountElement.classList.remove("show");
+
+                document.title = originalTitle;
+            }
+            if (parseInt(notificationCountElement.textContent) !== 0) {
+                document.title = `${currentCount-1} new notification${
+                    currentCount + 1 > 2 ? "s" : ""
+                }`;
             }
 
             // Remove the 'bx-tada' class if no more notifications
@@ -107,7 +114,6 @@ document.addEventListener("DOMContentLoaded", () => {
             let currentCount =
                 parseInt(notificationCountElement.textContent) || 0;
             notificationCountElement.textContent = currentCount + 1;
-            let ogTitle = document.title;
             document.title = `${currentCount + 1} new notification${
                 currentCount + 1 > 2 ? "s" : ""
             }`;
