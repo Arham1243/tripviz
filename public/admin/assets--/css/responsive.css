@@ -1,0 +1,535 @@
+/* Responsve Styling */
+@media only screen and (min-width: 320px) and (max-width: 519px) {
+  /*----------------------------------------------Login----------------------------------------------*/
+  .das-logo img {
+    width: 75px;
+  }
+  .dark-gren-36 {
+    font-size: 30px;
+  }
+  section.green-back-2.d-flex.align-items-center.justify-content-center form {
+    margin: 4rem 0 0;
+  }
+
+  .web-card {
+    padding: 1rem 2rem;
+    box-shadow: 3px 3px 3px 1px var(--color-primary);
+  }
+
+  .form-group label {
+    font-size: 13px;
+  }
+  button.btn.yellow-btn.mt-0.mx-autp {
+    font-size: 13px;
+  }
+  .form-group input {
+    font-size: 13px;
+  }
+  .green-back-2 {
+    min-height: 90vh;
+  }
+  /*----------------------------------------------Login----------------------------------------------*/
+
+  /*----------------------------------------------Dashboard----------------------------------------------*/
+  .sideBar__close {
+    display: flex;
+  }
+  .side-bar {
+    background: #fff;
+    transform: translateX(-100%);
+    transition: all 300ms;
+    width: 100%;
+  }
+
+  .side-bar.show {
+    transform: translateX(0);
+  }
+  .dashboard-section {
+    width: 100%;
+  }
+
+  .header-main__menu {
+    display: block;
+  }
+  header .container-fluid {
+    padding: 0;
+  }
+  .dashboard-section header .header-links {
+    justify-content: space-between;
+  }
+  .user-link .dropdown-menu {
+    min-width: 100px;
+  }
+
+  .user-link > a {
+    width: auto;
+    height: auto !important;
+    aspect-ratio: inherit;
+  }
+  .dashboard-section header {
+    padding: 20px 30px;
+  }
+  .primary-heading h2 {
+    font-size: 25px;
+    line-height: 1.49;
+  }
+  .main-sec {
+    margin: 30px 30px 20px !important;
+  }
+
+  .status-thumbnail .status-img {
+    min-width: auto;
+    width: 60px;
+    height: 60px;
+    font-size: 1.75rem;
+    padding: 0;
+  }
+  .status-thumbnail {
+    padding: 30px 20px;
+  }
+
+  .status-thumbnail .status-content h3 {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .notification-link .dropdown-menu > a,
+  .user-link .dropdown-menu > a {
+    padding: 0.25rem 1rem;
+  }
+  .action-btns .primary-btn {
+    width: 100%;
+    margin-top: 0.5rem !important;
+  }
+  .user-wrapper .primary-heading.color-dark h2 {
+    line-height: 1.25;
+    margin-bottom: 0;
+  }
+
+  .user-wrapper .primary-heading {
+    margin: 1rem 0 2rem;
+  }
+  .primary-btn {
+    font-size: 14px;
+    padding: 0.65rem 1.5rem;
+  }
+  .fancy-link {
+    margin: 0 0 1rem;
+  }
+
+  .img-upload-wrapper.mc-b-3 {
+    margin: 2rem 0 0 !important;
+  }
+
+  label.user-img-btn {
+    margin-bottom: 0;
+  }
+  img.gal-img {
+    aspect-ratio: 16/9;
+    object-fit: contain;
+  }
+  .value-wrapper .primary-heading {
+    margin: 0 0 2rem;
+  }
+  .col-lg-6.col-12.p-0.mc-b-3 {
+    margin: 0 !important;
+  }
+  .main-form .form-group textarea {
+    border-radius: 0.5rem;
+  }
+  .user-wrapper .row.align-items-center.mc-b-3 {
+    margin-bottom: 0 !important;
+  }
+  .primary-subtitle {
+    font-size: 18px;
+    margin-bottom: 0.25rem;
+  }
+  .resp-pb {
+    padding-bottom: 2.25rem;
+  }
+  .main-form .form-group {
+    margin-bottom: 20px;
+  }
+  button#add-record {
+    margin-top: 2rem;
+  }
+  .primary-heading.color-dark.d-flex.align-items-center.justify-content-between {
+    flex-wrap: wrap;
+  }
+  .main-wrapper .col-lg-12.col-md-12.col-12.mt-5 {
+    margin-top: 2rem !important;
+  }
+  .main-wrapper .row.align-items-center.pb-5 {
+    padding-bottom: 0 !important;
+  }
+  .options-wrapper {
+    margin: 1rem 0 0;
+  }
+  .col-lg-6.bg_color_div.my-5 {
+    margin: 2rem 0 3rem !important;
+  }
+  /*----------------------------------------------Dashboard----------------------------------------------*/
+}
+@media only screen and (min-width: 520px) and (max-width: 767px) {
+    /*----------------------------------------------Login----------------------------------------------*/
+  .das-logo img {
+    width: 75px;
+  }
+  .dark-gren-36 {
+    font-size: 30px;
+  }
+  section.green-back-2.d-flex.align-items-center.justify-content-center form {
+    margin: 4rem 0 0;
+  }
+
+  .web-card {
+    padding: 1rem 2rem;
+    box-shadow: 3px 3px 3px 1px var(--color-primary);
+  }
+
+  .form-group label {
+    font-size: 13px;
+  }
+  button.btn.yellow-btn.mt-0.mx-autp {
+    font-size: 13px;
+  }
+  .form-group input {
+    font-size: 13px;
+  }
+  .green-back-2 {
+    min-height: 90vh;
+  }
+  /*----------------------------------------------Login----------------------------------------------*/
+
+  /*----------------------------------------------Dashboard----------------------------------------------*/
+  .sideBar__close {
+    display: flex;
+  }
+  .side-bar {
+    background: #fff;
+    transform: translateX(-100%);
+    transition: all 300ms;
+    width: 100%;
+  }
+
+  .side-bar.show {
+    transform: translateX(0);
+  }
+  .dashboard-section {
+    width: 100%;
+  }
+
+  .header-main__menu {
+    display: block;
+  }
+  header .container-fluid {
+    padding: 0;
+  }
+  .dashboard-section header .header-links {
+    justify-content: space-between;
+  }
+  .user-link .dropdown-menu {
+    min-width: 100px;
+  }
+
+  .user-link > a {
+    width: auto;
+    height: auto !important;
+    aspect-ratio: inherit;
+  }
+  .dashboard-section header {
+    padding: 20px 30px;
+  }
+  .primary-heading h2 {
+    font-size: 25px;
+    line-height: 1.49;
+  }
+  .main-sec {
+    margin: 30px 30px 20px !important;
+  }
+
+  .status-thumbnail .status-img {
+    min-width: auto;
+    width: 60px;
+    height: 60px;
+    font-size: 1.75rem;
+    padding: 0;
+  }
+  .status-thumbnail {
+    padding: 30px 20px;
+  }
+
+  .status-thumbnail .status-content h3 {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .notification-link .dropdown-menu > a,
+  .user-link .dropdown-menu > a {
+    padding: 0.25rem 1rem;
+  }
+  .action-btns .primary-btn {
+    width: 100%;
+    margin-top: 0.5rem !important;
+  }
+  .user-wrapper .primary-heading.color-dark h2 {
+    line-height: 1.25;
+    margin-bottom: 0;
+  }
+
+  .user-wrapper .primary-heading {
+    margin: 1rem 0 2rem;
+  }
+  .primary-btn {
+    font-size: 14px;
+    padding: 0.65rem 1.5rem;
+  }
+  .fancy-link {
+    margin: 0 0 1rem;
+  }
+
+  .img-upload-wrapper.mc-b-3 {
+    margin: 2rem 0 0 !important;
+  }
+
+  label.user-img-btn {
+    margin-bottom: 0;
+  }
+  img.gal-img {
+    aspect-ratio: 16/9;
+    object-fit: contain;
+  }
+  .value-wrapper .primary-heading {
+    margin: 0 0 2rem;
+  }
+  .col-lg-6.col-12.p-0.mc-b-3 {
+    margin: 0 !important;
+  }
+  .main-form .form-group textarea {
+    border-radius: 0.5rem;
+  }
+  .user-wrapper .row.align-items-center.mc-b-3 {
+    margin-bottom: 0 !important;
+  }
+  .primary-subtitle {
+    font-size: 18px;
+    margin-bottom: 0.25rem;
+  }
+  .resp-pb {
+    padding-bottom: 2.25rem;
+  }
+  .main-form .form-group {
+    margin-bottom: 20px;
+  }
+  button#add-record {
+    margin-top: 2rem;
+  }
+  .primary-heading.color-dark.d-flex.align-items-center.justify-content-between {
+    flex-wrap: wrap;
+  }
+  .main-wrapper .col-lg-12.col-md-12.col-12.mt-5 {
+    margin-top: 2rem !important;
+  }
+  .main-wrapper .row.align-items-center.pb-5 {
+    padding-bottom: 0 !important;
+  }
+  .options-wrapper {
+    margin: 1rem 0 0;
+  }
+  .col-lg-6.bg_color_div.my-5 {
+    margin: 2rem 0 3rem !important;
+  }
+  /*----------------------------------------------Dashboard----------------------------------------------*/
+}
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    /*----------------------------------------------Login----------------------------------------------*/
+  .das-logo img {
+    width: 75px;
+  }
+  .dark-gren-36 {
+    font-size: 30px;
+  }
+  section.green-back-2.d-flex.align-items-center.justify-content-center form {
+    margin: 4rem 0 0;
+  }
+
+  .web-card {
+    padding: 1rem 2rem;
+    box-shadow: 3px 3px 3px 1px var(--color-primary);
+  }
+
+  .form-group label {
+    font-size: 13px;
+  }
+  button.btn.yellow-btn.mt-0.mx-autp {
+    font-size: 13px;
+  }
+  .form-group input {
+    font-size: 13px;
+  }
+  .green-back-2 {
+    min-height: 90vh;
+  }
+  /*----------------------------------------------Login----------------------------------------------*/
+
+  /*----------------------------------------------Dashboard----------------------------------------------*/
+  .sideBar__close {
+    display: flex;
+  }
+  .side-bar {
+    background: #fff;
+    transform: translateX(-100%);
+    transition: all 300ms;
+    width: 350px;
+    box-shadow: 0 0 15px 10px #00000020;
+  }
+
+  .side-bar.show {
+    transform: translateX(0);
+  }
+  .dashboard-section {
+    width: 100%;
+  }
+
+  .header-main__menu {
+    display: block;
+  }
+  header .container-fluid {
+    padding: 0;
+  }
+  .dashboard-section header .header-links {
+    justify-content: space-between;
+  }
+  .user-link .dropdown-menu {
+    min-width: 100px;
+  }
+
+  .user-link > a {
+    width: auto;
+    height: auto !important;
+    aspect-ratio: inherit;
+  }
+  .dashboard-section header {
+    padding: 20px 30px;
+  }
+  .primary-heading h2 {
+    font-size: 25px;
+    line-height: 1.49;
+  }
+  .main-sec {
+    margin: 30px 30px 20px !important;
+  }
+
+  .status-thumbnail .status-img {
+    min-width: auto;
+    width: 60px;
+    height: 60px;
+    font-size: 1.75rem;
+    padding: 0;
+  }
+  .status-thumbnail {
+    padding: 30px 20px;
+  }
+
+  .status-thumbnail .status-content h3 {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .notification-link .dropdown-menu > a,
+  .user-link .dropdown-menu > a {
+    padding: 0.25rem 1rem;
+  }
+  .action-btns .primary-btn {
+    width: 100%;
+    margin-top: 0.5rem !important;
+  }
+  .user-wrapper .primary-heading.color-dark h2 {
+    line-height: 1.25;
+    margin-bottom: 0;
+  }
+
+  .user-wrapper .primary-heading {
+    margin: 1rem 0 2rem;
+  }
+  .primary-btn {
+    font-size: 14px;
+    padding: 0.65rem 1.5rem;
+  }
+  .fancy-link {
+    margin: 0 0 1rem;
+  }
+
+  .img-upload-wrapper.mc-b-3 {
+    margin: 2rem 0 0 !important;
+  }
+
+  label.user-img-btn {
+    margin-bottom: 0;
+  }
+  img.gal-img {
+    aspect-ratio: 16/9;
+    object-fit: contain;
+  }
+  .value-wrapper .primary-heading {
+    margin: 0 0 2rem;
+  }
+  .col-lg-6.col-12.p-0.mc-b-3 {
+    margin: 0 !important;
+  }
+  .main-form .form-group textarea {
+    border-radius: 0.5rem;
+  }
+  .user-wrapper .row.align-items-center.mc-b-3 {
+    margin-bottom: 0 !important;
+  }
+  .primary-subtitle {
+    font-size: 18px;
+    margin-bottom: 0.25rem;
+  }
+  .resp-pb {
+    padding-bottom: 2.25rem;
+  }
+  .main-form .form-group {
+    margin-bottom: 20px;
+  }
+  button#add-record {
+    margin-top: 2rem;
+  }
+  .primary-heading.color-dark.d-flex.align-items-center.justify-content-between {
+    flex-wrap: wrap;
+  }
+  .main-wrapper .col-lg-12.col-md-12.col-12.mt-5 {
+    margin-top: 2rem !important;
+  }
+  .main-wrapper .row.align-items-center.pb-5 {
+    padding-bottom: 0 !important;
+  }
+  .options-wrapper {
+    margin: 1rem 0 0;
+  }
+  .col-lg-6.bg_color_div.my-5 {
+    margin: 2rem 0 3rem !important;
+  }
+  /*----------------------------------------------Dashboard----------------------------------------------*/
+}
+@media only screen and (min-width: 992px) and (max-width: 1250px) {
+    /*----------------------------------------------Dashboard----------------------------------------------*/
+    .status-thumbnail {
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  text-align: center;
+  padding: 1rem 0;
+}
+.status-thumbnail .status-img {
+  margin-right: 0;
+}
+.status-thumbnail .status-content h3 {
+  font-size: 13px;
+  margin-bottom: 0;
+}
+
+/*----------------------------------------------Dashboard----------------------------------------------*/
+
+}

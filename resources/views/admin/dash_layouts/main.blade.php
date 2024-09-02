@@ -5,12 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--Any config settings you want to fetch you will get in $config array, -->
-    <?php //echo $config['COMPANY'];
-    ?>
     <title>{{ isset($title) ? $title : '' }}</title>
-    {{-- <link rel="icon" type="image/png" href="{{ asset(isset($favicon) ? $favicon : '') }}">
-    <link rel="icon" href="{{ asset(isset($logo) ? $logo->img_path : '') }}"> --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @include('admin.dash_layouts.links')
     @yield('css')
@@ -18,9 +13,26 @@
 
 <body class="responsive">
     <input type="hidden" id="web_base_url" value="{{ url('/') }}" />
-    @include('admin.dash_layouts.header')
-    @yield('content')
-    @include('admin.dash_layouts.footer')
+    <div class="dashboard">
+        <div class="container-fluid p-0">
+            <div class="row g-0">
+                <div class="col-md-2">
+                    @include('admin.dash_layouts.sidebar')
+                </div>
+                <div class="col-md-10">
+                    <div class="row g-0">
+                        <div class="col-12">
+                            @include('admin.dash_layouts.header')
+                        </div>
+                        @yield('content')
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     @include('admin.dash_layouts.scripts')
     @yield('js')
     <script type="text/javascript">
@@ -51,10 +63,5 @@
         })()
     </script>
 </body>
-<div id="preloader" style="display:none;">
-    <div class="loading">
-        <!--<span>Loading...</span>-->
-    </div>
-</div>
 
 </html>

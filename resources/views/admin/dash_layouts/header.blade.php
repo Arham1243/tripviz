@@ -1,26 +1,30 @@
-<section class="dashboard-section">
-    <header>
-        <div class="container-fluid">
-            <div class="header-links">
-
-
-
-                <div class="dropdown show user-link">
-                    <a class=" dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-user-circle" aria-hidden="true"></i>
-                        <div class="user-info">
-                            <h4 style="text-transform: capitalize">{{ Auth::guard('admin')->user()->name }}</h4>
-                        </div>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-
-                        <a onclick="return confirm('Do you really want to Logout?')" class="dropdown-item" href="{{ route('admin.logout') }}">Logout</a>
-                    </div>
+<div class="dashboard-header">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="wrapper">
+                <h2>Dashboard</h2>
+                <form class="input-search">
+                    <button class="search-icon"><i class='bx bx-search'></i></button>
+                    <input type="text" placeholder="search" name="search">
+                </form>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="wrapper">
+                <div class="notifi-icon">
+                    <i class='bx bxs-bell-ring bx-tada'></i>
+                    <div class="notification-count">5</div>
                 </div>
-                <div class="header-main__menu">
-                    <a href="javascript:viod(0)" onclick="openSideBar()"><i class="fa fa-bars"></i></a>
+                <div class="user-profile">
+                    <div class="name">
+                        <div class="name1">{{ Auth::guard('admin')->user()->email }}</div>
+                        <div class="role">{{ Auth::guard('admin')->user()->name }}</div>
+                    </div>
+                    <div class="user-image-icon">
+                        <i class='bx bxs-user-circle'></i>
+                    </div>
                 </div>
             </div>
         </div>
-    </header>
+    </div>
+</div>

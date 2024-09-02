@@ -1750,8 +1750,12 @@ i.right-icon {
 
 .web-card {
     padding: 38px 10px;
-    border-radius: 12px;
+    border-radius: 60px 0;
     box-shadow: 6px 6px 3px 2px var(--color-primary);
+    width: 60%;
+    background: #ffffff5e;
+    margin: auto;
+    backdrop-filter: blur(10px);
 }
 
 .modal-header {
@@ -3384,3 +3388,7 @@ li.page-item.web-pagin {
 }
 
 /*======================= responsive end here==============*/
+
+.green-back-2 {
+    background: #004e9917;
+}

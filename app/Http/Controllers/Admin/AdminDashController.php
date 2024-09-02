@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ImageTable;
 use App\Models\User;
+use App\Models\Tour;
 use Schema;
 
 class AdminDashController extends Controller
@@ -18,10 +19,13 @@ class AdminDashController extends Controller
 
     public function dashboard()
     {
-        return view('admin.dashboard')->with('title', 'Admin Dashboard');
+        $users = User::where("is_active", 1)->get();
+        $tours = Tour::where("is_active", 1)->get();
+        $data = compact('users' ,'tours');
+        return view('admin.dashboard')->with('title', 'Dashboard')->with($data);
     }
 
-    
+
 
 
     //------------------------- User Management -------------------------
@@ -36,18 +40,18 @@ class AdminDashController extends Controller
     {
         // $user = User::find($id);
         // if ($user) {
-            // $data = compact('user');
-            $user = User::find($id);
-    
-            // Get all columns for the `users` table
-            $table = (new User())->getTable();
-            $columns = Schema::getColumnListing($table);
-        
-            // Remove columns you don't want to show
-            $excludeColumns = ['id', 'created_at', 'updated_at', 'password']; // Example exclusions
-            $fields = array_diff($columns, $excludeColumns);
-        
-            return view('admin.users-management.edit', compact('user', 'fields'))->with('title', 'View User Details');
+        // $data = compact('user');
+        $user = User::find($id);
+
+        // Get all columns for the `users` table
+        $table = (new User())->getTable();
+        $columns = Schema::getColumnListing($table);
+
+        // Remove columns you don't want to show
+        $excludeColumns = ['id', 'created_at', 'updated_at', 'password']; // Example exclusions
+        $fields = array_diff($columns, $excludeColumns);
+
+        return view('admin.users-management.edit', compact('user', 'fields'))->with('title', 'View User Details');
         //     return view('admin.users-management.edit')->with('title', 'View User Details')->with($data);
         // }
         // return redirect()->back()->with('notify_error', "User Not Found!");
