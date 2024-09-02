@@ -49,11 +49,5 @@
         })()
     </script>
 </body>
-@include('admin.core.editor')
-<div id="preloader" style="display:none;">
-    <div class="loading">
-        <span>Loading...</span>
-    </div>
-</div>
 
 </html>
