@@ -57,7 +57,7 @@
                                     <i class='bx bxs-star'></i>
                                     <div class="participant">4,9</div>
                                 </div>
-                                <img src="assets/images/quad.jpg" alt="" class="imgFluid">
+                                <img src="{{ asset('assets/images/quad.jpg') }}" alt="" class="imgFluid">
                             </a>
                             <div class="custom-card__content">
                                 <div class="title">Bali, Indonesia</div>
@@ -79,7 +79,7 @@
                                     <i class='bx bxs-star'></i>
                                     <div class="participant">4,9</div>
                                 </div>
-                                <img src="assets/images/quad.jpg" alt="" class="imgFluid">
+                                <img src="{{ asset('assets/images/quad.jpg') }}" alt="" class="imgFluid">
                             </a>
                             <div class="custom-card__content">
                                 <div class="title">Bali, Indonesia</div>
@@ -101,7 +101,7 @@
                                     <i class='bx bxs-star'></i>
                                     <div class="participant">4,9</div>
                                 </div>
-                                <img src="assets/images/quad.jpg" alt="" class="imgFluid">
+                                <img src="{{ asset('assets/images/quad.jpg') }}" alt="" class="imgFluid">
                             </a>
                             <div class="custom-card__content">
                                 <div class="title">Bali, Indonesia</div>
