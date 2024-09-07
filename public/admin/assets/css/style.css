@@ -12,10 +12,10 @@
     /* --color-primary: #1c4d99; */
     /* --color-bg: #f5f3f7; */
     /* --color-primary-light: #0d0d0d1f; */
-    --color-primary: #b871ec;
+    --color-primary: #1c4d99;
     --color-primary-dark: #4e3c55;
-    --color-bg: #f6f3f7;
-    --color-primary-light: #f3defc;
+    --color-bg: #f5f3f7;
+    --color-primary-light: #1c4d9912;
     --text-color: #555256;
 }
 
@@ -294,6 +294,7 @@ ul.sidebar-nav li .active {
     font-size: 0.85rem;
     border: none;
     outline: none;
+    border-radius: 7px;
 }
 
 .custom-sec__header .button-dropdown .icon {
