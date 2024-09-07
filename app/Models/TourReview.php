@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class TourReview extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'tour_reviews';
 
     protected $fillable = [
@@ -18,11 +18,12 @@ class TourReview extends Model
         'review',
         'rating',
     ];
-    
+
     public function tour()
     {
         return $this->belongsTo(Tour::class);
     }
+
     public function user()
     {
         return $this->belongsTo(User::class);

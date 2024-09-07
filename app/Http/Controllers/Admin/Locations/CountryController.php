@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\Admin\Locations;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Country;
 use App\Models\Continent;
-use App\Traits\UploadImageTrait;
+use App\Models\Country;
 use App\Traits\Sluggable;
+use App\Traits\UploadImageTrait;
+use Illuminate\Http\Request;
 
 class CountryController extends Controller
 {
-    use UploadImageTrait;
     use Sluggable;
+    use UploadImageTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -33,13 +34,13 @@ class CountryController extends Controller
     public function create()
     {
         $continents = Continent::where('is_active', 1)->get();
+
         return view('admin.countries-management.add', compact('continents'))->with('title', 'Add New Country');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -68,7 +69,6 @@ class CountryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */
     public function show(Country $country)
@@ -79,20 +79,18 @@ class CountryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */
     public function edit(Country $country)
     {
         $continents = Continent::where('is_active', 1)->get();
+
         return view('admin.countries-management.edit', compact('country', 'continents'))->with('title', 'Edit Country');
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Country $country)
@@ -127,11 +125,9 @@ class CountryController extends Controller
             ->with('notify_success', 'Country updated successfully.');
     }
 
-
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */
     public function destroy(Country $country)
@@ -144,7 +140,7 @@ class CountryController extends Controller
 
     public function suspend(Country $country)
     {
-        $country->is_active = !$country->is_active;
+        $country->is_active = ! $country->is_active;
         $country->save();
 
         return redirect()->route('admin.countries.index')

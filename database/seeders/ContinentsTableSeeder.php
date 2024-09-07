@@ -1,8 +1,9 @@
 <?php
+
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Continent;
+use Illuminate\Database\Seeder;
 
 class ContinentsTableSeeder extends Seeder
 {

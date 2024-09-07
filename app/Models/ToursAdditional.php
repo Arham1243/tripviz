@@ -10,14 +10,13 @@ class ToursAdditional extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
-    
-    
-     public function additionalItems()
+
+    public function additionalItems()
     {
         return $this->hasMany(AdditionalItem::class, 'additional_id');
     }
-    
-     protected static function boot()
+
+    protected static function boot()
     {
         parent::boot();
 

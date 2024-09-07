@@ -2,11 +2,9 @@
 
 namespace App\Listeners;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use App\Events\SendResetPasswordLink;
-use Illuminate\Support\Facades\Mail;
 use App\Models\ImageTable;
+use Illuminate\Support\Facades\Mail;
 
 class SendResetPasswordLinkListener
 {
@@ -21,7 +19,7 @@ class SendResetPasswordLinkListener
     /**
      * Handle the event.
      */
-     public function handle(SendResetPasswordLink $event)
+    public function handle(SendResetPasswordLink $event)
     {
         $user = $event->user;
         $data = [
@@ -33,7 +31,7 @@ class SendResetPasswordLinkListener
         Mail::send('emails.reset-password', ['data' => $data], function ($message) use ($user) {
             $message->from(env('MAIL_FROM_ADDRESS'));
             $message->to($user->email)
-                ->subject('Password Reset - ' . env('MAIL_FROM_NAME'));
+                ->subject('Password Reset - '.env('MAIL_FROM_NAME'));
         });
     }
 }

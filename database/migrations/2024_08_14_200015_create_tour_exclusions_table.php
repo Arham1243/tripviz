@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tour_exclusions', function (Blueprint $table) {
             $table->id();
-              $table->foreignId('tour_id')->nullable()->constrained('tours')->onDelete('set null');
+            $table->foreignId('tour_id')->nullable()->constrained('tours')->onDelete('set null');
             $table->string('title')->nullable();
             $table->boolean('is_active')->default(1);
             $table->timestamps();

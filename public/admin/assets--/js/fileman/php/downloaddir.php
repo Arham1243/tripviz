@@ -1,6 +1,6 @@
 <?php
 /*
-  RoxyFileman - web based file manager. Ready to use with CKEditor, TinyMCE. 
+  RoxyFileman - web based file manager. Ready to use with CKEditor, TinyMCE.
   Can be easily integrated with any other WYSIWYG editor or CMS.
 
   Copyright (C) 2013, RoxyFileman.com - Lyubomir Arsov. All rights reserved.
@@ -30,26 +30,24 @@ $path = trim($_GET['d']);
 verifyPath($path);
 $path = fixPath($path);
 
-if(!class_exists('ZipArchive')){
-  echo '<script>alert("Cannot create zip archive - ZipArchive class is missing. Check your PHP version and configuration");</script>';
-}
-else{
-  try{
-    $filename = basename($path);
-    $zipFile = $filename.'.zip';
-    $zipPath = BASE_PATH.'/tmp/'.$zipFile;
-    RoxyFile::ZipDir($path, $zipPath);
+if (! class_exists('ZipArchive')) {
+    echo '<script>alert("Cannot create zip archive - ZipArchive class is missing. Check your PHP version and configuration");</script>';
+} else {
+    try {
+        $filename = basename($path);
+        $zipFile = $filename.'.zip';
+        $zipPath = BASE_PATH.'/tmp/'.$zipFile;
+        RoxyFile::ZipDir($path, $zipPath);
 
-    header('Content-Disposition: attachment; filename="'.$zipFile.'"');
-    header('Content-Type: application/force-download');
-    readfile($zipPath);
-    function deleteTmp($zipPath){
-      @unlink($zipPath);
+        header('Content-Disposition: attachment; filename="'.$zipFile.'"');
+        header('Content-Type: application/force-download');
+        readfile($zipPath);
+        function deleteTmp($zipPath)
+        {
+            @unlink($zipPath);
+        }
+        register_shutdown_function('deleteTmp', $zipPath);
+    } catch (Exception $ex) {
+        echo '<script>alert("'.addslashes(t('E_CreateArchive')).'");</script>';
     }
-    register_shutdown_function('deleteTmp', $zipPath);
-  }
-  catch(Exception $ex){
-    echo '<script>alert("'.  addslashes(t('E_CreateArchive')).'");</script>';
-  }
 }
-?>

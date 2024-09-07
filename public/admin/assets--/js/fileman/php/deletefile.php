@@ -1,6 +1,6 @@
 <?php
 /*
-  RoxyFileman - web based file manager. Ready to use with CKEditor, TinyMCE. 
+  RoxyFileman - web based file manager. Ready to use with CKEditor, TinyMCE.
   Can be easily integrated with any other WYSIWYG editor or CMS.
 
   Copyright (C) 2013, RoxyFileman.com - Lyubomir Arsov. All rights reserved.
@@ -29,12 +29,12 @@ checkAccess('DELETEFILE');
 $path = trim($_POST['f']);
 verifyPath($path);
 
-if(is_file(fixPath($path))){
-  if(unlink(fixPath($path)))
-    echo getSuccessRes();
-  else
-    echo getErrorRes(t('E_DeletеFile').' '.basename($path));
+if (is_file(fixPath($path))) {
+    if (unlink(fixPath($path))) {
+        echo getSuccessRes();
+    } else {
+        echo getErrorRes(t('E_DeletеFile').' '.basename($path));
+    }
+} else {
+    echo getErrorRes(t('E_DeleteFileInvalidPath'));
 }
-else
-  echo getErrorRes(t('E_DeleteFileInvalidPath'));
-?>

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin\Tour;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\ToursAdditional;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 
 class AdditionalController extends Controller
 {
@@ -17,6 +17,7 @@ class AdditionalController extends Controller
     public function index()
     {
         $toursAdditionals = ToursAdditional::all();
+
         return view('admin.tours-additionals.list', compact('toursAdditionals'))->with('title', 'Tours Additionals');
     }
 
@@ -33,7 +34,6 @@ class AdditionalController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -57,6 +57,7 @@ class AdditionalController extends Controller
     {
         try {
             $toursAdditional = ToursAdditional::findOrFail($id);
+
             return view('admin.tours-additionals.show', compact('toursAdditional'))->with('title', 'Tour Additional Details');
         } catch (ModelNotFoundException $e) {
             return redirect()->route('admin.tours-additionals.index')->with('notify_error', 'Tour Additional not found.');
@@ -73,6 +74,7 @@ class AdditionalController extends Controller
     {
         try {
             $toursAdditional = ToursAdditional::findOrFail($id);
+
             return view('admin.tours-additionals.edit', compact('toursAdditional'))->with('title', 'Edit Tour Additional');
         } catch (ModelNotFoundException $e) {
             return redirect()->route('admin.tours-additionals.index')->with('notify_error', 'Tour Additional not found.');
@@ -82,7 +84,6 @@ class AdditionalController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\ToursAdditional  $toursAdditional
      * @return \Illuminate\Http\Response
      */
@@ -131,7 +132,7 @@ class AdditionalController extends Controller
     {
         try {
             $toursAdditional = ToursAdditional::findOrFail($id);
-            $toursAdditional->is_active = !$toursAdditional->is_active;
+            $toursAdditional->is_active = ! $toursAdditional->is_active;
             $toursAdditional->save();
 
             return redirect()->route('admin.tours-additionals.index')->with('notify_success', 'Tour Additional status updated successfully.');

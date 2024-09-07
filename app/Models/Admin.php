@@ -10,5 +10,4 @@ class Admin extends Authenticatable
     protected $table = 'admins';
 
     public $timestamps = true;
-
 }

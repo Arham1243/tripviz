@@ -11,19 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-       Schema::create('tours', function (Blueprint $table) {
-        $table->id();
-        $table->string('title')->nullable();
-        $table->text('short_desc')->nullable();
-        $table->decimal('rating', 2, 1)->nullable();
-        $table->string('img_path')->nullable();
-        $table->decimal('for_adult_price', 8, 2)->nullable();
-        $table->decimal('for_child_price', 8, 2)->nullable();
-        $table->decimal('for_car_price', 8, 2)->nullable();
-        $table->enum('price_type', ['per_person', 'per_car'])->nullable(); // Add price_type column
-        $table->boolean('is_active')->default(1);
-        $table->timestamps();
-    });
+        Schema::create('tours', function (Blueprint $table) {
+            $table->id();
+            $table->string('title')->nullable();
+            $table->text('short_desc')->nullable();
+            $table->decimal('rating', 2, 1)->nullable();
+            $table->string('img_path')->nullable();
+            $table->decimal('for_adult_price', 8, 2)->nullable();
+            $table->decimal('for_child_price', 8, 2)->nullable();
+            $table->decimal('for_car_price', 8, 2)->nullable();
+            $table->enum('price_type', ['per_person', 'per_car'])->nullable(); // Add price_type column
+            $table->boolean('is_active')->default(1);
+            $table->timestamps();
+        });
     }
 
     /**

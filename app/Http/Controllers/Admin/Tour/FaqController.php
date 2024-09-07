@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin\Tour;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\ToursFaq;
 use App\Models\Tour;
-use Illuminate\Support\Facades\Validator;
+use App\Models\ToursFaq;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class FaqController extends Controller
 {
@@ -19,6 +19,7 @@ class FaqController extends Controller
     public function index()
     {
         $faqs = ToursFaq::all();
+
         return view('admin.tours-faqs-management.list', compact('faqs'))->with('title', 'FAQs');
     }
 
@@ -31,36 +32,34 @@ class FaqController extends Controller
     {
         // Filter tours where is_active = 1
         $tours = Tour::where('is_active', 1)->get();
+
         return view('admin.tours-faqs-management.add', compact('tours'))->with('title', 'Add New FAQ');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
- public function store(Request $request)
+    public function store(Request $request)
     {
-          $validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'question' => 'required|string',
             'answer' => 'required|string',
             'tour_id' => 'nullable|exists:tours,id',
         ]);
-        
-         if ($validator->fails()) {
-        return redirect()->back()
-            ->withErrors($validator)
-            ->withInput()
-            ->with('active_tab', 'faqs');
-    }
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput()
+                ->with('active_tab', 'faqs');
+        }
 
         ToursFaq::create($request->all());
 
-       return redirect()->back()->with('notify_success', 'FAQ added successfully.')->with('active_tab', 'faqs');
+        return redirect()->back()->with('notify_success', 'FAQ added successfully.')->with('active_tab', 'faqs');
     }
-
-
 
     /**
      * Display the specified resource.
@@ -72,6 +71,7 @@ class FaqController extends Controller
     {
         try {
             $faq = ToursFaq::findOrFail($id);
+
             return view('admin.tours-faqs-management.show', compact('faq'))->with('title', 'FAQ Details');
         } catch (ModelNotFoundException $e) {
             return redirect()->route('admin.tours-faqs.index')->with('notify_error', 'FAQ not found.');
@@ -90,6 +90,7 @@ class FaqController extends Controller
             $faq = ToursFaq::findOrFail($id);
             // Filter tours where is_active = 1
             $tours = Tour::where('is_active', 1)->get();
+
             return view('admin.tours-faqs-management.edit', compact('faq', 'tours'))->with('title', 'Edit FAQ');
         } catch (ModelNotFoundException $e) {
             return redirect()->route('admin.tours-faqs.index')->with('notify_error', 'FAQ not found.');
@@ -99,7 +100,6 @@ class FaqController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\ToursFaq  $toursFaq
      * @return \Illuminate\Http\Response
      */
@@ -150,7 +150,7 @@ class FaqController extends Controller
     {
         try {
             $faq = ToursFaq::findOrFail($id);
-            $faq->is_active = !$faq->is_active;
+            $faq->is_active = ! $faq->is_active;
             $faq->save();
 
             return redirect()->back()->with('notify_success', 'FAQ status updated successfully.')->with('active_tab', 'faqs');

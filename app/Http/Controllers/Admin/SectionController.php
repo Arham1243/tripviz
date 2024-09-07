@@ -4,13 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Section;
-use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Traits\UploadImageTrait;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 
 class SectionController extends Controller
 {
     use UploadImageTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -19,6 +20,7 @@ class SectionController extends Controller
     public function index()
     {
         $sections = Section::all();
+
         return view('admin.sections-management.list', compact('sections'))->with('title', 'Sections');
     }
 
@@ -42,7 +44,7 @@ class SectionController extends Controller
 
         // Create the city record
         $section = Section::create([
-            'section_name' => $request->section_name
+            'section_name' => $request->section_name,
         ]);
 
         // Handle the image upload
@@ -65,12 +67,13 @@ class SectionController extends Controller
             return view("admin.sections-management.sections.{$section->section_name}", compact('section'))
                 ->with('title', "Edit {$section_name} Section");
         }
+
         return redirect()->route('admin.sections.index')->with('notify_error', 'Section not found.');
     }
 
     public function update(Request $request, Section $section)
     {
-        $imageFields = ['bg_img', "card_bg_1", "card_bg_2", "card_bg_3"];
+        $imageFields = ['bg_img', 'card_bg_1', 'card_bg_2', 'card_bg_3'];
         $section->update($request->except($imageFields));
 
         $this->uploadImg('bg_img', 'bg_img', "Section/{$section->section_name}/Bg-img", $section);
@@ -80,7 +83,6 @@ class SectionController extends Controller
 
         return redirect()->route('admin.sections.index')->with('notify_success', 'Section Added successfully.');
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -110,7 +112,7 @@ class SectionController extends Controller
     {
         try {
             $section = Section::findOrFail($id);
-            $section->is_active = !$section->is_active;
+            $section->is_active = ! $section->is_active;
             $section->save();
 
             return redirect()->route('admin.sections.index')->with('notify_success', 'Section status updated successfully.');

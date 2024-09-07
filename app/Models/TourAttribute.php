@@ -8,13 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class TourAttribute extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'tour_attributes';
-    
-     protected $fillable = [
+
+    protected $fillable = [
         'tour_id',
         'title',
         'icon_class',
     ];
-    
 }

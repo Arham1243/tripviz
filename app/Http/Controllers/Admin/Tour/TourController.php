@@ -3,43 +3,45 @@
 namespace App\Http\Controllers\Admin\Tour;
 
 use App\Http\Controllers\Controller;
-use App\Models\Tour;
+use App\Models\AdditionalItem;
 use App\Models\Category;
 use App\Models\City;
-use App\Models\ToursFaq;
-use App\Models\TourItinerary;
+use App\Models\Tour;
 use App\Models\TourAttribute;
-use App\Models\TourInclusion;
 use App\Models\TourExclusion;
-use App\Models\AdditionalItem;
+use App\Models\TourInclusion;
+use App\Models\TourItinerary;
 use App\Models\ToursAdditional;
-use Illuminate\Http\Request;
-use App\Traits\UploadImageTrait;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Models\ToursFaq;
 use App\Traits\Sluggable;
+use App\Traits\UploadImageTrait;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TourController extends Controller
 {
-    use UploadImageTrait;
     use Sluggable;
+    use UploadImageTrait;
+
     public function index()
     {
         $tours = Tour::with(['category', 'city'])->latest()->get();
+
         return view('admin.tours-management.list', compact('tours'))->with('title', 'Tours');
     }
 
     public function create()
     {
-        $categories = Category::where("is_active", 1)->get();
+        $categories = Category::where('is_active', 1)->get();
 
-        $cities = City::where("is_active", 1)->get();
+        $cities = City::where('is_active', 1)->get();
+
         return view('admin.tours-management.add', compact('categories', 'cities'))->with('title', 'Add New Tour');
     }
 
     public function store(Request $request)
     {
-
 
         $priceType = $request->input('price_type');
 
@@ -82,13 +84,11 @@ class TourController extends Controller
         return redirect()->route('admin.tours.edit', $tour->id)->with('notify_success', 'Tour Added successfully.')->with('active_tab', 'details');
     }
 
-
-
-
     public function show($id)
     {
         try {
             $tour = Tour::findOrFail($id);
+
             return view('admin.tours-management.show', compact('tour'))->with('title', 'Tour Details');
         } catch (ModelNotFoundException $e) {
             return redirect()->route('admin.tours.index')->with('notify_error', 'Tour not found.');
@@ -99,16 +99,17 @@ class TourController extends Controller
     {
         try {
             $tour = Tour::findOrFail($id);
-            $categories = Category::where("is_active", 1)->get();
-            $cities = City::where("is_active", 1)->get();
-            $faqs = ToursFaq::where("tour_id", $tour->id)->with('tour')->get();
-            $itineraries = TourItinerary::where("tour_id", $tour->id)->orderBy('day', 'asc')->get();
-            $attributes = TourAttribute::where("tour_id", $tour->id)->get();
-            $inclusions = TourInclusion::where("tour_id", $tour->id)->get();
-            $exclusions = TourExclusion::where("tour_id", $tour->id)->get();
-            $additionals = ToursAdditional::where("is_active", 1)->get();
-            $additionalItems = AdditionalItem::where("tour_id", $tour->id)->get();
+            $categories = Category::where('is_active', 1)->get();
+            $cities = City::where('is_active', 1)->get();
+            $faqs = ToursFaq::where('tour_id', $tour->id)->with('tour')->get();
+            $itineraries = TourItinerary::where('tour_id', $tour->id)->orderBy('day', 'asc')->get();
+            $attributes = TourAttribute::where('tour_id', $tour->id)->get();
+            $inclusions = TourInclusion::where('tour_id', $tour->id)->get();
+            $exclusions = TourExclusion::where('tour_id', $tour->id)->get();
+            $additionals = ToursAdditional::where('is_active', 1)->get();
+            $additionalItems = AdditionalItem::where('tour_id', $tour->id)->get();
             $data = compact('tour', 'categories', 'cities', 'faqs', 'itineraries', 'attributes', 'inclusions', 'exclusions', 'additionals', 'additionalItems');
+
             return view('admin.tours-management.edit', $data)->with('title', 'Edit Tour');
         } catch (ModelNotFoundException $e) {
             return redirect()->route('admin.tours.index')->with('notify_error', 'Tour not found.');
@@ -139,14 +140,14 @@ class TourController extends Controller
             $rules['for_child_price'] = 'nullable'; // Ensure 'for_child_price' is not validated if not needed
         }
 
-        if (!$request->show_on_homepage) {
+        if (! $request->show_on_homepage) {
             $show_on_homepage = 0;
         }
 
         $validatedData = $request->validate($rules);
 
         // Set price_type and other fields
-        $data = array_merge($validatedData, ['price_type' => $priceType, 'show_on_homepage' => isset($show_on_homepage) ? $show_on_homepage :$request->show_on_homepage ]);
+        $data = array_merge($validatedData, ['price_type' => $priceType, 'show_on_homepage' => isset($show_on_homepage) ? $show_on_homepage : $request->show_on_homepage]);
 
         // Handle price fields based on price_type
         if ($priceType === 'per_person') {
@@ -157,7 +158,7 @@ class TourController extends Controller
         }
 
         // Generate new slug if the title has changed
-        if (!empty($validatedData['title']) && $validatedData['title'] !== $tour->title) {
+        if (! empty($validatedData['title']) && $validatedData['title'] !== $tour->title) {
             $data['slug'] = $this->createSlug($validatedData['title'], 'tours');
         }
 
@@ -172,8 +173,6 @@ class TourController extends Controller
 
         return redirect()->route('admin.tours.index')->with('notify_success', 'Tour updated successfully.');
     }
-
-
 
     public function destroy($id)
     {
@@ -191,7 +190,7 @@ class TourController extends Controller
     {
         try {
             $tour = Tour::findOrFail($id);
-            $tour->is_active = !$tour->is_active;
+            $tour->is_active = ! $tour->is_active;
             $tour->save();
 
             return redirect()->route('admin.tours.index')->with('notify_success', 'Tour status updated successfully.');
@@ -199,8 +198,6 @@ class TourController extends Controller
             return redirect()->route('admin.tours.index')->with('notify_error', 'Tour not found.');
         }
     }
-
-
 
     public function save_highlights(Request $request)
     {
@@ -215,7 +212,7 @@ class TourController extends Controller
                 ->withInput()
                 ->with('active_tab', 'highlights');
         }
-        Tour::where("id", $request->tour_id)->update(['highlights' => $request->highlights]);
+        Tour::where('id', $request->tour_id)->update(['highlights' => $request->highlights]);
 
         return redirect()->back()->with('notify_success', 'Highlights added successfully.')->with('active_tab', 'highlights');
     }

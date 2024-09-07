@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('tour_attributes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tour_id')->nullable()->constrained('tours')->onDelete('set null');
-            $table->string('title')->nullable();               
-            $table->string('icon_class')->nullable();         
-            $table->boolean('is_active')->default(true);       
+            $table->string('title')->nullable();
+            $table->string('icon_class')->nullable();
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ImageTable extends Model
 {
     protected $table = 'imagetables';
+
     protected $fillable = [
         'table_name',
         'img_path',
@@ -16,5 +16,4 @@ class ImageTable extends Model
         'short_desc',
         'is_active',
     ];
-
 }

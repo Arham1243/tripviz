@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tour_itineraries', function (Blueprint $table) {
-            $table->id(); 
+            $table->id();
             $table->foreignId('tour_id')->nullable()->constrained('tours')->onDelete('set null');
-            $table->integer('day')->nullable(); 
-            $table->string('title')->nullable(); 
-            $table->text('short_desc')->nullable(); 
-            $table->string('img_path')->nullable(); 
-            $table->boolean('is_active')->default(1); 
-            $table->timestamps(); 
+            $table->integer('day')->nullable();
+            $table->string('title')->nullable();
+            $table->text('short_desc')->nullable();
+            $table->string('img_path')->nullable();
+            $table->boolean('is_active')->default(1);
+            $table->timestamps();
         });
     }
 

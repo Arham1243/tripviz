@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('newsletters', function (Blueprint $table) {
             $table->id();
-             $table->string('email'); 
-            $table->boolean('is_active')->default(1); 
+            $table->string('email');
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tour_reviews', function (Blueprint $table) {
             $table->id();
-             $table->string('title')->nullable();
+            $table->string('title')->nullable();
             $table->text('review')->nullable();
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('tour_id')->nullable()->constrained('tours')->onDelete('set null');

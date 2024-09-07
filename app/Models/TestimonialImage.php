@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class TestimonialImage extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        "testimonial_id",
-        "img_path",
+        'testimonial_id',
+        'img_path',
     ];
 
     public function testimonial()

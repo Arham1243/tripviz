@@ -3,74 +3,67 @@
 namespace App\Http\Controllers\Admin\Tour;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Tour;
 use App\Models\TourItinerary;
-use App\Models\Tour; 
 use App\Traits\UploadImageTrait;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ItineraryController extends Controller
 {
-   use UploadImageTrait;
+    use UploadImageTrait;
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-      
-    }
+    public function index() {}
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-       
-    }
+    public function create() {}
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-{
-    $maxDay = TourItinerary::where('tour_id', $request->input('tour_id'))->max('day');
-    $nextDay = $maxDay ? $maxDay + 1 : 1;
+    {
+        $maxDay = TourItinerary::where('tour_id', $request->input('tour_id'))->max('day');
+        $nextDay = $maxDay ? $maxDay + 1 : 1;
 
-    $data = $request->all();
-    $data['day'] = $nextDay; 
+        $data = $request->all();
+        $data['day'] = $nextDay;
 
-    $validator = Validator::make($data, [
-        'tour_id' => 'required|exists:tours,id',
-        'day' => 'required|integer',
-        'title' => 'required|string',
-        'short_desc' => 'required|string',
-        'img_path' => 'required',
-    ]);
+        $validator = Validator::make($data, [
+            'tour_id' => 'required|exists:tours,id',
+            'day' => 'required|integer',
+            'title' => 'required|string',
+            'short_desc' => 'required|string',
+            'img_path' => 'required',
+        ]);
 
-    if ($validator->fails()) {
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput()
+                ->with('active_tab', 'itineraries');
+        }
+
+        $tourItinerary = TourItinerary::create($data);
+
+        $this->uploadImg('img_path', 'img_path', 'Tour/Itinerary', $tourItinerary);
+
         return redirect()->back()
-            ->withErrors($validator)
-            ->withInput()
+            ->with('notify_success', 'Tour itinerary added successfully.')
             ->with('active_tab', 'itineraries');
     }
-
-    $tourItinerary = TourItinerary::create($data);
-
-    $this->uploadImg('img_path', 'img_path', 'Tour/Itinerary', $tourItinerary);
-
-    return redirect()->back()
-                     ->with('notify_success', 'Tour itinerary added successfully.')
-                     ->with('active_tab', 'itineraries');
-}
-
 
     /**
      * Display the specified resource.
@@ -78,10 +71,7 @@ class ItineraryController extends Controller
      * @param  \App\Models\TourItinerary  $tourItinerary
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-      
-    }
+    public function show($id) {}
 
     /**
      * Show the form for editing the specified resource.
@@ -93,13 +83,13 @@ class ItineraryController extends Controller
     {
         $itinerary = TourItinerary::findOrFail($id);
         $tours = Tour::all(); // Assuming you have a Tour model
+
         return view('admin.tour.itineraries.edit', compact('itinerary', 'tours'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\TourItinerary  $tourItinerary
      * @return \Illuminate\Http\Response
      */
@@ -114,15 +104,16 @@ class ItineraryController extends Controller
             ]);
 
             $itinerary->update($request->except('img_path'));
-            
+
             $this->uploadImg('img_path', 'img_path', 'Tour/Itinerary', $itinerary);
+
             return redirect()->back()
-                             ->with('notify_success', 'Tour itinerary updated successfully.')
-                             ->with('active_tab', 'itineraries');
+                ->with('notify_success', 'Tour itinerary updated successfully.')
+                ->with('active_tab', 'itineraries');
         } catch (ModelNotFoundException $e) {
             return redirect()->back()
-                             ->with('notify_error', 'Tour itinerary not found.')
-                             ->with('active_tab', 'itineraries');
+                ->with('notify_error', 'Tour itinerary not found.')
+                ->with('active_tab', 'itineraries');
         }
     }
 
@@ -139,12 +130,12 @@ class ItineraryController extends Controller
             $itinerary->delete();
 
             return redirect()->back()
-                             ->with('notify_success', 'Tour itinerary deleted successfully.')
-                             ->with('active_tab', 'itineraries');
+                ->with('notify_success', 'Tour itinerary deleted successfully.')
+                ->with('active_tab', 'itineraries');
         } catch (ModelNotFoundException $e) {
             return redirect()->back()
-                             ->with('notify_error', 'Tour itinerary not found.')
-                             ->with('active_tab', 'itineraries');
+                ->with('notify_error', 'Tour itinerary not found.')
+                ->with('active_tab', 'itineraries');
         }
     }
 
@@ -158,16 +149,16 @@ class ItineraryController extends Controller
     {
         try {
             $itinerary = TourItinerary::findOrFail($id);
-            $itinerary->is_active = !$itinerary->is_active;
+            $itinerary->is_active = ! $itinerary->is_active;
             $itinerary->save();
 
             return redirect()->back()
-                             ->with('notify_success', 'Itinerary status updated successfully.')
-                             ->with('active_tab', 'itineraries');
+                ->with('notify_success', 'Itinerary status updated successfully.')
+                ->with('active_tab', 'itineraries');
         } catch (ModelNotFoundException $e) {
             return redirect()->back()
-                             ->with('notify_error', 'Itinerary not found.')
-                             ->with('active_tab', 'itineraries');
+                ->with('notify_error', 'Itinerary not found.')
+                ->with('active_tab', 'itineraries');
         }
     }
 }

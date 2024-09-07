@@ -1,9 +1,10 @@
 <?php
+
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\City;
 use App\Models\Country;
+use Illuminate\Database\Seeder;
 
 class CitiesTableSeeder extends Seeder
 {
@@ -35,7 +36,7 @@ class CitiesTableSeeder extends Seeder
 
         foreach ($cities as $countryName => $cityNames) {
             $country = $countries->get($countryName);
-            
+
             foreach ($cityNames as $cityName) {
                 City::create([
                     'name' => $cityName,

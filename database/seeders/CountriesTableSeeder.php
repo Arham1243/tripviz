@@ -1,9 +1,10 @@
 <?php
+
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\Country;
 use App\Models\Continent;
+use App\Models\Country;
+use Illuminate\Database\Seeder;
 
 class CountriesTableSeeder extends Seeder
 {
@@ -50,7 +51,7 @@ class CountriesTableSeeder extends Seeder
 
         foreach ($countries as $continentName => $countryNames) {
             $continent = $continents->get($continentName);
-            
+
             foreach ($countryNames as $countryName) {
                 Country::create([
                     'name' => $countryName,

@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class TourExclusion extends Model
 {
     use HasFactory;
-    protected $table = "tour_exclusions";
-    
+
+    protected $table = 'tour_exclusions';
+
     protected $fillable = [
         'title',
         'tour_id',

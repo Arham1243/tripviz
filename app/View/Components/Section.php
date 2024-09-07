@@ -2,13 +2,13 @@
 
 namespace App\View\Components;
 
-use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class Section extends Component
 {
     public $section;
+
     /**
      * Create a new component instance.
      */
@@ -26,7 +26,7 @@ class Section extends Component
             return null;
         }
 
-        $view = 'components.sections.' . $this->section->section_name;
+        $view = 'components.sections.'.$this->section->section_name;
 
         return view($view, ['section' => $this->section]);
     }

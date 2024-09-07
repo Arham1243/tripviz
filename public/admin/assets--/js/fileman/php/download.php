@@ -1,6 +1,6 @@
 <?php
 /*
-  RoxyFileman - web based file manager. Ready to use with CKEditor, TinyMCE. 
+  RoxyFileman - web based file manager. Ready to use with CKEditor, TinyMCE.
   Can be easily integrated with any other WYSIWYG editor or CMS.
 
   Copyright (C) 2013, RoxyFileman.com - Lyubomir Arsov. All rights reserved.
@@ -29,10 +29,9 @@ checkAccess('DOWNLOAD');
 $path = trim($_GET['f']);
 verifyPath($path);
 
-if(is_file(fixPath($path))){
-  $file = urldecode(basename($path));
-  header('Content-Disposition: attachment; filename="'.$file.'"');
-  header('Content-Type: application/force-download');
-  readfile(fixPath($path));
+if (is_file(fixPath($path))) {
+    $file = urldecode(basename($path));
+    header('Content-Disposition: attachment; filename="'.$file.'"');
+    header('Content-Type: application/force-download');
+    readfile(fixPath($path));
 }
-?>

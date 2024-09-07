@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class City extends Model
 {
-
     protected $fillable = ['name', 'country_id', 'show_on_homepage', 'img_path', 'slug', 'short_desc'];
 
     public function country()

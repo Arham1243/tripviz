@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin\Tour;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -17,6 +17,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
+
         return view('admin.categories-management.list', compact('categories'))->with('title', 'Categories');
     }
 
@@ -33,7 +34,6 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -57,6 +57,7 @@ class CategoryController extends Controller
     {
         try {
             $category = Category::findOrFail($id);
+
             return view('admin.categories-management.show', compact('category'))->with('title', 'Category Details');
         } catch (ModelNotFoundException $e) {
             return redirect()->route('admin.categories.index')->with('notify_error', 'Category not found.');
@@ -73,6 +74,7 @@ class CategoryController extends Controller
     {
         try {
             $category = Category::findOrFail($id);
+
             return view('admin.categories-management.edit', compact('category'))->with('title', 'Edit Category');
         } catch (ModelNotFoundException $e) {
             return redirect()->route('admin.categories.index')->with('notify_error', 'Category not found.');
@@ -82,7 +84,6 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
@@ -131,7 +132,7 @@ class CategoryController extends Controller
     {
         try {
             $category = Category::findOrFail($id);
-            $category->is_active = !$category->is_active;
+            $category->is_active = ! $category->is_active;
             $category->save();
 
             return redirect()->route('admin.categories.index')->with('notify_success', 'Category status updated successfully.');

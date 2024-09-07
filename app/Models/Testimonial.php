@@ -10,17 +10,16 @@ class Testimonial extends Model
     use HasFactory;
 
     protected $fillable = [
-        "title",
-        "content",
-        "rating",
-        "main_img_path",
+        'title',
+        'content',
+        'rating',
+        'main_img_path',
     ];
 
     public function images()
     {
         return $this->hasMany(TestimonialImage::class);
     }
-
 
     protected static function boot()
     {

@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tours_faqs', function (Blueprint $table) {
-        $table->id();
-        $table->text('question')->nullable();
-        $table->text('answer')->nullable();
-        $table->foreignId('tour_id')->nullable()->constrained('tours')->onDelete('set null');
-        $table->boolean('is_active')->default(1);
-        $table->timestamps();
-    });
+            $table->id();
+            $table->text('question')->nullable();
+            $table->text('answer')->nullable();
+            $table->foreignId('tour_id')->nullable()->constrained('tours')->onDelete('set null');
+            $table->boolean('is_active')->default(1);
+            $table->timestamps();
+        });
     }
 
     /**

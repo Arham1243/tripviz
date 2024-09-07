@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Promotion;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Traits\UploadImageTrait;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 
 class PromotionController extends Controller
 {
@@ -20,6 +20,7 @@ class PromotionController extends Controller
     public function index()
     {
         $promotions = Promotion::all();
+
         return view('admin.promotions-management.list', compact('promotions'))->with('title', 'Promotions');
     }
 
@@ -36,7 +37,6 @@ class PromotionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -48,7 +48,6 @@ class PromotionController extends Controller
         ]);
 
         $promotion = Promotion::create($request->except('img_path'));
-
 
         $this->uploadImg('img_path', 'img_path', 'Promotions/Thumbnail', $promotion);
 
@@ -65,6 +64,7 @@ class PromotionController extends Controller
     {
         try {
             $promotion = Promotion::findOrFail($id);
+
             return view('admin.promotions-management.show', compact('promotion'))->with('title', 'Promotion Details');
         } catch (ModelNotFoundException $e) {
             return redirect()->route('admin.promotions.index')->with('notify_error', 'Promotion not found.');
@@ -81,6 +81,7 @@ class PromotionController extends Controller
     {
         try {
             $promotion = Promotion::findOrFail($id);
+
             return view('admin.promotions-management.edit', compact('promotion'))->with('title', 'Edit Promotion');
         } catch (ModelNotFoundException $e) {
             return redirect()->route('admin.promotions.index')->with('notify_error', 'Promotion not found.');
@@ -90,7 +91,6 @@ class PromotionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Promotion  $promotion
      * @return \Illuminate\Http\Response
      */
@@ -143,7 +143,7 @@ class PromotionController extends Controller
     {
         try {
             $promotion = Promotion::findOrFail($id);
-            $promotion->is_active = !$promotion->is_active;
+            $promotion->is_active = ! $promotion->is_active;
             $promotion->save();
 
             return redirect()->route('admin.promotions.index')->with('notify_success', 'Promotion status updated successfully.');

@@ -2,11 +2,9 @@
 
 namespace App\Listeners;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use App\Events\SendVerificationEmail;
-use Illuminate\Support\Facades\Mail;
 use App\Models\ImageTable;
+use Illuminate\Support\Facades\Mail;
 
 class SendVerificationEmailListener
 {
@@ -33,7 +31,7 @@ class SendVerificationEmailListener
         Mail::send('emails.verify-email', ['data' => $data], function ($message) use ($user) {
             $message->from(env('MAIL_FROM_ADDRESS'));
             $message->to($user->email);
-            $message->subject('Please Verify Your Email Address - ' . env('MAIL_FROM_NAME'));
+            $message->subject('Please Verify Your Email Address - '.env('MAIL_FROM_NAME'));
         });
     }
 }

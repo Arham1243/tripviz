@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\Admin\Tour;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\TourExclusion;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ExclusionController extends Controller
 {
     public function index()
     {
         $exclusions = TourExclusion::all();
+
         return view('admin.exclusions-management.list', compact('exclusions'))->with('title', 'Exclusions');
     }
 
@@ -43,6 +44,7 @@ class ExclusionController extends Controller
     {
         try {
             $exclusion = TourExclusion::findOrFail($id);
+
             return view('admin.exclusions-management.show', compact('exclusion'))->with('title', 'Exclusion Details');
         } catch (ModelNotFoundException $e) {
             return redirect()->route('admin.exclusions.index')->with('notify_error', 'Exclusion not found.');
@@ -53,6 +55,7 @@ class ExclusionController extends Controller
     {
         try {
             $exclusion = TourExclusion::findOrFail($id);
+
             return view('admin.exclusions-management.edit', compact('exclusion'))->with('title', 'Edit Exclusion');
         } catch (ModelNotFoundException $e) {
             return redirect()->route('admin.exclusions.index')->with('notify_error', 'Exclusion not found.');
@@ -92,7 +95,7 @@ class ExclusionController extends Controller
     {
         try {
             $exclusion = TourExclusion::findOrFail($id);
-            $exclusion->is_active = !$exclusion->is_active;
+            $exclusion->is_active = ! $exclusion->is_active;
             $exclusion->save();
 
             return redirect()->back()->with('notify_success', 'Exclusion status updated successfully.')->with('active_tab', 'exclusions');

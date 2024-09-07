@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Testimonial;
 use App\Models\TestimonialImage;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Traits\UploadImageTrait;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 
 class TestimonialController extends Controller
 {
@@ -21,6 +21,7 @@ class TestimonialController extends Controller
     public function index()
     {
         $testimonials = Testimonial::all();
+
         return view('admin.testimonials-management.list', compact('testimonials'))->with('title', 'Testimonials');
     }
 
@@ -37,7 +38,6 @@ class TestimonialController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -51,10 +51,8 @@ class TestimonialController extends Controller
 
         ]);
 
-
         $testimonial = Testimonial::create($request->except('main_img_path'));
         $this->uploadImg('main_img_path', 'main_img_path', 'Testimonial/Images', $testimonial);
-
 
         if ($request->hasFile('testimonial_images')) {
             $images = $request->file('testimonial_images');
@@ -80,6 +78,7 @@ class TestimonialController extends Controller
     {
         try {
             $testimonial = Testimonial::findOrFail($id);
+
             return view('admin.testimonials-management.show', compact('testimonial'))->with('title', 'Testimonial Details');
         } catch (ModelNotFoundException $e) {
             return redirect()->route('admin.testimonials.index')->with('notify_error', 'Testimonial not found.');
@@ -106,7 +105,6 @@ class TestimonialController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Testimonial  $testimonial
      * @return \Illuminate\Http\Response
      */
@@ -171,7 +169,7 @@ class TestimonialController extends Controller
     {
         try {
             $testimonial = Testimonial::findOrFail($id);
-            $testimonial->is_active = !$testimonial->is_active;
+            $testimonial->is_active = ! $testimonial->is_active;
             $testimonial->save();
 
             return redirect()->route('admin.testimonials.index')->with('notify_success', 'Testimonial status updated successfully.');
@@ -180,12 +178,12 @@ class TestimonialController extends Controller
         }
     }
 
-
     public function deleteOtherImage($id)
     {
         try {
             $image = TestimonialImage::findOrFail($id);
             $image->delete();
+
             return redirect()->back()->with('notify_success', 'Image deleted successfully.');
         } catch (ModelNotFoundException $e) {
             return redirect()->back()->with('notify_error', 'Image not found.');

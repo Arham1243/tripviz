@@ -1,12 +1,13 @@
 <?php
+
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Events\Dispatcher;
-use App\Events\SendVerificationEmail;
-use App\Listeners\SendVerificationEmailListener;
 use App\Events\SendResetPasswordLink;
+use App\Events\SendVerificationEmail;
 use App\Listeners\SendResetPasswordLinkListener;
+use App\Listeners\SendVerificationEmailListener;
+use Illuminate\Events\Dispatcher;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {

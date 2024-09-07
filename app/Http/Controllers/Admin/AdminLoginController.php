@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-
-
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-
-
-use Auth;
 use App\Models\ImageTable;
+use Auth;
+use Illuminate\Http\Request;
 
 class AdminLoginController extends Controller
 {
@@ -18,7 +14,7 @@ class AdminLoginController extends Controller
         $logo = Imagetable::where('table_name', 'logo')->latest()->first();
         View()->share('logo', $logo);
     }
-    
+
     //------------------------- Authentication -------------------------
     public function login()
     {
@@ -30,6 +26,7 @@ class AdminLoginController extends Controller
 
         return view('admin.login', ['title' => 'Admin Login']);
     }
+
     public function performLogin(Request $request)
     {
         // Validate the request input
@@ -41,7 +38,7 @@ class AdminLoginController extends Controller
         // Attempt to authenticate the user
         if (Auth::guard('admin')->attempt([
             'email' => $validated['email'],
-            'password' => $validated['password']
+            'password' => $validated['password'],
         ])) {
             // Authentication passed
             return redirect()->route('admin.dashboard')->with('notify_success', 'You are logged in as Admin');
@@ -50,12 +47,13 @@ class AdminLoginController extends Controller
             return redirect()->back()->withInput($request->input())->with('notify_error', 'Invalid Credentials');
         }
     }
+
     public function logout()
     {
         Auth::guard('admin')->logout();
+
         return redirect()->route('admin.login')->with('notify_success', 'Logged Out!');
     }
     //------------------------- Authentication -------------------------
-
 
 }

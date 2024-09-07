@@ -1,23 +1,18 @@
 <?php
+
 namespace App\Http\Controllers\Admin\Tour;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\AdditionalItem;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AdditionalItemController extends Controller
 {
-    public function index()
-    {
-       
-    }
+    public function index() {}
 
-    public function create()
-    {
-       
-    }
+    public function create() {}
 
     public function store(Request $request)
     {
@@ -39,22 +34,14 @@ class AdditionalItemController extends Controller
         return redirect()->back()->with('notify_success', 'Additional Item added successfully.')->with('active_tab', 'additional-items');
     }
 
-    public function show($id)
-    {
-        
-    }
+    public function show($id) {}
 
-    public function edit($id)
-    {
-       
-    }
+    public function edit($id) {}
 
     public function update(Request $request, $id)
     {
         try {
             $additionalItem = AdditionalItem::findOrFail($id);
-
-            
 
             $additionalItem->update($request->all());
 
@@ -80,7 +67,7 @@ class AdditionalItemController extends Controller
     {
         try {
             $additionalItem = AdditionalItem::findOrFail($id);
-            $additionalItem->is_active = !$additionalItem->is_active;
+            $additionalItem->is_active = ! $additionalItem->is_active;
             $additionalItem->save();
 
             return redirect()->back()->with('notify_success', 'Additional Item status updated successfully.')->with('active_tab', 'additional-items');

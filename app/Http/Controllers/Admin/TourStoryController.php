@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\TourStory;
 use App\Models\City;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use App\Traits\UploadImageTrait;
+use App\Models\TourStory;
 use App\Traits\Sluggable;
+use App\Traits\UploadImageTrait;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 
 class TourStoryController extends Controller
 {
-    use UploadImageTrait;
     use Sluggable;
+    use UploadImageTrait;
 
     /**
      * Display a listing of the resource.
@@ -22,7 +22,8 @@ class TourStoryController extends Controller
      */
     public function index()
     {
-        $stories = TourStory::with("city")->get();
+        $stories = TourStory::with('city')->get();
+
         return view('admin.tour-stories-management.list', compact('stories'))->with('title', 'Tour Stories and News');
     }
 
@@ -33,15 +34,15 @@ class TourStoryController extends Controller
      */
     public function create()
     {
-        $cities = City::where("is_active", 1)->get();
+        $cities = City::where('is_active', 1)->get();
         $data = compact('cities');
+
         return view('admin.tour-stories-management.add', $data)->with('title', 'Add New Story');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -78,6 +79,7 @@ class TourStoryController extends Controller
     {
         try {
             $tourStory = TourStory::findOrFail($id);
+
             return view('admin.tour-stories-management.show', compact('tourStory'))->with('title', 'Story Details');
         } catch (ModelNotFoundException $e) {
             return redirect()->route('admin.tour-stories.index')->with('notify_error', 'Story not found.');
@@ -94,7 +96,8 @@ class TourStoryController extends Controller
     {
         try {
             $tourStory = TourStory::findOrFail($id);
-            $cities = City::where("is_active", 1)->get();
+            $cities = City::where('is_active', 1)->get();
+
             return view('admin.tour-stories-management.edit', compact('tourStory', 'cities'))->with('title', 'Edit Story');
         } catch (ModelNotFoundException $e) {
             return redirect()->route('admin.tour-stories.index')->with('notify_error', 'Story not found.');
@@ -104,7 +107,6 @@ class TourStoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\TourStory  $tourStory
      * @return \Illuminate\Http\Response
      */
@@ -146,7 +148,6 @@ class TourStoryController extends Controller
         }
     }
 
-
     /**
      * Remove the specified resource from storage.
      *
@@ -175,7 +176,7 @@ class TourStoryController extends Controller
     {
         try {
             $tourStory = TourStory::findOrFail($id);
-            $tourStory->is_active = !$tourStory->is_active;
+            $tourStory->is_active = ! $tourStory->is_active;
             $tourStory->save();
 
             return redirect()->route('admin.tour-stories.index')->with('notify_success', 'Story status updated successfully.');

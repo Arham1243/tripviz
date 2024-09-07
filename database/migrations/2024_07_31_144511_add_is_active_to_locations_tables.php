@@ -12,17 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('locations_tables', function (Blueprint $table) {
-               Schema::table('continents', function (Blueprint $table) {
-            $table->boolean('is_active')->default(1)->after('name');
-        });
+            Schema::table('continents', function (Blueprint $table) {
+                $table->boolean('is_active')->default(1)->after('name');
+            });
 
-        Schema::table('countries', function (Blueprint $table) {
-            $table->boolean('is_active')->default(1)->after('name');
-        });
+            Schema::table('countries', function (Blueprint $table) {
+                $table->boolean('is_active')->default(1)->after('name');
+            });
 
-        Schema::table('cities', function (Blueprint $table) {
-            $table->boolean('is_active')->default(1)->after('name');
-        });
+            Schema::table('cities', function (Blueprint $table) {
+                $table->boolean('is_active')->default(1)->after('name');
+            });
         });
     }
 
@@ -32,17 +32,17 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('locations_tables', function (Blueprint $table) {
-             Schema::table('continents', function (Blueprint $table) {
-            $table->dropColumn('is_active');
-        });
+            Schema::table('continents', function (Blueprint $table) {
+                $table->dropColumn('is_active');
+            });
 
-        Schema::table('countries', function (Blueprint $table) {
-            $table->dropColumn('is_active');
-        });
+            Schema::table('countries', function (Blueprint $table) {
+                $table->dropColumn('is_active');
+            });
 
-        Schema::table('cities', function (Blueprint $table) {
-            $table->dropColumn('is_active');
-        });
+            Schema::table('cities', function (Blueprint $table) {
+                $table->dropColumn('is_active');
+            });
         });
     }
 };

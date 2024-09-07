@@ -2,13 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Country extends Model
 {
-
-    protected $fillable = ['name', 'continent_id', 'img_path', 'short_desc', 'slug','show_on_homepage'];
+    protected $fillable = ['name', 'continent_id', 'img_path', 'short_desc', 'slug', 'show_on_homepage'];
 
     public function continent()
     {

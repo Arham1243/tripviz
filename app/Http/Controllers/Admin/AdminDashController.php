@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\ImageTable;
-use App\Models\User;
 use App\Models\Tour;
+use App\Models\User;
 use Schema;
 
 class AdminDashController extends Controller
@@ -19,20 +18,19 @@ class AdminDashController extends Controller
 
     public function dashboard()
     {
-        $users = User::where("is_active", 1)->get();
-        $tours = Tour::where("is_active", 1)->get();
-        $data = compact('users' ,'tours');
+        $users = User::where('is_active', 1)->get();
+        $tours = Tour::where('is_active', 1)->get();
+        $data = compact('users', 'tours');
+
         return view('admin.dashboard')->with('title', 'Dashboard')->with($data);
     }
-
-
-
 
     //------------------------- User Management -------------------------
     public function usersListing()
     {
         $users = User::get();
         $data = compact('users');
+
         return view('admin.users-management.list')->with('title', 'Users Management')->with($data);
     }
 
@@ -44,7 +42,7 @@ class AdminDashController extends Controller
         $user = User::find($id);
 
         // Get all columns for the `users` table
-        $table = (new User())->getTable();
+        $table = (new User)->getTable();
         $columns = Schema::getColumnListing($table);
 
         // Remove columns you don't want to show
@@ -56,6 +54,7 @@ class AdminDashController extends Controller
         // }
         // return redirect()->back()->with('notify_error', "User Not Found!");
     }
+
     public function suspendUser($id)
     {
         $user = User::find($id);
@@ -65,24 +64,24 @@ class AdminDashController extends Controller
             $statusMessage = $user->is_active
                 ? 'User Activated Successfully!'
                 : 'User Suspended Successfully!';
+
             return redirect()->back()->with('notify_success', $statusMessage);
         }
-        return redirect()->back()->with('notify_error', "User Not Found!");
+
+        return redirect()->back()->with('notify_error', 'User Not Found!');
     }
-
-
 
     public function deleteUser($id)
     {
         $user = User::find($id);
         if ($user) {
             $user->delete();
+
             return redirect()->back()->with('notify_success', 'User Deleted Successfuly!!');
         }
-        return redirect()->back()->with('notify_error', "User Not Found!");
+
+        return redirect()->back()->with('notify_error', 'User Not Found!');
     }
     //------------------------- User Management -------------------------
-
-
 
 }

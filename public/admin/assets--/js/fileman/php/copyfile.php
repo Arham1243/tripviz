@@ -1,6 +1,6 @@
 <?php
 /*
-  RoxyFileman - web based file manager. Ready to use with CKEditor, TinyMCE. 
+  RoxyFileman - web based file manager. Ready to use with CKEditor, TinyMCE.
   Can be easily integrated with any other WYSIWYG editor or CMS.
 
   Copyright (C) 2013, RoxyFileman.com - Lyubomir Arsov. All rights reserved.
@@ -26,21 +26,22 @@ include 'functions.inc.php';
 verifyAction('COPYFILE');
 checkAccess('COPYFILE');
 
-$path = trim(empty($_POST['f'])?'':$_POST['f']);
-$newPath = trim(empty($_POST['n'])?'':$_POST['n']);
-if(!$newPath)
-  $newPath = getFilesPath();
+$path = trim(empty($_POST['f']) ? '' : $_POST['f']);
+$newPath = trim(empty($_POST['n']) ? '' : $_POST['n']);
+if (! $newPath) {
+    $newPath = getFilesPath();
+}
 
 verifyPath($path);
 verifyPath($newPath);
 
-if(is_file(fixPath($path))){
-  $newPath = $newPath.'/'.RoxyFile::MakeUniqueFilename(fixPath($newPath), basename($path));
-  if(copy(fixPath($path), fixPath($newPath)))
-    echo getSuccessRes();
-  else
-    echo getErrorRes(t('E_CopyFile'));
+if (is_file(fixPath($path))) {
+    $newPath = $newPath.'/'.RoxyFile::MakeUniqueFilename(fixPath($newPath), basename($path));
+    if (copy(fixPath($path), fixPath($newPath))) {
+        echo getSuccessRes();
+    } else {
+        echo getErrorRes(t('E_CopyFile'));
+    }
+} else {
+    echo getErrorRes(t('E_CopyFileInvalisPath'));
 }
-else
-  echo getErrorRes(t('E_CopyFileInvalisPath'));
-?>

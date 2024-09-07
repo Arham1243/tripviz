@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin\Tour;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\TourAttribute;
-use App\Models\Tour;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AttributesController extends Controller
 {
@@ -16,25 +15,18 @@ class AttributesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-
-    }
+    public function index() {}
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-
-    }
+    public function create() {}
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -47,9 +39,9 @@ class AttributesController extends Controller
 
         if ($validator->fails()) {
             return redirect()->back()
-                             ->withErrors($validator)
-                             ->withInput()
-                             ->with('active_tab', 'attributes');
+                ->withErrors($validator)
+                ->withInput()
+                ->with('active_tab', 'attributes');
         }
 
         $data = $request->all();
@@ -57,8 +49,8 @@ class AttributesController extends Controller
         TourAttribute::create($data);
 
         return redirect()->back()
-                         ->with('notify_success', 'Tour attribute added successfully.')
-                         ->with('active_tab', 'attributes');
+            ->with('notify_success', 'Tour attribute added successfully.')
+            ->with('active_tab', 'attributes');
     }
 
     /**
@@ -67,10 +59,7 @@ class AttributesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-
-    }
+    public function show($id) {}
 
     /**
      * Show the form for editing the specified resource.
@@ -78,15 +67,11 @@ class AttributesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-
-    }
+    public function edit($id) {}
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -102,20 +87,20 @@ class AttributesController extends Controller
 
             if ($validator->fails()) {
                 return redirect()->back()
-                                 ->withErrors($validator)
-                                 ->withInput()
-                                 ->with('active_tab', 'attributes');
+                    ->withErrors($validator)
+                    ->withInput()
+                    ->with('active_tab', 'attributes');
             }
 
             $attribute->update($request->all());
 
             return redirect()->back()
-                             ->with('notify_success', 'Tour attribute updated successfully.')
-                             ->with('active_tab', 'attributes');
+                ->with('notify_success', 'Tour attribute updated successfully.')
+                ->with('active_tab', 'attributes');
         } catch (ModelNotFoundException $e) {
             return redirect()->back()
-                             ->with('notify_error', 'Tour attribute not found.')
-                             ->with('active_tab', 'attributes');
+                ->with('notify_error', 'Tour attribute not found.')
+                ->with('active_tab', 'attributes');
         }
     }
 
@@ -132,12 +117,12 @@ class AttributesController extends Controller
             $attribute->delete();
 
             return redirect()->back()
-                             ->with('notify_success', 'Tour attribute deleted successfully.')
-                             ->with('active_tab', 'attributes');
+                ->with('notify_success', 'Tour attribute deleted successfully.')
+                ->with('active_tab', 'attributes');
         } catch (ModelNotFoundException $e) {
             return redirect()->back()
-                             ->with('notify_error', 'Tour attribute not found.')
-                             ->with('active_tab', 'attributes');
+                ->with('notify_error', 'Tour attribute not found.')
+                ->with('active_tab', 'attributes');
         }
     }
 
@@ -151,16 +136,16 @@ class AttributesController extends Controller
     {
         try {
             $attribute = TourAttribute::findOrFail($id);
-            $attribute->is_active = !$attribute->is_active;
+            $attribute->is_active = ! $attribute->is_active;
             $attribute->save();
 
             return redirect()->back()
-                             ->with('notify_success', 'Attribute status updated successfully.')
-                             ->with('active_tab', 'attributes');
+                ->with('notify_success', 'Attribute status updated successfully.')
+                ->with('active_tab', 'attributes');
         } catch (ModelNotFoundException $e) {
             return redirect()->back()
-                             ->with('notify_error', 'Attribute not found.')
-                             ->with('active_tab', 'attributes');
+                ->with('notify_error', 'Attribute not found.')
+                ->with('active_tab', 'attributes');
         }
     }
 }

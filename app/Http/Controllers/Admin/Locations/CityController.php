@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\Admin\Locations;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\City;
 use App\Models\Country;
-use App\Traits\UploadImageTrait;
 use App\Traits\Sluggable;
+use App\Traits\UploadImageTrait;
+use Illuminate\Http\Request;
 
 class CityController extends Controller
 {
-    use UploadImageTrait;
     use Sluggable;
+    use UploadImageTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -33,13 +34,13 @@ class CityController extends Controller
     public function create()
     {
         $countries = Country::where('is_active', 1)->get();
+
         return view('admin.cities-management.add', compact('countries'))->with('title', 'Add New City');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -68,11 +69,9 @@ class CityController extends Controller
         return redirect()->route('admin.cities.index')->with('notify_success', 'City created successfully.');
     }
 
-
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
     public function show(City $city)
@@ -83,20 +82,18 @@ class CityController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
     public function edit(City $city)
     {
         $countries = Country::where('is_active', 1)->get();
+
         return view('admin.cities-management.edit', compact('city', 'countries'))->with('title', 'Edit City');
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, City $city)
@@ -109,32 +106,30 @@ class CityController extends Controller
             'show_on_homepage' => 'nullable', // Ensure this is a boolean
             'short_desc' => 'required',
         ]);
-    
+
         // Generate a unique slug based on the name
         $slug = $this->createSlug($request->input('name'), 'cities');
-    
+
         // Add the slug to the validated data
         $data = array_merge($validatedData, ['slug' => $slug]);
-    
+
         // Set show_on_homepage to 0 if not present in the request
         $data['show_on_homepage'] = $request->has('show_on_homepage') ? $validatedData['show_on_homepage'] : 0;
-    
+
         // Update the city record
         $city->update($data);
-    
+
         // Handle the image upload if a new image is provided
         if ($request->hasFile('img_path')) {
             $this->uploadImg('img_path', 'img_path', 'City/Thumbnail', $city);
         }
-    
+
         return redirect()->route('admin.cities.index')->with('notify_success', 'City updated successfully.');
     }
-    
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
     public function destroy(City $city)
@@ -146,7 +141,7 @@ class CityController extends Controller
 
     public function suspend(City $city)
     {
-        $city->is_active = !$city->is_active;
+        $city->is_active = ! $city->is_active;
         $city->save();
 
         return redirect()->route('admin.cities.index')->with('notify_success', 'City status updated successfully.');

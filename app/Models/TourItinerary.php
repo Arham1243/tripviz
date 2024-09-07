@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class TourItinerary extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'tour_itineraries';
 
     protected $fillable = [
