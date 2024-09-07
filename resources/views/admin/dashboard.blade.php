@@ -125,7 +125,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="custom-box">
+                    <div class="custom-box mt-4">
                         <div class="custom-box__header">
                             <div class="title">Top Destinations</div>
                             <div class="dropstart">
@@ -138,7 +138,8 @@
                                     <li>
                                         <a class="dropdown-item" href="javascript:void(0)">
                                             <lord-icon
-                                                src="https://media.lordicon.com/icons/system/solid/92-visability.json"
+                                            src="https://cdn.lordicon.com/xljvqlng.json"
+
                                                 trigger="loop" delay="2000">
                                             </lord-icon>
                                             Show by Orders
@@ -149,7 +150,9 @@
 
 
                                             <lord-icon
-                                                src="https://media.lordicon.com/icons/wired/outline/2465-restriction.json"
+                                            src="https://cdn.lordicon.com/wmlleaaf.json"
+
+
                                                 trigger="loop" delay="2000" colors="primary:#000,secondary:#000">
                                             </lord-icon>Show by Inquiries
                                         </a>
