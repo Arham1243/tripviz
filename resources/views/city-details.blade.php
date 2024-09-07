@@ -153,7 +153,7 @@
                             Latest stories from {{ $city->name }}
                         </h2>
                     </div>
-                   
+
                 </div>
                 <div class="row pt-3">
                     @if ($stories->count() > 0)

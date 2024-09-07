@@ -92,13 +92,15 @@
                         <div class="form-group">
                             <label>Show On Homepage:</label>
                             <div class="input-field--check">
-                                <input type="checkbox" name="show_on_homepage" id="show_on_homepage" value="1" value="1" {{ old('show_on_homepage', $tourStory->show_on_homepage) ? 'checked' : '' }}>
+                                <input type="checkbox" name="show_on_homepage" id="show_on_homepage" value="1"
+                                    value="1"
+                                    {{ old('show_on_homepage', $tourStory->show_on_homepage) ? 'checked' : '' }}>
                                 <label for="show_on_homepage" class="toggle">Yes</label>
                             </div>
                         </div>
                     </div>
-                    
-                    
+
+
                     <div class="col-lg-12 col-12">
                         <div class="text-center">
                             <button class="primary-btn primary-bg">Save Changes</button>

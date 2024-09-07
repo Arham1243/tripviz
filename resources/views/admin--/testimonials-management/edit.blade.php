@@ -121,11 +121,11 @@
                                             <td>
 
 
-                                                    <a href="{{ asset($image->img_path ?? 'admin/assets/images/placeholder.png') }}"
-                                                        data-fancybox="gallery">
-                                                        <img src='{{ asset($image->img_path ?? 'admin/assets/images/placeholder.png') }}'
-                                                            alt='image' class='imgFluid list-img' loading='lazy'>
-                                                    </a>
+                                                <a href="{{ asset($image->img_path ?? 'admin/assets/images/placeholder.png') }}"
+                                                    data-fancybox="gallery">
+                                                    <img src='{{ asset($image->img_path ?? 'admin/assets/images/placeholder.png') }}'
+                                                        alt='image' class='imgFluid list-img' loading='lazy'>
+                                                </a>
                                             </td>
 
                                             <td>

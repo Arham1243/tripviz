@@ -41,9 +41,10 @@
                                         <td>{{ $city->country ? $city->country->name : 'N/A' }}</td>
                                         <td>{{ $city->name }}</td>
                                         <td>
-                                            <a href="{{ asset($city->img_path ?? 'admin/assets/images/placeholder.png') }}" data-fancybox="gallery">
-                                            <img src='{{ asset($city->img_path ?? 'admin/assets/images/placeholder.png') }}'
-                                                alt='image' class='imgFluid list-img' loading='lazy'>
+                                            <a href="{{ asset($city->img_path ?? 'admin/assets/images/placeholder.png') }}"
+                                                data-fancybox="gallery">
+                                                <img src='{{ asset($city->img_path ?? 'admin/assets/images/placeholder.png') }}'
+                                                    alt='image' class='imgFluid list-img' loading='lazy'>
                                             </a>
                                         </td>
                                         <td>{{ $city->show_on_homepage == 1 ? 'yes' : 'no' }}</td>

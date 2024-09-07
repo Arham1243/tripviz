@@ -40,7 +40,7 @@
                     <div class="col-lg-4 text-center">
                         <div class="img-upload-wrapper">
                             <h3>Promotion Thumbnail</h3>
-                            <figure><img src="{{ asset($promotion->img_path ??'admin/assets/images/placeholder.png') }}"
+                            <figure><img src="{{ asset($promotion->img_path ?? 'admin/assets/images/placeholder.png') }}"
                                     class="thumbnail-img main_image rounded" id="product-img" alt="Image"></figure>
                             <label for="img_path" class="user-img-btn"><i class="fa fa-camera"></i></label>
                             <input type="file" {{ $promotion->img_path == null ? 'required' : '' }}

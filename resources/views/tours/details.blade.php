@@ -127,15 +127,16 @@
                                                 <x-star-rating :rating="$tour->average_rating" />
                                             </li>
                                         </ul>
-                                        
+
                                         <span>
                                             @if ($tour->reviews->count() > 0)
-                                                {{ $tour->reviews->count() }} Review{{ $tour->reviews->count() > 1 ? 's' : '' }}
+                                                {{ $tour->reviews->count() }}
+                                                Review{{ $tour->reviews->count() > 1 ? 's' : '' }}
                                             @else
                                                 No Reviews Yet
                                             @endif
                                         </span>
-                                        
+
                                     </div>
                                 </div>
                                 <div class=tour-content__headerLocation--details>

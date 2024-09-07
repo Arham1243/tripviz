@@ -15,7 +15,8 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 
-                        <a onclick="return confirm('Do you really want to Logout?')" class="dropdown-item" href="{{ route('admin.logout') }}">Logout</a>
+                        <a onclick="return confirm('Do you really want to Logout?')" class="dropdown-item"
+                            href="{{ route('admin.logout') }}">Logout</a>
                     </div>
                 </div>
                 <div class="header-main__menu">

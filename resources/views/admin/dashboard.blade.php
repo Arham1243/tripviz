@@ -1,54 +1,5 @@
 @extends('admin.dash_layouts.main')
 @section('content')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <div class="col-md-9">
         <div class="dashboard-content">
             <div class="revenue">
@@ -186,10 +137,8 @@
                                 <ul class="dropdown-menu">
                                     <li>
                                         <a class="dropdown-item" href="javascript:void(0)">
-                                            <lord-icon
-                                            src="https://cdn.lordicon.com/xljvqlng.json"
-
-                                                trigger="loop" delay="2000">
+                                            <lord-icon src="https://cdn.lordicon.com/xljvqlng.json" trigger="loop"
+                                                delay="2000">
                                             </lord-icon>
                                             Show by Orders
                                         </a>
@@ -198,11 +147,8 @@
                                         <a class="dropdown-item" href="javascript:void(0)">
 
 
-                                            <lord-icon
-                                            src="https://cdn.lordicon.com/wmlleaaf.json"
-
-
-                                                trigger="loop" delay="2000" colors="primary:#000,secondary:#000">
+                                            <lord-icon src="https://cdn.lordicon.com/wmlleaaf.json" trigger="loop"
+                                                delay="2000" colors="primary:#000,secondary:#000">
                                             </lord-icon>Show by Inquiries
                                         </a>
                                     </li>

@@ -19,8 +19,9 @@
                             <label>Select Tour*:</label>
                             <select name="tour_id" class="form-control">
                                 <option disabled selected>Select</option>
-                                @foreach($tours as $tour)
-                                    <option value="{{ $tour->id }}" {{ old('tour_id') == $tour->id ? 'selected' : '' }}>{{ $tour->title }}</option>
+                                @foreach ($tours as $tour)
+                                    <option value="{{ $tour->id }}" {{ old('tour_id') == $tour->id ? 'selected' : '' }}>
+                                        {{ $tour->title }}</option>
                                 @endforeach
                             </select>
                             @if ($errors->has('tour_id'))
@@ -32,7 +33,8 @@
                     <div class="col-lg-12 col-md-12 col-12">
                         <div class="form-group">
                             <label>Question*:</label>
-                            <input type="text" name="question" class="form-control" placeholder="Enter Question" required value="{{ old('question') }}">
+                            <input type="text" name="question" class="form-control" placeholder="Enter Question" required
+                                value="{{ old('question') }}">
                             @if ($errors->has('question'))
                                 <span class="error">{{ $errors->first('question') }}</span>
                             @endif
@@ -49,7 +51,7 @@
                         </div>
                     </div>
 
-                   
+
 
                     <div class="col-lg-12 col-12">
                         <div class="text-center">

@@ -52,8 +52,8 @@
                     <div class="col-lg-12 col-md-12 col-12">
                         <div class="form-group">
                             <label> Promotion Message*:</label>
-                            <input type="text" name="promotion_message" class="form-control" placeholder="Enter " required
-                                value="{{ $section->promotion_message }}">
+                            <input type="text" name="promotion_message" class="form-control" placeholder="Enter "
+                                required value="{{ $section->promotion_message }}">
                             @if ($errors->has('promotion_message'))
                                 <span class="error">{{ $errors->first('promotion_message') }}</span>
                             @endif

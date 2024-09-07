@@ -10,7 +10,8 @@
                     </div>
                 </div>
             </div>
-            <form action="{{ route('admin.tours-faqs.update', $faq->id) }}" method="POST" enctype="multipart/form-data" class="main-form">
+            <form action="{{ route('admin.tours-faqs.update', $faq->id) }}" method="POST" enctype="multipart/form-data"
+                class="main-form">
                 @csrf
                 @method('PATCH')
 
@@ -20,8 +21,9 @@
                             <label>Select Tour*:</label>
                             <select name="tour_id" class="form-control" required>
                                 <option disabled selected>Select</option>
-                                @foreach($tours as $tour)
-                                    <option value="{{ $tour->id }}" {{ old('tour_id', $faq->tour_id) == $tour->id ? 'selected' : '' }}>
+                                @foreach ($tours as $tour)
+                                    <option value="{{ $tour->id }}"
+                                        {{ old('tour_id', $faq->tour_id) == $tour->id ? 'selected' : '' }}>
                                         {{ $tour->title }}
                                     </option>
                                 @endforeach
@@ -34,7 +36,8 @@
                     <div class="col-lg-12 col-md-12 col-12">
                         <div class="form-group">
                             <label>Question*:</label>
-                            <input type="text" name="question" value="{{ old('question', $faq->question) }}" class="form-control" placeholder="Enter question" required>
+                            <input type="text" name="question" value="{{ old('question', $faq->question) }}"
+                                class="form-control" placeholder="Enter question" required>
                             @if ($errors->has('question'))
                                 <span class="error">{{ $errors->first('question') }}</span>
                             @endif
@@ -50,16 +53,16 @@
                         </div>
                     </div>
 
-                  
+
 
                     <div class="col-lg-12 col-12">
                         <div class="text-center">
                             <button class="primary-btn primary-bg">Save Changes</button>
                         </div>
                     </div>
-                </form>
-            </div>
+            </form>
         </div>
+    </div>
     </div>
 @endsection
 

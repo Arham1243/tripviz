@@ -5,7 +5,7 @@
   <script src="{{ asset('admin/assets/js/ckeditor/ckeditor.js') }}"></script>
   <script src="{{ asset('admin/assets/js/ckeditor/config.js') }}"></script>
   <script src="https://cdn.ckeditor.com/4.24.0-lts/standard/ckeditor.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
   <script src="{{ asset('admin/assets/js/custom.js') }}"></script>
   <script src="{{ asset('admin/login/assets/js/jquery.toast.js') }}"></script>

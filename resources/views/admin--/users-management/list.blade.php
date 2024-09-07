@@ -34,7 +34,7 @@
                                             <td>{{ $user->signup_method }}</td>
                                             <td>{{ $user->full_name }}</td>
                                             <td>{{ $user->email }}</td>
-                                            
+
 
                                             <td>
                                                 <span

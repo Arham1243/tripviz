@@ -66,7 +66,7 @@
                                                         href="{{ route('admin.sections.suspend', $section->id) }}"><i
                                                             class="fa fa-ban" aria-hidden="true"></i>
                                                         {{ $section->is_active != 0 ? 'Suspend' : 'Activate' }}</a>
-{{-- 
+                                                    {{-- 
                                                     <form action="{{ route('admin.sections.destroy', $section->id) }}"
                                                         method="POST" style="display:inline;">
                                                         @csrf

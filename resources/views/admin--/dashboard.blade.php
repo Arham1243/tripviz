@@ -10,7 +10,7 @@
                             <h2>Quick Links</h2>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="row">
 
@@ -46,8 +46,6 @@
         </div>
     </div>
     </div>
-
-   
 @endsection
 @section('css')
     <style type="text/css">

@@ -18,8 +18,8 @@
                     <div class="col-lg-12 col-md-12 col-12">
                         <div class="form-group">
                             <label>Section Name*:</label>
-                            <input type="text" name="section_name" class="form-control" placeholder="Enter  "
-                                required value="{{ old('section_name') }}">
+                            <input type="text" name="section_name" class="form-control" placeholder="Enter  " required
+                                value="{{ old('section_name') }}">
                             @if ($errors->has('section_name'))
                                 <span class="error">{{ $errors->first('section_name') }}</span>
                             @endif

@@ -61,8 +61,8 @@
                             <div class="form-group">
                                 <label>Email Verified:</label>
                                 <input type="text" name="email_verified"
-                                    value="{{ $user->email_verified == 1 ? 'Yes' : 'No' }}" class="form-control" placeholder=""
-                                    readonly>
+                                    value="{{ $user->email_verified == 1 ? 'Yes' : 'No' }}" class="form-control"
+                                    placeholder="" readonly>
                             </div>
                         </div>
                     @endif

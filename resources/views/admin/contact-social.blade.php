@@ -55,7 +55,8 @@
                                 <label class="title">Phone<span class="text-danger">*</span>:</label>
                                 <div class="relative-div">
                                     <input type="text" name="COMPANYPHONE" class="field"
-                                        value="{{ $config['COMPANYPHONE'] ?? '' }}" placeholder="Enter Phone Number" required>
+                                        value="{{ $config['COMPANYPHONE'] ?? '' }}" placeholder="Enter Phone Number"
+                                        required>
                                 </div>
                             </div>
                         </div>
@@ -73,7 +74,8 @@
                                 <label class="title">Email<span class="text-danger">*</span>:</label>
                                 <div class="relative-div">
                                     <input type="email" name="COMPANYEMAIL" class="field"
-                                        value="{{ $config['COMPANYEMAIL'] ?? '' }}" placeholder="Enter Email Address" required>
+                                        value="{{ $config['COMPANYEMAIL'] ?? '' }}" placeholder="Enter Email Address"
+                                        required>
                                 </div>
                             </div>
                         </div>

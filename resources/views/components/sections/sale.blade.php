@@ -3,7 +3,7 @@
         <div class="sale-card mt-3">
             <div class=sale-card__content>
                 <div class=discount-label>
-                    {{ $section->heading ?? ''}}
+                    {{ $section->heading ?? '' }}
                 </div>
                 <div class=sale-info>
                     <div class=sale-label>{{ $section->subHeading ?? '' }}</div>

@@ -68,7 +68,7 @@
         </div>
     </div>
 
-   
+
 
 
     @if (!$tours->isEmpty())

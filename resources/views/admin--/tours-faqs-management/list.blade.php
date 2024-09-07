@@ -51,17 +51,21 @@
                                                     <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                                 </a>
                                                 <div class="dropdown-menu" aria-labelledby="action-dropdown">
-                                                    <a class="dropdown-item" href="{{ route('admin.tours-faqs.edit', $faq->id) }}">
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('admin.tours-faqs.edit', $faq->id) }}">
                                                         <i class="fa fa-pen" aria-hidden="true"></i> Edit
                                                     </a>
-                                                    <a class="dropdown-item" href="{{ route('admin.tours-faqs.suspend', $faq->id) }}">
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('admin.tours-faqs.suspend', $faq->id) }}">
                                                         <i class="fa fa-ban" aria-hidden="true"></i>
                                                         {{ $faq->is_active != 0 ? 'Suspend' : 'Activate' }}
                                                     </a>
-                                                    <form action="{{ route('admin.tours-faqs.destroy', $faq->id) }}" method="POST" style="display:inline;">
+                                                    <form action="{{ route('admin.tours-faqs.destroy', $faq->id) }}"
+                                                        method="POST" style="display:inline;">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')">
+                                                        <button type="submit" class="dropdown-item"
+                                                            onclick="return confirm('Are you sure you want to delete?')">
                                                             <i class="fa fa-trash" aria-hidden="true"></i> Delete
                                                         </button>
                                                     </form>

@@ -52,11 +52,11 @@
                 <div class="col-lg-12 col-md-12 col-12">
                     <div class="form-group">
                         <label>Rating:</label>
-                    <div class="stars">
-                        @for ($i = 0; $i < 5; $i++)
-                            <i class='bx {{ $i < $review->rating ? 'bxs' : 'bx' }}-star'></i>
-                        @endfor
-                    </div>
+                        <div class="stars">
+                            @for ($i = 0; $i < 5; $i++)
+                                <i class='bx {{ $i < $review->rating ? 'bxs' : 'bx' }}-star'></i>
+                            @endfor
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-12 col-12 py-1">
@@ -71,9 +71,9 @@
                 <div class="col-lg-8 col-md-8 col-12 col-center">
                     <div class="user-img-wrapper mc-b-3">
                         <figure class="">
-                            <a href="{{ $review->user && $review->user->avatar ? $review->user->avatar :  asset('assets/images/avatar.png') }}"
+                            <a href="{{ $review->user && $review->user->avatar ? $review->user->avatar : asset('assets/images/avatar.png') }}"
                                 data-fancybox="gallery">
-                                <img src="{{ $review->user && $review->user->avatar ? $review->user->avatar :  asset('assets/images/avatar.png') }}"
+                                <img src="{{ $review->user && $review->user->avatar ? $review->user->avatar : asset('assets/images/avatar.png') }}"
                                     class="user-details-img" alt="user-img">
                             </a>
                         </figure>
@@ -95,7 +95,7 @@
                 <div class="col-lg-12 col-12 mt-4">
                     <div class="d-flex align-items-center justify-content-center">
                         <a href="{{ route('admin.tour-reviews.index') }}" class="primary-btn primary-bg mx-3">Go Back</a>
-                        <a href="{{ route('admin.tour-reviews.suspend',$review->id) }}"
+                        <a href="{{ route('admin.tour-reviews.suspend', $review->id) }}"
                             class="primary-btn primary-bg mx-3 {{ $review->is_active == 0 ? 'bg-success' : 'bg-danger' }}">{{ $review->is_active == 0 ? 'Activate' : 'Suspend' }}</a>
                     </div>
                 </div>
@@ -110,10 +110,10 @@
 @endsection
 @section('css')
     <style type="text/css">
-    .stars i {
-    color: orange;
-    font-size: 1.75rem;
-}
+        .stars i {
+            color: orange;
+            font-size: 1.75rem;
+        }
     </style>
 @endsection
 @section('js')

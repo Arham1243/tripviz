@@ -20,7 +20,7 @@
                     <div class="col-lg-6 col-md-6 col-12">
                         <div class="form-group">
                             <label>Facebook:</label>
-                            <input type="url" name="FACEBOOK"  class="form-control"
+                            <input type="url" name="FACEBOOK" class="form-control"
                                 value="{{ $config['FACEBOOK'] ?? '' }} " placeholder="Enter Facebook Address">
                         </div>
                     </div>
@@ -28,7 +28,7 @@
                     <div class="col-lg-6 col-md-6 col-12">
                         <div class="form-group">
                             <label>Instagram:</label>
-                            <input type="url" name="INSTAGRAM"  class="form-control"
+                            <input type="url" name="INSTAGRAM" class="form-control"
                                 value="{{ $config['INSTAGRAM'] ?? '' }}" placeholder="Enter Instagram Address">
                         </div>
                     </div>
@@ -36,8 +36,8 @@
                     <div class="col-lg-6 col-md-6 col-12">
                         <div class="form-group">
                             <label>Twitter:</label>
-                            <input type="url" name="TWITTER"  class="form-control"
-                                value="{{ $config['TWITTER'] ?? '' }}" placeholder="Enter Twitter Address">
+                            <input type="url" name="TWITTER" class="form-control" value="{{ $config['TWITTER'] ?? '' }}"
+                                placeholder="Enter Twitter Address">
                         </div>
                     </div>
 
@@ -50,7 +50,7 @@
                             </div>
                         </div>
                     </div> --}}
-                 
+
                     <div class="col-12">
                         <hr>
                     </div>
@@ -61,7 +61,7 @@
                         <div class="form-group">
                             <label>Phone:</label>
                             <div class="relative-div">
-                                <input type="text" name="COMPANYPHONE"  class="form-control"
+                                <input type="text" name="COMPANYPHONE" class="form-control"
                                     value="{{ $config['COMPANYPHONE'] ?? '' }}" placeholder="Enter Phone Number">
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                         <div class="form-group">
                             <label>Email:</label>
                             <div class="relative-div">
-                                <input type="email" name="COMPANYEMAIL"  class="form-control"
+                                <input type="email" name="COMPANYEMAIL" class="form-control"
                                     value="{{ $config['COMPANYEMAIL'] ?? '' }}" placeholder="Enter Email Address">
                             </div>
                         </div>

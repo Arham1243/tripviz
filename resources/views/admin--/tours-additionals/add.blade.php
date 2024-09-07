@@ -11,14 +11,16 @@
                 </div>
 
             </div>
-            <form action="{{ route('admin.tours-additionals.store') }}" method="POST" enctype="multipart/form-data" class="main-form">
+            <form action="{{ route('admin.tours-additionals.store') }}" method="POST" enctype="multipart/form-data"
+                class="main-form">
                 @csrf
 
                 <div class="row justify-content-center">
                     <div class="col-lg-6 col-md-12 col-12">
                         <div class="form-group">
                             <label> Name*:</label>
-                            <input type="text" name="name" class="form-control" placeholder="Enter Name" required value="{{ old('name') }}">
+                            <input type="text" name="name" class="form-control" placeholder="Enter Name" required
+                                value="{{ old('name') }}">
                             @if ($errors->has('name'))
                                 <span class="error">{{ $errors->first('name') }}</span>
                             @endif
@@ -47,7 +49,5 @@
     </style>
 @endsection
 @section('js')
-    <script type="text/javascript">
-       
-    </script>
+    <script type="text/javascript"></script>
 @endsection

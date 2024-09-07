@@ -2,7 +2,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "format:php": "./vendor/bin/pint",
+        "format:php": "php ./vendor/bin/pint",
         "format:blade": "blade-formatter --write resources/views/**/*.blade.php",
         "format": "npm run format:php && npm run format:blade",
         "dev": "vite",

@@ -41,7 +41,7 @@
             line-height: 100%;
             outline: none;
             text-decoration: none;
-           object-fit:contain;
+            object-fit: contain;
         }
 
         #outlook a {

@@ -23,7 +23,7 @@
 
     <script type="text/javascript">
         (() => {
-          
+
             @if (session('notify_success') || isset($_GET['notify_success']))
                 $.toast({
                     heading: 'Success!',

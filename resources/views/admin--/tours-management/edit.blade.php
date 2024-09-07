@@ -183,7 +183,8 @@
                                 <div class="form-group">
                                     <label>Show On Homepage:</label>
                                     <div class="input-field--check">
-                                        <input type="checkbox" name="show_on_homepage" id="show_on_homepage" value="1" {{ $tour->show_on_homepage == 1 ? 'checked' : '' }}>
+                                        <input type="checkbox" name="show_on_homepage" id="show_on_homepage"
+                                            value="1" {{ $tour->show_on_homepage == 1 ? 'checked' : '' }}>
                                         <label for="show_on_homepage" class="toggle">Yes</label>
                                     </div>
                                 </div>

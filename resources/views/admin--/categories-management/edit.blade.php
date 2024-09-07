@@ -14,8 +14,8 @@
             <form action="{{ route('admin.categories.update', $category->id) }}" method="POST" enctype="multipart/form-data"
                 class="main-form">
 
-@csrf
-@method('PATCH') 
+                @csrf
+                @method('PATCH')
 
                 <div class="row justify-content-center">
                     <div class="col-lg-6 col-md-12 col-12">
@@ -48,7 +48,5 @@
     </style>
 @endsection
 @section('js')
-    <script type="text/javascript">
-        
-    </script>
+    <script type="text/javascript"></script>
 @endsection
