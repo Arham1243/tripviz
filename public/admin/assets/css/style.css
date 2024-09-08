@@ -245,20 +245,20 @@ ul.sidebar-nav li .active {
 .input-search {
     display: flex;
     align-items: center;
-    justify-content: center;
     background: #fff;
     padding: 0 10px;
     border-radius: 7px;
     gap: 7px;
-    height: 40px;
+    line-height: 0;
 }
 
 .input-search input {
     border: none;
     outline: none;
-    font-size: 15px;
     text-transform: capitalize;
     color: #777;
+    font-size: 13px;
+    width: 100%;
 }
 
 .input-search .search-icon {
@@ -267,6 +267,7 @@ ul.sidebar-nav li .active {
     outline: none;
     font-size: 21px;
     color: #777;
+    height: 40px;
 }
 
 .custom-sec__header {
