@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminBlogController;
 use App\Http\Controllers\Admin\AdminDashController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\Locations\CityController;
@@ -95,6 +96,8 @@ Route::middleware('guest')->prefix('admin')->namespace('Admin')->group(function 
 Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashController::class, 'dashboard'])->name('dashboard');
     Route::get('/logout', [AdminLoginController::class, 'logout'])->name('logout');
+
+    Route::resource('blogs', AdminBlogController::class);
 
     // ---------------------------------------Logo Management---------------------------------------
     Route::get('/logo-management', [SiteSettingsController::class, 'showLogo'])->name('showLogo');

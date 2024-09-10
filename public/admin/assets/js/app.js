@@ -15,7 +15,32 @@ function showImage(input, previewImgId, filenamePreviewId) {
     }
 }
 let table = new DataTable('.data-table');
+// $('.data-table').dataTable( {
+//     "columnDefs": [ {
+//       "targets": 'no-sort',
+//       "orderable": false,
+// }]
+// } );
 
-$(".custom-dropdown__active").click(function () {
-    $(this).parent().toggleClass("open");
+document.addEventListener('DOMContentLoaded', function() {
+    // Get all dropdowns
+    const dropdowns = document.querySelectorAll('.custom-dropdown__active');
+
+    // Add click event listener to each dropdown trigger
+    dropdowns.forEach(function(dropdown) {
+        dropdown.addEventListener('click', function(e) {
+            // Prevent default action for anchor tags
+            e.preventDefault();
+
+            // Toggle the 'open' class on the current dropdown
+            const parentDropdown = this.parentElement;
+            parentDropdown.classList.toggle('open');
+            
+            // If it has sub-dropdowns, toggle its children as well
+            const subDropdown = parentDropdown.querySelector('.custom-dropdown__values');
+            if (subDropdown) {
+                subDropdown.classList.toggle('open');
+            }
+        });
+    });
 });
