@@ -2,25 +2,19 @@
 @section('content')
     <div class="col-md-12">
         <div class="dashboard-content">
-            <nav style="--bs-breadcrumb-divider: '/';" aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#"><i class='bx bxs-home'></i>Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="#">News</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">All</li>
-                </ol>
-            </nav>
+            {{ Breadcrumbs::render('admin.blogs.index') }}
             <div class="table-container universal-table">
                 <div class="custom-sec">
                     <div class="custom-sec__header">
                         <div class="section-content">
                             <h3 class="heading">{{ isset($title) ? $title : '' }}</h3>
                         </div>
-                        <a href="#" class="themeBtn">Add new blog</a>
+                        <a href="{{ route('admin.blogs.create') }}" class="themeBtn">Add new blog</a>
                     </div>
                     <div class="row">
                         <div class="col-md-5">
                             <form class="custom-form ">
-                                <div class="custom-form__fields d-flex gap-3">
+                                <div class="form-fields d-flex gap-3">
                                     <select class="field" name="bulk_actions">
                                         <option value="" disabled selected>Bulk Actions</option>
                                         <option value="publish">Publish</option>

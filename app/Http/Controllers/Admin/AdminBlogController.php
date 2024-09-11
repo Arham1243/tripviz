@@ -29,9 +29,8 @@ class AdminBlogController extends Controller
      */
     public function create()
     {
-        $countries = Country::where('is_active', 1)->get();
 
-        return view('admin.cities-management.add', compact('countries'))->with('title', 'Add New City');
+        return view('admin.blogs-management.add')->with('title', 'Add New Blog');
     }
 
     /**

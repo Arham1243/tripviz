@@ -40,7 +40,7 @@
                         @foreach ($fields as $field)
                             @if (!in_array($field, $columns_to_ignore) && $user->$field != null)
                                 <div class="col-md-6">
-                                    <div class="custom-form__fields">
+                                    <div class="form-fields">
                                         <label class="title">
                                             {{ ucwords(str_replace('_', ' ', $field)) }}:
                                         </label>
@@ -52,7 +52,7 @@
                         @endforeach
                         @if ($user->signup_method == 'email')
                             <div class="col-md-6">
-                                <div class="custom-form__fields">
+                                <div class="form-fields">
                                     <label class="title">Email Verified:</label>
                                     <input type="text" class="field"
                                         value="{{ $user->email_verified == 1 ? 'Yes' : 'No' }}" readonly>
@@ -61,7 +61,7 @@
                         @endif
                     </div>
                     <div class="col-md-12 mt-3">
-                        <div class="custom-form__fields">
+                        <div class="form-fields">
                             <a href="{{ route('admin.usersListing') }}" class="themeBtn themeBtn--center">Go back</a>
                         </div>
                     </div>

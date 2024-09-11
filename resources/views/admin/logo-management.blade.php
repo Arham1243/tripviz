@@ -27,7 +27,7 @@
                             </div>
                         </div>
                         <div class="col-md-12 mt-2">
-                            <div class="custom-form__fields">
+                            <div class="form-fields">
                                 <button class="themeBtn themeBtn--center">Save Changes</button>
                             </div>
                         </div>

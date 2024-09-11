@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "diglactic/laravel-breadcrumbs": "^9.0",
         "laravel/framework": "^11.9",
         "laravel/socialite": "^5.15",
         "laravel/tinker": "^2.9"
