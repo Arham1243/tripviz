@@ -44,3 +44,64 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const choiceSelects = document.querySelectorAll('.choice-select');
+    choiceSelects.forEach(select => {
+        new Choices(select, {
+            searchEnabled: true,
+            itemSelectText: '',
+            placeholder: true,
+            placeholderValue: select.getAttribute('placeholder'),
+            removeItemButton: true
+        });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const uploadComponents = document.querySelectorAll('[data-upload]');
+
+    uploadComponents.forEach(uploadComponent => {
+        const fileInput = uploadComponent.querySelector('[data-file-input]');
+        const uploadBox = uploadComponent.querySelector('[data-upload-box]');
+        const uploadImgBox = uploadComponent.querySelector('[data-upload-img]');
+        const uploadPreview = uploadComponent.querySelector('[data-upload-preview]');
+        const deleteBtn = uploadComponent.querySelector('[data-delete-btn]');
+        const errorMessage = uploadComponent.querySelector('[data-error-message]');
+        // Handle file upload
+        fileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    // Set the uploaded image preview
+                    uploadPreview.src = e.target.result;
+                };
+
+                reader.readAsDataURL(file);
+
+                // Hide upload box and show image box
+                uploadBox.classList.remove('show');
+                uploadImgBox.classList.add('show');
+
+
+                errorMessage.classList.add('d-none');
+            } else {
+                // Show error message if file type doesn't match
+                errorMessage.classList.remove('d-none');
+                fileInput.value = '';
+            }
+        });
+
+        // Handle delete button click
+        deleteBtn.addEventListener('click', function() {
+            fileInput.value = '';
+            uploadBox.classList.add('show');
+            uploadImgBox.classList.remove('show');;
+        });
+    });
+});
