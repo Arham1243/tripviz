@@ -26,7 +26,7 @@
                                 @enderror
                             </div>
                             <div class="form-fields">
-                                <textarea id="editor"></textarea>
+                                <textarea class="editor" name="long_desc"></textarea>
 
 
 

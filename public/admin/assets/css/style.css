@@ -960,6 +960,11 @@ label.placeholder-user__img::after {
     margin-bottom: 1rem;
 }
 
+.editor {
+    height: 600px; 
+    width: 100%; 
+    max-width: 100%; 
+}
 .form-fields .field,
 .choices__list--single,
 .choices__input {

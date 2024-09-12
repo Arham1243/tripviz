@@ -122,3 +122,12 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const editors = document.querySelectorAll(".editor");
+    editors.forEach((editor) => {
+        ClassicEditor.create(editor).catch((error) => {
+            console.error(error);
+        });
+    });
+});
