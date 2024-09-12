@@ -26,6 +26,7 @@
                                 @enderror
                             </div>
                             <div class="form-fields">
+                                <label class="title">Content <span class="text-danger">*</span> :</label>
                                 <textarea class="editor" name="long_desc"></textarea>
 
 
