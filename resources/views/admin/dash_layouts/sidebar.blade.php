@@ -21,7 +21,7 @@
                         [
                             'title' => 'Add Blog',
                             'icon' => 'bx bx-plus',
-                            'route' => 'javascript:void(0)',
+                            'route' => route('admin.blogs.create'),
                         ],
                     ],
                 ],

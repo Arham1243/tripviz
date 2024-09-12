@@ -284,6 +284,35 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-box">
+                        <div class="form-box__header">
+                            <div class="title">Options</div>
+                        </div>
+                        <div class="form-box__body">
+                            <div class="form-fields">
+                                <label class="title">Category <span class="text-danger">*</span> :</label>
+                                <select name="category_ids" class="choice-select" placeholder="Select Category">
+                                    <option value="1">Option 1</option>
+                                    <option value="2">Option 2</option>
+                                    <option value="3">Option 3</option>
+                                </select>
+                                @error('category_ids')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-fields">
+                                <label class="title">Tags <span class="text-danger">*</span> :</label>
+                                <select name="tags_ids[]" class="choice-select" multiple placeholder="Select Tags">
+                                    <option value="1">Option 1</option>
+                                    <option value="2">Option 2</option>
+                                    <option value="3">Option 3</option>
+                                </select>
+                                @error('tags_ids')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

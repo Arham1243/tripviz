@@ -961,8 +961,9 @@ label.placeholder-user__img::after {
 }
 
 .form-fields .field,
-.choices__list--single {
-    width: 100%;
+.choices__list--single,
+.choices__input {
+    width: 100% !important;
     padding: 0.7rem 1rem;
     border-radius: 0.25rem;
     border: 1px solid #cccccc5c;
@@ -971,12 +972,15 @@ label.placeholder-user__img::after {
     font-size: 0.85rem;
     font-weight: 500;
     transition: all 300ms;
+    background: #fff;
 }
 
-.form-fields .field::placeholder {
-    font: inherit;
-    color: inherit;
-    opacity: 0.75;
+.form-fields .field::placeholder,
+.choices__list--single::placeholder,
+.choices__input::placeholder {
+    font: inherit !important;
+    color: inherit !important;
+    opacity: 0.75 !important;
 }
 /* .upload-box */
 .upload {
@@ -1345,4 +1349,20 @@ a.custom-dropdown__active {
     font-size: 0.8rem !important;
     opacity: 0.85;
 }
+.choices__inner {
+    padding: 0 !important;
+}
+
+.choices__list--multiple .choices__item {
+    background: var(--color-primary);
+}
+.choices__list--multiple {
+    display: block;
+    margin: 0.5rem 0;
+}
+.choices[data-type="select-multiple"] .choices__inner {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
 /* choices */
