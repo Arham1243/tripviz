@@ -99,9 +99,6 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashController::class, 'dashboard'])->name('dashboard');
     Route::get('/logout', [AdminLoginController::class, 'logout'])->name('logout');
 
-    Route::resource('blogs', AdminBlogController::class);
-    Route::resource('blogs-categories', AdminBlogsCategoriesController::class);
-    Route::resource('blogs-tags', AdminBlogsTagsController::class);
 
     // ---------------------------------------Logo Management---------------------------------------
     Route::get('/logo-management', [SiteSettingsController::class, 'showLogo'])->name('showLogo');
@@ -222,6 +219,15 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('tour-stories', AdminTourStoryController::class);
     Route::get('tour-stories/{id}/suspend', [AdminTourStoryController::class, 'suspend'])->name('tour-stories.suspend');
     // ---------------------------------------tour stories management---------------------------------------
+
+    Route::resource('blogs', AdminBlogController::class);
+
+
+    Route::resource('blogs-categories', AdminBlogsCategoriesController::class);
+    Route::post('blogs-categories/bulk-actions', [AdminBlogsCategoriesController::class, 'bulkActions'])->name('blogs-categories.bulk-actions');
+
+
+    Route::resource('blogs-tags', AdminBlogsTagsController::class);
 
 });
 

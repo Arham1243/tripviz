@@ -19,7 +19,7 @@ function showImage(input, previewImgId, filenamePreviewId) {
         reader.readAsDataURL(file);
     } else if (file) {
         alert(
-            "Please select a valid image file. Supported formats: JPEG, PNG, GIF, WEBP, SVG, BMP, TIFF.",
+            "Please select a valid image file. Supported formats: JPEG, PNG, GIF, WEBP, SVG, BMP, TIFF."
         );
         input.value = "";
     }
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // If it has sub-dropdowns, toggle its children as well
             const subDropdown = parentDropdown.querySelector(
-                ".custom-dropdown__values",
+                ".custom-dropdown__values"
             );
             if (subDropdown) {
                 subDropdown.classList.toggle("open");
@@ -80,11 +80,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const uploadBox = uploadComponent.querySelector("[data-upload-box]");
         const uploadImgBox = uploadComponent.querySelector("[data-upload-img]");
         const uploadPreview = uploadComponent.querySelector(
-            "[data-upload-preview]",
+            "[data-upload-preview]"
         );
         const deleteBtn = uploadComponent.querySelector("[data-delete-btn]");
         const errorMessage = uploadComponent.querySelector(
-            "[data-error-message]",
+            "[data-error-message]"
         );
         // Handle file upload
         fileInput.addEventListener("change", function (event) {
@@ -130,22 +130,26 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const selectAllCheckbox = document.getElementById("select-all");
     const itemCheckboxes = document.querySelectorAll(".bulk-item");
 
-    function toggleSelectAll() {
-        const isChecked = selectAllCheckbox.checked;
-        itemCheckboxes.forEach(function(checkbox) {
-            checkbox.checked = isChecked;
+    if (itemCheckboxes && selectAllCheckbox) {
+        function toggleSelectAll() {
+            const isChecked = selectAllCheckbox.checked;
+            itemCheckboxes.forEach(function (checkbox) {
+                checkbox.checked = isChecked;
+            });
+        }
+        function handleItemCheckboxChange() {
+            const allChecked = Array.from(itemCheckboxes).every(
+                (checkbox) => checkbox.checked
+            );
+            selectAllCheckbox.checked = allChecked;
+        }
+        selectAllCheckbox.addEventListener("change", toggleSelectAll);
+        itemCheckboxes.forEach(function (checkbox) {
+            checkbox.addEventListener("change", handleItemCheckboxChange);
         });
     }
-    function handleItemCheckboxChange() {
-        const allChecked = Array.from(itemCheckboxes).every(checkbox => checkbox.checked);
-        selectAllCheckbox.checked = allChecked;
-    }
-    selectAllCheckbox.addEventListener("change", toggleSelectAll);
-    itemCheckboxes.forEach(function(checkbox) {
-        checkbox.addEventListener("change", handleItemCheckboxChange);
-    });
 });
