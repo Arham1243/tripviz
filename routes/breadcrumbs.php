@@ -24,3 +24,9 @@ Breadcrumbs::for('admin.blogs-categories.index', function (BreadcrumbTrail $trai
     $trail->parent('admin.blogs.index');
     $trail->push('Categories', route('admin.blogs-categories.index'));
 });
+
+// Blogs Tags
+Breadcrumbs::for('admin.blogs-tags.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.blogs.index');
+    $trail->push('Tags', route('admin.blogs-tags.index'));
+});

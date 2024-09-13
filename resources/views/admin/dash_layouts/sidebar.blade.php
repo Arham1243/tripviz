@@ -31,7 +31,7 @@
                         [
                             'title' => 'Tags',
                             'icon' => 'bx bx-tag',
-                            'route' => 'javascript:void(0)',
+                            'route' => route('admin.blogs-tags.index'),
                         ],
                     ],
                 ],

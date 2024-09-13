@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminDashController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\Blog\BlogController as AdminBlogController;
 use App\Http\Controllers\Admin\Blog\CategoriesController as AdminBlogsCategoriesController;
+use App\Http\Controllers\Admin\Blog\TagsController as AdminBlogsTagsController;
 use App\Http\Controllers\Admin\Locations\CityController;
 use App\Http\Controllers\Admin\Locations\ContinentController;
 use App\Http\Controllers\Admin\Locations\CountryController;
@@ -100,6 +101,7 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('blogs', AdminBlogController::class);
     Route::resource('blogs-categories', AdminBlogsCategoriesController::class);
+    Route::resource('blogs-tags', AdminBlogsTagsController::class);
 
     // ---------------------------------------Logo Management---------------------------------------
     Route::get('/logo-management', [SiteSettingsController::class, 'showLogo'])->name('showLogo');
