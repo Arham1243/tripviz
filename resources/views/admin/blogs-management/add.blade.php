@@ -55,7 +55,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col- mt-4">
+                                <div class="col-12 mt-4">
                                     <div class="tabs-wrapper">
                                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                                             <li class="nav-item" role="presentation">
@@ -129,6 +129,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+
 
                                             <!-- Facebook Tab -->
                                             <div class="tab-pane fade" id="profile" role="tabpanel"
@@ -239,7 +240,31 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-box">
+                        <div class="form-box__header">
+                            <div class="title">Search Engine</div>
+                        </div>
+                        <div class="form-box__body">
+                            <div class="google-preview">
+                                <div class="google-preview__header">
+                                    <div class="logo">
+                                        <img src="{{ asset('favicon.ico') }}" alt="Favicon" class="imgFluid">
+                                    </div>
+                                    <div class="content">
+                                        <div class="title">My travel</div>
+                                        <a href=""
+                                            class="link">https://docs.google.com/document/d/18tB2C5fCwh4x-9gC7elqdLDDfFdVJbS0JVxlusQ8xgE/edit</a>
+                                    </div>
+                                </div>
+                                <div class="google-preview__content">
+                                    <div class="heading">Lorem ipsum dolor sit.</div>
+                                    <div class="description">Lorem ipsum dolor sit amet consectetur
+                                        adipisicing elit. Velit ex veniam fugit saepe exercitationem,
+                                        veritatis repellendus unde laborum illum quis.</div>
                                 </div>
                             </div>
                         </div>

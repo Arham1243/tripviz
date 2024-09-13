@@ -13,7 +13,14 @@ Breadcrumbs::for('admin.blogs.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
     $trail->push('Blogs', route('admin.blogs.index'));
 });
+
 Breadcrumbs::for('admin.blogs.create', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.blogs.index');
     $trail->push('Add Blog', route('admin.blogs.create'));
+});
+
+// Blogs Categories
+Breadcrumbs::for('admin.blogs-categories.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.blogs.index');
+    $trail->push('Categories', route('admin.blogs-categories.index'));
 });

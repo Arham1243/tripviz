@@ -11,7 +11,7 @@
                         </div>
                         <a href="{{ route('admin.blogs.create') }}" class="themeBtn">Add new blog</a>
                     </div>
-                    <div class="row">
+                    <div class="row mb-4">
                         <div class="col-md-5">
                             <form class="custom-form ">
                                 <div class="form-fields d-flex gap-3">
@@ -31,8 +31,9 @@
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>
-                                        <div class="selecttion no-sort"><input type="checkbox"></div>
+                                    <th class="no-sort">
+                                        <div class="selection select-all-container"><input type="checkbox" id="select-all">
+                                        </div>
                                     </th>
                                     <th>Name</th>
                                     <th>Category</th>
@@ -45,7 +46,8 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        <div class="selecttion"><input type="checkbox"></div>
+                                        <div class="selection item-select-container"><input type="checkbox"
+                                                class="bulk-item" name="bulk_select[]" value="1"></div>
                                     </td>
                                     <td>
                                         <div class="link">Morning in the northern sea</div>
@@ -64,7 +66,8 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="selecttion"><input type="checkbox"></div>
+                                        <div class="selection item-select-container"><input type="checkbox"
+                                                class="bulk-item" name="bulk_select[]" value="1"></div>
                                     </td>
                                     <td>
                                         <div class="link">Morning in the northern sea</div>
@@ -83,7 +86,8 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="selecttion"><input type="checkbox"></div>
+                                        <div class="selection item-select-container"><input type="checkbox"
+                                                class="bulk-item" name="bulk_select[]" value="1"></div>
                                     </td>
                                     <td>
                                         <div class="link">Morning in the northern sea</div>

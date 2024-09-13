@@ -9,6 +9,7 @@
 
     <title>{{ isset($title) ? $title . ' | ' . config('app.name') : config('app.name') }}</title>
     @include('layouts.links')
+    @livewireStyles
     @yield('css')
 </head>
 <input type="hidden" name="" id="web_base_url" value="{{ url('/') }}">
@@ -20,6 +21,8 @@
     @include('layouts.footer')
     @include('layouts.scripts')
     @yield('js')
+    @livewireScripts
+
 
     <script type="text/javascript">
         (() => {

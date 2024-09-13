@@ -299,7 +299,7 @@ ul.sidebar-nav li .active {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 1.45rem 0 1rem;
+    margin: 0 0 1rem;
 }
 
 .custom-filters {
@@ -606,12 +606,19 @@ ul.activity-log {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .universal-table {
-    padding: 0 1rem;
+    padding: 1.45rem 1rem;
 }
-
+.selection input[type="checkbox"] {
+    accent-color: var(--color-primary);
+    scale: 1.3;
+    cursor: pointer;
+}
 .universal-table .form-fields .field {
     border: 1px solid #b7b3b3;
     padding: 0.75rem 0.55rem;
+}
+th.no-sort span.dt-column-order::before {
+    display: none !important;
 }
 
 .universal-table .dt-length {
@@ -622,8 +629,8 @@ ul.activity-log {
 }
 
 .universal-table div.dt-container select.dt-input {
-    padding: 2px;
-    border-radius: 53px;
+    padding: 4px 7px;
+    border-radius: 0.25rem;
     outline: none;
     font-size: 14px;
 }
@@ -961,9 +968,9 @@ label.placeholder-user__img::after {
 }
 
 .editor {
-    height: 600px; 
-    width: 100%; 
-    max-width: 100%; 
+    height: 600px;
+    width: 100%;
+    max-width: 100%;
 }
 .form-fields .field,
 .choices__list--single,
@@ -1371,3 +1378,56 @@ a.custom-dropdown__active {
 }
 
 /* choices */
+/* .google-preview */
+.google-preview {
+    background: #fff;
+    border-radius: 5px;
+}
+.google-preview__header .logo {
+    width: 10px;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    background: #f1f2f3;
+    flex: 0.06;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+}
+.google-preview .google-preview__header {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    margin-bottom: 0.4rem;
+}
+
+.google-preview__header .content .title {
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.google-preview__header .content .link {
+    font-size: 12px;
+    font-weight: 400;
+    color: #121212;
+}
+
+.google-preview__header .content {
+    line-height: 1.25;
+    flex: 1;
+}
+
+.google-preview__content .heading {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1f16af;
+    margin-bottom: 0.2rem;
+}
+
+.google-preview__content .description {
+    font-size: 14px;
+    color: #555256;
+    font-weight: 500;
+}
+/* .google-preview */

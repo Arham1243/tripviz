@@ -23,6 +23,16 @@
                             'icon' => 'bx bx-plus',
                             'route' => route('admin.blogs.create'),
                         ],
+                        [
+                            'title' => 'Categories',
+                            'icon' => 'bx bx-box',
+                            'route' => route('admin.blogs-categories.index'),
+                        ],
+                        [
+                            'title' => 'Tags',
+                            'icon' => 'bx bx-tag',
+                            'route' => 'javascript:void(0)',
+                        ],
                     ],
                 ],
                 [
@@ -39,17 +49,17 @@
                             'icon' => 'bx bx-plus',
                             'route' => 'javascript:void(0)',
                         ],
+                        [
+                            'title' => 'Categories',
+                            'icon' => 'bx bx-box',
+                            'route' => 'javascript:void(0)',
+                        ],
+                        [
+                            'title' => 'Tags',
+                            'icon' => 'bx bx-tag',
+                            'route' => 'javascript:void(0)',
+                        ],
                     ],
-                ],
-                [
-                    'title' => 'Categories',
-                    'icon' => 'bx bx-box',
-                    'route' => 'javascript:void(0)',
-                ],
-                [
-                    'title' => 'Tags',
-                    'icon' => 'bx bx-tag',
-                    'route' => 'javascript:void(0)',
                 ],
                 [
                     'title' => 'Recovery',
