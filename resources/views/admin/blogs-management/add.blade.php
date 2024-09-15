@@ -394,9 +394,9 @@
                         </div>
                         <div class="form-box__body">
                             <div class="form-fields">
-                                <label class="title">Category <span class="text-danger">*</span> :</label>
+                                <label class="title">Categories <span class="text-danger">*</span> :</label>
                                 <select name="category_ids[]" class="choice-select" multiple
-                                    placeholder="Select Category">
+                                    placeholder="Select Categories">
                                     @foreach ($blogCategories as $category)
                                         <option value="{{ $category->id }}"
                                             {{ old('category_ids') == $category->id ? 'selected' : '' }}>
