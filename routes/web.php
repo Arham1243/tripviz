@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\Blog\BlogController as AdminBlogController;
 use App\Http\Controllers\Admin\Blog\CategoriesController as AdminBlogsCategoriesController;
 use App\Http\Controllers\Admin\Blog\TagsController as AdminBlogsTagsController;
+use App\Http\Controllers\Admin\BulkActionController;
 use App\Http\Controllers\Admin\Locations\CityController;
 use App\Http\Controllers\Admin\Locations\ContinentController;
 use App\Http\Controllers\Admin\Locations\CountryController;
@@ -98,7 +99,6 @@ Route::middleware('guest')->prefix('admin')->namespace('Admin')->group(function 
 Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashController::class, 'dashboard'])->name('dashboard');
     Route::get('/logout', [AdminLoginController::class, 'logout'])->name('logout');
-
 
     // ---------------------------------------Logo Management---------------------------------------
     Route::get('/logo-management', [SiteSettingsController::class, 'showLogo'])->name('showLogo');
@@ -222,13 +222,9 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('blogs', AdminBlogController::class);
 
-
+    Route::post('bulk-actions/{resource}', [BulkActionController::class, 'handle'])->name('bulk-actions');
     Route::resource('blogs-categories', AdminBlogsCategoriesController::class);
-    Route::post('blogs-categories/bulk-actions', [AdminBlogsCategoriesController::class, 'bulkActions'])->name('blogs-categories.bulk-actions');
-
-
     Route::resource('blogs-tags', AdminBlogsTagsController::class);
-
 });
 
 // ---------------------------------------Admin---------------------------------------

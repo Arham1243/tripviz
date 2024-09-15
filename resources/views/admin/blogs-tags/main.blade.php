@@ -3,16 +3,16 @@
 @section('content')
     <div class="col-md-12">
         <div class="dashboard-content">
-            {{ Breadcrumbs::render('admin.blogs-categories.index') }}
+            {{ Breadcrumbs::render('admin.blogs-tags.index') }}
             <div class="section-content mt-5 mb-4">
                 <h3 class="heading">{{ isset($title) ? $title : '' }}</h3>
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    @include('admin.blogs-categories._form', ['category' => $category ?? null])
+                    @include('admin.blogs-tags._form', ['item' => $tag ?? null])
                 </div>
                 <div class="col-md-8">
-                    @include('admin.blogs-categories.list')
+                    @include('admin.blogs-tags.list')
                 </div>
             </div>
         </div>

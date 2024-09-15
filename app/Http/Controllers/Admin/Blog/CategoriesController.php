@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Admin\Blog;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\BlogCategory;
 use App\Traits\BulkActionable;
 use App\Traits\Sluggable;
+use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
-    use Sluggable;
     use BulkActionable;
+    use Sluggable;
+
     /**
      * Display a listing of the resource.
      */
@@ -19,6 +20,7 @@ class CategoriesController extends Controller
     {
         $categories = BlogCategory::all();
         $data = compact('categories');
+
         return view('admin.blogs-categories.main')->with('title', 'Blogs Categories')->with($data);
     }
 
@@ -43,6 +45,7 @@ class CategoriesController extends Controller
         $data = array_merge($validatedData, ['slug' => $slug]);
 
         BlogCategory::create($data);
+
         return redirect()->route('admin.blogs-categories.index')->with('notify_success', 'Category Added successfully.');
     }
 
@@ -62,6 +65,7 @@ class CategoriesController extends Controller
         $category = BlogCategory::where('slug', $slug)->firstOrFail();
         $categories = BlogCategory::all();
         $data = compact('category', 'categories');
+
         return view('admin.blogs-categories.main')->with('title', 'Edit Category')->with($data);
     }
 
@@ -80,6 +84,7 @@ class CategoriesController extends Controller
 
         return redirect()->route('admin.blogs-categories.index')->with('notify_success', 'Category updated successfully.');
     }
+
     /**
      * Remove the specified resource from storage.
      */

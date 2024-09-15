@@ -33,6 +33,11 @@
                             'icon' => 'bx bx-tag',
                             'route' => route('admin.blogs-tags.index'),
                         ],
+                        [
+                            'title' => 'Recovery',
+                            'icon' => 'bx bx-refresh',
+                            'route' => 'javascript:void(0)',
+                        ],
                     ],
                 ],
                 [
@@ -59,12 +64,12 @@
                             'icon' => 'bx bx-tag',
                             'route' => 'javascript:void(0)',
                         ],
+                        [
+                            'title' => 'Recovery',
+                            'icon' => 'bx bx-refresh',
+                            'route' => 'javascript:void(0)',
+                        ],
                     ],
-                ],
-                [
-                    'title' => 'Recovery',
-                    'icon' => 'bx bx-refresh',
-                    'route' => 'javascript:void(0)',
                 ],
             ],
         ],

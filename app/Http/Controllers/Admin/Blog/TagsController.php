@@ -3,16 +3,25 @@
 namespace App\Http\Controllers\Admin\Blog;
 
 use App\Http\Controllers\Controller;
+use App\Models\BlogTag;
+use App\Traits\BulkActionable;
+use App\Traits\Sluggable;
 use Illuminate\Http\Request;
 
 class TagsController extends Controller
 {
+    use BulkActionable;
+    use Sluggable;
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.blogs-tags.list')->with('title', 'Blogs Tags');
+        $tags = BlogTag::all();
+        $data = compact('tags');
+
+        return view('admin.blogs-tags.main')->with('title', 'Blogs Tags')->with($data);
     }
 
     /**
@@ -28,7 +37,16 @@ class TagsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        $slug = $this->createSlug($validatedData['name'], 'blog_tags');
+
+        $data = array_merge($validatedData, ['slug' => $slug]);
+
+        BlogTag::create($data);
+
+        return redirect()->route('admin.blogs-tags.index')->with('notify_success', 'Tag Added successfully.');
     }
 
     /**
@@ -42,17 +60,29 @@ class TagsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $slug)
     {
-        //
+        $tag = BlogTag::where('slug', $slug)->firstOrFail();
+        $tags = BlogTag::all();
+        $data = compact('tag', 'tags');
+
+        return view('admin.blogs-tags.main')->with('title', 'Edit Tag')->with($data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $slug)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        $tag = BlogTag::where('slug', $slug)->firstOrFail();
+        $newSlug = $this->createSlug($validatedData['name'], 'blog_tags');
+        $data = array_merge($validatedData, ['slug' => $newSlug]);
+        $tag->update($data);
+
+        return redirect()->route('admin.blogs-tags.index')->with('notify_success', 'Tag updated successfully.');
     }
 
     /**
@@ -61,5 +91,13 @@ class TagsController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function bulkActions(Request $request)
+    {
+        $action = $request->input('bulk_actions');
+        $selectedTags = $request->input('bulk_select', []);
+
+        return $this->handleBulkActions(BlogTag::class, 'slug', $action, $selectedTags, 'admin.blogs-tags.index');
     }
 }

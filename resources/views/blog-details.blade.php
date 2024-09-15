@@ -300,7 +300,148 @@
 
 
             </div>
-            <div class="availability-frame">
+            <div class="availability-frame blogs-details-slider">
+                <div class="row justify-content-center">
+                    <div class="col-md-3">
+                        <div class="availability-frame__img availability-frame__img-ver">
+                            <img src="{{ asset('assets/images/156.webp') }}" alt='image' class='imgFluid'
+                                loading='lazy'>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="availability-frame__content">
+                            <div class="availability-title">
+                                Dubai: City Highlights Private Layover Tour with Transfer
+                            </div>
+                            <div class="card-rating">
+                                <i class="bx bxs-star yellow-star"></i>
+                                <i class="bx bxs-star yellow-star"></i>
+                                <i class="bx bxs-star yellow-star"></i>
+                                <i class="bx bxs-star yellow-star"></i>
+                                <i class="bx bxs-star"></i>
+                                <span>5/5</span>
+                            </div>
+                            <div class="priceLabel__no-deal">
+                                From $102.10 per person
+                            </div>
+                            <select id="participants" class="booking-assistant-dropdown">
+                                <option value="1">Adult </option>
+                                <option value="2">Child</option>
+
+                            </select>
+                            <input id="date" type="date" class="booking-assistant-dropdown">
+                            </input>
+
+                            <select id="language" class="booking-assistant-dropdown">
+                                <option value="en">English</option>
+                                <option value="es">Spanish</option>
+                                <option value="fr">French</option>
+
+                            </select>
+
+
+                            <div class="availability-frame__btn">
+                                <button class="app-btn themeBtn">Book Now</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-3">
+                        <div class="availability-frame__img availability-frame__img-ver">
+                            <img src="{{ asset('assets/images/156.webp') }}" alt='image' class='imgFluid'
+                                loading='lazy'>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="availability-frame__content">
+                            <div class="availability-title">
+                                Dubai: City Highlights Private Layover Tour with Transfer
+                            </div>
+                            <div class="card-rating">
+                                <i class="bx bxs-star yellow-star"></i>
+                                <i class="bx bxs-star yellow-star"></i>
+                                <i class="bx bxs-star yellow-star"></i>
+                                <i class="bx bxs-star yellow-star"></i>
+                                <i class="bx bxs-star"></i>
+                                <span>5/5</span>
+                            </div>
+                            <div class="priceLabel__no-deal">
+                                From $102.10 per person
+                            </div>
+                            <select id="participants" class="booking-assistant-dropdown">
+                                <option value="1">Adult </option>
+                                <option value="2">Child</option>
+
+                            </select>
+                            <input id="date" type="date" class="booking-assistant-dropdown">
+                            </input>
+
+                            <select id="language" class="booking-assistant-dropdown">
+                                <option value="en">English</option>
+                                <option value="es">Spanish</option>
+                                <option value="fr">French</option>
+
+                            </select>
+
+
+                            <div class="availability-frame__btn">
+                                <button class="app-btn themeBtn">Book Now</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-3">
+                        <div class="availability-frame__img availability-frame__img-ver">
+                            <img src="{{ asset('assets/images/156.webp') }}" alt='image' class='imgFluid'
+                                loading='lazy'>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="availability-frame__content">
+                            <div class="availability-title">
+                                Dubai: City Highlights Private Layover Tour with Transfer
+                            </div>
+                            <div class="card-rating">
+                                <i class="bx bxs-star yellow-star"></i>
+                                <i class="bx bxs-star yellow-star"></i>
+                                <i class="bx bxs-star yellow-star"></i>
+                                <i class="bx bxs-star yellow-star"></i>
+                                <i class="bx bxs-star"></i>
+                                <span>5/5</span>
+                            </div>
+                            <div class="priceLabel__no-deal">
+                                From $102.10 per person
+                            </div>
+                            <select id="participants" class="booking-assistant-dropdown">
+                                <option value="1">Adult </option>
+                                <option value="2">Child</option>
+
+                            </select>
+                            <input id="date" type="date" class="booking-assistant-dropdown">
+                            </input>
+
+                            <select id="language" class="booking-assistant-dropdown">
+                                <option value="en">English</option>
+                                <option value="es">Spanish</option>
+                                <option value="fr">French</option>
+
+                            </select>
+
+
+                            <div class="availability-frame__btn">
+                                <button class="app-btn themeBtn">Book Now</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
                 <div class="row justify-content-center">
                     <div class="col-md-3">
                         <div class="availability-frame__img availability-frame__img-ver">
@@ -360,11 +501,21 @@
 @endsection
 @section('css')
     <style type="text/css">
-        /*in page css here*/
+        .blogs-details-slider .row {
+            display: flex !important;
+        }
     </style>
 @endsection
 @section('js')
     <script type="text/javascript">
-        /*in page js here*/
+        $('.blogs-details-slider').slick({
+            dots: false,
+            arrows: false,
+            infinite: false,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000
+        });
     </script>
 @endsection

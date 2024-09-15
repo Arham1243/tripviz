@@ -968,9 +968,11 @@ label.placeholder-user__img::after {
 }
 
 .editor {
-    height: 600px;
     width: 100%;
     max-width: 100%;
+}
+.ck.ck-editor__editable_inline {
+    min-height: 170px;
 }
 .form-fields .field,
 .choices__list--single,
@@ -1030,7 +1032,9 @@ label.placeholder-user__img::after {
     isolation: isolate;
     background: #000;
 }
-.upload-box__img .delete-btn {
+
+.delete-btn {
+    cursor: pointer;
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
@@ -1046,7 +1050,7 @@ label.placeholder-user__img::after {
     border: none;
     outline: none;
 }
-.upload-box__img > img {
+.upload-box__img  img {
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -1061,7 +1065,7 @@ label.placeholder-user__img::after {
     border-radius: 6px;
 }
 
-.tabs-wrapper .tab-content {
+.tabs-wrapper .tab-content-wrapper {
     padding: 1rem;
 }
 
@@ -1370,7 +1374,6 @@ a.custom-dropdown__active {
 }
 .choices__list--multiple {
     display: block;
-    margin: 0.5rem 0;
 }
 .choices[data-type="select-multiple"] .choices__inner {
     display: flex;
@@ -1423,11 +1426,59 @@ a.custom-dropdown__active {
     font-weight: 600;
     color: #1f16af;
     margin-bottom: 0.2rem;
+    word-break: break-all;
 }
 
 .google-preview__content .description {
     font-size: 14px;
     color: #555256;
     font-weight: 500;
+    word-break: break-all;
 }
 /* .google-preview */
+
+/* multiple-upload */
+.multiple-upload__btn {
+    padding: 0.65rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+}
+.multiple-upload__imgs {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.75rem;
+}
+.multiple-upload__imgs .single-image {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    height: 120px;
+    background: #000;
+    border-radius: 0.35rem;
+    overflow: hidden;
+    box-shadow: 0 0 15px 1px #00000020;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mask {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+}
+.mask img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+body.responsive.fancybox-active.compensate-for-scrollbar{
+    overflow: inherit !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+/* multiple-upload */

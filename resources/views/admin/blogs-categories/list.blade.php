@@ -1,6 +1,6 @@
 <div class="table-container universal-table">
     <div class="custom-sec">
-        <form action="{{ route('admin.blogs-categories.bulk-actions') }}" method="POST">
+        <form method="POST" action="{{ route('admin.bulk-actions', ['resource' => 'blogs-categories']) }}">
             @csrf
             <div class="row mb-3">
                 <div class="col-md-7">

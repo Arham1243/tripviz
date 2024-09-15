@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Admin\Blog;
 
 use App\Http\Controllers\Controller;
+use App\Models\BlogCategory;
+use App\Models\BlogTag;
+use App\Models\Tour;
+use App\Models\User;
 use App\Traits\Sluggable;
 use App\Traits\UploadImageTrait;
 use Illuminate\Http\Request;
@@ -29,8 +33,13 @@ class BlogController extends Controller
      */
     public function create()
     {
+        $tours = Tour::where('is_active', 1)->get();
+        $blogCategories = BlogCategory::where('is_active', 1)->get();
+        $blogTags = BlogTag::where('is_active', 1)->get();
+        $users = User::where('is_active', 1)->get();
+        $data = compact('tours', 'blogCategories', 'users', 'blogTags');
 
-        return view('admin.blogs-management.add')->with('title', 'Add New Blog');
+        return view('admin.blogs-management.add')->with('title', 'Add New Blog')->with($data);
     }
 
     /**
