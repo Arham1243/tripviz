@@ -118,9 +118,9 @@
                                                     aria-controls="contact" aria-selected="false">Share Twitter</button>
                                             </li>
                                             <li class="nav-item" role="presentation">
-                                                <button class="nav-link text-dark" id="scheme-tab" data-bs-toggle="tab"
-                                                    data-bs-target="#scheme" type="button" role="tab"
-                                                    aria-controls="scheme" aria-selected="false">Scheme</button>
+                                                <button class="nav-link text-dark" id="schema-tab" data-bs-toggle="tab"
+                                                    data-bs-target="#schema" type="button" role="tab"
+                                                    aria-controls="schema" aria-selected="false">Schema</button>
                                             </li>
                                             <li class="nav-item" role="presentation">
                                                 <button class="nav-link text-dark" id="canonical-tab"
@@ -305,15 +305,15 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="tab-pane fade" id="scheme" role="tabpanel"
-                                                    aria-labelledby="scheme-tab">
+                                                <div class="tab-pane fade" id="schema" role="tabpanel"
+                                                    aria-labelledby="schema-tab">
                                                     <div class="row">
                                                         <div class="form-fields col-md-12">
-                                                            <label class="title">Scheme <span
+                                                            <label class="title">Schema <span
                                                                     class="text-danger">*</span>
                                                                 :</label>
-                                                            <textarea placeholder="" required name="scheme" class="field" rows="3">{{ old('scheme') }}</textarea>
-                                                            @error('scheme')
+                                                            <textarea placeholder="" required name="schema" class="field" rows="3">{{ old('schema') }}</textarea>
+                                                            @error('schema')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
                                                         </div>
@@ -337,7 +337,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button class="themeBtn mt-3 ms-auto">Apply</button>
+                                            <button class="themeBtn mt-3 ms-auto">Save</button>
                                         </div>
                                     </div>
                                 </div>
