@@ -966,6 +966,11 @@ label.placeholder-user__img::after {
 .form-fields:not(:last-child) {
     margin-bottom: 1rem;
 }
+.form-wrapper {
+    position: sticky;
+    top: 1.5rem;
+    margin-bottom: 1.25rem;
+}
 
 .editor {
     width: 100%;
