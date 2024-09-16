@@ -47,6 +47,40 @@
                                         </div>
 
                                     </div>
+                                    <div class="form-fields">
+                                        <label class="title">Top Highlighted Tour <span class="text-danger">*</span>
+                                            :</label>
+                                        <select name="top_highlighted_tour_id"
+                                            class="choice-select"placeholder="Select Tour">
+                                            @foreach ($tours as $tour)
+                                                <option value="{{ $tour->id }}"
+                                                    {{ old('top_highlighted_tour_id') == $tour->id ? 'selected' : '' }}>
+                                                    {{ $tour->title }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('top_highlighted_tour_id')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-fields">
+                                        <label class="title">Blog Slider Tours <span class="text-danger">*</span> :</label>
+                                        <select name="featured_tours_ids[]" multiple class="choice-select"
+                                            data-max-items="4" placeholder="Select Tours">
+                                            @foreach ($tours as $tour)
+                                                <option value="{{ $tour->id }}"
+                                                    {{ old('featured_tours_ids') == $tour->id ? 'selected' : '' }}>
+                                                    {{ $tour->title }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('featured_tours_ids')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+
+
                                 </div>
                             </div>
                         </div>
@@ -118,7 +152,8 @@
                                     <div class="form-fields">
                                         <label class="title">Tags <span class="text-danger">*</span> :</label>
 
-                                        <select name="tags_ids[]" class="choice-select" multiple placeholder="Select Tags">
+                                        <select name="tags_ids[]" class="choice-select" multiple
+                                            placeholder="Select Tags">
                                             @foreach ($blogTags as $tag)
                                                 <option value="{{ $tag->id }}"
                                                     {{ old('tags_ids') == $tag->id ? 'selected' : '' }}>
@@ -165,50 +200,6 @@
                                                 valid image file
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-box">
-                                <div class="form-box__header">
-                                    <div class="title">Top Highlighted Tour</div>
-                                </div>
-                                <div class="form-box__body">
-                                    <div class="form-fields">
-                                        <label class="title">Tours <span class="text-danger">*</span> :</label>
-                                        <select name="top_highlighted_tour_id"
-                                            class="choice-select"placeholder="Select Tour">
-                                            @foreach ($tours as $tour)
-                                                <option value="{{ $tour->id }}"
-                                                    {{ old('top_highlighted_tour_id') == $tour->id ? 'selected' : '' }}>
-                                                    {{ $tour->title }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('top_highlighted_tour_id')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-box">
-                                <div class="form-box__header">
-                                    <div class="title">Choose Featured Tours</div>
-                                </div>
-                                <div class="form-box__body">
-                                    <div class="form-fields">
-                                        <label class="title">Tours <span class="text-danger">*</span> :</label>
-                                        <select name="featured_tours_ids[]" multiple class="choice-select"
-                                            data-max-items="4" placeholder="Select Tours">
-                                            @foreach ($tours as $tour)
-                                                <option value="{{ $tour->id }}"
-                                                    {{ old('featured_tours_ids') == $tour->id ? 'selected' : '' }}>
-                                                    {{ $tour->title }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('featured_tours_ids')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
                                     </div>
                                 </div>
                             </div>
