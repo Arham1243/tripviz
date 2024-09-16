@@ -961,6 +961,7 @@ label.placeholder-user__img::after {
     font-weight: 600;
     margin-bottom: 0.6rem;
     opacity: 0.75;
+    text-transform: capitalize;
     font-size: 0.9rem;
 }
 .form-fields:not(:last-child) {

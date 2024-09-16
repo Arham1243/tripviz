@@ -48,7 +48,7 @@
 
                                     </div>
                                     <div class="form-fields">
-                                        <label class="title">Top Highlighted Tour <span class="text-danger">*</span>
+                                        <label class="title">right side top highlighted tour card <span class="text-danger">*</span>
                                             :</label>
                                         <select name="top_highlighted_tour_id"
                                             class="choice-select"placeholder="Select Tour">
@@ -64,7 +64,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-fields">
-                                        <label class="title">Blog Slider Tours <span class="text-danger">*</span> :</label>
+                                        <label class="title">Below Blog Slider Tour Card <span class="text-danger">*</span> :</label>
                                         <select name="featured_tours_ids[]" multiple class="choice-select"
                                             data-max-items="4" placeholder="Select Tours">
                                             @foreach ($tours as $tour)
@@ -187,7 +187,7 @@
                                                         Image</label>
                                                 </div>
                                                 <div class="upload-box__img" data-upload-img>
-                                                    <button class="delete-btn" data-delete-btn><i
+                                                    <button type="button" class="delete-btn" data-delete-btn><i
                                                             class='bx bxs-trash-alt'></i></button>
                                                     <a href="#" class="mask" data-fancybox="gallery">
                                                         <img src="{{ asset('admin/assets/images/loading.gif') }}"
@@ -343,7 +343,7 @@
                                                                                     Image</label>
                                                                             </div>
                                                                             <div class="upload-box__img" data-upload-img>
-                                                                                <button class="delete-btn"
+                                                                                <button type="button" class="delete-btn"
                                                                                     data-delete-btn><i
                                                                                         class='bx bxs-trash-alt'></i></button>
                                                                                 <a href="#" class="mask"
@@ -406,7 +406,7 @@
                                                                                     Image</label>
                                                                             </div>
                                                                             <div class="upload-box__img" data-upload-img>
-                                                                                <button class="delete-btn"
+                                                                                <button type="button" class="delete-btn"
                                                                                     data-delete-btn><i
                                                                                         class='bx bxs-trash-alt'></i></button>
                                                                                 <a href="#" class="mask"
@@ -468,7 +468,7 @@
                                                                                     Image</label>
                                                                             </div>
                                                                             <div class="upload-box__img" data-upload-img>
-                                                                                <button class="delete-btn"
+                                                                                <button type="button" class="delete-btn"
                                                                                     data-delete-btn><i
                                                                                         class='bx bxs-trash-alt'></i></button>
                                                                                 <a href="#" class="mask"
