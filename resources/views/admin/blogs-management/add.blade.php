@@ -10,7 +10,8 @@
                     </div>
                 </div>
             </div>
-            <form>
+            <form action="{{ route('admin.blogs.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="row">
                     <div class="col-md-9">
                         <div class="form-wrapper">
@@ -29,14 +30,19 @@
                                     </div>
                                     <div class="form-fields">
                                         <label class="title">Content <span class="text-danger">*</span> :</label>
-                                        <textarea class="editor" name="long_desc"></textarea>
+                                        <textarea class="editor" required name="long_desc">
+                                            {{ old('title') }}
+                                        </textarea>
+                                        @error('long_desc')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-fields">
                                         <label class="title">Gallery <span class="text-danger">*</span> :</label>
 
                                         <div class="multiple-upload" data-upload-multiple>
                                             <input type="file" class="gallery-input d-none" multiple
-                                                data-upload-multiple-input accept="image/*" id="gallery">
+                                                data-upload-multiple-input accept="image/*" id="gallery" name="gallery[]">
                                             <label class="multiple-upload__btn themeBtn" for="gallery">
                                                 <i class='bx bxs-plus-circle'></i>
                                                 Select Images
@@ -48,7 +54,8 @@
 
                                     </div>
                                     <div class="form-fields">
-                                        <label class="title">right side top highlighted tour card <span class="text-danger">*</span>
+                                        <label class="title">right side top highlighted tour card <span
+                                                class="text-danger">*</span>
                                             :</label>
                                         <select name="top_highlighted_tour_id"
                                             class="choice-select"placeholder="Select Tour">
@@ -64,7 +71,8 @@
                                         @enderror
                                     </div>
                                     <div class="form-fields">
-                                        <label class="title">Below Blog Slider Tour Card <span class="text-danger">*</span> :</label>
+                                        <label class="title">Below Blog Slider Tour Card <span class="text-danger">*</span>
+                                            :</label>
                                         <select name="featured_tours_ids[]" multiple class="choice-select"
                                             data-max-items="4" placeholder="Select Tours">
                                             @foreach ($tours as $tour)
@@ -93,14 +101,15 @@
                                 </div>
                                 <div class="form-box__body">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="status" id="publish"
-                                            checked>
+                                        <input class="form-check-input" type="radio" name="status" id="publish" checked
+                                            value="1">
                                         <label class="form-check-label" for="publish">
                                             Publish
                                         </label>
                                     </div>
                                     <div class="form-check mt-2">
-                                        <input class="form-check-input" type="radio" name="status" id="draft">
+                                        <input class="form-check-input" type="radio" name="status" id="draft"
+                                            value="0">
                                         <label class="form-check-label" for="draft">
                                             Draft
                                         </label>
@@ -193,6 +202,8 @@
                                                         <img src="{{ asset('admin/assets/images/loading.gif') }}"
                                                             alt="Uploaded Image" class="imgFluid" data-upload-preview>
                                                     </a>
+                                                    <input type="text" name="feature_image_alt" class="field"
+                                                        placeholder="Enter Alt Text" value="Feature Image" required>
                                                 </div>
                                             </div>
                                             <div class="text-danger d-none mt-2 text-center" data-error-message>Please
@@ -325,7 +336,7 @@
                                                                     @enderror
                                                                 </div>
                                                                 <div class="form-fields col-md-4">
-                                                                    <label class="title">Feature Image <span
+                                                                    <label class="title">Seo Feature Image <span
                                                                             class="text-danger">*</span> :</label>
 
                                                                     <div class="upload" data-upload>
@@ -388,7 +399,7 @@
                                                                     @enderror
                                                                 </div>
                                                                 <div class="form-fields col-md-4">
-                                                                    <label class="title">Feature Image <span
+                                                                    <label class="title">Facebook Feature Image <span
                                                                             class="text-danger">*</span> :</label>
 
                                                                     <div class="upload" data-upload>
@@ -450,7 +461,7 @@
                                                                     @enderror
                                                                 </div>
                                                                 <div class="form-fields col-md-4">
-                                                                    <label class="title">Feature Image <span
+                                                                    <label class="title">Twitter Feature Image <span
                                                                             class="text-danger">*</span> :</label>
 
                                                                     <div class="upload" data-upload>

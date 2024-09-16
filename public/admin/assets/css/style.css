@@ -1008,7 +1008,6 @@ label.placeholder-user__img::after {
 }
 .upload-box-wrapper {
     width: 100%;
-    height: 200px;
     border-radius: 5px;
     overflow: hidden;
 }
@@ -1023,6 +1022,9 @@ label.placeholder-user__img::after {
     padding: 1rem;
     display: none;
 }
+.upload-box__img .mask, .upload-box {
+    height: 200px;
+}
 .upload-box.show {
     display: flex;
 }
@@ -1036,7 +1038,6 @@ label.placeholder-user__img::after {
     height: 100%;
     position: relative;
     isolation: isolate;
-    background: #000;
 }
 
 .delete-btn {
@@ -1044,14 +1045,14 @@ label.placeholder-user__img::after {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
-    width: 30px;
+    width: 25px;
     aspect-ratio: 1/1;
     display: flex;
     align-items: center;
     justify-content: center;
     background: red;
     color: #fff;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     border-radius: 5px;
     border: none;
     outline: none;
@@ -1454,27 +1455,31 @@ a.custom-dropdown__active {
 .multiple-upload__imgs {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 0.75rem;
+    gap: 1rem;
+}
+.multiple-upload__imgs .single-image .mask {
+    height: 120px;
+}
+.multiple-upload__imgs .single-image .field {
+    font-size: 0.75rem;
+    padding: 0.65rem 1rem;
 }
 .multiple-upload__imgs .single-image {
     position: relative;
     isolation: isolate;
     width: 100%;
-    height: 120px;
-    background: #000;
+    height: 100%;
     border-radius: 0.35rem;
     overflow: hidden;
     box-shadow: 0 0 15px 1px #00000020;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 .mask {
     display: block;
     width: 100%;
     height: 100%;
-    position: absolute;
-    inset: 0;
+    /* position: absolute; */
+    background: #000;
+    /* inset: 0; */
     z-index: -1;
 }
 .mask img {

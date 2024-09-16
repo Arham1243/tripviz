@@ -188,6 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <i class='bx bxs-trash-alt'></i>
                     </div>
                     <a class="mask" href="${e.target.result}" data-fancybox="gallery"><img src="${e.target.result}" class="imgFluid" /></a>
+                     <input type="text" name="gallery_alt_texts[]" value="gallery" class="field" placeholder="Enter Alt Text" required>
                 `;
 
                     // Append the list item to the image container
