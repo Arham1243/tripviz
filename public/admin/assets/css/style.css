@@ -1055,7 +1055,7 @@ label.placeholder-user__img::after {
     border: none;
     outline: none;
 }
-.upload-box__img  img {
+.upload-box__img img {
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -1481,9 +1481,41 @@ a.custom-dropdown__active {
     height: 100%;
     object-fit: contain;
 }
-body.responsive.fancybox-active.compensate-for-scrollbar{
+body.responsive.fancybox-active.compensate-for-scrollbar {
     overflow: inherit !important;
     margin: 0 !important;
     padding: 0 !important;
 }
 /* multiple-upload */
+
+/* Loader CSS */
+.loader-mask {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid var(--color-primary);
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

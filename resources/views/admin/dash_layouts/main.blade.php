@@ -30,8 +30,9 @@
             </div>
         </div>
     </div>
-
-
+    <div class="loader-mask" id="loader">
+        <div class="loader"></div>
+    </div>
 
     @include('admin.dash_layouts.scripts')
     @yield('js')

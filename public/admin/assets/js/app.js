@@ -1,3 +1,8 @@
+window.addEventListener('load', function() {
+    const loader = document.getElementById('loader');
+    loader.style.display = 'none';
+});
+
 // Single File Upload
 function showImage(input, previewImgId, filenamePreviewId) {
     var file = input.files[0];
