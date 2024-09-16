@@ -45,6 +45,6 @@ class BulkActionController extends Controller
             }
         });
 
-        return redirect()->route($redirectRoute)->with('success', 'Bulk action performed successfully.');
+        return redirect()->route($redirectRoute)->with('notify_success', 'Bulk action Performed Successfully.');
     }
 }

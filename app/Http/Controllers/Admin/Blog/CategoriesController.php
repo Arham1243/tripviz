@@ -4,13 +4,11 @@ namespace App\Http\Controllers\Admin\Blog;
 
 use App\Http\Controllers\Controller;
 use App\Models\BlogCategory;
-use App\Traits\BulkActionable;
 use App\Traits\Sluggable;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
-    use BulkActionable;
     use Sluggable;
 
     /**
@@ -91,13 +89,5 @@ class CategoriesController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-    public function bulkActions(Request $request)
-    {
-        $action = $request->input('bulk_actions');
-        $selectedCategories = $request->input('bulk_select', []);
-
-        return $this->handleBulkActions(BlogCategory::class, 'slug', $action, $selectedCategories, 'admin.blogs-categories.index');
     }
 }

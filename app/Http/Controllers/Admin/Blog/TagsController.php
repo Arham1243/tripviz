@@ -4,13 +4,11 @@ namespace App\Http\Controllers\Admin\Blog;
 
 use App\Http\Controllers\Controller;
 use App\Models\BlogTag;
-use App\Traits\BulkActionable;
 use App\Traits\Sluggable;
 use Illuminate\Http\Request;
 
 class TagsController extends Controller
 {
-    use BulkActionable;
     use Sluggable;
 
     /**
@@ -91,13 +89,5 @@ class TagsController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-    public function bulkActions(Request $request)
-    {
-        $action = $request->input('bulk_actions');
-        $selectedTags = $request->input('bulk_select', []);
-
-        return $this->handleBulkActions(BlogTag::class, 'slug', $action, $selectedTags, 'admin.blogs-tags.index');
     }
 }
