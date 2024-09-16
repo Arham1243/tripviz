@@ -36,7 +36,7 @@ class TagsController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|regex:/^[a-zA-Z\s]+$/|min:3|max:255',
         ]);
         $slug = $this->createSlug($validatedData['name'], 'blog_tags');
 
@@ -73,7 +73,7 @@ class TagsController extends Controller
     public function update(Request $request, string $slug)
     {
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|regex:/^[a-zA-Z\s]+$/|min:3|max:255',
         ]);
         $tag = BlogTag::where('slug', $slug)->firstOrFail();
         $newSlug = $this->createSlug($validatedData['name'], 'blog_tags');
