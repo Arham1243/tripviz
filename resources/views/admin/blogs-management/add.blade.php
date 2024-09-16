@@ -529,9 +529,11 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <button type="submit" class="themeBtn mt-3 ms-auto">Save</button>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <button type="submit" class="themeBtn mt-3 ms-auto">Save</button>
                                         </div>
                                     </div>
                                 </div>
