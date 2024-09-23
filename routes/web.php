@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\Locations\ContinentController;
 use App\Http\Controllers\Admin\Locations\CountryController;
 use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\PromotionController as AdminPromotionController;
+use App\Http\Controllers\Admin\RecoveryController as AdminRecoveryController;
 use App\Http\Controllers\Admin\SectionController as AdminSectionController;
 use App\Http\Controllers\Admin\SiteSettingsController;
 use App\Http\Controllers\Admin\TestimonialController as AdminTestimonialController;
@@ -221,6 +222,7 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     // ---------------------------------------tour stories management---------------------------------------
 
     Route::resource('blogs', AdminBlogController::class);
+    Route::get('recovery/{resource}', [AdminRecoveryController::class, 'index'])->name('recovery.index');
 
     Route::post('bulk-actions/{resource}', [BulkActionController::class, 'handle'])->name('bulk-actions');
     Route::resource('blogs-categories', AdminBlogsCategoriesController::class);

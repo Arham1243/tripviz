@@ -10,7 +10,7 @@
                     </div>
                 </div>
             </div>
-            <form action="{{ route('admin.blogs.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.blogs.store') }}" method="POST" enctype="multipart/form-data" id="validation-form">
                 @csrf
                 <div class="row">
                     <div class="col-md-9">
@@ -23,17 +23,17 @@
                                     <div class="form-fields">
                                         <label class="title">Title <span class="text-danger">*</span> :</label>
                                         <input type="text" name="title" class="field" value="{{ old('title') }}"
-                                            placeholder="New Blog" required>
+                                            placeholder="New Blog" data-required data-error="Title">
                                         @error('title')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-fields">
                                         <label class="title">Content <span class="text-danger">*</span> :</label>
-                                        <textarea class="editor" required name="long_desc">
-                                            {{ old('title') }}
+                                        <textarea class="editor" name="content" data-placeholder="content" data-required data-error="Content">
+                                            {{ old('content') }}
                                         </textarea>
-                                        @error('long_desc')
+                                        @error('content')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -44,7 +44,7 @@
                                             <input type="file" class="gallery-input d-none" multiple
                                                 data-upload-multiple-input accept="image/*" id="gallery" name="gallery[]">
                                             <label class="multiple-upload__btn themeBtn" for="gallery">
-                                                <i class='bx bxs-plus-circle'></i>
+                                                <i class='bx bx-plus'></i>
                                                 Select Images
                                             </label>
                                             <ul class="multiple-upload__imgs mt-4" data-upload-multiple-images>
@@ -57,8 +57,9 @@
                                         <label class="title">right side top highlighted tour card <span
                                                 class="text-danger">*</span>
                                             :</label>
-                                        <select name="top_highlighted_tour_id"
-                                            class="choice-select"placeholder="Select Tour">
+                                        <select name="top_highlighted_tour_id" class="choice-select" data-required
+                                            data-error="Right Side Top Highlighted Tour Card">
+                                            <option value="" selected>Select Tour</option>
                                             @foreach ($tours as $tour)
                                                 <option value="{{ $tour->id }}"
                                                     {{ old('top_highlighted_tour_id') == $tour->id ? 'selected' : '' }}>
@@ -74,7 +75,8 @@
                                         <label class="title">Below Blog Slider Tour Card <span class="text-danger">*</span>
                                             :</label>
                                         <select name="featured_tours_ids[]" multiple class="choice-select"
-                                            data-max-items="4" placeholder="Select Tours">
+                                            data-max-items="4" placeholder="Select Tours" data-required
+                                            data-error="Below Blog Slider Tour Card">
                                             @foreach ($tours as $tour)
                                                 <option value="{{ $tour->id }}"
                                                     {{ old('featured_tours_ids') == $tour->id ? 'selected' : '' }}>
@@ -102,14 +104,14 @@
                                 <div class="form-box__body">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="status" id="publish" checked
-                                            value="1">
+                                            value="publish">
                                         <label class="form-check-label" for="publish">
                                             Publish
                                         </label>
                                     </div>
                                     <div class="form-check mt-2">
                                         <input class="form-check-input" type="radio" name="status" id="draft"
-                                            value="0">
+                                            value="draft">
                                         <label class="form-check-label" for="draft">
                                             Draft
                                         </label>
@@ -124,15 +126,16 @@
                                 <div class="form-box__body">
                                     <div class="form-fields">
                                         <label class="title">Author <span class="text-danger">*</span> :</label>
-                                        <select class="choice-select" placeholder="Select" name="author_id">
+                                        <select class="choice-select" name="user_id" data-required data-error="Author">
+                                            <option value="" selected>Select</option>
                                             @foreach ($users as $users)
                                                 <option value="{{ $users->id }}"
-                                                    {{ old('author_id') == $users->id ? 'selected' : '' }}>
+                                                    {{ old('user_id') == $users->id ? 'selected' : '' }}>
                                                     {{ $users->full_name }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('author_id')
+                                        @error('user_id')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -145,16 +148,17 @@
                                 <div class="form-box__body">
                                     <div class="form-fields">
                                         <label class="title">Categories <span class="text-danger">*</span> :</label>
-                                        <select name="category_ids[]" class="choice-select" multiple
-                                            placeholder="Select Categories">
+                                        <select name="category_id" class="choice-select" data-required
+                                            data-error="Category">
+                                            <option value="" selected>Select Category</option>
                                             @foreach ($blogCategories as $category)
                                                 <option value="{{ $category->id }}"
-                                                    {{ old('category_ids') == $category->id ? 'selected' : '' }}>
+                                                    {{ old('category_id') == $category->id ? 'selected' : '' }}>
                                                     {{ $category->name }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('category_ids')
+                                        @error('category_id')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -162,7 +166,7 @@
                                         <label class="title">Tags <span class="text-danger">*</span> :</label>
 
                                         <select name="tags_ids[]" class="choice-select" multiple
-                                            placeholder="Select Tags">
+                                            placeholder="Select tags">
                                             @foreach ($blogTags as $tag)
                                                 <option value="{{ $tag->id }}"
                                                     {{ old('tags_ids') == $tag->id ? 'selected' : '' }}>
@@ -186,13 +190,12 @@
                                         <div class="upload" data-upload>
                                             <div class="upload-box-wrapper">
                                                 <div class="upload-box show" data-upload-box>
-                                                    <input type="file" name="blog_featured_image"
-                                                        id="blog_featured_image" class="upload-box__file d-none"
-                                                        accept="image/*" data-file-input>
+                                                    <input type="file" name="featured_image" data-required
+                                                        data-error="Feature Image" id="featured_image"
+                                                        class="upload-box__file d-none" accept="image/*" data-file-input>
                                                     <div class="upload-box__placeholder"><i class='bx bxs-image'></i>
                                                     </div>
-                                                    <label for="blog_featured_image"
-                                                        class="upload-box__btn themeBtn">Upload
+                                                    <label for="featured_image" class="upload-box__btn themeBtn">Upload
                                                         Image</label>
                                                 </div>
                                                 <div class="upload-box__img" data-upload-img>
@@ -202,14 +205,18 @@
                                                         <img src="{{ asset('admin/assets/images/loading.gif') }}"
                                                             alt="Uploaded Image" class="imgFluid" data-upload-preview>
                                                     </a>
-                                                    <input type="text" name="feature_image_alt" class="field"
-                                                        placeholder="Enter Alt Text" value="Feature Image" required>
+                                                    <input type="text" name="feature_image_alt_text" class="field"
+                                                        placeholder="Enter Alt Text" value="Feature Image">
                                                 </div>
                                             </div>
-                                            <div class="text-danger d-none mt-2 text-center" data-error-message>Please
+                                            <div data-error-message class="text-danger mt-2 d-none text-center">Please
                                                 upload a
                                                 valid image file
                                             </div>
+                                            @error('featured_image')
+                                                <div class="text-danger mt-2 text-center">{{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -217,11 +224,10 @@
                         </div>
                     </div>
                 </div>
-            </form>
-            <div class="row">
-                <div class="col-md-9">
-                    <div class="seo-options">
-                        <form>
+
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="seo-options">
                             <div class="form-box">
                                 <div class="form-box__header d-flex align-items-center justify-content-between">
                                     <div class="title">Search Engine</div>
@@ -258,7 +264,7 @@
                                                 <label class="title">Allow search engines to show this service in search
                                                     results?
                                                     <span class="text-danger">*</span> :</label>
-                                                <select name="is_seo_index" class="field" required
+                                                <select name="is_seo_index" class="field"
                                                     onchange="toggleElement(this, '0', 'seo_options')">
                                                     <option {{ old('is_seo_index') == '1' ? 'selected' : '' }}
                                                         value="1" selected>Yes</option>
@@ -321,7 +327,7 @@
                                                                     <input type="text" name="seo_title" class="field"
                                                                         value="{{ old('seo_title') }}"
                                                                         placeholder="Leave blank to use service title"
-                                                                        required oninput="updateText(this,'google_title')">
+                                                                        oninput="updateText(this,'google_title')">
                                                                     @error('seo_title')
                                                                         <div class="text-danger">{{ $message }}</div>
                                                                     @enderror
@@ -329,7 +335,7 @@
                                                                 <div class="form-fields col-md-12">
                                                                     <label class="title">Seo Description <span
                                                                             class="text-danger">*</span> :</label>
-                                                                    <textarea oninput="updateText(this,'google_desc')" placeholder="Enter Description..." required name="seo_description"
+                                                                    <textarea oninput="updateText(this,'google_desc')" placeholder="Enter Description..." name="seo_description"
                                                                         class="field" rows="3">{{ old('seo_description') }}</textarea>
                                                                     @error('title')
                                                                         <div class="text-danger">{{ $message }}</div>
@@ -384,8 +390,7 @@
                                                                             class="text-danger">*</span> :</label>
                                                                     <input type="text" name="fb_title" class="field"
                                                                         value="{{ old('fb_title') }}"
-                                                                        placeholder="Leave blank to use service title"
-                                                                        required>
+                                                                        placeholder="Leave blank to use service title">
                                                                     @error('fb_title')
                                                                         <div class="text-danger">{{ $message }}</div>
                                                                     @enderror
@@ -393,7 +398,7 @@
                                                                 <div class="form-fields col-md-12">
                                                                     <label class="title">Facebook Description <span
                                                                             class="text-danger">*</span> :</label>
-                                                                    <textarea placeholder="Enter Description..." required name="fb_description" class="field" rows="3">{{ old('fb_description') }}</textarea>
+                                                                    <textarea placeholder="Enter Description..." name="fb_description" class="field" rows="3">{{ old('fb_description') }}</textarea>
                                                                     @error('title')
                                                                         <div class="text-danger">{{ $message }}</div>
                                                                     @enderror
@@ -446,8 +451,7 @@
                                                                             class="text-danger">*</span> :</label>
                                                                     <input type="text" name="tw_title" class="field"
                                                                         value="{{ old('tw_title') }}"
-                                                                        placeholder="Leave blank to use service title"
-                                                                        required>
+                                                                        placeholder="Leave blank to use service title">
                                                                     @error('tw_title')
                                                                         <div class="text-danger">{{ $message }}</div>
                                                                     @enderror
@@ -455,7 +459,7 @@
                                                                 <div class="form-fields col-md-12">
                                                                     <label class="title">Twitter Description <span
                                                                             class="text-danger">*</span> :</label>
-                                                                    <textarea placeholder="Enter Description..." required name="tw_description" class="field" rows="3">{{ old('tw_description') }}</textarea>
+                                                                    <textarea placeholder="Enter Description..." name="tw_description" class="field" rows="3">{{ old('tw_description') }}</textarea>
                                                                     @error('title')
                                                                         <div class="text-danger">{{ $message }}</div>
                                                                     @enderror
@@ -506,7 +510,7 @@
                                                                     <label class="title">Schema <span
                                                                             class="text-danger">*</span>
                                                                         :</label>
-                                                                    <textarea placeholder="" required name="schema" class="field" rows="3">{{ old('schema') }}</textarea>
+                                                                    <textarea placeholder="" name="schema" class="field" rows="3">{{ old('schema') }}</textarea>
                                                                     @error('schema')
                                                                         <div class="text-danger">{{ $message }}</div>
                                                                     @enderror
@@ -523,7 +527,7 @@
 
                                                                     <input type="url" name="canonical" class="field"
                                                                         value="{{ old('canonical') }}"
-                                                                        placeholder="Enter URL" required>
+                                                                        placeholder="Enter URL">
                                                                     @error('canonical')
                                                                         <div class="text-danger">{{ $message }}</div>
                                                                     @enderror
@@ -534,16 +538,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12">
-                                            <button type="submit" class="themeBtn mt-3 ms-auto">Save</button>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 @endsection

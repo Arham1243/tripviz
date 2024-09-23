@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin\Blog;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blog;
 use App\Models\BlogCategory;
+use App\Models\BlogMedia;
 use App\Models\BlogTag;
 use App\Models\Tour;
 use App\Models\User;
@@ -23,7 +25,10 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return view('admin.blogs-management.list')->with('title', 'All Blogs');
+        $blogs = Blog::latest()->get();
+        $data = compact('blogs');
+
+        return view('admin.blogs-management.list')->with('title', 'All Blogs')->with($data);
     }
 
     /**
@@ -49,29 +54,74 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
-        // Validate the request data
+        // Validate the incoming request data
         $validatedData = $request->validate([
-            'country_id' => 'required|int',
-            'name' => 'required|string|max:255',
-            'img_path' => 'required|image|mimes:jpeg,png,webp,jpg,gif|max:2048',
-            'show_on_homepage' => 'nullable',
-            'short_desc' => 'required',
+            'title' => 'required|string|max:255',
+            'content' => 'required',
+            'top_highlighted_tour_id' => 'required|integer|exists:tours,id',
+            'featured_tours_ids' => 'array|max:4',
+            'featured_tours_ids.*' => 'required|integer|exists:tours,id',
+            'status' => 'required|in:publish,draft',
+            'user_id' => 'required|integer|exists:users,id',
+            'category_id' => 'required|integer|exists:blog_categories,id',
+            'tags_ids' => 'array',
+            'tags_ids.*' => 'integer|exists:blog_tags,id',
+            'featured_image' => 'required|image',
+            'feature_image_alt_text' => 'required|string|max:255',
+            'gallery' => 'nullable|array',
+            'gallery.*' => 'image|max:2048',
+            'gallery_alt_texts' => 'array',
+            'gallery_alt_texts.*' => 'string|max:255',
         ]);
 
-        // Generate a unique slug based on the name
-        $slug = $this->createSlug($validatedData['name'], 'cities');
+        $slug = $this->createSlug($validatedData['title'], 'blogs');
 
-        // Add the slug to the validated data
-        $data = array_merge($validatedData, ['slug' => $slug]);
+        $featuredToursIds = json_encode($validatedData['featured_tours_ids']);
 
-        // Create the city record
-        $city = City::create($data);
+        $data = array_merge($validatedData, [
+            'slug' => $slug,
+            'featured_tours_ids' => $featuredToursIds,
+        ]);
 
-        // Handle the image upload
-        $this->uploadImg('img_path', 'img_path', 'City/Thumbnail', $city);
+        $blog = Blog::create($data);
 
-        return redirect()->route('admin.cities.index')->with('notify_success', 'City created successfully.');
+        if (! empty($validatedData['tags_ids'])) {
+            $blog->tags()->attach($validatedData['tags_ids']);
+        }
+        $this->uploadImg('featured_image', 'Blog/Featured-image', $blog, 'featured_image');
+
+        if (! empty($validatedData['gallery'])) {
+            $this->uploadMultipleImages(
+                'gallery', // Input name for the images
+                'Blog/Gallery', // Folder to store images
+                new BlogMedia, // Pass the model class name here
+                'image_path', // Column name for image path
+                'alt_text', // Column name for alt text
+                $validatedData['gallery_alt_texts'] ?? null, // Pass alt texts if provided
+                'blog_id', // Pass the foreign key column name
+                $blog->id // Pass the blog_id as the foreign key value
+            );
+        }
+
+        $seoData = $request->only([
+            'is_seo_index',
+            'seo_title',
+            'seo_description',
+            'fb_title',
+            'fb_description',
+            'tw_title',
+            'tw_description',
+            'schema',
+            'canonical',
+        ]);
+
+        $blog->seo()->create($seoData);
+        $seo = $blog->seo()->first();
+        $this->uploadImg('seo_featured_image', 'Seo/Blog/Seo-Featured-image', $seo, 'seo_featured_image');
+        $this->uploadImg('fb_featured_image', 'Seo/Blog/Fb-Featured-image', $seo, 'fb_featured_image');
+        $this->uploadImg('tw_featured_image', 'Seo/Blog/Tw-Featured-image', $seo, 'tw_featured_image');
+
+        return redirect()->route('admin.blogs.index')->with('notify_success', 'Blog Added successfully!');
     }
 
     /**
@@ -79,76 +129,28 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(City $city)
-    {
-        return view('admin.cities-management.show', compact('country'));
-    }
+    public function show(Blog $blog) {}
 
     /**
      * Show the form for editing the specified resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit(City $city)
-    {
-        $countries = Country::where('is_active', 1)->get();
-
-        return view('admin.cities-management.edit', compact('city', 'countries'))->with('title', 'Edit City');
-    }
+    public function edit(Blog $blog) {}
 
     /**
      * Update the specified resource in storage.
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, City $city)
-    {
-        // Validate the request data
-        $validatedData = $request->validate([
-            'country_id' => 'required|int',
-            'name' => 'required|string|max:255',
-            'img_path' => 'nullable|image|mimes:jpeg,png,webp,jpg,gif|max:2048',
-            'show_on_homepage' => 'nullable', // Ensure this is a boolean
-            'short_desc' => 'required',
-        ]);
-
-        // Generate a unique slug based on the name
-        $slug = $this->createSlug($request->input('name'), 'cities');
-
-        // Add the slug to the validated data
-        $data = array_merge($validatedData, ['slug' => $slug]);
-
-        // Set show_on_homepage to 0 if not present in the request
-        $data['show_on_homepage'] = $request->has('show_on_homepage') ? $validatedData['show_on_homepage'] : 0;
-
-        // Update the city record
-        $city->update($data);
-
-        // Handle the image upload if a new image is provided
-        if ($request->hasFile('img_path')) {
-            $this->uploadImg('img_path', 'img_path', 'City/Thumbnail', $city);
-        }
-
-        return redirect()->route('admin.cities.index')->with('notify_success', 'City updated successfully.');
-    }
+    public function update(Request $request, Blog $blog) {}
 
     /**
      * Remove the specified resource from storage.
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(City $city)
-    {
-        $city->delete();
+    public function destroy(Blog $blog) {}
 
-        return redirect()->route('admin.cities.index')->with('notify_success', 'City deleted successfully.');
-    }
-
-    public function suspend(City $city)
-    {
-        $city->is_active = ! $city->is_active;
-        $city->save();
-
-        return redirect()->route('admin.cities.index')->with('notify_success', 'City status updated successfully.');
-    }
+    public function suspend(Blog $blog) {}
 }

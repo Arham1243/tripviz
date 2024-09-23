@@ -1,16 +1,16 @@
 <div class="table-container universal-table">
     <div class="custom-sec">
-        <form method="POST" action="{{ route('admin.bulk-actions', ['resource' => 'blogs-tags']) }}">
+        <form id="bulkActionForm" method="POST" action="{{ route('admin.bulk-actions', ['resource' => 'blogs-tags']) }}">
             @csrf
             <div class="row mb-3">
                 <div class="col-md-7">
                     <div class="custom-form">
                         <div class="form-fields d-flex gap-3">
-                            <select class="field" name="bulk_actions" required>
+                            <select class="field" id="bulkActions" name="bulk_actions" required>
                                 <option value="" disabled selected>Bulk Actions</option>
                                 <option value="delete">Delete</option>
                             </select>
-                            <button class="themeBtn">Apply</button>
+                            <button type="submit" onclick="confirmBulkAction(event)" class="themeBtn">Apply</button>
                         </div>
                     </div>
                 </div>

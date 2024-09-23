@@ -36,7 +36,7 @@
                         [
                             'title' => 'Recovery',
                             'icon' => 'bx bx-refresh',
-                            'route' => 'javascript:void(0)',
+                            'route' => route('admin.recovery.index', ['resource' => 'blogs']),
                         ],
                     ],
                 ],

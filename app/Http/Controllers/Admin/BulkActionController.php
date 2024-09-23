@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Models\BlogTag;
 use Illuminate\Http\Request;
@@ -14,8 +15,16 @@ class BulkActionController extends Controller
     {
         $action = $request->input('bulk_actions');
         $selectedIds = $request->input('bulk_select', []);
+        if (empty($selectedIds)) {
+            return Redirect::back()->with('notify_error', 'No items selected for the bulk action.');
+        }
 
         switch ($resource) {
+            case 'blogs':
+                $modelClass = Blog::class;
+                $column = 'slug';
+                $redirectRoute = 'admin.blogs.index';
+                break;
             case 'blogs-tags':
                 $modelClass = BlogTag::class;
                 $column = 'slug';
@@ -27,7 +36,7 @@ class BulkActionController extends Controller
                 $redirectRoute = 'admin.blogs-categories.index';
                 break;
             default:
-                return Redirect::back()->withErrors('Resource not found.');
+                return Redirect::back()->with('notify_error', 'Resource not found.');
         }
 
         return $this->handleBulkActions($modelClass, $column, $action, $selectedIds, $redirectRoute);
@@ -35,16 +44,32 @@ class BulkActionController extends Controller
 
     protected function handleBulkActions($modelClass, $idColumn, $action, $selectedIds, $redirectRoute)
     {
-        $modelClass::whereIn($idColumn, $selectedIds)->each(function ($model) use ($action) {
-            switch ($action) {
-                case 'delete':
+        switch ($action) {
+            case 'delete':
+                $modelClass::whereIn($idColumn, $selectedIds)->each(function ($model) {
                     $model->delete();
-                    break;
-                default:
-                    break;
-            }
-        });
+                });
+                break;
+            case 'draft':
+                $modelClass::whereIn($idColumn, $selectedIds)->update(['status' => 'draft']);
+                break;
+            case 'publish':
+                $modelClass::whereIn($idColumn, $selectedIds)->update(['status' => 'publish']);
+                break;
+            case 'restore':
+                $modelClass::withTrashed()->whereIn($idColumn, $selectedIds)->each(function ($model) {
+                    $model->restore();
+                });
+                break;
+            case 'permanent_delete':
+                $modelClass::onlyTrashed()->whereIn($idColumn, $selectedIds)->each(function ($model) {
+                    $model->forceDelete();
+                });
+                break;
+            default:
+                break;
+        }
 
-        return redirect()->route($redirectRoute)->with('notify_success', 'Bulk action Performed Successfully.');
+        return redirect()->route($redirectRoute)->with('notify_success', 'Bulk action performed successfully!');
     }
 }

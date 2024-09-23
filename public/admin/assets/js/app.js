@@ -1,6 +1,6 @@
-window.addEventListener('load', function() {
-    const loader = document.getElementById('loader');
-    loader.style.display = 'none';
+window.addEventListener("load", function () {
+    const loader = document.getElementById("loader");
+    loader.style.display = "none";
 });
 
 // Single File Upload
@@ -68,7 +68,9 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
     const choiceSelects = document.querySelectorAll(".choice-select");
     choiceSelects.forEach((select) => {
-        const maxItems = select.hasAttribute("data-max-items") ? parseInt(select.getAttribute("data-max-items")) : -1;
+        const maxItems = select.hasAttribute("data-max-items")
+            ? parseInt(select.getAttribute("data-max-items"))
+            : -1;
 
         new Choices(select, {
             searchEnabled: true,
@@ -83,7 +85,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-
 
 // SinglE File Upload
 document.addEventListener("DOMContentLoaded", function () {
@@ -211,13 +212,93 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Ck Editor
 document.addEventListener("DOMContentLoaded", function () {
-    const editors = document.querySelectorAll(".editor");
-    editors.forEach((editor) => {
-        ClassicEditor.create(editor).catch((error) => {
-            console.error(error);
-        });
+    const form = document.getElementById("validation-form");
+    const editors = initializeEditors(form);
+
+    form.addEventListener("submit", function (event) {
+        const isValid = validateForm(form, editors);
+
+        if (!isValid) {
+            event.preventDefault();
+        }
     });
 });
+
+// Function to initialize CKEditor instances
+function initializeEditors(form) {
+    const editors = [];
+    const editorElements = form.querySelectorAll(".editor");
+
+    editorElements.forEach((editorElement) => {
+        ClassicEditor.create(editorElement)
+            .then((instance) => {
+                editors.push(instance);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    });
+
+    return editors;
+}
+
+// Function to validate the form
+function validateForm(form, editors) {
+    let isValid = true;
+    const requiredFields = form.querySelectorAll("[data-required]");
+
+    requiredFields.forEach((field) => {
+        if (field.classList.contains("editor")) {
+            return; // Skip editor fields
+        }
+        isValid = validateField(field) && isValid;
+    });
+
+    editors.forEach((editorInstance) => {
+        isValid = validateEditor(editorInstance) && isValid;
+    });
+
+    return isValid;
+}
+
+// Function to validate standard fields
+function validateField(field) {
+    if (
+        (!field.value.trim() && !(field.type === "file" && field.classList.contains("d-none"))) ||
+        (field.type === "file" && field.files.length === 0)
+    ) {
+        showErrorToast(`${field.dataset.error || field.name} is Required!`);
+        return false;
+    }
+    return true;
+}
+
+// Function to validate CKEditor fields
+function validateEditor(editorInstance) {
+    const editorData = editorInstance.getData();
+    const editorElement = editorInstance.sourceElement;
+
+    if (!editorData.trim()) {
+        showErrorToast(`${editorElement.dataset.error || editorElement.name} is Required!`);
+        return false;
+    }
+    return true;
+}
+
+// Function to show toast messages
+function showErrorToast(message) {
+    $.toast({
+        heading: "Error!",
+        position: "bottom-right",
+        text: message,
+        loaderBg: "#ff6849",
+        icon: "error",
+        hideAfter: 2000,
+        stack: 6,
+    });
+}
+
+
 
 // Bulk Action
 document.addEventListener("DOMContentLoaded", function () {
@@ -243,3 +324,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+function confirmBulkAction(event) {
+    const selectedAction = document.getElementById("bulkActions").value;
+    if (selectedAction === "delete") {
+        const confirmation = confirm(
+            "Are you sure you want to delete the selected items?",
+        );
+        if (!confirmation) {
+            event.preventDefault();
+        }
+    }
+}

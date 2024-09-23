@@ -2,7 +2,7 @@
 @section('content')
     <div class="col-md-12">
         <div class="dashboard-content">
-            {{ Breadcrumbs::render('admin.blogs.index') }}
+            {{ Breadcrumbs::render('admin.recovery.index', 'blogs') }}
             <form id="bulkActionForm" method="POST" action="{{ route('admin.bulk-actions', ['resource' => 'blogs']) }}">
                 @csrf
                 <div class="table-container universal-table">
@@ -11,7 +11,6 @@
                             <div class="section-content">
                                 <h3 class="heading">{{ isset($title) ? $title : '' }}</h3>
                             </div>
-                            <a href="{{ route('admin.blogs.create') }}" class="themeBtn">Add new blog</a>
                         </div>
                         <div class="row mb-4">
                             <div class="col-md-5">
@@ -19,9 +18,8 @@
                                     <div class="form-fields d-flex gap-3">
                                         <select class="field" id="bulkActions" name="bulk_actions" required>
                                             <option value="" disabled selected>Bulk Actions</option>
-                                            <option value="publish">Publish</option>
-                                            <option value="draft">Move to Draft</option>
-                                            <option value="delete">Delete</option>
+                                            <option value="restore">Restore</option>
+                                            <option value="permanent_delete">Delete Permanently</option>
                                         </select>
                                         <button type="submit" onclick="confirmBulkAction(event)"
                                             class="themeBtn">Apply</button>
@@ -43,7 +41,6 @@
                                         <th>Author</th>
                                         <th>Date</th>
                                         <th>Status</th>
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -61,14 +58,9 @@
                                             <td>{{ $blog->user->full_name ?? 'N/A' }}</td>
                                             <td>{{ $blog->created_at->format('d M Y') }}</td>
                                             <td>
-                                                <span
-                                                    class="badge rounded-pill bg-{{ $blog->status == 'publish' ? 'success' : 'warning' }} ">
-                                                    {{ $blog->status }}
+                                                <span class="badge rounded-pill bg-danger ">
+                                                    deleted
                                                 </span>
-                                            </td>
-                                            <td>
-                                                <a href="javascript:void(0)" class="themeBtn"><i
-                                                        class='bx bxs-edit'></i>Edit</a>
                                             </td>
                                         </tr>
                                     @endforeach

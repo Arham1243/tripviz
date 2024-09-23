@@ -957,6 +957,9 @@ label.placeholder-user__img::after {
     margin-top: 0.5rem;
 }
 
+form .text-danger {
+    font-size: 0.85rem;
+}
 .form-fields .title {
     font-weight: 600;
     margin-bottom: 0.6rem;
@@ -1340,6 +1343,9 @@ a.custom-dropdown__active {
 /* form-box  */
 
 /* choices */
+.choices {
+    margin-bottom: 0;
+}
 .choices__inner.choices__inner {
     padding: 0;
     min-height: auto;
@@ -1402,7 +1408,6 @@ a.custom-dropdown__active {
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0.6;
 }
 .google-preview .google-preview__header {
     display: flex;

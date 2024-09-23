@@ -9,14 +9,14 @@ use Illuminate\Support\Facades\Storage;
 trait UploadImageTrait
 {
     /**
-     * Upload an image file and update the specified model's column with the file path.
+     * Upload a single image file and update the specified model's column with the file path.
      *
      * @param  string  $inputName  The name of the file input field.
-     * @param  string  $column  The column in the database where the file path will be stored.
      * @param  string  $folder  The folder where the image will be stored.
      * @param  Model  $entry  The model instance to be updated.
+     * @param  string  $columnName  The column in the database where the file path will be stored.
      */
-    public function uploadImg(string $inputName, string $column, string $folder, Model $entry): void
+    public function uploadImg(string $inputName, string $folder, Model $entry, string $columnName): void
     {
         if (request()->hasFile($inputName)) {
             $uploadedFile = request()->file($inputName);
@@ -26,10 +26,46 @@ trait UploadImageTrait
                 $filePath = $uploadedFile->store($folderPath, 'public');
 
                 // Delete the previous image if it exists
-                $this->deletePreviousImage($entry->$column);
+                $this->deletePreviousImage($entry->{$columnName} ?? null);
 
                 // Update the model with the new file path
-                $entry->update([$column => $filePath]);
+                $entry->update([$columnName => $filePath]);
+            }
+        }
+    }
+
+    public function uploadMultipleImages(
+        string $inputName,
+        string $folder,
+        Model $modelInstance,
+        string $columnName,
+        string $altTextColumn,
+        ?array $altTexts = null,
+        ?string $foreignKeyColumn = null, // Foreign key column name
+        ?int $foreignKeyValue = null // Foreign key value
+    ): void {
+        if (request()->hasFile($inputName)) {
+            foreach (request()->file($inputName) as $index => $uploadedFile) {
+                if ($uploadedFile instanceof UploadedFile) {
+                    $folderPath = 'uploads/'.$folder.'/'.uniqid('', true);
+                    $filePath = $uploadedFile->store($folderPath, 'public');
+
+                    // Prepare data for creating a new entry
+                    $data = [$columnName => $filePath];
+
+                    // Add foreign key if provided
+                    if ($foreignKeyColumn && $foreignKeyValue) {
+                        $data[$foreignKeyColumn] = $foreignKeyValue;
+                    }
+
+                    // Only add alt text if it exists in the provided array
+                    if ($altTexts && isset($altTexts[$index])) {
+                        $data[$altTextColumn] = $altTexts[$index];
+                    }
+
+                    // Create a new entry for the uploaded image
+                    $modelInstance::create($data);
+                }
             }
         }
     }
