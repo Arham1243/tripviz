@@ -11,7 +11,7 @@
                 <div class="row justify-content-center">
 
                     <div class="col-lg-10">
-                        <h4 class="dark-gren-36 text-center">Admin Login asdasd</h4>
+                        <h4 class="dark-gren-36 text-center">Admin Login</h4>
                         <form method="POST" action="{{ route('admin.performLogin') }}">
                             @csrf
                             <div class="form-group">
