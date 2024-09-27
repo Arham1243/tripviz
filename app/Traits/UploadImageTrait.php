@@ -5,6 +5,7 @@ namespace App\Traits;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 trait UploadImageTrait
 {
@@ -22,8 +23,9 @@ trait UploadImageTrait
             $uploadedFile = request()->file($inputName);
 
             if ($uploadedFile instanceof UploadedFile) {
-                $folderPath = 'uploads/'.$folder.'/'.uniqid('', true);
-                $filePath = $uploadedFile->store($folderPath, 'public');
+                $filename = Str::uuid().'.'.$uploadedFile->getClientOriginalExtension();
+                $folderPath = 'uploads/'.$folder; // No need for a unique sub-folder here
+                $filePath = $uploadedFile->storeAs($folderPath, $filename, 'public'); // Use storeAs to set the filename
 
                 // Delete the previous image if it exists
                 $this->deletePreviousImage($entry->{$columnName} ?? null);
@@ -47,8 +49,10 @@ trait UploadImageTrait
         if (request()->hasFile($inputName)) {
             foreach (request()->file($inputName) as $index => $uploadedFile) {
                 if ($uploadedFile instanceof UploadedFile) {
-                    $folderPath = 'uploads/'.$folder.'/'.uniqid('', true);
-                    $filePath = $uploadedFile->store($folderPath, 'public');
+                    // Use a unique identifier for the filename
+                    $filename = Str::uuid().'.'.$uploadedFile->getClientOriginalExtension();
+                    $folderPath = 'uploads/'.$folder; // No need for a unique sub-folder here
+                    $filePath = $uploadedFile->storeAs($folderPath, $filename, 'public'); // Use storeAs to set the filename
 
                     // Prepare data for creating a new entry
                     $data = [$columnName => $filePath];

@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Models\BlogTag;
+use App\Models\News;
+use App\Models\NewsCategory;
+use App\Models\NewsTag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -35,6 +38,22 @@ class BulkActionController extends Controller
                 $column = 'slug';
                 $redirectRoute = 'admin.blogs-categories.index';
                 break;
+            case 'news':
+                $modelClass = News::class;
+                $column = 'slug';
+                $redirectRoute = 'admin.news.index';
+                break;
+            case 'news-tags':
+                $modelClass = NewsTag::class;
+                $column = 'slug';
+                $redirectRoute = 'admin.news-tags.index';
+                break;
+            case 'news-categories':
+                $modelClass = NewsCategory::class;
+                $column = 'slug';
+                $redirectRoute = 'admin.news-categories.index';
+                break;
+
             default:
                 return Redirect::back()->with('notify_error', 'Resource not found.');
         }

@@ -47,27 +47,27 @@
                         [
                             'title' => 'All News',
                             'icon' => 'bx bx-list-ul',
-                            'route' => 'javascript:void(0)',
+                            'route' => route('admin.news.index'),
                         ],
                         [
                             'title' => 'Add News',
                             'icon' => 'bx bx-plus',
-                            'route' => 'javascript:void(0)',
+                            'route' => route('admin.news.create'),
                         ],
                         [
                             'title' => 'Categories',
                             'icon' => 'bx bx-box',
-                            'route' => 'javascript:void(0)',
+                            'route' => route('admin.news-categories.index'),
                         ],
                         [
                             'title' => 'Tags',
                             'icon' => 'bx bx-tag',
-                            'route' => 'javascript:void(0)',
+                            'route' => route('admin.news-tags.index'),
                         ],
                         [
                             'title' => 'Recovery',
                             'icon' => 'bx bx-refresh',
-                            'route' => 'javascript:void(0)',
+                            'route' => route('admin.recovery.index', ['resource' => 'news']),
                         ],
                     ],
                 ],

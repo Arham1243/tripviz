@@ -39,10 +39,10 @@ class BlogController extends Controller
     public function create()
     {
         $tours = Tour::where('is_active', 1)->get();
-        $blogCategories = BlogCategory::where('is_active', 1)->get();
-        $blogTags = BlogTag::where('is_active', 1)->get();
+        $categories = BlogCategory::where('is_active', 1)->get();
+        $tags = BlogTag::where('is_active', 1)->get();
         $users = User::where('is_active', 1)->get();
-        $data = compact('tours', 'blogCategories', 'users', 'blogTags');
+        $data = compact('tours', 'categories', 'users', 'tags');
 
         return view('admin.blogs-management.add')->with('title', 'Add New Blog')->with($data);
     }

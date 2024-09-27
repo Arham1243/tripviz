@@ -9,6 +9,9 @@ use App\Http\Controllers\Admin\BulkActionController;
 use App\Http\Controllers\Admin\Locations\CityController;
 use App\Http\Controllers\Admin\Locations\ContinentController;
 use App\Http\Controllers\Admin\Locations\CountryController;
+use App\Http\Controllers\Admin\News\CategoriesController as AdminNewsCategoriesController;
+use App\Http\Controllers\Admin\News\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\News\TagsController as AdminNewsTagsController;
 use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\PromotionController as AdminPromotionController;
 use App\Http\Controllers\Admin\RecoveryController as AdminRecoveryController;
@@ -221,12 +224,16 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('tour-stories/{id}/suspend', [AdminTourStoryController::class, 'suspend'])->name('tour-stories.suspend');
     // ---------------------------------------tour stories management---------------------------------------
 
-    Route::resource('blogs', AdminBlogController::class);
+    Route::post('bulk-actions/{resource}', [BulkActionController::class, 'handle'])->name('bulk-actions');
     Route::get('recovery/{resource}', [AdminRecoveryController::class, 'index'])->name('recovery.index');
 
-    Route::post('bulk-actions/{resource}', [BulkActionController::class, 'handle'])->name('bulk-actions');
+    Route::resource('blogs', AdminBlogController::class);
     Route::resource('blogs-categories', AdminBlogsCategoriesController::class);
     Route::resource('blogs-tags', AdminBlogsTagsController::class);
+
+    Route::resource('news', AdminNewsController::class);
+    Route::resource('news-tags', AdminNewsTagsController::class);
+    Route::resource('news-categories', AdminNewsCategoriesController::class);
 });
 
 // ---------------------------------------Admin---------------------------------------

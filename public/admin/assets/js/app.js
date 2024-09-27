@@ -264,7 +264,8 @@ function validateForm(form, editors) {
 // Function to validate standard fields
 function validateField(field) {
     if (
-        (!field.value.trim() && !(field.type === "file" && field.classList.contains("d-none"))) ||
+        (!field.value.trim() &&
+            !(field.type === "file" && field.classList.contains("d-none"))) ||
         (field.type === "file" && field.files.length === 0)
     ) {
         showErrorToast(`${field.dataset.error || field.name} is Required!`);
@@ -279,7 +280,9 @@ function validateEditor(editorInstance) {
     const editorElement = editorInstance.sourceElement;
 
     if (!editorData.trim()) {
-        showErrorToast(`${editorElement.dataset.error || editorElement.name} is Required!`);
+        showErrorToast(
+            `${editorElement.dataset.error || editorElement.name} is Required!`,
+        );
         return false;
     }
     return true;
@@ -297,8 +300,6 @@ function showErrorToast(message) {
         stack: 6,
     });
 }
-
-
 
 // Bulk Action
 document.addEventListener("DOMContentLoaded", function () {
@@ -327,10 +328,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function confirmBulkAction(event) {
     const selectedAction = document.getElementById("bulkActions").value;
+
     if (selectedAction === "delete") {
         const confirmation = confirm(
             "Are you sure you want to delete the selected items?",
         );
+        if (!confirmation) {
+            event.preventDefault();
+        }
+    }
+
+    if (selectedAction === "permanent_delete") {
+        const message =
+            "This action will permanently delete the selected items and all related fields. Do you want to proceed?";
+        const confirmation = confirm(message);
         if (!confirmation) {
             event.preventDefault();
         }

@@ -2,7 +2,7 @@
 @section('content')
     <div class="col-md-12">
         <div class="dashboard-content">
-            {{ Breadcrumbs::render('admin.blogs.create') }}
+            {{ Breadcrumbs::render('admin.news.create') }}
             <div class="custom-sec mt-5">
                 <div class="custom-sec__header">
                     <div class="section-content">
@@ -10,20 +10,20 @@
                     </div>
                 </div>
             </div>
-            <form action="{{ route('admin.blogs.store') }}" method="POST" enctype="multipart/form-data" id="validation-form">
+            <form action="{{ route('admin.news.store') }}" method="POST" enctype="multipart/form-data" id="validation-form">
                 @csrf
                 <div class="row">
                     <div class="col-md-9">
                         <div class="form-wrapper">
                             <div class="form-box">
                                 <div class="form-box__header">
-                                    <div class="title">Blog Content</div>
+                                    <div class="title">News Content</div>
                                 </div>
                                 <div class="form-box__body">
                                     <div class="form-fields">
                                         <label class="title">Title <span class="text-danger">*</span> :</label>
                                         <input type="text" name="title" class="field" value="{{ old('title') }}"
-                                            placeholder="New Blog" data-required data-error="Title">
+                                            placeholder="" data-required data-error="Title">
                                         @error('title')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -37,60 +37,6 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="form-fields">
-                                        <label class="title">Gallery <span class="text-danger">*</span> :</label>
-
-                                        <div class="multiple-upload" data-upload-multiple>
-                                            <input type="file" class="gallery-input d-none" multiple
-                                                data-upload-multiple-input accept="image/*" id="gallery" name="gallery[]">
-                                            <label class="multiple-upload__btn themeBtn" for="gallery">
-                                                <i class='bx bx-plus'></i>
-                                                Select Images
-                                            </label>
-                                            <ul class="multiple-upload__imgs mt-4" data-upload-multiple-images>
-                                            </ul>
-                                            <div class="text-danger error-message d-none" data-upload-multiple-error></div>
-                                        </div>
-
-                                    </div>
-                                    <div class="form-fields">
-                                        <label class="title">right side top highlighted tour card <span
-                                                class="text-danger">*</span>
-                                            :</label>
-                                        <select name="top_highlighted_tour_id" class="choice-select" data-required
-                                            data-error="Right Side Top Highlighted Tour Card">
-                                            <option value="" selected>Select Tour</option>
-                                            @foreach ($tours as $tour)
-                                                <option value="{{ $tour->id }}"
-                                                    {{ old('top_highlighted_tour_id') == $tour->id ? 'selected' : '' }}>
-                                                    {{ $tour->title }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('top_highlighted_tour_id')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-fields">
-                                        <label class="title">Below Blog Slider Tour Card <span class="text-danger">*</span>
-                                            :</label>
-                                        <select name="featured_tours_ids[]" multiple class="choice-select"
-                                            data-max-items="4" placeholder="Select Tours" data-required
-                                            data-error="Below Blog Slider Tour Card">
-                                            @foreach ($tours as $tour)
-                                                <option value="{{ $tour->id }}"
-                                                    {{ old('featured_tours_ids') == $tour->id ? 'selected' : '' }}>
-                                                    {{ $tour->title }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('featured_tours_ids')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-
-
                                 </div>
                             </div>
                             <div class="seo-options">
@@ -151,8 +97,8 @@
                                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                                                         <li class="nav-item" role="presentation">
                                                             <button class="nav-link text-dark active" id="home-tab"
-                                                                data-bs-toggle="tab" data-bs-target="#home"
-                                                                type="button" role="tab" aria-controls="home"
+                                                                data-bs-toggle="tab" data-bs-target="#home" type="button"
+                                                                role="tab" aria-controls="home"
                                                                 aria-selected="true">General
                                                                 Options</button>
                                                         </li>

@@ -2,8 +2,8 @@
 @section('content')
     <div class="col-md-12">
         <div class="dashboard-content">
-            {{ Breadcrumbs::render('admin.recovery.index', $resource) }}
-            <form id="bulkActionForm" method="POST" action="{{ route('admin.bulk-actions', ['resource' => $resource]) }}">
+            {{ Breadcrumbs::render('admin.news.index') }}
+            <form id="bulkActionForm" method="POST" action="{{ route('admin.bulk-actions', ['resource' => 'news']) }}">
                 @csrf
                 <div class="table-container universal-table">
                     <div class="custom-sec">
@@ -11,6 +11,7 @@
                             <div class="section-content">
                                 <h3 class="heading">{{ isset($title) ? $title : '' }}</h3>
                             </div>
+                            <a href="{{ route('admin.news.create') }}" class="themeBtn">Add News</a>
                         </div>
                         <div class="row mb-4">
                             <div class="col-md-5">
@@ -18,8 +19,9 @@
                                     <div class="form-fields d-flex gap-3">
                                         <select class="field" id="bulkActions" name="bulk_actions" required>
                                             <option value="" disabled selected>Bulk Actions</option>
-                                            <option value="restore">Restore</option>
-                                            <option value="permanent_delete">Delete Permanently</option>
+                                            <option value="publish">Publish</option>
+                                            <option value="draft">Move to Draft</option>
+                                            <option value="delete">Delete</option>
                                         </select>
                                         <button type="submit" onclick="confirmBulkAction(event)"
                                             class="themeBtn">Apply</button>
@@ -41,10 +43,11 @@
                                         <th>Author</th>
                                         <th>Date</th>
                                         <th>Status</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($items as $item)
+                                    @foreach ($news as $item)
                                         <tr>
                                             <td>
                                                 <div class="selection item-select-container"><input type="checkbox"
@@ -58,9 +61,14 @@
                                             <td>{{ $item->user->full_name ?? 'N/A' }}</td>
                                             <td>{{ $item->created_at->format('d M Y') }}</td>
                                             <td>
-                                                <span class="badge rounded-pill bg-danger ">
-                                                    deleted
+                                                <span
+                                                    class="badge rounded-pill bg-{{ $item->status == 'publish' ? 'success' : 'warning' }} ">
+                                                    {{ $item->status }}
                                                 </span>
+                                            </td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="themeBtn"><i
+                                                        class='bx bxs-edit'></i>Edit</a>
                                             </td>
                                         </tr>
                                     @endforeach
