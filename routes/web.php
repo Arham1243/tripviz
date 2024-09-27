@@ -231,6 +231,7 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('blogs-categories', AdminBlogsCategoriesController::class);
     Route::resource('blogs-tags', AdminBlogsTagsController::class);
 
+    // News
     Route::resource('news', AdminNewsController::class);
     Route::resource('news-tags', AdminNewsTagsController::class);
     Route::resource('news-categories', AdminNewsCategoriesController::class);
