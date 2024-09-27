@@ -19,3 +19,6 @@ yarn-error.log
 /.idea
 /.vscode
 *.zip
+
+/resources/views/admin--/
+/public/admin/assets--/
