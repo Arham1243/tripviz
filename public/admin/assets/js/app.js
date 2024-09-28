@@ -3,6 +3,7 @@ window.addEventListener("load", function () {
     loader.style.display = "none";
 });
 
+
 // Single File Upload
 function showImage(input, previewImgId, filenamePreviewId) {
     var file = input.files[0];
@@ -129,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // Handle delete button click
-        deleteBtn.addEventListener("click", function () {
+        deleteBtn?.addEventListener("click", function () {
             fileInput.value = "";
             uploadBox.classList.add("show");
             uploadImgBox.classList.remove("show");

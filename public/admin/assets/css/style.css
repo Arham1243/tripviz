@@ -294,7 +294,9 @@ ul.sidebar-nav li .active {
     color: #777;
     height: 40px;
 }
-
+.custom-sec--form {
+    padding-top: 1.35rem;
+}
 .custom-sec__header {
     display: flex;
     align-items: center;
@@ -1052,7 +1054,7 @@ form .text-danger {
     align-items: center;
     justify-content: center;
     background: red;
-    color: #fff;
+    color: #fff !important;!i;!;
     font-size: 0.75rem;
     border-radius: 5px;
     border: none;

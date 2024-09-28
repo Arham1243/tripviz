@@ -416,7 +416,7 @@
                     </table>
                 </div>
             </div>
-            <div class="custom-sec mt-5">
+            <div class="custom-sec custom-sec--form">
                 <div class="custom-sec__header">
                     <div class="section-content">
                         <h3 class="heading">Pending Bookings</h3>

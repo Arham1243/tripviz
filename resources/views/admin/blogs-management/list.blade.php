@@ -55,7 +55,8 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="link">{{ $blog->title }}</div>
+                                                <a href="{{ route('admin.blogs.edit', $blog->id) }}"
+                                                    class="link">{{ $blog->title }}</a>
                                             </td>
                                             <td>{{ $blog->category->name ?? 'N/A' }}</td>
                                             <td>{{ $blog->user->full_name ?? 'N/A' }}</td>
@@ -67,7 +68,7 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <a href="javascript:void(0)" class="themeBtn"><i
+                                                <a href="{{ route('admin.blogs.edit', $blog->id) }}" class="themeBtn"><i
                                                         class='bx bxs-edit'></i>Edit</a>
                                             </td>
                                         </tr>

@@ -228,6 +228,8 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('recovery/{resource}', [AdminRecoveryController::class, 'index'])->name('recovery.index');
 
     Route::resource('blogs', AdminBlogController::class);
+    Route::get('media/{media}', [AdminBlogController::class, 'deleteMedia'])->name('media.delete');
+
     Route::resource('blogs-categories', AdminBlogsCategoriesController::class);
     Route::resource('blogs-tags', AdminBlogsTagsController::class);
 
