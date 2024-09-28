@@ -135,7 +135,7 @@ class IndexController extends Controller
 
     public function make_slug()
     {
-        $entries = City::all();
+        $entries = City::latest()->get();
         foreach ($entries as $entry) {
             $slug = $this->createSlug($entry['name'], 'cities');
             $entry->slug = $slug;

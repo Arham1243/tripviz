@@ -39,7 +39,7 @@ class SiteSettingsController extends Controller
         );
 
         // Use the trait method to handle the file upload and update the image path
-        $this->uploadImg('logo', 'img_path', 'Logo', $imageEntry);
+        $this->uploadImg('logo', 'Logo', $imageEntry, 'img_path');
 
         // Redirect back with a success message
         return back()->with('notify_success', 'Logo Updated!');

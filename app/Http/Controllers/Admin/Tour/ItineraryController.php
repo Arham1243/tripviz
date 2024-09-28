@@ -82,7 +82,7 @@ class ItineraryController extends Controller
     public function edit($id)
     {
         $itinerary = TourItinerary::findOrFail($id);
-        $tours = Tour::all(); // Assuming you have a Tour model
+        $tours = Tour::latest()->get(); // Assuming you have a Tour model
 
         return view('admin.tour.itineraries.edit', compact('itinerary', 'tours'));
     }

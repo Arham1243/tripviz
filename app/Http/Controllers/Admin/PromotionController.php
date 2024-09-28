@@ -19,7 +19,7 @@ class PromotionController extends Controller
      */
     public function index()
     {
-        $promotions = Promotion::all();
+        $promotions = Promotion::latest()->get();
 
         return view('admin.promotions-management.list', compact('promotions'))->with('title', 'Promotions');
     }

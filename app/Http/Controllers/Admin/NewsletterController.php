@@ -9,7 +9,7 @@ class NewsletterController extends Controller
 {
     public function index()
     {
-        $newsletters = Newsletter::all();
+        $newsletters = Newsletter::latest()->get();
 
         return view('admin.newsletters.list', compact('newsletters'))->with('title', 'Newsletters');
     }

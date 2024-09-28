@@ -18,7 +18,7 @@ class FaqController extends Controller
      */
     public function index()
     {
-        $faqs = ToursFaq::all();
+        $faqs = ToursFaq::latest()->get();
 
         return view('admin.tours-faqs-management.list', compact('faqs'))->with('title', 'FAQs');
     }

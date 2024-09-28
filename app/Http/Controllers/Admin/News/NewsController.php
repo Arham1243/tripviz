@@ -79,6 +79,13 @@ class NewsController extends Controller
         }
         $this->uploadImg('featured_image', 'News/Featured-image', $news, 'featured_image');
 
+        $this->handleSeoData($request, $news, 'News');
+
+        return redirect()->route('admin.news.index')->with('notify_success', 'News Added successfully!');
+    }
+
+    public function handleSeoData($request, $entry, $resource)
+    {
         $seoData = $request->only([
             'is_seo_index',
             'seo_title',
@@ -91,42 +98,67 @@ class NewsController extends Controller
             'canonical',
         ]);
 
-        $news->seo()->create($seoData);
-        $seo = $news->seo()->first();
-        $this->uploadImg('seo_featured_image', 'Seo/News/Seo-Featured-image', $seo, 'seo_featured_image');
-        $this->uploadImg('fb_featured_image', 'Seo/News/Fb-Featured-image', $seo, 'fb_featured_image');
-        $this->uploadImg('tw_featured_image', 'Seo/News/Tw-Featured-image', $seo, 'tw_featured_image');
+        $seo = $entry->seo()->updateOrCreate([], $seoData);
 
-        return redirect()->route('admin.news.index')->with('notify_success', 'News Added successfully!');
+        $imageFields = [
+            'seo_featured_image',
+            'fb_featured_image',
+            'tw_featured_image',
+        ];
+
+        foreach ($imageFields as $field) {
+            $this->uploadImg($field, "Seo/$resource/$field", $seo, $field);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Blog $blog) {}
+    public function edit(News $news)
+    {
+        $tours = Tour::where('is_active', 1)->get();
+        $categories = NewsCategory::where('is_active', 1)->get();
+        $tags = NewsTag::where('is_active', 1)->get();
+        $users = User::where('is_active', 1)->get();
+        $seo = $news->seo()->first();
+        $data = compact('tours', 'categories', 'users', 'tags', 'news', 'seo');
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Blog $blog) {}
+        return view('admin.news-management.edit')->with('title', ucfirst(strtolower($news->title)))->with($data);
+    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Blog $blog) {}
+    public function update(Request $request, News $news)
+    {
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Blog $blog) {}
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255',
+            'content' => 'required',
+            'status' => 'required|in:publish,draft',
+            'user_id' => 'required|integer|exists:users,id',
+            'category_id' => 'required|integer|exists:news_categories,id',
+            'tags_ids' => 'array',
+            'tags_ids.*' => 'integer|exists:news_tags,id',
+            'featured_image' => 'nullable|image',
+            'feature_image_alt_text' => 'required|string|max:255',
+        ]);
 
-    public function suspend(Blog $blog) {}
+        $slugText = $validatedData['slug'] != '' ? $validatedData['slug'] : $validatedData['title'];
+        $slug = $this->createSlug($slugText, 'blogs', $news->slug);
+
+        $data = array_merge($validatedData, [
+            'slug' => $slug,
+        ]);
+
+        // Update the blog entry
+        $news->update($data);
+
+        // Update tags
+        if (! empty($validatedData['tags_ids'])) {
+            $news->tags()->sync($validatedData['tags_ids']);
+        } else {
+            $news->tags()->detach();
+        }
+        $this->uploadImg('featured_image', 'Blog/Featured-image', $news, 'featured_image');
+
+        $this->handleSeoData($request, $news, 'Blog');
+
+        return redirect()->route('admin.news.index')->with('notify_success', 'News updated successfully!');
+    }
 }

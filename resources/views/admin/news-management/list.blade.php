@@ -55,7 +55,8 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="link">{{ $item->title }}</div>
+                                                <a href="{{ route('admin.news.edit', $item->id) }}"
+                                                    class="link">{{ $item->title }}</a>
                                             </td>
                                             <td>{{ $item->category->name ?? 'N/A' }}</td>
                                             <td>{{ $item->user->full_name ?? 'N/A' }}</td>
@@ -67,7 +68,7 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <a href="javascript:void(0)" class="themeBtn"><i
+                                                <a href="{{ route('admin.news.edit', $item->id) }}" class="themeBtn"><i
                                                         class='bx bxs-edit'></i>Edit</a>
                                             </td>
                                         </tr>

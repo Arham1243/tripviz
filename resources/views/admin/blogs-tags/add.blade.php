@@ -1,11 +1,9 @@
 @php
-    $isEdit = isset($category);
-    $formTitle = $isEdit ? 'Edit Category' : 'Add Category';
-    $formAction = $isEdit
-        ? route('admin.blogs-categories.update', $category->slug)
-        : route('admin.blogs-categories.store');
-    $buttonText = $isEdit ? 'Save Changes' : 'Add new';
-    $categoryName = old('name', $category->name ?? '');
+    $formTitle = 'Add Tag';
+    $formAction = route('admin.blogs-tags.store');
+    $buttonText = 'Add new';
+    $categoryName = old('name');
+    $slug = old('slug');
 @endphp
 
 <div class="form-box">
@@ -15,15 +13,18 @@
 
     <form action="{{ $formAction }}" class="form-box__body" method="POST">
         @csrf
-        @if ($isEdit)
-            @method('PUT')
-        @endif
 
         <div class="form-fields">
             <label class="title">Name <span class="text-danger">*</span> :</label>
-            <input type="text" name="name" class="field" value="{{ $categoryName }}" placeholder="Category Name"
-                required>
+            <input type="text" name="name" class="field" value="{{ $categoryName }}" placeholder="Tag" required>
             @error('name')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="form-fields">
+            <label class="title">Slug :</label>
+            <input type="text" name="slug" class="field" value="{{ old('slug') }}" placeholder="Slug">
+            @error('slug')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>

@@ -87,6 +87,7 @@ class BlogController extends Controller
         if (! empty($validatedData['tags_ids'])) {
             $blog->tags()->attach($validatedData['tags_ids']);
         }
+
         $this->uploadImg('featured_image', 'Blog/Featured-image', $blog, 'featured_image');
 
         if (! empty($validatedData['gallery'])) {
@@ -102,23 +103,7 @@ class BlogController extends Controller
             );
         }
 
-        $seoData = $request->only([
-            'is_seo_index',
-            'seo_title',
-            'seo_description',
-            'fb_title',
-            'fb_description',
-            'tw_title',
-            'tw_description',
-            'schema',
-            'canonical',
-        ]);
-
-        $blog->seo()->create($seoData);
-        $seo = $blog->seo()->first();
-        $this->uploadImg('seo_featured_image', 'Seo/Blog/Seo-Featured-image', $seo, 'seo_featured_image');
-        $this->uploadImg('fb_featured_image', 'Seo/Blog/Fb-Featured-image', $seo, 'fb_featured_image');
-        $this->uploadImg('tw_featured_image', 'Seo/Blog/Tw-Featured-image', $seo, 'tw_featured_image');
+        $this->handleSeoData($request, $blog, 'Blog');
 
         return redirect()->route('admin.blogs.index')->with('notify_success', 'Blog Added successfully!');
     }
@@ -144,7 +129,7 @@ class BlogController extends Controller
         $seo = $blog->seo()->first();
         $data = compact('tours', 'categories', 'users', 'tags', 'blog', 'seo');
 
-        return view('admin.blogs-management.edit')->with('title', $blog->title)->with($data);
+        return view('admin.blogs-management.edit')->with('title', ucfirst(strtolower($blog->title)))->with($data);
     }
 
     public function deleteMedia(BlogMedia $media)
@@ -168,7 +153,7 @@ class BlogController extends Controller
 
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
-            'slug' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255',
             'content' => 'required',
             'top_highlighted_tour_id' => 'required|integer|exists:tours,id',
             'featured_tours_ids' => 'array|max:4',
@@ -188,7 +173,9 @@ class BlogController extends Controller
             'deleted_gallery_ids.*' => 'integer|exists:blog_media,id',
         ]);
 
-        $slug = $this->createSlug($validatedData['slug'], 'blogs', $blog->slug);
+        $slugText = $validatedData['slug'] != '' ? $validatedData['slug'] : $validatedData['title'];
+        $slug = $this->createSlug($slugText, 'blogs', $blog->slug);
+
         $featuredToursIds = json_encode($validatedData['featured_tours_ids']);
 
         $data = array_merge($validatedData, [
@@ -205,7 +192,7 @@ class BlogController extends Controller
         } else {
             $blog->tags()->detach();
         }
-        $this->uploadImg('featured_image', 'Blog/Featured-image', $blog, 'featured_image', $blog);
+        $this->uploadImg('featured_image', 'Blog/Featured-image', $blog, 'featured_image');
 
         // Handle gallery images
         if (! empty($validatedData['gallery'])) {
@@ -221,7 +208,13 @@ class BlogController extends Controller
             );
         }
 
-        // Update or create SEO data
+        $this->handleSeoData($request, $blog, 'Blog');
+
+        return redirect()->route('admin.blogs.index')->with('notify_success', 'Blog updated successfully!');
+    }
+
+    public function handleSeoData($request, $entry, $resource)
+    {
         $seoData = $request->only([
             'is_seo_index',
             'seo_title',
@@ -234,21 +227,17 @@ class BlogController extends Controller
             'canonical',
         ]);
 
-        $blog->seo()->update($seoData);
-        $seo = $blog->seo()->first();
+        $seo = $entry->seo()->updateOrCreate([], $seoData);
 
-        // Handle SEO image uploads
-        if ($request->hasFile('seo_featured_image')) {
-            $this->uploadImg('seo_featured_image', 'Seo/Blog/Seo-Featured-image', $seo, 'seo_featured_image');
-        }
-        if ($request->hasFile('fb_featured_image')) {
-            $this->uploadImg('fb_featured_image', 'Seo/Blog/Fb-Featured-image', $seo, 'fb_featured_image');
-        }
-        if ($request->hasFile('tw_featured_image')) {
-            $this->uploadImg('tw_featured_image', 'Seo/Blog/Tw-Featured-image', $seo, 'tw_featured_image');
-        }
+        $imageFields = [
+            'seo_featured_image',
+            'fb_featured_image',
+            'tw_featured_image',
+        ];
 
-        return redirect()->route('admin.blogs.index')->with('notify_success', 'Blog updated successfully!');
+        foreach ($imageFields as $field) {
+            $this->uploadImg($field, "Seo/$resource/$field", $seo, $field);
+        }
     }
 
     /**

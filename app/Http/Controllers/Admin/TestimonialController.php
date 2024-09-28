@@ -20,7 +20,7 @@ class TestimonialController extends Controller
      */
     public function index()
     {
-        $testimonials = Testimonial::all();
+        $testimonials = Testimonial::latest()->get();
 
         return view('admin.testimonials-management.list', compact('testimonials'))->with('title', 'Testimonials');
     }

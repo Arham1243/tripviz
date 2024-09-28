@@ -36,7 +36,7 @@
                                             class="bulk-item" name="bulk_select[]" value="{{ $tag->slug }}"></div>
                                 </td>
                                 <td>
-                                    <a href="{{ route('admin.blogs-tags.edit', $tag->slug) }}"
+                                    <a href="{{ route('admin.blogs-tags.edit', $tag->id) }}"
                                         class="link">{{ $tag->name }}</a>
                                 </td>
                                 <td>{{ $tag->slug }}</td>

@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -19,19 +20,33 @@ trait UploadImageTrait
      */
     public function uploadImg(string $inputName, string $folder, Model $entry, string $columnName): void
     {
+
+        $tableName = $entry->getTable();
+        $entryId = $entry->id;
+
+        // Retrieve the current entry from the database to get the previous image path
+        $currentEntry = DB::table($tableName)->where('id', $entryId)->first();
+
+        // Get the previous image path from the current entry
+        $prevImgPath = $currentEntry->{$columnName} ?? null;
+
         if (request()->hasFile($inputName)) {
             $uploadedFile = request()->file($inputName);
 
             if ($uploadedFile instanceof UploadedFile) {
+
+                // Handle new file upload
                 $filename = Str::uuid().'.'.$uploadedFile->getClientOriginalExtension();
-                $folderPath = 'uploads/'.$folder; // No need for a unique sub-folder here
-                $filePath = $uploadedFile->storeAs($folderPath, $filename, 'public'); // Use storeAs to set the filename
+                $folderPath = 'uploads/'.$folder;
+                $filePath = $uploadedFile->storeAs($folderPath, $filename, 'public');
 
                 // Delete the previous image if it exists
-                $this->deletePreviousImage($entry->{$columnName} ?? null);
 
                 // Update the model with the new file path
                 $entry->update([$columnName => $filePath]);
+            }
+            if ($prevImgPath) {
+                $this->deletePreviousImage($prevImgPath);
             }
         }
     }

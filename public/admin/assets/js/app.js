@@ -3,7 +3,6 @@ window.addEventListener("load", function () {
     loader.style.display = "none";
 });
 
-
 // Single File Upload
 function showImage(input, previewImgId, filenamePreviewId) {
     var file = input.files[0];
@@ -214,15 +213,17 @@ document.addEventListener("DOMContentLoaded", () => {
 // Ck Editor
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("validation-form");
-    const editors = initializeEditors(form);
+    if (form) {
+        const editors = initializeEditors(form);
 
-    form.addEventListener("submit", function (event) {
-        const isValid = validateForm(form, editors);
+        form.addEventListener("submit", function (event) {
+            const isValid = validateForm(form, editors);
 
-        if (!isValid) {
-            event.preventDefault();
-        }
-    });
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    }
 });
 
 // Function to initialize CKEditor instances
@@ -230,7 +231,7 @@ function initializeEditors(form) {
     const editors = [];
     const editorElements = form.querySelectorAll(".editor");
 
-    editorElements.forEach((editorElement) => {
+    editorElements?.forEach((editorElement) => {
         ClassicEditor.create(editorElement)
             .then((instance) => {
                 editors.push(instance);

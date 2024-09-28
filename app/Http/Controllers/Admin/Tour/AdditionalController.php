@@ -16,7 +16,7 @@ class AdditionalController extends Controller
      */
     public function index()
     {
-        $toursAdditionals = ToursAdditional::all();
+        $toursAdditionals = ToursAdditional::latest()->get();
 
         return view('admin.tours-additionals.list', compact('toursAdditionals'))->with('title', 'Tours Additionals');
     }

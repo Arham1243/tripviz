@@ -5,18 +5,20 @@ namespace App\Http\Controllers\Admin\News;
 use App\Http\Controllers\Controller;
 use App\Models\NewsCategory;
 use App\Traits\Sluggable;
+use App\Traits\UploadImageTrait;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
     use Sluggable;
+    use UploadImageTrait;
 
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $categories = NewsCategory::all();
+        $categories = NewsCategory::latest()->get();
         $data = compact('categories');
 
         return view('admin.news-categories.main')->with('title', 'News Categories')->with($data);
@@ -37,9 +39,12 @@ class CategoriesController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|regex:/^[a-zA-Z\s]+$/|min:3|max:255',
+            'slug' => 'nullable|string|max:255|unique:news_categories,slug',
+            'parent_category_id' => 'nullable|exists:news_categories,id',
         ]);
-        $slug = $this->createSlug($validatedData['name'], 'blog_categories');
 
+        $slugText = $validatedData['slug'] != '' ? $validatedData['slug'] : $validatedData['name'];
+        $slug = $this->createSlug($slugText, 'news_categories');
         $data = array_merge($validatedData, ['slug' => $slug]);
 
         NewsCategory::create($data);
@@ -58,29 +63,63 @@ class CategoriesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $slug)
+    public function edit($id)
     {
-        $category = NewsCategory::where('slug', $slug)->firstOrFail();
-        $categories = NewsCategory::all();
-        $data = compact('category', 'categories');
+        $category = NewsCategory::findOrFail($id);
+        $categories = NewsCategory::whereNotIn('id', [$id])->get();
+        $seo = $category->seo()->first();
+        $data = compact('category', 'categories', 'seo');
 
-        return view('admin.news-categories.main')->with('title', 'Edit Category')->with($data);
+        return view('admin.news-categories.edit')->with('title', ucfirst(strtolower($category->name)))->with($data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $slug)
+    public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'name' => 'required|regex:/^[a-zA-Z\s]+$/|min:3|max:255',
+            'name' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:news_categories,slug,'.$id,
+            'parent_category_id' => 'nullable|exists:news_categories,id',
         ]);
-        $category = NewsCategory::where('slug', $slug)->firstOrFail();
-        $newSlug = $this->createSlug($validatedData['name'], 'blog_categories');
-        $data = array_merge($validatedData, ['slug' => $newSlug]);
+
+        $category = NewsCategory::where('id', $id)->firstOrFail();
+        $slugText = $validatedData['slug'] != '' ? $validatedData['slug'] : $validatedData['name'];
+        $slug = $this->createSlug($slugText, 'news_categories', $category->slug);
+        $data = array_merge($validatedData, ['slug' => $slug]);
         $category->update($data);
 
+        $this->handleSeoData($request, $category, 'News-Categories');
+
         return redirect()->route('admin.news-categories.index')->with('notify_success', 'Category updated successfully.');
+    }
+
+    public function handleSeoData($request, $entry, $resource)
+    {
+        $seoData = $request->only([
+            'is_seo_index',
+            'seo_title',
+            'seo_description',
+            'fb_title',
+            'fb_description',
+            'tw_title',
+            'tw_description',
+            'schema',
+            'canonical',
+        ]);
+
+        $seo = $entry->seo()->updateOrCreate([], $seoData);
+
+        $imageFields = [
+            'seo_featured_image',
+            'fb_featured_image',
+            'tw_featured_image',
+        ];
+
+        foreach ($imageFields as $field) {
+            $this->uploadImg($field, "Seo/$resource/$field", $seo, $field);
+        }
     }
 
     /**

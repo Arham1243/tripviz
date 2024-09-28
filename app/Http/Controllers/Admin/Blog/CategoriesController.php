@@ -5,18 +5,20 @@ namespace App\Http\Controllers\Admin\Blog;
 use App\Http\Controllers\Controller;
 use App\Models\BlogCategory;
 use App\Traits\Sluggable;
+use App\Traits\UploadImageTrait;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
     use Sluggable;
+    use UploadImageTrait;
 
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $categories = BlogCategory::all();
+        $categories = BlogCategory::latest()->get();
         $data = compact('categories');
 
         return view('admin.blogs-categories.main')->with('title', 'Blogs Categories')->with($data);
@@ -30,16 +32,16 @@ class CategoriesController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
             'name' => 'required|regex:/^[a-zA-Z\s]+$/|min:3|max:255',
+            'slug' => 'nullable|string|max:255|unique:blog_categories,slug',
+            'parent_category_id' => 'nullable|exists:blog_categories,id',
         ]);
-        $slug = $this->createSlug($validatedData['name'], 'blog_categories');
 
+        $slugText = $validatedData['slug'] != '' ? $validatedData['slug'] : $validatedData['name'];
+        $slug = $this->createSlug($slugText, 'blog_categories');
         $data = array_merge($validatedData, ['slug' => $slug]);
 
         BlogCategory::create($data);
@@ -58,29 +60,64 @@ class CategoriesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $slug)
+    public function edit($id)
     {
-        $category = BlogCategory::where('slug', $slug)->firstOrFail();
-        $categories = BlogCategory::all();
-        $data = compact('category', 'categories');
+        $category = BlogCategory::findOrFail($id);
+        $categories = BlogCategory::whereNotIn('id', [$id])->get();
+        $seo = $category->seo()->first();
+        $data = compact('category', 'categories', 'seo');
 
-        return view('admin.blogs-categories.main')->with('title', 'Edit Category')->with($data);
+        return view('admin.blogs-categories.edit')->with('title', ucfirst(strtolower($category->name)))->with($data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $slug)
+    public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'name' => 'required|regex:/^[a-zA-Z\s]+$/|min:3|max:255',
+            'name' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:blog_categories,slug,'.$id,
+            'parent_category_id' => 'nullable|exists:blog_categories,id',
         ]);
-        $category = BlogCategory::where('slug', $slug)->firstOrFail();
-        $newSlug = $this->createSlug($validatedData['name'], 'blog_categories');
-        $data = array_merge($validatedData, ['slug' => $newSlug]);
+
+        $category = BlogCategory::findOrFail($id);
+        $slugText = $validatedData['slug'] != '' ? $validatedData['slug'] : $validatedData['name'];
+        $slug = $this->createSlug($slugText, 'blog_categories', $category->slug);
+
+        $data = array_merge($validatedData, ['slug' => $slug]);
         $category->update($data);
 
+        $this->handleSeoData($request, $category, 'Blog-Categories');
+
         return redirect()->route('admin.blogs-categories.index')->with('notify_success', 'Category updated successfully.');
+    }
+
+    public function handleSeoData($request, $entry, $resource)
+    {
+        $seoData = $request->only([
+            'is_seo_index',
+            'seo_title',
+            'seo_description',
+            'fb_title',
+            'fb_description',
+            'tw_title',
+            'tw_description',
+            'schema',
+            'canonical',
+        ]);
+
+        $seo = $entry->seo()->updateOrCreate([], $seoData);
+
+        $imageFields = [
+            'seo_featured_image',
+            'fb_featured_image',
+            'tw_featured_image',
+        ];
+
+        foreach ($imageFields as $field) {
+            $this->uploadImg($field, "Seo/$resource/$field", $seo, $field);
+        }
     }
 
     /**

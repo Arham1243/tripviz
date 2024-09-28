@@ -1,0 +1,348 @@
+<div class="seo-options">
+    <div class="form-box">
+        <div class="form-box__header d-flex align-items-center justify-content-between">
+            <div class="title">Search Engine</div>
+            <a href="javascript:void(0)" onclick="document.getElementById('seo_manager').classList.remove('d-none')"
+                class="nav-link p-0">Edit</a>
+        </div>
+        <div class="form-box__body">
+            <div class="google-preview">
+                <div class="google-preview__header">
+                    <div class="logo">
+                        <img src="{{ asset('favicon.ico') }}" alt="Favicon" class="imgFluid">
+                    </div>
+                    <div class="content">
+                        <div class="title">{{ env('APP_NAME') }}</div>
+                        <a href="javascript:void(0)"" class="link">{{ env('APP_URL') }}</a>
+                    </div>
+                </div>
+                <div class="google-preview__content">
+                    <div class="heading" id="google_title">{{ $seo->seo_title ?? '' }}</div>
+                    <div class="description" id="google_desc">
+                        {{ $seo->seo_description ?? '' }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-box d-none" id="seo_manager">
+        <div class="form-box__header">
+            <div class="title">Seo Manager</div>
+        </div>
+        <div class="form-box__body">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="form-fields">
+                        <label class="title">Allow search engines to show this service in
+                            search
+                            results?
+                            <span class="text-danger">*</span> :</label>
+                        <select name="is_seo_index" class="field" onchange="toggleElement(this, '0', 'seo_options')">
+                            <option {{ old('is_seo_index', $seo->is_seo_index ?? '') == '1' ? 'selected' : '' }}
+                                value="1">Yes
+                            </option>
+                            <option {{ old('is_seo_index', $seo->is_seo_index ?? '') == '0' ? 'selected' : '' }}
+                                value="0">No
+                            </option>
+                        </select>
+
+                        @error('is_seo_index')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-12 mt-4 {{ $seo && $seo->is_seo_index != 1 ? 'd-none' : '' }}" id="seo_options">
+                    <div class="tabs-wrapper">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link text-dark active" id="home-tab" data-bs-toggle="tab"
+                                    data-bs-target="#home" type="button" role="tab" aria-controls="home"
+                                    aria-selected="true">General
+                                    Options</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link text-dark" id="profile-tab" data-bs-toggle="tab"
+                                    data-bs-target="#profile" type="button" role="tab" aria-controls="profile"
+                                    aria-selected="false">Share
+                                    Facebook</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link text-dark" id="contact-tab" data-bs-toggle="tab"
+                                    data-bs-target="#contact" type="button" role="tab" aria-controls="contact"
+                                    aria-selected="false">Share Twitter</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link text-dark" id="schema-tab" data-bs-toggle="tab"
+                                    data-bs-target="#schema" type="button" role="tab" aria-controls="schema"
+                                    aria-selected="false">Schema</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link text-dark" id="canonical-tab" data-bs-toggle="tab"
+                                    data-bs-target="#canonical" type="button" role="tab" aria-controls="canonical"
+                                    aria-selected="false">Canonical</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content-wrapper">
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="home" role="tabpanel"
+                                    aria-labelledby="home-tab">
+                                    <div class="row">
+                                        <div class="form-fields col-md-12">
+                                            <label class="title">
+                                                Seo Title <span class="text-danger">*</span> :
+                                            </label>
+                                            <input type="text" name="seo_title" class="field"
+                                                value="{{ old('seo_title', $seo->seo_title ?? '') }}"
+                                                placeholder="Leave blank to use service title"
+                                                oninput="updateText(this,'google_title')">
+                                            @error('seo_title')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-fields col-md-12">
+                                            <label class="title">
+                                                Seo Description <span class="text-danger">*</span>
+                                                :
+                                            </label>
+                                            <textarea name="seo_description" class="field" rows="3" placeholder="Enter Description..."
+                                                oninput="updateText(this,'google_desc')">{{ old('seo_description', $seo->seo_description ?? '') }}</textarea>
+                                            @error('seo_description')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-fields col-md-4">
+                                            <label class="title">
+                                                Seo Feature Image <span class="text-danger">*</span> :
+                                            </label>
+                                            <div class="upload" data-upload>
+                                                <div class="upload-box-wrapper">
+                                                    <div class="upload-box {{ empty($seo->seo_featured_image) ? 'show' : '' }}"
+                                                        data-upload-box>
+                                                        <input type="file" name="seo_featured_image"
+                                                            id="seo_featured_image" class="upload-box__file d-none"
+                                                            accept="image/*" data-file-input>
+                                                        <div class="upload-box__placeholder">
+                                                            <i class='bx bxs-image'></i>
+                                                        </div>
+                                                        <label for="seo_featured_image"
+                                                            class="upload-box__btn themeBtn">Upload
+                                                            Image</label>
+                                                    </div>
+
+
+                                                    <div class="upload-box__img {{ !empty($seo->seo_featured_image) ? 'show' : '' }}"
+                                                        data-upload-img>
+                                                        <button type="button" class="delete-btn" data-delete-btn>
+                                                            <i class='bx bxs-trash-alt'></i>
+                                                        </button>
+                                                        <a href="{{ asset($seo ? $seo->seo_featured_image : '') }}"
+                                                            class="mask" data-fancybox="gallery">
+                                                            <img src="{{ asset($seo ? $seo->seo_featured_image : '') }}"
+                                                                alt="Uploaded Image" class="imgFluid"
+                                                                data-upload-preview>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="text-danger d-none mt-2 text-center" data-error-message>
+                                                    Please upload a valid image file
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="tab-pane fade" id="profile" role="tabpanel"
+                                    aria-labelledby="profile-tab">
+                                    <div class="row">
+                                        <!-- Facebook Title -->
+                                        <div class="form-fields col-md-12">
+                                            <label class="title">
+                                                Facebook Title <span class="text-danger">*</span> :
+                                            </label>
+                                            <input type="text" name="fb_title" class="field"
+                                                value="{{ old('fb_title', $seo->fb_title ?? '') }}"
+                                                placeholder="Leave blank to use service title">
+                                            @error('fb_title')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+
+                                        <div class="form-fields col-md-12">
+                                            <label class="title">
+                                                Facebook Description <span class="text-danger">*</span> :
+                                            </label>
+                                            <textarea name="fb_description" class="field" rows="3" placeholder="Enter Description...">{{ old('fb_description', $seo->fb_description ?? '') }}</textarea>
+                                            @error('fb_description')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-fields col-md-4">
+                                            <label class="title">
+                                                Facebook Feature Image <span class="text-danger">*</span> :
+                                            </label>
+                                            <div class="upload" data-upload>
+                                                <div class="upload-box-wrapper">
+                                                    <div class="upload-box {{ empty($seo->fb_featured_image) ? 'show' : '' }}"
+                                                        data-upload-box>
+                                                        <input type="file" name="fb_featured_image"
+                                                            id="fb_featured_image" class="upload-box__file d-none"
+                                                            accept="image/*" data-file-input>
+                                                        <div class="upload-box__placeholder">
+                                                            <i class='bx bxs-image'></i>
+                                                        </div>
+                                                        <label for="fb_featured_image"
+                                                            class="upload-box__btn themeBtn">Upload
+                                                            Image</label>
+                                                    </div>
+                                                    <div class="upload-box__img {{ !empty($seo->fb_featured_image) ? 'show' : '' }}"
+                                                        data-upload-img>
+                                                        <button type="button" class="delete-btn" data-delete-btn>
+                                                            <i class='bx bxs-trash-alt'></i>
+                                                        </button>
+                                                        <a href="{{ asset($seo ? $seo->fb_featured_image : '') }}"
+                                                            class="mask" data-fancybox="gallery">
+                                                            <img src="{{ asset($seo ? $seo->fb_featured_image : '') }}"
+                                                                alt="Uploaded Image" class="imgFluid"
+                                                                data-upload-preview>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="text-danger d-none mt-2 text-center" data-error-message>
+                                                    Please upload a valid image file
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="contact" role="tabpanel"
+                                    aria-labelledby="contact-tab">
+                                    <div class="row">
+                                        <!-- Twitter Title -->
+                                        <div class="form-fields col-md-12">
+                                            <label class="title">
+                                                Twitter Title <span class="text-danger">*</span> :
+                                            </label>
+                                            <input type="text" name="tw_title" class="field"
+                                                value="{{ old('tw_title', $seo->tw_title ?? '') }}"
+                                                placeholder="Leave blank to use service title">
+                                            @error('tw_title')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <!-- Twitter Description -->
+                                        <div class="form-fields col-md-12">
+                                            <label class="title">
+                                                Twitter Description <span class="text-danger">*</span> :
+                                            </label>
+                                            <textarea name="tw_description" class="field" rows="3" placeholder="Enter Description...">{{ old('tw_description', $seo->tw_description ?? '') }}</textarea>
+                                            @error('tw_description')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <!-- Twitter Featured Image -->
+                                        <div class="form-fields col-md-4">
+                                            <label class="title">
+                                                Twitter Feature Image <span class="text-danger">*</span> :
+                                            </label>
+                                            <div class="upload" data-upload>
+                                                <div class="upload-box-wrapper">
+                                                    <div class="upload-box {{ empty($seo->tw_featured_image) ? 'show' : '' }}"
+                                                        data-upload-box>
+                                                        <input type="file" name="tw_featured_image"
+                                                            id="tw_featured_image" class="upload-box__file d-none"
+                                                            accept="image/*" data-file-input>
+                                                        <div class="upload-box__placeholder">
+                                                            <i class='bx bxs-image'></i>
+                                                        </div>
+                                                        <label for="tw_featured_image"
+                                                            class="upload-box__btn themeBtn">Upload
+                                                            Image</label>
+                                                    </div>
+
+
+                                                    <div class="upload-box__img {{ !empty($seo->tw_featured_image) ? 'show' : '' }}"
+                                                        data-upload-img>
+                                                        <button type="button" class="delete-btn" data-delete-btn>
+                                                            <i class='bx bxs-trash-alt'></i>
+                                                        </button>
+                                                        <a href="{{ asset($seo ? $seo->tw_featured_image : '') }}"
+                                                            class="mask" data-fancybox="gallery">
+                                                            <img src="{{ asset($seo ? $seo->tw_featured_image : '') }}"
+                                                                alt="Uploaded Image" class="imgFluid"
+                                                                data-upload-preview>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="text-danger d-none mt-2 text-center" data-error-message>
+                                                    Please upload a valid image file
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="schema" role="tabpanel"
+                                    aria-labelledby="schema-tab">
+                                    <div class="row">
+                                        <!-- Schema -->
+                                        <div class="form-fields col-md-12">
+                                            <label class="title">
+                                                Schema <span class="text-danger">*</span> :
+                                            </label>
+                                            <textarea name="schema" class="field" rows="3">{{ old('schema', $seo->schema ?? '') }}</textarea>
+                                            @error('schema')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="canonical" role="tabpanel"
+                                    aria-labelledby="canonical-tab">
+                                    <div class="row">
+                                        <!-- Canonical -->
+                                        <div class="form-fields col-md-12">
+                                            <label class="title">
+                                                Canonical <span class="text-danger">*</span> :
+                                            </label>
+                                            <input type="url" name="canonical" class="field"
+                                                value="{{ old('canonical', $seo->canonical ?? '') }}"
+                                                placeholder="Enter URL">
+                                            @error('canonical')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section('js')
+    <script>
+        function updateText(currentInput, ElementId) {
+            let textPreview = document.getElementById(ElementId)
+            textPreview.textContent = currentInput.value
+        }
+
+        function toggleElement(select, toggleOffValue, elementId) {
+            const element = document.getElementById(elementId);
+            if (select.value === toggleOffValue) {
+                element.classList.add('d-none');
+            } else {
+                element.classList.remove('d-none');
+            }
+        }
+    </script>
+@endsection

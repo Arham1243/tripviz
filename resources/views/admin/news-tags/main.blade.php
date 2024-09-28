@@ -9,7 +9,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    @include('admin.news-tags._form', ['item' => $tag ?? null])
+                    @include('admin.news-tags.add')
                 </div>
                 <div class="col-md-8">
                     @include('admin.news-tags.list')

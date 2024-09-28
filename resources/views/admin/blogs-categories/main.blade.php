@@ -9,7 +9,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    @include('admin.blogs-categories._form', ['category' => $category ?? null])
+                    @include('admin.blogs-categories.add')
                 </div>
                 <div class="col-md-8">
                     @include('admin.blogs-categories.list')

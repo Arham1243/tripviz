@@ -12,7 +12,7 @@ class ExclusionController extends Controller
 {
     public function index()
     {
-        $exclusions = TourExclusion::all();
+        $exclusions = TourExclusion::latest()->get();
 
         return view('admin.exclusions-management.list', compact('exclusions'))->with('title', 'Exclusions');
     }

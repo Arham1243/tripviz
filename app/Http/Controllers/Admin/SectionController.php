@@ -19,7 +19,7 @@ class SectionController extends Controller
      */
     public function index()
     {
-        $sections = Section::all();
+        $sections = Section::latest()->get();
 
         return view('admin.sections-management.list', compact('sections'))->with('title', 'Sections');
     }

@@ -1344,6 +1344,9 @@ a.custom-dropdown__active {
 /* form-box  */
 
 /* choices */
+.choices__list--dropdown, .choices__list[aria-expanded] {
+    z-index: 100000;
+}
 .choices {
     margin-bottom: 0;
 }

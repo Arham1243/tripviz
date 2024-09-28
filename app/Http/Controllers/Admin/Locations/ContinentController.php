@@ -15,7 +15,7 @@ class ContinentController extends Controller
      */
     public function index()
     {
-        $continents = Continent::all();
+        $continents = Continent::latest()->get();
 
         return view('admin.continents-management.list', compact('continents'))->with('title', 'Continents');
     }

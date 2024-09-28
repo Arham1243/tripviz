@@ -12,7 +12,7 @@ class InclusionController extends Controller
 {
     public function index()
     {
-        $inclusions = TourInclusion::all();
+        $inclusions = TourInclusion::latest()->get();
 
         return view('admin.inclusions-management.list', compact('inclusions'))->with('title', 'Inclusions');
     }
