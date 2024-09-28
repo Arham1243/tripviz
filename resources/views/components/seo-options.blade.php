@@ -137,9 +137,9 @@
                                                         <button type="button" class="delete-btn" data-delete-btn>
                                                             <i class='bx bxs-trash-alt'></i>
                                                         </button>
-                                                        <a href="{{ asset($seo ? $seo->seo_featured_image : '') }}"
+                                                        <a href="{{ asset($seo ? $seo->seo_featured_image : 'admin/assets/images/loading.webp') }}"
                                                             class="mask" data-fancybox="gallery">
-                                                            <img src="{{ asset($seo ? $seo->seo_featured_image : '') }}"
+                                                            <img src="{{ asset($seo ? $seo->seo_featured_image : 'admin/assets/images/loading.webp') }}"
                                                                 alt="Uploaded Image" class="imgFluid"
                                                                 data-upload-preview>
                                                         </a>
@@ -205,9 +205,9 @@
                                                         <button type="button" class="delete-btn" data-delete-btn>
                                                             <i class='bx bxs-trash-alt'></i>
                                                         </button>
-                                                        <a href="{{ asset($seo ? $seo->fb_featured_image : '') }}"
+                                                        <a href="{{ asset($seo ? $seo->fb_featured_image : 'admin/assets/images/loading.webp') }}"
                                                             class="mask" data-fancybox="gallery">
-                                                            <img src="{{ asset($seo ? $seo->fb_featured_image : '') }}"
+                                                            <img src="{{ asset($seo ? $seo->fb_featured_image : 'admin/assets/images/loading.webp') }}"
                                                                 alt="Uploaded Image" class="imgFluid"
                                                                 data-upload-preview>
                                                         </a>
@@ -273,9 +273,9 @@
                                                         <button type="button" class="delete-btn" data-delete-btn>
                                                             <i class='bx bxs-trash-alt'></i>
                                                         </button>
-                                                        <a href="{{ asset($seo ? $seo->tw_featured_image : '') }}"
+                                                        <a href="{{ asset($seo ? $seo->tw_featured_image : 'admin/assets/images/loading.webp') }}"
                                                             class="mask" data-fancybox="gallery">
-                                                            <img src="{{ asset($seo ? $seo->tw_featured_image : '') }}"
+                                                            <img src="{{ asset($seo ? $seo->tw_featured_image : 'admin/assets/images/loading.webp') }}"
                                                                 alt="Uploaded Image" class="imgFluid"
                                                                 data-upload-preview>
                                                         </a>
@@ -296,7 +296,7 @@
                                             <label class="title">
                                                 Schema <span class="text-danger">*</span> :
                                             </label>
-                                            <textarea name="schema" class="field" rows="3">{{ old('schema', $seo->schema ?? '') }}</textarea>
+                                            <textarea name="schema" class="field" rows="15">{{ old('schema', $seo->schema ?? '') }}</textarea>
                                             @error('schema')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror

@@ -203,7 +203,7 @@
                                                     <button type="button" class="delete-btn" data-delete-btn><i
                                                             class='bx bxs-trash-alt'></i></button>
                                                     <a href="#" class="mask" data-fancybox="gallery">
-                                                        <img src="{{ asset('admin/assets/images/loading.gif') }}"
+                                                        <img src="{{ asset('admin/assets/images/loading.webp') }}"
                                                             alt="Uploaded Image" class="imgFluid" data-upload-preview>
                                                     </a>
                                                     <input type="text" name="feature_image_alt_text" class="field"
