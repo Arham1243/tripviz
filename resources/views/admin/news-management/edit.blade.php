@@ -8,6 +8,7 @@
                     <div class="section-content">
                         <h3 class="heading">Edit News: {{ isset($title) ? $title : '' }}</h3>
                     </div>
+                    <a href="javascript:void(0)" class="themeBtn">View News</a>
                 </div>
             </div>
             <form action="{{ route('admin.news.update', $news->id) }}" method="POST" enctype="multipart/form-data"
@@ -185,6 +186,9 @@
                                                 <div class="text-danger mt-2 text-center">{{ $message }}
                                                 </div>
                                             @enderror
+                                        </div>
+                                        <div class="dimensions text-center mt-3">
+                                            <strong>Dimensions:</strong> 270 &times; 260
                                         </div>
                                     </div>
                                 </div>
