@@ -970,6 +970,10 @@ form .text-danger {
     opacity: 0.75;
     text-transform: capitalize;
     font-size: 0.9rem;
+    display: flex;
+}
+.form-fields .title .text-danger {
+    padding-left: 0.25rem;
 }
 .form-fields:not(:last-child) {
     margin-bottom: 1rem;

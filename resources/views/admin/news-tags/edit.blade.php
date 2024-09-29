@@ -33,7 +33,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-fields">
-                                        <label class="title">Slug :</label>
+                                        <label class="title">Slug:</label>
                                         <input type="text" name="slug" class="field"
                                             value="{{ old('title', $tag->slug) }}" placeholder="Slug">
                                         @error('slug')
