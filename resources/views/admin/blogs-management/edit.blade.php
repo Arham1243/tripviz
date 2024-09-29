@@ -8,7 +8,7 @@
                     <div class="section-content">
                         <h3 class="heading">Edit Blog: {{ isset($title) ? $title : '' }}</h3>
                     </div>
-                    <a href="javascript:void(0)" class="themeBtn">View Blog</a>
+                    <a href="{{ buildUrl(url('/'), 'blogs', $blog->slug) }}" target="_blank" class="themeBtn">View Blog</a>
                 </div>
             </div>
             <form action="{{ route('admin.blogs.update', $blog->id) }}" method="POST" enctype="multipart/form-data"
@@ -59,14 +59,17 @@
                                                 <i class='bx bx-plus'></i>
                                                 Select Images
                                             </label>
-                                            <ul class="multiple-upload__imgs mt-4" data-upload-multiple-images>
+                                            <div class="dimensions mt-3">
+                                                <strong>Dimensions:</strong> 730 &times; 400
+                                            </div>
+                                            <ul class="multiple-upload__imgs" data-upload-multiple-images>
                                             </ul>
                                             <div class="text-danger error-message d-none" data-upload-multiple-error></div>
                                         </div>
 
                                     </div>
                                     @if (!$blog->media->isEmpty())
-                                        <div class="form-fields mb-5">
+                                        <div class="form-fields">
                                             <label class="title">Current Gallery images:</label>
                                             <ul class="multiple-upload__imgs">
                                                 @foreach ($blog->media as $media)
@@ -135,7 +138,7 @@
 
                                 </div>
                             </div>
-                            <x-seo-options :seo="$seo" />
+                            <x-seo-options :seo="$seo ?? null" :resource="'blogs'" :slug="$blog->slug" />
                         </div>
                     </div>
                     <div class="col-md-3">

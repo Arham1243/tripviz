@@ -8,6 +8,7 @@
                     <div class="section-content">
                         <h3 class="heading">Edit Tag: {{ isset($title) ? $title : '' }}</h3>
                     </div>
+                    <a href="{{ buildUrl(url('/'), 'news/tag', $tag->slug) }}" target="_blank" class="themeBtn">View</a>
                 </div>
             </div>
             <form action="{{ route('admin.news-tags.update', $tag->id) }}" method="POST" enctype="multipart/form-data"
@@ -41,7 +42,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <x-seo-options :seo="$seo" />
+                            <x-seo-options :seo="$seo ?? null" :resource="'news/tag'" :slug="$tag->slug" />
                         </div>
                     </div>
                     <div class="col-md-3">

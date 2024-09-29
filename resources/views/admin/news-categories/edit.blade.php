@@ -8,6 +8,8 @@
                     <div class="section-content">
                         <h3 class="heading">Edit Category: {{ isset($title) ? $title : '' }}</h3>
                     </div>
+                    <a href="{{ buildUrl(url('/'), 'news/category', $category->slug) }}" target="_blank"
+                        class="themeBtn">View</a>
                 </div>
             </div>
             <form action="{{ route('admin.news-categories.update', $category->id) }}" method="POST"
@@ -58,7 +60,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <x-seo-options :seo="$seo" />
+                            <x-seo-options :seo="$seo ?? null" :resource="'news/category'" :slug="$category->slug" />
                         </div>
                     </div>
                     <div class="col-md-3">

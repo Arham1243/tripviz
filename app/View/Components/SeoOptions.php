@@ -8,9 +8,15 @@ class SeoOptions extends Component
 {
     public $seo;
 
-    public function __construct($seo = null)
+    public $resource;
+
+    public $slug;
+
+    public function __construct($seo = null, $resource = null, $slug = null)
     {
         $this->seo = $seo;
+        $this->resource = $resource;
+        $this->slug = $slug;
     }
 
     public function render()

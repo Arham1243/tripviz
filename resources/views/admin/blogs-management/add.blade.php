@@ -47,13 +47,17 @@
                                                 <i class='bx bx-plus'></i>
                                                 Select Images
                                             </label>
-                                            <ul class="multiple-upload__imgs mt-4" data-upload-multiple-images>
+                                            <div class="dimensions mt-3">
+                                                <strong>Dimensions:</strong> 730 &times; 400
+                                            </div>
+                                            <ul class="multiple-upload__imgs" data-upload-multiple-images>
                                             </ul>
                                             <div class="text-danger error-message d-none" data-upload-multiple-error></div>
                                         </div>
 
+
                                     </div>
-                                    <div class="form-fields">
+                                    <div class="form-fields mt-3">
                                         <label class="title">right side top highlighted tour card <span
                                                 class="text-danger">*</span>
                                             :</label>
@@ -93,7 +97,7 @@
 
                                 </div>
                             </div>
-                            <x-seo-options />
+                            <x-seo-options :resource="'blogs'" />
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -218,6 +222,9 @@
                                                 <div class="text-danger mt-2 text-center">{{ $message }}
                                                 </div>
                                             @enderror
+                                        </div>
+                                        <div class="dimensions text-center mt-3">
+                                            <strong>Dimensions:</strong> 270 &times; 260
                                         </div>
                                     </div>
                                 </div>

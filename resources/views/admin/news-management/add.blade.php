@@ -39,7 +39,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <x-seo-options />
+                            <x-seo-options :seo="$seo ?? null" :resource="'news'" />
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -163,6 +163,9 @@
                                                 <div class="text-danger mt-2 text-center">{{ $message }}
                                                 </div>
                                             @enderror
+                                        </div>
+                                        <div class="dimensions text-center mt-3">
+                                            <strong>Dimensions:</strong> 270 &times; 260
                                         </div>
                                     </div>
                                 </div>

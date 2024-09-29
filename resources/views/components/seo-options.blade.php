@@ -13,7 +13,7 @@
                     </div>
                     <div class="content">
                         <div class="title">{{ env('APP_NAME') }}</div>
-                        <a href="javascript:void(0)"" class="link">{{ env('APP_URL') }}</a>
+                        <div class="link">{{ buildUrl(url('/'), $resource, $slug) }}</div>
                     </div>
                 </div>
                 <div class="google-preview__content">
@@ -36,7 +36,7 @@
                         <label class="title">Allow search engines to show this service in
                             search
                             results?
-                            <span class="text-danger">*</span> :</label>
+                            :</label>
                         <select name="is_seo_index" class="field" onchange="toggleElement(this, '0', 'seo_options')">
                             <option {{ old('is_seo_index', $seo->is_seo_index ?? '') == '1' ? 'selected' : '' }}
                                 value="1">Yes
@@ -89,7 +89,7 @@
                                     <div class="row">
                                         <div class="form-fields col-md-12">
                                             <label class="title">
-                                                Seo Title <span class="text-danger">*</span> :
+                                                Seo Title:
                                             </label>
                                             <input type="text" name="seo_title" class="field"
                                                 value="{{ old('seo_title', $seo->seo_title ?? '') }}"
@@ -102,8 +102,7 @@
 
                                         <div class="form-fields col-md-12">
                                             <label class="title">
-                                                Seo Description <span class="text-danger">*</span>
-                                                :
+                                                Seo Description:
                                             </label>
                                             <textarea name="seo_description" class="field" rows="3" placeholder="Enter Description..."
                                                 oninput="updateText(this,'google_desc')">{{ old('seo_description', $seo->seo_description ?? '') }}</textarea>
@@ -114,7 +113,7 @@
 
                                         <div class="form-fields col-md-4">
                                             <label class="title">
-                                                Seo Feature Image <span class="text-danger">*</span> :
+                                                Seo Feature Image:
                                             </label>
                                             <div class="upload" data-upload>
                                                 <div class="upload-box-wrapper">
@@ -149,6 +148,9 @@
                                                     Please upload a valid image file
                                                 </div>
                                             </div>
+                                            <div class="dimensions text-center mt-3">
+                                                <strong>Dimensions:</strong> 1200 &times; 630
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -161,7 +163,7 @@
                                         <!-- Facebook Title -->
                                         <div class="form-fields col-md-12">
                                             <label class="title">
-                                                Facebook Title <span class="text-danger">*</span> :
+                                                Facebook Title:
                                             </label>
                                             <input type="text" name="fb_title" class="field"
                                                 value="{{ old('fb_title', $seo->fb_title ?? '') }}"
@@ -174,7 +176,7 @@
 
                                         <div class="form-fields col-md-12">
                                             <label class="title">
-                                                Facebook Description <span class="text-danger">*</span> :
+                                                Facebook Description:
                                             </label>
                                             <textarea name="fb_description" class="field" rows="3" placeholder="Enter Description...">{{ old('fb_description', $seo->fb_description ?? '') }}</textarea>
                                             @error('fb_description')
@@ -184,7 +186,7 @@
 
                                         <div class="form-fields col-md-4">
                                             <label class="title">
-                                                Facebook Feature Image <span class="text-danger">*</span> :
+                                                Facebook Feature Image:
                                             </label>
                                             <div class="upload" data-upload>
                                                 <div class="upload-box-wrapper">
@@ -217,6 +219,9 @@
                                                     Please upload a valid image file
                                                 </div>
                                             </div>
+                                            <div class="dimensions text-center mt-3">
+                                                <strong>Dimensions:</strong> 1200 &times; 630
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -226,7 +231,7 @@
                                         <!-- Twitter Title -->
                                         <div class="form-fields col-md-12">
                                             <label class="title">
-                                                Twitter Title <span class="text-danger">*</span> :
+                                                Twitter Title:
                                             </label>
                                             <input type="text" name="tw_title" class="field"
                                                 value="{{ old('tw_title', $seo->tw_title ?? '') }}"
@@ -239,7 +244,7 @@
                                         <!-- Twitter Description -->
                                         <div class="form-fields col-md-12">
                                             <label class="title">
-                                                Twitter Description <span class="text-danger">*</span> :
+                                                Twitter Description:
                                             </label>
                                             <textarea name="tw_description" class="field" rows="3" placeholder="Enter Description...">{{ old('tw_description', $seo->tw_description ?? '') }}</textarea>
                                             @error('tw_description')
@@ -250,7 +255,7 @@
                                         <!-- Twitter Featured Image -->
                                         <div class="form-fields col-md-4">
                                             <label class="title">
-                                                Twitter Feature Image <span class="text-danger">*</span> :
+                                                Twitter Feature Image:
                                             </label>
                                             <div class="upload" data-upload>
                                                 <div class="upload-box-wrapper">
@@ -285,6 +290,9 @@
                                                     Please upload a valid image file
                                                 </div>
                                             </div>
+                                            <div class="dimensions text-center mt-3">
+                                                <strong>Dimensions:</strong> 1200 &times; 630
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -294,7 +302,7 @@
                                         <!-- Schema -->
                                         <div class="form-fields col-md-12">
                                             <label class="title">
-                                                Schema <span class="text-danger">*</span> :
+                                                Schema:
                                             </label>
                                             <textarea name="schema" class="field" rows="15">{{ old('schema', $seo->schema ?? '') }}</textarea>
                                             @error('schema')
@@ -309,7 +317,7 @@
                                         <!-- Canonical -->
                                         <div class="form-fields col-md-12">
                                             <label class="title">
-                                                Canonical <span class="text-danger">*</span> :
+                                                Canonical:
                                             </label>
                                             <input type="url" name="canonical" class="field"
                                                 value="{{ old('canonical', $seo->canonical ?? '') }}"

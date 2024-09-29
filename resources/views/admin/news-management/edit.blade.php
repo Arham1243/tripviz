@@ -8,7 +8,7 @@
                     <div class="section-content">
                         <h3 class="heading">Edit News: {{ isset($title) ? $title : '' }}</h3>
                     </div>
-                    <a href="javascript:void(0)" class="themeBtn">View News</a>
+                    <a href="{{ buildUrl(url('/'), 'news', $news->slug) }}" target="_blank" class="themeBtn">View News</a>
                 </div>
             </div>
             <form action="{{ route('admin.news.update', $news->id) }}" method="POST" enctype="multipart/form-data"
@@ -52,7 +52,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <x-seo-options :seo="$seo" />
+                            <x-seo-options :seo="$seo ?? null" :resource="'news'" :slug="$news->slug" />
                         </div>
                     </div>
                     <div class="col-md-3">
