@@ -261,7 +261,7 @@
                                                             data-upload-preview>
                                                     </a>
                                                     <input type="text" name="feature_image_alt_text" class="field"
-                                                        placeholder="Enter Alt Text"
+                                                        placeholder="Enter alt text"
                                                         value="{{ $blog->feature_image_alt_text }}">
                                                 </div>
                                             </div>

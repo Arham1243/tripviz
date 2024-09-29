@@ -24,7 +24,6 @@ trait UploadImageTrait
         $tableName = $entry->getTable();
         $entryId = $entry->id;
 
-        // Retrieve the current entry from the database to get the previous image path
         $currentEntry = DB::table($tableName)->where('id', $entryId)->first();
 
         // Get the previous image path from the current entry

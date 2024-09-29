@@ -14,17 +14,15 @@
                         </div>
                         <div class="row mb-4">
                             <div class="col-md-5">
-                                <form class="custom-form ">
-                                    <div class="form-fields d-flex gap-3">
-                                        <select class="field" id="bulkActions" name="bulk_actions" required>
-                                            <option value="" disabled selected>Bulk Actions</option>
-                                            <option value="restore">Restore</option>
-                                            <option value="permanent_delete">Delete Permanently</option>
-                                        </select>
-                                        <button type="submit" onclick="confirmBulkAction(event)"
-                                            class="themeBtn">Apply</button>
-                                    </div>
-                                </form>
+                                <div class="form-fields d-flex gap-3">
+                                    <select class="field" id="bulkActions" name="bulk_actions" required>
+                                        <option value="" disabled selected>Bulk Actions</option>
+                                        <option value="restore">Restore</option>
+                                        <option value="permanent_delete">Delete Permanently</option>
+                                    </select>
+                                    <button type="submit" onclick="confirmBulkAction(event)"
+                                        class="themeBtn">Apply</button>
+                                </div>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -33,13 +31,11 @@
                                     <tr>
                                         <th class="no-sort">
                                             <div class="selection select-all-container"><input type="checkbox"
-                                                    id="select-all">
-                                            </div>
+                                                    id="select-all"></div>
                                         </th>
-                                        <th>Name</th>
-                                        <th>Category</th>
-                                        <th>Author</th>
-                                        <th>Date</th>
+                                        @foreach ($columns as $column => $heading)
+                                            <th>{{ $heading }}</th>
+                                        @endforeach
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -47,26 +43,29 @@
                                     @foreach ($items as $item)
                                         <tr>
                                             <td>
-                                                <div class="selection item-select-container"><input type="checkbox"
-                                                        class="bulk-item" name="bulk_select[]" value="{{ $item->slug }}">
+                                                <div class="selection item-select-container">
+                                                    <input type="checkbox" class="bulk-item" name="bulk_select[]"
+                                                        value="{{ $item->slug }}">
                                                 </div>
                                             </td>
+                                            @foreach ($columns as $column => $heading)
+                                                <td>
+                                                    @if ($column === 'category')
+                                                        {{ $item->category->name ?? 'N/A' }}
+                                                    @elseif ($column === 'author')
+                                                        {{ $item->user->full_name ?? 'N/A' }}
+                                                    @elseif ($column === 'deleted_at')
+                                                        {{ $item->deleted_at->format('d M Y h:i A') }}
+                                                    @else
+                                                        {{ $item->$column ?? 'N/A' }}
+                                                    @endif
+                                                </td>
+                                            @endforeach
                                             <td>
-                                                <div class="link">{{ $item->title }}</div>
-                                            </td>
-                                            <td>{{ $item->category->name ?? 'N/A' }}</td>
-                                            <td>{{ $item->user->full_name ?? 'N/A' }}</td>
-                                            <td>{{ $item->created_at->format('d M Y') }}</td>
-                                            <td>
-                                                <span class="badge rounded-pill bg-danger ">
-                                                    deleted
-                                                </span>
+                                                <span class="badge rounded-pill bg-danger">deleted</span>
                                             </td>
                                         </tr>
                                     @endforeach
-
-
-
                                 </tbody>
                             </table>
                         </div>
@@ -77,9 +76,7 @@
     </div>
 @endsection
 @section('css')
-    <style type="text/css">
-
-    </style>
+    <style type="text/css"></style>
 @endsection
 @section('js')
     <script type="text/javascript"></script>

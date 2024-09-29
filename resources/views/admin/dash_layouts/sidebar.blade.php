@@ -101,7 +101,7 @@
                 [
                     'title' => 'All Location',
                     'icon' => 'bx bx-list-ul',
-                    'route' => 'javascript:void(0)',
+                    'route' => route('admin.locations.index'),
                 ],
                 [
                     'title' => 'All Category',
@@ -111,7 +111,7 @@
                 [
                     'title' => 'Recovery',
                     'icon' => 'bx bx-refresh',
-                    'route' => 'javascript:void(0)',
+                    'route' => route('admin.recovery.index', ['resource' => 'locations']),
                 ],
             ],
         ],
@@ -342,10 +342,12 @@
                 $hasActiveSubmenu =
                     isset($item['submenu']) &&
                     array_filter($item['submenu'], function ($submenu) {
-                        return isset($submenu['submenu']) &&
-                            array_filter($submenu['submenu'], function ($subSubMenu) {
-                                return Request::url() === ($subSubMenu['route'] ?? '');
-                            });
+                        // Check if the submenu or any subSubMenu matches the current URL
+                        return Request::url() === ($submenu['route'] ?? '') ||
+                            (isset($submenu['submenu']) &&
+                                array_filter($submenu['submenu'], function ($subSubMenu) {
+                                    return Request::url() === ($subSubMenu['route'] ?? '');
+                                }));
                     });
                 $isOpen = $isItemActive || $hasActiveSubmenu;
             @endphp
@@ -366,16 +368,16 @@
                             @foreach ($item['submenu'] as $submenu)
                                 @php
                                     $isSubmenuActive = Request::url() === ($submenu['route'] ?? '');
-                                    $hasActiveSubSubmenu =
-                                        isset($submenu['submenu']) &&
-                                        array_filter($submenu['submenu'], function ($subSubMenu) {
-                                            return Request::url() === ($subSubMenu['route'] ?? '');
-                                        });
-                                    $isSubOpen = $isSubmenuActive || $hasActiveSubSubmenu;
+                                    $isSubOpen =
+                                        $isSubmenuActive ||
+                                        (isset($submenu['submenu']) &&
+                                            array_filter($submenu['submenu'], function ($subSubMenu) {
+                                                return Request::url() === ($subSubMenu['route'] ?? '');
+                                            }));
                                 @endphp
                                 <li class="custom-dropdown custom-dropdown--sub {{ $isSubOpen ? 'open' : '' }}">
-                                    <a href="javascript:void(0)"
-                                        class="{{ isset($submenu['submenu']) ? 'custom-dropdown__active' : '' }}">
+                                    <a href="{{ $submenu['route'] ?? 'javascript:void(0)' }}"
+                                        class="{{ isset($submenu['submenu']) ? 'custom-dropdown__active' : '' }} {{ $isSubmenuActive ? 'active' : '' }}">
                                         <div class="info">
                                             <i class="{{ $submenu['icon'] }}"></i> {{ $submenu['title'] }}
                                         </div>

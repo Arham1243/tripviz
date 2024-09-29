@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Models\BlogTag;
+use App\Models\Location;
 use App\Models\News;
 use App\Models\NewsCategory;
 use App\Models\NewsTag;
@@ -52,6 +53,11 @@ class BulkActionController extends Controller
                 $modelClass = NewsCategory::class;
                 $column = 'slug';
                 $redirectRoute = 'admin.news-categories.index';
+                break;
+            case 'locations':
+                $modelClass = Location::class;
+                $column = 'slug';
+                $redirectRoute = 'admin.locations.index';
                 break;
 
             default:

@@ -39,7 +39,7 @@ class CategoriesController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|regex:/^[a-zA-Z\s]+$/|min:3|max:255',
-            'slug' => 'nullable|string|max:255|unique:news_categories,slug',
+            'slug' => 'nullable|string|max:255',
             'parent_category_id' => 'nullable|exists:news_categories,id',
         ]);
 
@@ -80,7 +80,7 @@ class CategoriesController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255|unique:news_categories,slug,'.$id,
+            'slug' => 'nullable|string|max:255',
             'parent_category_id' => 'nullable|exists:news_categories,id',
         ]);
 

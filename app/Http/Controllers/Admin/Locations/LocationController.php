@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin\News;
+namespace App\Http\Controllers\Admin\Locations;
 
 use App\Http\Controllers\Controller;
-use App\Models\NewsTag;
+use App\Models\Location;
 use App\Traits\Sluggable;
 use App\Traits\UploadImageTrait;
 use Illuminate\Http\Request;
 
-class TagsController extends Controller
+class LocationController extends Controller
 {
     use Sluggable;
     use UploadImageTrait;
@@ -18,10 +18,11 @@ class TagsController extends Controller
      */
     public function index()
     {
-        $tags = NewsTag::latest()->get();
-        $data = compact('tags');
+        $items = Location::latest()->get();
+        $parentItems = Location::all();
+        $data = compact('items', 'parentItems');
 
-        return view('admin.news-tags.main')->with('title', 'News Tags')->with($data);
+        return view('admin.locations-management.main')->with('title', 'Location')->with($data);
     }
 
     /**
@@ -40,14 +41,14 @@ class TagsController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|regex:/^[a-zA-Z\s]+$/|min:3|max:255',
             'slug' => 'nullable|string|max:255',
+            'parent_location_id' => 'nullable|exists:locations,id',
         ]);
         $slugText = $validatedData['slug'] != '' ? $validatedData['slug'] : $validatedData['name'];
-        $slug = $this->createSlug($slugText, 'news_tags');
+        $slug = $this->createSlug($slugText, 'locations');
         $data = array_merge($validatedData, ['slug' => $slug]);
+        Location::create($data);
 
-        NewsTag::create($data);
-
-        return redirect()->route('admin.news-tags.index')->with('notify_success', 'Tag Added successfully.');
+        return redirect()->route('admin.locations.index')->with('notify_success', 'Locations Added successfully.');
     }
 
     /**
@@ -63,12 +64,12 @@ class TagsController extends Controller
      */
     public function edit($id)
     {
-        $tag = NewsTag::where('id', $id)->firstOrFail();
-        $tags = NewsTag::latest()->get();
-        $seo = $tag->seo()->first();
-        $data = compact('tag', 'tags', 'seo');
+        $item = Location::where('id', $id)->firstOrFail();
+        $parentItems = Location::whereNotIn('id', [$id])->get();
+        $seo = $item->seo()->first();
+        $data = compact('item', 'parentItems', 'seo');
 
-        return view('admin.news-tags.edit')->with('title', ucfirst(strtolower($tag->name)))->with($data);
+        return view('admin.locations-management.edit')->with('title', ucfirst(strtolower($item->name)))->with($data);
     }
 
     /**
@@ -79,16 +80,25 @@ class TagsController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|regex:/^[a-zA-Z\s]+$/|min:3|max:255',
             'slug' => 'nullable|string|max:255',
+            'parent_location_id' => 'nullable|exists:locations,id',
+            'content' => 'required',
+            'status' => 'required|in:publish,draft',
+            'feature_image' => 'nullable|image',
+            'feature_image_alt_text' => 'nullable|string|max:255',
         ]);
-        $tag = NewsTag::where('id', $id)->firstOrFail();
+
+        $item = Location::where('id', $id)->firstOrFail();
         $slugText = $validatedData['slug'] != '' ? $validatedData['slug'] : $validatedData['name'];
-        $newSlug = $this->createSlug($slugText, 'news_tags', $tag->slug);
+        $newSlug = $this->createSlug($slugText, 'locations', $item->slug);
         $data = array_merge($validatedData, ['slug' => $newSlug]);
-        $tag->update($data);
 
-        $this->handleSeoData($request, $tag, 'News-Tags');
+        $item->update($data);
 
-        return redirect()->route('admin.news-tags.index')->with('notify_success', 'Tag updated successfully.');
+        $this->uploadImg('feature_image', 'Location/Featured-image', $item, 'feature_image');
+
+        $this->handleSeoData($request, $item, 'Location');
+
+        return redirect()->route('admin.locations.index')->with('notify_success', 'Location updated successfully.');
     }
 
     public function handleSeoData($request, $entry, $resource)

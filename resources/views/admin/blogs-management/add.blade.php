@@ -211,7 +211,7 @@
                                                             alt="Uploaded Image" class="imgFluid" data-upload-preview>
                                                     </a>
                                                     <input type="text" name="feature_image_alt_text" class="field"
-                                                        placeholder="Enter Alt Text" value="Feature Image">
+                                                        placeholder="Enter alt text" value="Feature Image">
                                                 </div>
                                             </div>
                                             <div data-error-message class="text-danger mt-2 d-none text-center">Please

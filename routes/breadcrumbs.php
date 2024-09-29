@@ -75,3 +75,14 @@ Breadcrumbs::for('admin.news-tags.edit', function (BreadcrumbTrail $trail, $tag)
     $trail->push($tag->name, route('admin.news-tags.edit', $tag->id));
 });
 // ---------------News---------------
+
+// ---------------Locations---------------
+Breadcrumbs::for('admin.locations.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('All Location', route('admin.locations.index'));
+});
+Breadcrumbs::for('admin.locations.edit', function (BreadcrumbTrail $trail, $location) {
+    $trail->parent('admin.locations.index');
+    $trail->push($location->name, route('admin.locations.edit', $location->id));
+});
+// ---------------Locations---------------

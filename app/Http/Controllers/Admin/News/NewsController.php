@@ -63,7 +63,7 @@ class NewsController extends Controller
             'tags_ids' => 'array',
             'tags_ids.*' => 'integer|exists:news_tags,id',
             'featured_image' => 'required|image',
-            'feature_image_alt_text' => 'required|string|max:255',
+            'feature_image_alt_text' => 'nullable|string|max:255',
         ]);
 
         $slug = $this->createSlug($validatedData['title'], 'blogs');
@@ -136,7 +136,7 @@ class NewsController extends Controller
             'tags_ids' => 'array',
             'tags_ids.*' => 'integer|exists:news_tags,id',
             'featured_image' => 'nullable|image',
-            'feature_image_alt_text' => 'required|string|max:255',
+            'feature_image_alt_text' => 'nullable|string|max:255',
         ]);
 
         $slugText = $validatedData['slug'] != '' ? $validatedData['slug'] : $validatedData['title'];

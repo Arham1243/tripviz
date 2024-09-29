@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\BulkActionController;
 use App\Http\Controllers\Admin\Locations\CityController;
 use App\Http\Controllers\Admin\Locations\ContinentController;
 use App\Http\Controllers\Admin\Locations\CountryController;
+use App\Http\Controllers\Admin\Locations\LocationController as AdminLocationController;
 use App\Http\Controllers\Admin\News\CategoriesController as AdminNewsCategoriesController;
 use App\Http\Controllers\Admin\News\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\News\TagsController as AdminNewsTagsController;
@@ -229,7 +230,6 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('blogs', AdminBlogController::class);
     Route::get('media/{media}', [AdminBlogController::class, 'deleteMedia'])->name('media.delete');
-
     Route::resource('blogs-categories', AdminBlogsCategoriesController::class);
     Route::resource('blogs-tags', AdminBlogsTagsController::class);
 
@@ -237,6 +237,8 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('news', AdminNewsController::class);
     Route::resource('news-tags', AdminNewsTagsController::class);
     Route::resource('news-categories', AdminNewsCategoriesController::class);
+
+    Route::resource('locations', AdminLocationController::class);
 });
 
 // ---------------------------------------Admin---------------------------------------

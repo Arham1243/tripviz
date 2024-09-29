@@ -39,7 +39,7 @@ class TagsController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|regex:/^[a-zA-Z\s]+$/|min:3|max:255',
-            'slug' => 'nullable|string|max:255|unique:blog_tags,slug',
+            'slug' => 'nullable|string|max:255',
         ]);
         $slugText = $validatedData['slug'] != '' ? $validatedData['slug'] : $validatedData['name'];
         $slug = $this->createSlug($slugText, 'blog_tags');
@@ -78,7 +78,7 @@ class TagsController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|regex:/^[a-zA-Z\s]+$/|min:3|max:255',
-            'slug' => 'nullable|string|max:255|unique:blog_tags,slug,'.$id,
+            'slug' => 'nullable|string|max:255',
         ]);
         $tag = BlogTag::where('id', $id)->firstOrFail();
         $slugText = $validatedData['slug'] != '' ? $validatedData['slug'] : $validatedData['name'];
