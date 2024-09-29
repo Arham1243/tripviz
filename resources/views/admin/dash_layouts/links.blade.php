@@ -1,3 +1,4 @@
+<link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 <script src="https://cdn.lordicon.com/lordicon.js"></script>
 <link href="//cdn.datatables.net/2.1.5/css/dataTables.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
