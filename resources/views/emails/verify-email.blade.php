@@ -126,7 +126,7 @@
 			font-family: sans-serif;"
                             class="header">
                             <img border="0" vspace="0" hspace="0" src="{{ $data['logo'] }}" width="200"
-                                height="58" alt="{{ config('app.name') }}" title="{{ config('app.name') }}" />
+                                height="58" alt="{{ env('APP_NAME') }}" title="{{ env('APP_NAME') }}" />
                         </td>
                     </tr>
                     <tr>
@@ -193,7 +193,7 @@
 			color: #000000;
 			font-family: sans-serif;"
                             class="paragraph">
-                            © {{ config('app.name') }} {{ date('Y') }}. All rights reserved.
+                            © {{ env('APP_NAME') }} {{ date('Y') }}. All rights reserved.
                         </td>
                     </tr>
                 </table>

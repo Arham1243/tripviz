@@ -3,9 +3,6 @@
     <div class="col-md-9">
         <div class="dashboard-content">
             <div class="revenue">
-                {{-- <div class="section-content">
-                    <h3 class="heading">Overview</h3>
-                </div> --}}
                 <div class="row">
                     <div class="col-md-4">
                         <div class="revenue-card">

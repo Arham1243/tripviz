@@ -87,7 +87,7 @@
         <div class=container>
             <div class=last-footer__content>
                 <div class=last-footer__title>
-                    <span>© <?php echo date('Y'); ?> {{ config('app.name') }} All Rights Reserved.</span>
+                    <span>© <?php echo date('Y'); ?> {{ env('APP_NAME') }} All Rights Reserved.</span>
                 </div>
                 <!--<div class=Agency-name>Öz Alanya Tour and Travel Agency</div>-->
             </div>
