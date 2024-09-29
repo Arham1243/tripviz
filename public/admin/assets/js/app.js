@@ -210,7 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// Ck Editor
+// Editor
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("validation-form");
     if (form) {
@@ -226,19 +226,40 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-// Function to initialize CKEditor instances
+// Tiny Editor
 function initializeEditors(form) {
     const editors = [];
     const editorElements = form.querySelectorAll(".editor");
 
-    editorElements?.forEach((editorElement) => {
-        ClassicEditor.create(editorElement)
-            .then((instance) => {
-                editors.push(instance);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+    editorElements.forEach((editorElement) => {
+        tinymce.init({
+            target: editorElement,
+            plugins:
+                "advlist autolink link image lists charmap print preview anchor \
+                      searchreplace visualblocks code fullscreen insertdatetime media table \
+                      paste code wordcount emoticons hr pagebreak save directionality \
+                      template toc textpattern imagetools visualchars nonbreaking codesample",
+            toolbar:
+                "undo redo | formatselect | bold italic underline strikethrough forecolor backcolor | \
+                      alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | \
+                      link image media | preview fullscreen | emoticons codesample blockquote hr pagebreak | \
+                      removeformat",
+            height: 300, // Adjust the height for the editor
+            menubar: true, // Show the menubar
+            branding: false, // Remove TinyMCE branding
+            image_advtab: true, // Advanced image options
+            media_live_embeds: true, // Auto-embed media
+            paste_data_images: true, // Allow pasting images
+            automatic_uploads: true, // Auto-upload images while editing
+            file_picker_types: "image media", // Enable file picker for image/media
+            content_style:
+                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+            setup: function (editor) {
+                editor.on("init", function () {
+                    editors.push(editor);
+                });
+            },
+        });
     });
 
     return editors;
@@ -276,10 +297,12 @@ function validateField(field) {
     return true;
 }
 
-// Function to validate CKEditor fields
+// Function to validate TinyMCE editor fields
 function validateEditor(editorInstance) {
-    const editorData = editorInstance.getData();
-    const editorElement = editorInstance.sourceElement;
+    const editorData = tinymce
+        .get(editorInstance.id)
+        .getContent({ format: "text" });
+    const editorElement = editorInstance.targetElm;
 
     if (!editorData.trim()) {
         showErrorToast(
