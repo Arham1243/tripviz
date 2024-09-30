@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('featured_image')->nullable();
             $table->string('feature_image_alt_text')->nullable();
             $table->unsignedBigInteger('top_highlighted_tour_id')->nullable();
-            $table->foreignId('category_id')->constrained('blog_categories')->onDelete('set null');
-            $table->foreignId('user_id')->constrained('users')->onDelete('set null');
+            $table->foreignId('category_id')->nullable()->constrained('blog_categories')->onDelete('set null');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->enum('status', ['publish', 'draft'])->default('draft');
             $table->timestamps();
         });

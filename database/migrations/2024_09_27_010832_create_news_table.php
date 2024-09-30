@@ -18,8 +18,8 @@ return new class extends Migration
             $table->text('content')->nullable();
             $table->string('featured_image')->nullable();
             $table->string('feature_image_alt_text')->nullable();
-            $table->foreignId('category_id')->constrained('news_categories')->onDelete('set null');
-            $table->foreignId('user_id')->constrained('users')->onDelete('set null');
+            $table->foreignId('category_id')->nullable()->constrained('news_categories')->onDelete('set null');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->enum('status', ['publish', 'draft'])->default('draft');
             $table->softDeletes();
             $table->timestamps();

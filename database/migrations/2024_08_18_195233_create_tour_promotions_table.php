@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->string('link')->nullable();
-            $table->boolean('show_on_homepage')->default(false)->after('img_path');
+            $table->boolean('show_on_homepage')->default(false);
             $table->string('img_path')->nullable();
             $table->boolean('is_active')->default(1);
             $table->timestamps();
