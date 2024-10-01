@@ -40,7 +40,9 @@
                                         class="link">{{ $tag->name }}</a>
                                 </td>
                                 <td>{{ $tag->slug }}</td>
-                                <td>{{ $tag->created_at->format('d M Y') }}</td>
+                                <td>
+                                    {{ formatDateTime($tag->created_at) }}
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

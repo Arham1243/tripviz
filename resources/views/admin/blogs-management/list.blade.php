@@ -60,7 +60,9 @@
                                             </td>
                                             <td>{{ $blog->category->name ?? 'N/A' }}</td>
                                             <td>{{ $blog->user->full_name ?? 'N/A' }}</td>
-                                            <td>{{ $blog->created_at->format('d M Y') }}</td>
+                                            <td>
+                                                {{ formatDateTime($blog->created_at) }}
+                                            </td>
                                             <td>
                                                 <span
                                                     class="badge rounded-pill bg-{{ $blog->status == 'publish' ? 'success' : 'warning' }} ">

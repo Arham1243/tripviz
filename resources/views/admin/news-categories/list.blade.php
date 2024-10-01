@@ -41,7 +41,10 @@
                                         class="link">{{ $category->name }}</a>
                                 </td>
                                 <td>{{ $category->slug }}</td>
-                                <td>{{ $category->created_at->format('d M Y') }}</td>
+                                <td>
+                                    {{ formatDateTime($category->created_at) }}
+
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

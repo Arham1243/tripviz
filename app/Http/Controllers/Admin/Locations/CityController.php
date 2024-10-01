@@ -45,7 +45,7 @@ class CityController extends Controller
 
         $this->uploadImg('featured_image', 'City/Featured-image', $item, 'featured_image');
 
-        $this->handleSeoData($request, $item, 'City');
+        handleSeoData($request, $item, 'City');
 
         return redirect()->route('admin.cities.index')->with('notify_success', 'City Added successfully!');
     }
@@ -80,36 +80,9 @@ class CityController extends Controller
 
         $item->update($data);
         $this->uploadImg('featured_image', 'City/Featured-image', $item, 'featured_image');
-        $this->handleSeoData($request, $item, 'City');
+        handleSeoData($request, $item, 'City');
 
         return redirect()->route('admin.cities.index')
             ->with('notify_success', 'City updated successfully.');
-    }
-
-    public function handleSeoData($request, $entry, $resource)
-    {
-        $seoData = $request->only([
-            'is_seo_index',
-            'seo_title',
-            'seo_description',
-            'fb_title',
-            'fb_description',
-            'tw_title',
-            'tw_description',
-            'schema',
-            'canonical',
-        ]);
-
-        $seo = $entry->seo()->updateOrCreate([], $seoData);
-
-        $imageFields = [
-            'seo_featured_image',
-            'fb_featured_image',
-            'tw_featured_image',
-        ];
-
-        foreach ($imageFields as $field) {
-            $this->uploadImg($field, "Seo/$resource/$field", $seo, $field);
-        }
     }
 }

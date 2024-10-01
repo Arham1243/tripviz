@@ -58,7 +58,9 @@
                                                     class="link">{{ $item->name }}</a>
                                             </td>
                                             <td>{{ $item->country->name ?? 'N/A' }}</td>
-                                            <td>{{ $item->created_at->format('d M Y') }}</td>
+                                            <td>
+                                                {{ formatDateTime($item->created_at) }}
+                                            </td>
                                             <td>
                                                 <span
                                                     class="badge rounded-pill bg-{{ $item->status == 'publish' ? 'success' : 'warning' }} ">

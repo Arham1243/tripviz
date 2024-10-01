@@ -79,36 +79,9 @@ class NewsController extends Controller
         }
         $this->uploadImg('featured_image', 'News/Featured-image', $news, 'featured_image');
 
-        $this->handleSeoData($request, $news, 'News');
+        handleSeoData($request, $news, 'News');
 
         return redirect()->route('admin.news.index')->with('notify_success', 'News Added successfully!');
-    }
-
-    public function handleSeoData($request, $entry, $resource)
-    {
-        $seoData = $request->only([
-            'is_seo_index',
-            'seo_title',
-            'seo_description',
-            'fb_title',
-            'fb_description',
-            'tw_title',
-            'tw_description',
-            'schema',
-            'canonical',
-        ]);
-
-        $seo = $entry->seo()->updateOrCreate([], $seoData);
-
-        $imageFields = [
-            'seo_featured_image',
-            'fb_featured_image',
-            'tw_featured_image',
-        ];
-
-        foreach ($imageFields as $field) {
-            $this->uploadImg($field, "Seo/$resource/$field", $seo, $field);
-        }
     }
 
     public function edit(News $news)
@@ -157,7 +130,7 @@ class NewsController extends Controller
         }
         $this->uploadImg('featured_image', 'Blog/Featured-image', $news, 'featured_image');
 
-        $this->handleSeoData($request, $news, 'Blog');
+        handleSeoData($request, $news, 'Blog');
 
         return redirect()->route('admin.news.index')->with('notify_success', 'News updated successfully!');
     }

@@ -57,7 +57,7 @@
                                                     @elseif ($column === 'country')
                                                         {{ $item->country->name ?? 'N/A' }}
                                                     @elseif ($column === 'deleted_at')
-                                                        {{ $item->deleted_at->format('d M Y h:i A') }}
+                                                        {{ formatDateTime($item->deleted_at) }}
                                                     @else
                                                         {{ $item->$column ?? 'N/A' }}
                                                     @endif
