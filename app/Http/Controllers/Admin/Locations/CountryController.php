@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin\Locations;
 
 use App\Http\Controllers\Controller;
-use App\Models\Continent;
 use App\Models\Country;
 use App\Traits\Sluggable;
 use App\Traits\UploadImageTrait;
@@ -14,136 +13,98 @@ class CountryController extends Controller
     use Sluggable;
     use UploadImageTrait;
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $countries = Country::with('continent')->get();
+        $items = Country::get();
 
-        return view('admin.countries-management.list', compact('countries'))->with('title', 'Countries');
+        return view('admin.countries-management.list', compact('items'))->with('title', 'Countries');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        $continents = Continent::where('is_active', 1)->get();
-
-        return view('admin.countries-management.add', compact('continents'))->with('title', 'Add New Country');
+        return view('admin.countries-management.add')->with('title', 'Add New Country');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'continent_id' => 'required|int',
-            'name' => 'required|string|max:255',
-            'img_path' => 'required|image|mimes:jpeg,png,webp,jpg,gif|max:2048',
-            'short_desc' => 'required',
-            'show_on_homepage' => 'nullable',
+            'name' => 'required|min:3|max:255',
+            'slug' => 'nullable|string|max:255',
+            'content' => 'required',
+            'status' => 'required|in:publish,draft',
+            'featured_image' => 'required|image',
+            'featured_image_alt_text' => 'nullable|string|max:255',
         ]);
-
-        // Generate a unique slug based on the name
-        $slug = $this->createSlug($request->input('name'), 'countries');
-
-        // Add the slug to the validated data
+        $slug = $this->createSlug($validatedData['name'], 'countries');
         $data = array_merge($validatedData, ['slug' => $slug]);
+        $item = Country::create($data);
 
-        $country = Country::create($data);
-        $this->uploadImg('img_path', 'img_path', 'Country/Thumbnail', $country);
+        $this->uploadImg('featured_image', 'Country/Featured-image', $item, 'featured_image');
 
-        return redirect()->route('admin.countries.index')
-            ->with('notify_success', 'Country created successfully.');
+        $this->handleSeoData($request, $item, 'Country');
+
+        return redirect()->route('admin.countries.index')->with('notify_success', 'Country Added successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Country $country)
+    public function edit($id)
     {
-        return view('admin.countries-management.show', compact('country'));
+        $item = Country::find($id);
+        $seo = $item->seo()->first();
+
+        return view('admin.countries-management.edit', compact('item', 'seo'))->with('title', ucfirst(strtolower($item->name)));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Country $country)
+    public function update(Request $request, $id)
     {
-        $continents = Continent::where('is_active', 1)->get();
 
-        return view('admin.countries-management.edit', compact('country', 'continents'))->with('title', 'Edit Country');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Country $country)
-    {
-        // Validate the request data
         $validatedData = $request->validate([
-            'continent_id' => 'required|int',
-            'name' => 'required|string|max:255',
-            'show_on_homepage' => 'nullable',
-            'img_path' => 'nullable|image|mimes:jpeg,png,webp,jpg,gif|max:2048',
-            'short_desc' => 'required',
+            'name' => 'required|min:3|max:255',
+            'slug' => 'nullable|string|max:255',
+            'content' => 'required',
+            'status' => 'required|in:publish,draft',
+            'featured_image' => 'nullable|image',
+            'featured_image_alt_text' => 'nullable|string|max:255',
+        ]);
+        $item = Country::find($id);
+        $slugText = $validatedData['slug'] != '' ? $validatedData['slug'] : $validatedData['name'];
+        $slug = $this->createSlug($slugText, 'countries', $item->slug);
+
+        $data = array_merge($validatedData, [
+            'slug' => $slug,
         ]);
 
-        // Generate a unique slug based on the name
-        $slug = $this->createSlug($request->input('name'), 'countries');
-
-        // Add the slug to the validated data
-        $data = array_merge($validatedData, ['slug' => $slug]);
-
-        // Set show_on_homepage to 0 if not present in the request
-        $data['show_on_homepage'] = $request->has('show_on_homepage') ? $validatedData['show_on_homepage'] : 0;
-
-        // Update the country record
-        $country->update($data);
-
-        // Handle the image upload if a new image is provided
-        if ($request->hasFile('img_path')) {
-            $this->uploadImg('img_path', 'img_path', 'Country/Thumbnail', $country);
-        }
+        $item->update($data);
+        $this->uploadImg('featured_image', 'Country/Featured-image', $item, 'featured_image');
+        $this->handleSeoData($request, $item, 'Country');
 
         return redirect()->route('admin.countries.index')
             ->with('notify_success', 'Country updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Country $country)
+    public function handleSeoData($request, $entry, $resource)
     {
-        $country->delete();
+        $seoData = $request->only([
+            'is_seo_index',
+            'seo_title',
+            'seo_description',
+            'fb_title',
+            'fb_description',
+            'tw_title',
+            'tw_description',
+            'schema',
+            'canonical',
+        ]);
 
-        return redirect()->route('admin.countries.index')
-            ->with('notify_success', 'Country deleted successfully.');
-    }
+        $seo = $entry->seo()->updateOrCreate([], $seoData);
 
-    public function suspend(Country $country)
-    {
-        $country->is_active = ! $country->is_active;
-        $country->save();
+        $imageFields = [
+            'seo_featured_image',
+            'fb_featured_image',
+            'tw_featured_image',
+        ];
 
-        return redirect()->route('admin.countries.index')
-            ->with('notify_success', 'Country status updated successfully.');
+        foreach ($imageFields as $field) {
+            $this->uploadImg($field, "Seo/$resource/$field", $seo, $field);
+        }
     }
 }

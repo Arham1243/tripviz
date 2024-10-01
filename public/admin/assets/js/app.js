@@ -329,27 +329,42 @@ function showErrorToast(message) {
 // Bulk Action
 document.addEventListener("DOMContentLoaded", function () {
     const selectAllCheckbox = document.getElementById("select-all");
-    const itemCheckboxes = document.querySelectorAll(".bulk-item");
 
-    if (itemCheckboxes && selectAllCheckbox) {
-        function toggleSelectAll() {
-            const isChecked = selectAllCheckbox.checked;
+    function initializeBulkActionCheckboxes() {
+        const itemCheckboxes = document.querySelectorAll(".bulk-item");
+
+        if (itemCheckboxes && selectAllCheckbox) {
+            function toggleSelectAll() {
+                const isChecked = selectAllCheckbox.checked;
+                itemCheckboxes.forEach(function (checkbox) {
+                    checkbox.checked = isChecked;
+                });
+            }
+
+            function handleItemCheckboxChange() {
+                const allChecked = Array.from(itemCheckboxes).every(
+                    (checkbox) => checkbox.checked
+                );
+                selectAllCheckbox.checked = allChecked;
+            }
+
+            // Attach event listeners to checkboxes
+            selectAllCheckbox.addEventListener("change", toggleSelectAll);
             itemCheckboxes.forEach(function (checkbox) {
-                checkbox.checked = isChecked;
+                checkbox.addEventListener("change", handleItemCheckboxChange);
             });
         }
-        function handleItemCheckboxChange() {
-            const allChecked = Array.from(itemCheckboxes).every(
-                (checkbox) => checkbox.checked,
-            );
-            selectAllCheckbox.checked = allChecked;
-        }
-        selectAllCheckbox.addEventListener("change", toggleSelectAll);
-        itemCheckboxes.forEach(function (checkbox) {
-            checkbox.addEventListener("change", handleItemCheckboxChange);
-        });
     }
+
+    // Initialize the checkboxes for the first time
+    initializeBulkActionCheckboxes();
+
+    // If you're using DataTables, listen for the draw event and reinitialize the checkboxes
+    $('.data-table').on('draw.dt', function () {
+        initializeBulkActionCheckboxes();
+    });
 });
+
 
 function confirmBulkAction(event) {
     const selectedAction = document.getElementById("bulkActions").value;

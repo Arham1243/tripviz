@@ -38,6 +38,7 @@
                             results?
                             :</label>
                         <select name="is_seo_index" class="field" onchange="toggleElement(this, '0', 'seo_options')">
+                            <option value="" disabled selected>Select</option>
                             <option {{ old('is_seo_index', $seo->is_seo_index ?? '') == '1' ? 'selected' : '' }}
                                 value="1">Yes
                             </option>
@@ -51,7 +52,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-12 mt-4 {{ $seo && $seo->is_seo_index != 1 ? 'd-none' : '' }}" id="seo_options">
+                <div class="col-12 mt-4 {{ !$seo || $seo->is_seo_index == 0 ? 'd-none' : '' }}" id="seo_options">
                     <div class="tabs-wrapper">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">

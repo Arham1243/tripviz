@@ -76,13 +76,32 @@ Breadcrumbs::for('admin.news-tags.edit', function (BreadcrumbTrail $trail, $tag)
 });
 // ---------------News---------------
 
-// ---------------Locations---------------
-Breadcrumbs::for('admin.locations.index', function (BreadcrumbTrail $trail) {
+// ---------------countries---------------
+Breadcrumbs::for('admin.countries.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
-    $trail->push('All Location', route('admin.locations.index'));
+    $trail->push('Countries', route('admin.countries.index'));
 });
-Breadcrumbs::for('admin.locations.edit', function (BreadcrumbTrail $trail, $location) {
-    $trail->parent('admin.locations.index');
-    $trail->push($location->name, route('admin.locations.edit', $location->id));
+Breadcrumbs::for('admin.countries.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.countries.index');
+    $trail->push('Add Country', route('admin.countries.create'));
 });
-// ---------------Locations---------------
+Breadcrumbs::for('admin.countries.edit', function (BreadcrumbTrail $trail, $country) {
+    $trail->parent('admin.countries.index');
+    $trail->push($country->name, route('admin.countries.edit', $country->id));
+});
+// ---------------countries---------------
+
+// ---------------cities---------------
+Breadcrumbs::for('admin.cities.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Cities', route('admin.cities.index'));
+});
+Breadcrumbs::for('admin.cities.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.cities.index');
+    $trail->push('Add City', route('admin.cities.create'));
+});
+Breadcrumbs::for('admin.cities.edit', function (BreadcrumbTrail $trail, $city) {
+    $trail->parent('admin.cities.index');
+    $trail->push($city->name, route('admin.cities.edit', $city->id));
+});
+// ---------------countries---------------

@@ -38,7 +38,7 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|regex:/^[a-zA-Z\s]+$/|min:3|max:255',
+            'name' => 'required|min:3|max:255',
             'slug' => 'nullable|string|max:255',
             'parent_category_id' => 'nullable|exists:news_categories,id',
         ]);

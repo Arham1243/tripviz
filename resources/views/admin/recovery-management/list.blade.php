@@ -54,6 +54,8 @@
                                                         {{ $item->category->name ?? 'N/A' }}
                                                     @elseif ($column === 'author')
                                                         {{ $item->user->full_name ?? 'N/A' }}
+                                                    @elseif ($column === 'country')
+                                                        {{ $item->country->name ?? 'N/A' }}
                                                     @elseif ($column === 'deleted_at')
                                                         {{ $item->deleted_at->format('d M Y h:i A') }}
                                                     @else

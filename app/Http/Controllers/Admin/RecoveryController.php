@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
-use App\Models\Location;
+use App\Models\City;
+use App\Models\Country;
 use App\Models\News;
 use Illuminate\Support\Facades\Redirect;
 
@@ -23,8 +24,14 @@ class RecoveryController extends Controller
             'author' => 'Author',
             'deleted_at' => 'Deleted On',
         ],
-        'locations' => [
+        'countries' => [
             'name' => 'Name',
+            'slug' => 'Slug',
+            'deleted_at' => 'Deleted On',
+        ],
+        'cities' => [
+            'name' => 'Name',
+            'country' => 'Country',
             'slug' => 'Slug',
             'deleted_at' => 'Deleted On',
         ],
@@ -39,8 +46,11 @@ class RecoveryController extends Controller
             case 'news':
                 $items = News::onlyTrashed()->get();
                 break;
-            case 'locations':
-                $items = Location::onlyTrashed()->with('parentLocation')->get();
+            case 'countries':
+                $items = Country::onlyTrashed()->get();
+                break;
+            case 'cities':
+                $items = City::onlyTrashed()->get();
                 break;
             default:
                 return Redirect::back()->with('notify_error', 'Resource not found.');

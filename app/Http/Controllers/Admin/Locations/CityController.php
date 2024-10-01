@@ -14,136 +14,102 @@ class CityController extends Controller
     use Sluggable;
     use UploadImageTrait;
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $cities = City::with('country')->get();
+        $items = City::get();
 
-        return view('admin.cities-management.list', compact('cities'))->with('title', 'Cities');
+        return view('admin.cities-management.list', compact('items'))->with('title', 'Cities');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        $countries = Country::where('is_active', 1)->get();
+        $countries = Country::where('status', 'publish')->get();
 
         return view('admin.cities-management.add', compact('countries'))->with('title', 'Add New City');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        // Validate the request data
         $validatedData = $request->validate([
-            'country_id' => 'required|int',
-            'name' => 'required|string|max:255',
-            'img_path' => 'required|image|mimes:jpeg,png,webp,jpg,gif|max:2048',
-            'show_on_homepage' => 'nullable',
-            'short_desc' => 'required',
+            'name' => 'required|min:3|max:255',
+            'slug' => 'nullable|string|max:255',
+            'content' => 'required',
+            'status' => 'required|in:publish,draft',
+            'country_id' => 'nullable|int',
+            'featured_image' => 'required|image',
+            'featured_image_alt_text' => 'nullable|string|max:255',
         ]);
-
-        // Generate a unique slug based on the name
         $slug = $this->createSlug($validatedData['name'], 'cities');
-
-        // Add the slug to the validated data
         $data = array_merge($validatedData, ['slug' => $slug]);
+        $item = City::create($data);
 
-        // Create the city record
-        $city = City::create($data);
+        $this->uploadImg('featured_image', 'City/Featured-image', $item, 'featured_image');
 
-        // Handle the image upload
-        $this->uploadImg('img_path', 'img_path', 'City/Thumbnail', $city);
+        $this->handleSeoData($request, $item, 'City');
 
-        return redirect()->route('admin.cities.index')->with('notify_success', 'City created successfully.');
+        return redirect()->route('admin.cities.index')->with('notify_success', 'City Added successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show(City $city)
+    public function edit($id)
     {
-        return view('admin.cities-management.show', compact('country'));
+        $item = City::find($id);
+        $countries = Country::where('status', 'publish')->get();
+        $seo = $item->seo()->first();
+
+        return view('admin.cities-management.edit', compact('item', 'seo', 'countries'))->with('title', ucfirst(strtolower($item->name)));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(City $city)
+    public function update(Request $request, $id)
     {
-        $countries = Country::where('is_active', 1)->get();
-
-        return view('admin.cities-management.edit', compact('city', 'countries'))->with('title', 'Edit City');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, City $city)
-    {
-        // Validate the request data
         $validatedData = $request->validate([
-            'country_id' => 'required|int',
-            'name' => 'required|string|max:255',
-            'img_path' => 'nullable|image|mimes:jpeg,png,webp,jpg,gif|max:2048',
-            'show_on_homepage' => 'nullable', // Ensure this is a boolean
-            'short_desc' => 'required',
+            'name' => 'required|min:3|max:255',
+            'slug' => 'nullable|string|max:255',
+            'country_id' => 'nullable|int',
+            'content' => 'required',
+            'status' => 'required|in:publish,draft',
+            'featured_image' => 'nullable|image',
+            'featured_image_alt_text' => 'nullable|string|max:255',
+        ]);
+        $item = City::find($id);
+        $slugText = $validatedData['slug'] != '' ? $validatedData['slug'] : $validatedData['name'];
+        $slug = $this->createSlug($slugText, 'cities', $item->slug);
+
+        $data = array_merge($validatedData, [
+            'slug' => $slug,
         ]);
 
-        // Generate a unique slug based on the name
-        $slug = $this->createSlug($request->input('name'), 'cities');
+        $item->update($data);
+        $this->uploadImg('featured_image', 'City/Featured-image', $item, 'featured_image');
+        $this->handleSeoData($request, $item, 'City');
 
-        // Add the slug to the validated data
-        $data = array_merge($validatedData, ['slug' => $slug]);
+        return redirect()->route('admin.cities.index')
+            ->with('notify_success', 'City updated successfully.');
+    }
 
-        // Set show_on_homepage to 0 if not present in the request
-        $data['show_on_homepage'] = $request->has('show_on_homepage') ? $validatedData['show_on_homepage'] : 0;
+    public function handleSeoData($request, $entry, $resource)
+    {
+        $seoData = $request->only([
+            'is_seo_index',
+            'seo_title',
+            'seo_description',
+            'fb_title',
+            'fb_description',
+            'tw_title',
+            'tw_description',
+            'schema',
+            'canonical',
+        ]);
 
-        // Update the city record
-        $city->update($data);
+        $seo = $entry->seo()->updateOrCreate([], $seoData);
 
-        // Handle the image upload if a new image is provided
-        if ($request->hasFile('img_path')) {
-            $this->uploadImg('img_path', 'img_path', 'City/Thumbnail', $city);
+        $imageFields = [
+            'seo_featured_image',
+            'fb_featured_image',
+            'tw_featured_image',
+        ];
+
+        foreach ($imageFields as $field) {
+            $this->uploadImg($field, "Seo/$resource/$field", $seo, $field);
         }
-
-        return redirect()->route('admin.cities.index')->with('notify_success', 'City updated successfully.');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(City $city)
-    {
-        $city->delete();
-
-        return redirect()->route('admin.cities.index')->with('notify_success', 'City deleted successfully.');
-    }
-
-    public function suspend(City $city)
-    {
-        $city->is_active = ! $city->is_active;
-        $city->save();
-
-        return redirect()->route('admin.cities.index')->with('notify_success', 'City status updated successfully.');
     }
 }

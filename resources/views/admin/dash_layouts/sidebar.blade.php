@@ -99,22 +99,50 @@
             'icon' => 'bx bx-map',
             'submenu' => [
                 [
-                    'title' => 'All Location',
-                    'icon' => 'bx bx-list-ul',
-                    'route' => route('admin.locations.index'),
+                    'title' => 'Countries',
+                    'icon' => 'bx bx-flag',
+                    'submenu' => [
+                        [
+                            'title' => 'All Countries',
+                            'icon' => 'bx bx-list-ul',
+                            'route' => route('admin.countries.index'),
+                        ],
+                        [
+                            'title' => 'Add Country',
+                            'icon' => 'bx bx-plus',
+                            'route' => route('admin.countries.create'),
+                        ],
+                        [
+                            'title' => 'Recovery',
+                            'icon' => 'bx bx-refresh',
+                            'route' => route('admin.recovery.index', ['resource' => 'countries']),
+                        ],
+                    ],
                 ],
                 [
-                    'title' => 'All Category',
-                    'icon' => 'bx bx-category',
-                    'route' => 'javascript:void(0)',
-                ],
-                [
-                    'title' => 'Recovery',
-                    'icon' => 'bx bx-refresh',
-                    'route' => route('admin.recovery.index', ['resource' => 'locations']),
+                    'title' => 'Cities',
+                    'icon' => 'bx bx-buildings',
+                    'submenu' => [
+                        [
+                            'title' => 'All Cities',
+                            'icon' => 'bx bx-list-ul',
+                            'route' => route('admin.cities.index'),
+                        ],
+                        [
+                            'title' => 'Add City',
+                            'icon' => 'bx bx-plus',
+                            'route' => route('admin.cities.create'),
+                        ],
+                        [
+                            'title' => 'Recovery',
+                            'icon' => 'bx bx-refresh',
+                            'route' => route('admin.recovery.index', ['resource' => 'cities']),
+                        ],
+                    ],
                 ],
             ],
         ],
+
         [
             'title' => 'Tour',
             'icon' => 'bx bx-world',
