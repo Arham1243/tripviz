@@ -7,6 +7,7 @@ use App\Models\Blog;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\News;
+use App\Models\TourCategory;
 use Illuminate\Support\Facades\Redirect;
 
 class RecoveryController extends Controller
@@ -35,6 +36,10 @@ class RecoveryController extends Controller
             'slug' => 'Slug',
             'deleted_at' => 'Deleted On',
         ],
+        'tour-categories' => [
+            'name' => 'Name',
+            'deleted_at' => 'Deleted On',
+        ],
     ];
 
     public function index($resource)
@@ -51,6 +56,9 @@ class RecoveryController extends Controller
                 break;
             case 'cities':
                 $items = City::onlyTrashed()->get();
+                break;
+            case 'tour-categories':
+                $items = TourCategory::onlyTrashed()->get();
                 break;
             default:
                 return Redirect::back()->with('notify_error', 'Resource not found.');

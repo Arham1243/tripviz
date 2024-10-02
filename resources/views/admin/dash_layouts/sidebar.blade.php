@@ -144,23 +144,45 @@
         ],
 
         [
-            'title' => 'Tour',
+            'title' => 'Tours',
             'icon' => 'bx bx-world',
             'submenu' => [
                 [
-                    'title' => 'All Tour',
-                    'icon' => 'bx bx-list-ul',
-                    'route' => 'javascript:void(0)',
-                ],
-                [
-                    'title' => 'Add Tour',
-                    'icon' => 'bx bx-plus',
-                    'route' => 'javascript:void(0)',
+                    'title' => 'Tours',
+                    'icon' => 'bx bx-world',
+                    'submenu' => [
+                        [
+                            'title' => 'All Tours',
+                            'icon' => 'bx bx-list-ul',
+                            'route' => 'javascript:void(0)',
+                        ],
+                        [
+                            'title' => 'Add Tour',
+                            'icon' => 'bx bx-plus',
+                            'route' => 'javascript:void(0)',
+                        ],
+                        [
+                            'title' => 'Recovery',
+                            'icon' => 'bx bx-refresh',
+                            'route' => 'javascript:void(0)',
+                        ],
+                    ],
                 ],
                 [
                     'title' => 'Categories',
                     'icon' => 'bx bx-category',
-                    'route' => 'javascript:void(0)',
+                    'submenu' => [
+                        [
+                            'title' => 'All Categories',
+                            'icon' => 'bx bx-list-ul',
+                            'route' => route('admin.tour-categories.index'),
+                        ],
+                        [
+                            'title' => 'Recovery',
+                            'icon' => 'bx bx-refresh',
+                            'route' => route('admin.recovery.index', ['resource' => 'tour-categories']),
+                        ],
+                    ],
                 ],
                 [
                     'title' => 'Attributes',
@@ -175,11 +197,6 @@
                 [
                     'title' => 'Booking Calendar',
                     'icon' => 'bx bx-calendar-check',
-                    'route' => 'javascript:void(0)',
-                ],
-                [
-                    'title' => 'Recovery',
-                    'icon' => 'bx bx-refresh',
                     'route' => 'javascript:void(0)',
                 ],
             ],

@@ -1,5 +1,6 @@
 <?php
 
+// Happy CRM
 use App\Http\Controllers\Admin\AdminDashController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\Blog\BlogController as AdminBlogController;
@@ -10,6 +11,8 @@ use App\Http\Controllers\Admin\Locations\CityController;
 use App\Http\Controllers\Admin\Locations\ContinentController;
 use App\Http\Controllers\Admin\Locations\CountryController;
 use App\Http\Controllers\Admin\News\CategoriesController as AdminNewsCategoriesController;
+// Happy CRM
+
 use App\Http\Controllers\Admin\News\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\News\TagsController as AdminNewsTagsController;
 use App\Http\Controllers\Admin\NewsletterController;
@@ -21,6 +24,7 @@ use App\Http\Controllers\Admin\TestimonialController as AdminTestimonialControll
 use App\Http\Controllers\Admin\Tour\AdditionalController as AdminToursAdditionalController;
 use App\Http\Controllers\Admin\Tour\AdditionalItemController as AdminAdditionalItemController;
 use App\Http\Controllers\Admin\Tour\AttributesController as AdminTourAttributesController;
+use App\Http\Controllers\Admin\Tour\CategoriesController as AdminTourCategoriesController;
 use App\Http\Controllers\Admin\Tour\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\Tour\ExclusionController as AdminTourExclusionController;
 use App\Http\Controllers\Admin\Tour\FaqController as AdminTourFaqController;
@@ -101,8 +105,6 @@ Route::middleware('guest')->prefix('admin')->namespace('Admin')->group(function 
 });
 
 Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [AdminDashController::class, 'dashboard'])->name('dashboard');
-    Route::get('/logout', [AdminLoginController::class, 'logout'])->name('logout');
 
     // ---------------------------------------Logo Management---------------------------------------
     Route::get('/logo-management', [SiteSettingsController::class, 'showLogo'])->name('showLogo');
@@ -151,14 +153,14 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     // ---------------------------------------country management---------------------------------------
 
     // ---------------------------------------categories management---------------------------------------
-    Route::resource('categories', AdminCategoryController::class);
+
     Route::get('categories/{id}/suspend', [AdminCategoryController::class, 'suspend'])->name('categories.suspend');
     // ---------------------------------------categories management---------------------------------------
 
     // ---------------------------------------tours management---------------------------------------
-    Route::resource('tours', AdminTourController::class);
-    Route::get('tours/{id}/suspend', [AdminTourController::class, 'suspend'])->name('tours.suspend');
-    Route::post('tours/save-highlights', [AdminTourController::class, 'save_highlights'])->name('tours.save_highlights');
+    // Route::resource('tours', AdminTourController::class);
+    // Route::get('tours/{id}/suspend', [AdminTourController::class, 'suspend'])->name('tours.suspend');
+    // Route::post('tours/save-highlights', [AdminTourController::class, 'save_highlights'])->name('tours.save_highlights');
     // ---------------------------------------tours management---------------------------------------
 
     // ---------------------------------------tours faqs management---------------------------------------
@@ -224,6 +226,10 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('tour-stories/{id}/suspend', [AdminTourStoryController::class, 'suspend'])->name('tour-stories.suspend');
     // ---------------------------------------tour stories management---------------------------------------
 
+    // Happy Crm
+    Route::get('/dashboard', [AdminDashController::class, 'dashboard'])->name('dashboard');
+    Route::get('/logout', [AdminLoginController::class, 'logout'])->name('logout');
+
     Route::post('bulk-actions/{resource}', [BulkActionController::class, 'handle'])->name('bulk-actions');
     Route::get('recovery/{resource}', [AdminRecoveryController::class, 'index'])->name('recovery.index');
 
@@ -232,10 +238,12 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('blogs-categories', AdminBlogsCategoriesController::class);
     Route::resource('blogs-tags', AdminBlogsTagsController::class);
 
-    // News
     Route::resource('news', AdminNewsController::class);
     Route::resource('news-tags', AdminNewsTagsController::class);
     Route::resource('news-categories', AdminNewsCategoriesController::class);
+
+    Route::resource('tours', AdminTourController::class);
+    Route::resource('tour-categories', AdminTourCategoriesController::class);
 });
 
 // ---------------------------------------Admin---------------------------------------

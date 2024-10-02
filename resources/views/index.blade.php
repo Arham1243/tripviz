@@ -255,7 +255,7 @@
                                                     $categories .= $category->name . '<br>';
                                                 }
                                             @endphp
-                                            <div class="tours-categories"><span>{{ $tour->categories[0]->name }}</span>
+                                            <div class="tour-categories"><span>{{ $tour->categories[0]->name }}</span>
                                                 <button type="button" data-bs-toggle="tooltip" data-bs-placement="top"
                                                     title="{!! $categories !!}">
                                                     <i class='bx bxs-info-circle'></i>

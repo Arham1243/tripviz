@@ -28,7 +28,7 @@ class TourController extends Controller
     {
         $tours = Tour::with(['category', 'city'])->latest()->get();
 
-        return view('admin.tours-management.list', compact('tours'))->with('title', 'Tours');
+        // return view('admin.tours-management.list', compact('tours'))->with('title', 'Tours');
     }
 
     public function create()

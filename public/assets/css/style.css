@@ -2295,7 +2295,7 @@ p.highlight__description {
 a.tour-activity-card__details--title:hover {
     color: var(--color-primary);
 }
-.tours-categories {
+.tour-categories {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -2303,7 +2303,7 @@ a.tour-activity-card__details--title:hover {
     margin-bottom: 0.15rem;
 }
 
-.tours-categories button {border: none;background: none;outline: none;font-size: 1.1rem;line-height: 1;color: #63687a;opacity: 0.85;margin-top: -2px;}
+.tour-categories button {border: none;background: none;outline: none;font-size: 1.1rem;line-height: 1;color: #63687a;opacity: 0.85;margin-top: -2px;}
 .tour-activity-card__details span.baseline-pricing__from--text.receive {
   color: var(--color-primary);
   text-transform: uppercase;

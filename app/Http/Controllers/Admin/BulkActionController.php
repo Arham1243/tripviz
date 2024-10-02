@@ -11,6 +11,7 @@ use App\Models\Country;
 use App\Models\News;
 use App\Models\NewsCategory;
 use App\Models\NewsTag;
+use App\Models\TourCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -23,7 +24,6 @@ class BulkActionController extends Controller
         if (empty($selectedIds)) {
             return Redirect::back()->with('notify_error', 'No items selected for the bulk action.');
         }
-
         switch ($resource) {
             case 'blogs':
                 $modelClass = Blog::class;
@@ -65,7 +65,11 @@ class BulkActionController extends Controller
                 $column = 'slug';
                 $redirectRoute = 'admin.cities.index';
                 break;
-
+            case 'tour-categories':
+                $modelClass = TourCategory::class;
+                $column = 'slug';
+                $redirectRoute = 'admin.tour-categories.index';
+                break;
             default:
                 return Redirect::back()->with('notify_error', 'Resource not found.');
         }
