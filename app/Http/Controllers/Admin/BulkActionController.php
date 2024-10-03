@@ -11,6 +11,7 @@ use App\Models\Country;
 use App\Models\News;
 use App\Models\NewsCategory;
 use App\Models\NewsTag;
+use App\Models\Tour;
 use App\Models\TourCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -64,6 +65,11 @@ class BulkActionController extends Controller
                 $modelClass = City::class;
                 $column = 'slug';
                 $redirectRoute = 'admin.cities.index';
+                break;
+            case 'tours':
+                $modelClass = Tour::class;
+                $column = 'slug';
+                $redirectRoute = 'admin.tours.index';
                 break;
             case 'tour-categories':
                 $modelClass = TourCategory::class;

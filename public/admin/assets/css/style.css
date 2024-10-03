@@ -1095,6 +1095,9 @@ form .text-danger {
     border: none;
     outline: none;
 }
+.delete-btn--static {
+    position: static;
+}
 .upload-box__img img {
     width: 100%;
     height: 100%;
@@ -1103,6 +1106,24 @@ form .text-danger {
 .upload-box__img.show {
     display: block;
 }
+.upload.upload--sm {
+    width: 180px;
+    margin: auto;
+}
+.upload--sm :is(.upload-box__img .mask, .upload-box) {
+    height: 150px;
+}
+
+.upload--sm .upload-box__placeholder i {
+    font-size: 4.5rem;
+}
+
+.upload--sm .upload-box__btn {
+    font-size: 0.75rem;
+    width: max-content;
+    padding: 0.6rem 0.9rem;
+}
+
 /* .upload-box */
 /* tabs */
 .tabs-wrapper {
@@ -1577,4 +1598,32 @@ body.responsive.fancybox-active.compensate-for-scrollbar {
     font-size: 0.85rem;
     font-weight: 600;
     opacity: 0.85;
+}
+
+.preview-image {
+    width: fit-content;
+    height: 250px;
+    background: #00000008;
+    border: 1px solid #cccccc5c;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.preview-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.repeater-table .field {
+    padding: 0.5rem;
+}
+
+.repeater-table td {
+    vertical-align: middle;
+    padding: 1rem;
+}
+[disabled] {
+    opacity: 0.65;
+    cursor: not-allowed;
 }

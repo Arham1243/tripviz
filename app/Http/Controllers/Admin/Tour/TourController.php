@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\City;
 use App\Models\Tour;
 use App\Models\TourAttribute;
+use App\Models\TourCategory;
 use App\Models\TourExclusion;
 use App\Models\TourInclusion;
 use App\Models\TourItinerary;
@@ -28,20 +29,20 @@ class TourController extends Controller
     {
         $tours = Tour::with(['category', 'city'])->latest()->get();
 
-        // return view('admin.tours-management.list', compact('tours'))->with('title', 'Tours');
+        return view('admin.tours.tours-management.list', compact('tours'))->with('title', 'All Tours');
     }
 
     public function create()
     {
-        $categories = Category::where('is_active', 1)->get();
+        $categories = TourCategory::where('status', 'publish')->get();
+        $cities = City::where('status', 'publish')->get();
 
-        $cities = City::where('is_active', 1)->get();
-
-        return view('admin.tours-management.add', compact('categories', 'cities'))->with('title', 'Add New Tour');
+        return view('admin.tours.tours-management.add', compact('categories', 'cities'))->with('title', 'Add New Tour');
     }
 
     public function store(Request $request)
     {
+        dd($request->all());
 
         $priceType = $request->input('price_type');
 

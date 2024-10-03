@@ -7,6 +7,7 @@ use App\Models\Blog;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\News;
+use App\Models\Tour;
 use App\Models\TourCategory;
 use Illuminate\Support\Facades\Redirect;
 
@@ -36,6 +37,10 @@ class RecoveryController extends Controller
             'slug' => 'Slug',
             'deleted_at' => 'Deleted On',
         ],
+        'tours' => [
+            'title' => 'Title',
+            'deleted_at' => 'Deleted On',
+        ],
         'tour-categories' => [
             'name' => 'Name',
             'deleted_at' => 'Deleted On',
@@ -56,6 +61,9 @@ class RecoveryController extends Controller
                 break;
             case 'cities':
                 $items = City::onlyTrashed()->get();
+                break;
+            case 'tours':
+                $items = Tour::onlyTrashed()->get();
                 break;
             case 'tour-categories':
                 $items = TourCategory::onlyTrashed()->get();

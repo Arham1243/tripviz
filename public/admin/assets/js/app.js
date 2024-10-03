@@ -1,3 +1,7 @@
+function showIcon(iconField) {
+    iconField.parentElement.querySelector("[data-preview-icon]").setAttribute("class", `${iconField.value} bx-md`);
+}
+
 window.addEventListener("load", function () {
     const loader = document.getElementById("loader");
     loader.style.display = "none";
@@ -86,56 +90,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// SinglE File Upload
-document.addEventListener("DOMContentLoaded", function () {
-    const uploadComponents = document.querySelectorAll("[data-upload]");
-
-    uploadComponents.forEach((uploadComponent) => {
-        const fileInput = uploadComponent.querySelector("[data-file-input]");
-        const uploadBox = uploadComponent.querySelector("[data-upload-box]");
-        const uploadImgBox = uploadComponent.querySelector("[data-upload-img]");
-        const uploadPreview = uploadComponent.querySelector(
-            "[data-upload-preview]",
-        );
-        const deleteBtn = uploadComponent.querySelector("[data-delete-btn]");
-        const errorMessage = uploadComponent.querySelector(
-            "[data-error-message]",
-        );
-        // Handle file upload
-        fileInput.addEventListener("change", function (event) {
-            const file = event.target.files[0];
-
-            if (file && file.type.startsWith("image/")) {
-                const reader = new FileReader();
-
-                reader.onload = function (e) {
-                    // Set the uploaded image preview
-                    uploadPreview.src = e.target.result;
-                    uploadImgBox.querySelector(".mask").href = e.target.result;
-                };
-
-                reader.readAsDataURL(file);
-
-                // Hide upload box and show image box
-                uploadBox.classList.remove("show");
-                uploadImgBox.classList.add("show");
-
-                errorMessage.classList.add("d-none");
-            } else {
-                // Show error message if file type doesn't match
-                errorMessage.classList.remove("d-none");
-                fileInput.value = "";
-            }
-        });
-
-        // Handle delete button click
-        deleteBtn?.addEventListener("click", function () {
-            fileInput.value = "";
-            uploadBox.classList.add("show");
-            uploadImgBox.classList.remove("show");
-        });
-    });
-});
 
 // Multple File Upload
 document.addEventListener("DOMContentLoaded", () => {
@@ -343,7 +297,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             function handleItemCheckboxChange() {
                 const allChecked = Array.from(itemCheckboxes).every(
-                    (checkbox) => checkbox.checked
+                    (checkbox) => checkbox.checked,
                 );
                 selectAllCheckbox.checked = allChecked;
             }
@@ -360,11 +314,10 @@ document.addEventListener("DOMContentLoaded", function () {
     initializeBulkActionCheckboxes();
 
     // If you're using DataTables, listen for the draw event and reinitialize the checkboxes
-    $('.data-table').on('draw.dt', function () {
+    $(".data-table").on("draw.dt", function () {
         initializeBulkActionCheckboxes();
     });
 });
-
 
 function confirmBulkAction(event) {
     const selectedAction = document.getElementById("bulkActions").value;
@@ -387,3 +340,152 @@ function confirmBulkAction(event) {
         }
     }
 }
+
+function previewImage(selectElement, imgElementId) {
+    // Get the selected value (the key, which is the number)
+    var selectedValue = selectElement.value;
+
+    // Get the base path from the data attribute of the image element
+    var imgElement = document.getElementById(imgElementId);
+    var basePath = imgElement.getAttribute("data-public-path");
+
+    // Construct the new image URL based on the selected value
+    var newImagePath = basePath + "/" + selectedValue + ".png";
+
+    // Update the src of the image element
+    if (selectedValue) {
+        imgElement.src = newImagePath;
+        imgElement.parentElement.href = newImagePath;
+    } else {
+        // Set to a default placeholder if no option is selected
+        imgElement.src = basePath + "/placeholder.png";
+    }
+}
+function initializeUploadComponent(uploadComponent) {
+    const fileInput = uploadComponent.querySelector("[data-file-input]");
+    const uploadBox = uploadComponent.querySelector("[data-upload-box]");
+    const uploadImgBox = uploadComponent.querySelector("[data-upload-img]");
+    const uploadPreview = uploadComponent.querySelector("[data-upload-preview]");
+    const deleteBtn = uploadComponent.querySelector("[data-delete-btn]");
+    const errorMessage = uploadComponent.querySelector("[data-error-message]");
+
+    fileInput.addEventListener("change", function (event) {
+        const file = event.target.files[0];
+
+        if (file && file.type.startsWith("image/")) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                uploadPreview.src = e.target.result;
+                uploadImgBox.querySelector(".mask").href = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
+
+            uploadBox.classList.remove("show");
+            uploadImgBox.classList.add("show");
+            errorMessage.classList.add("d-none");
+        } else {
+            errorMessage.classList.remove("d-none");
+            fileInput.value = "";
+        }
+    });
+
+    deleteBtn?.addEventListener("click", function () {
+        fileInput.value = "";
+        uploadBox.classList.add("show");
+        uploadImgBox.classList.remove("show");
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    let itemCount = 0;
+
+    function updateDeleteButtonState(container) {
+        const items = container.querySelectorAll("[data-repeater-item]");
+        items.forEach((item, index) => {
+            const deleteBtn = item.querySelector("[data-repeater-remove]");
+            if (index === 0) {
+                deleteBtn.disabled = true;
+            } else {
+                deleteBtn.disabled = false;
+            }
+        });
+    }
+
+    function updateUploadBox(newItem) {
+        const uploads = newItem.querySelectorAll("[data-upload]");
+
+        uploads.forEach((upload) => {
+            itemCount++; 
+            const uniqueId = `upload-${itemCount}`;
+            const uploadImgBox = upload.querySelector("[data-upload-img]");
+            const uploadBox = upload.querySelector("[data-upload-box]");
+            const uploadMask = upload.querySelector(".mask");
+            const imagePreview = upload.querySelector("[data-upload-preview]");
+            const fileInput = upload.querySelector("[data-file-input]");
+            let prevId = fileInput.id;
+            const label = newItem.querySelector(`label[for="${prevId}"]`);
+
+            fileInput.id = uniqueId;
+            fileInput.value = "";
+            uploadMask.href = "javascript:void(0)";
+            imagePreview.src = imagePreview.dataset.placeholder;
+            uploadBox.classList.add("show");
+            uploadImgBox.classList.remove("show");
+            if (label) {
+                label.setAttribute("for", uniqueId);
+            }
+            initializeUploadComponent(upload);
+        });
+    }
+
+    function addItem(container) {
+        const list = container.querySelector("[data-repeater-list]");
+        const firstItem = list.querySelector("[data-repeater-item]");
+        const newItem = firstItem.cloneNode(true);
+
+        const inputs = newItem.querySelectorAll("input, textarea");
+        inputs.forEach((input) => {
+            input.value = "";
+        });
+
+        updateUploadBox(newItem);
+        list.appendChild(newItem);
+        updateDeleteButtonState(container);
+    }
+
+    function removeItem(button) {
+        const container = button.closest("[data-repeater]");
+        const item = button.closest("[data-repeater-item]");
+        item.remove();
+        updateDeleteButtonState(container);
+    }
+
+    document.querySelectorAll("[data-repeater]").forEach((container) => {
+        const addBtn = container.querySelector("[data-repeater-create]");
+        addBtn.addEventListener("click", function () {
+            addItem(container);
+        });
+
+        container.addEventListener("click", function (e) {
+            if (e.target.closest("[data-repeater-remove]")) {
+                removeItem(e.target.closest("[data-repeater-remove]"));
+            }
+        });
+
+        updateDeleteButtonState(container);
+        const initialUploadComponents = container.querySelectorAll("[data-upload]");
+        initialUploadComponents.forEach((uploadComponent) => {
+            initializeUploadComponent(uploadComponent);
+        });
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const uploadComponents = document.querySelectorAll("[data-upload]");
+
+    uploadComponents.forEach((uploadComponent) => {
+        initializeUploadComponent(uploadComponent)
+    });
+});

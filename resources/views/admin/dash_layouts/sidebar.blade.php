@@ -154,17 +154,17 @@
                         [
                             'title' => 'All Tours',
                             'icon' => 'bx bx-list-ul',
-                            'route' => 'javascript:void(0)',
+                            'route' => route('admin.tours.index'),
                         ],
                         [
                             'title' => 'Add Tour',
                             'icon' => 'bx bx-plus',
-                            'route' => 'javascript:void(0)',
+                            'route' => route('admin.tours.create'),
                         ],
                         [
                             'title' => 'Recovery',
                             'icon' => 'bx bx-refresh',
-                            'route' => 'javascript:void(0)',
+                            'route' => route('admin.recovery.index', ['resource' => 'tours']),
                         ],
                     ],
                 ],
