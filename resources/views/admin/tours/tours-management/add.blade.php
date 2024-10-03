@@ -272,43 +272,6 @@
                                         </div>
                                         <div class="col-md-12 mt-3">
                                             <div class="form-fields">
-                                                <label class="title">FAQs:</label>
-
-                                                <div class="repeater-table" data-repeater>
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                            <tr>
-                                                                <th scope="col">Question</th>
-                                                                <th scope="col">Answer</th>
-                                                                <th class="text-right" scope="col">Remove</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody data-repeater-list>
-                                                            <tr data-repeater-item>
-                                                                <td>
-                                                                    <textarea name="faq_questions[]" class="field"rows="2"></textarea>
-                                                                </td>
-                                                                <td>
-                                                                    <textarea name="faq_answers[]" class="field"rows="2"></textarea>
-                                                                </td>
-                                                                <td>
-                                                                    <button type="button"
-                                                                        class="delete-btn ms-auto delete-btn--static"
-                                                                        data-repeater-remove disabled>
-                                                                        <i class='bx bxs-trash-alt'></i>
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <button type="button" class="themeBtn ms-auto"
-                                                        data-repeater-create>Add Item</button>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 mt-3">
-                                            <div class="form-fields">
                                                 <label class="title">Itinerary:</label>
 
                                                 <div class="repeater-table" data-repeater>
