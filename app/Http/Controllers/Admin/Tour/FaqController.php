@@ -31,7 +31,7 @@ class FaqController extends Controller
     public function create()
     {
         // Filter tours where is_active = 1
-        $tours = Tour::where('is_active', 1)->get();
+        $tours = Tour::where('status', 'publish')->get();
 
         return view('admin.tours-faqs-management.add', compact('tours'))->with('title', 'Add New FAQ');
     }
@@ -89,7 +89,7 @@ class FaqController extends Controller
         try {
             $faq = ToursFaq::findOrFail($id);
             // Filter tours where is_active = 1
-            $tours = Tour::where('is_active', 1)->get();
+            $tours = Tour::where('status', 'publish')->get();
 
             return view('admin.tours-faqs-management.edit', compact('faq', 'tours'))->with('title', 'Edit FAQ');
         } catch (ModelNotFoundException $e) {

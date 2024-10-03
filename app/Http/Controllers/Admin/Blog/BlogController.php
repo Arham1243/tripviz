@@ -38,7 +38,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        $tours = Tour::where('is_active', 1)->get();
+        $tours = Tour::where('status', 'publish')->get();
         $categories = BlogCategory::where('is_active', 1)->get();
         $tags = BlogTag::where('is_active', 1)->get();
         $users = User::where('is_active', 1)->get();
@@ -122,7 +122,7 @@ class BlogController extends Controller
      */
     public function edit(Blog $blog)
     {
-        $tours = Tour::where('is_active', 1)->get();
+        $tours = Tour::where('status', 'publish')->get();
         $categories = BlogCategory::where('is_active', 1)->get();
         $tags = BlogTag::where('is_active', 1)->get();
         $users = User::where('is_active', 1)->get();

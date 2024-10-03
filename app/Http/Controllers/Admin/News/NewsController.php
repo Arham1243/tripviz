@@ -37,7 +37,7 @@ class NewsController extends Controller
      */
     public function create()
     {
-        $tours = Tour::where('is_active', 1)->get();
+        $tours = Tour::where('status', 'publish')->get();
         $categories = NewsCategory::where('is_active', 1)->get();
         $tags = NewsTag::where('is_active', 1)->get();
         $users = User::where('is_active', 1)->get();
@@ -86,7 +86,7 @@ class NewsController extends Controller
 
     public function edit(News $news)
     {
-        $tours = Tour::where('is_active', 1)->get();
+        $tours = Tour::where('status', 'publish')->get();
         $categories = NewsCategory::where('is_active', 1)->get();
         $tags = NewsTag::where('is_active', 1)->get();
         $users = User::where('is_active', 1)->get();

@@ -49,7 +49,7 @@ class IndexController extends Controller
 
     public function index()
     {
-        $tours = Tour::where('is_active', 1)->where('show_on_homepage', 1)->with('reviews', 'cities', 'categories')->latest()->get()->sortByDesc('average_rating');
+        $tours = Tour::where('status', 'publish')->where('show_on_homepage', 1)->with('reviews', 'cities', 'categories')->latest()->get()->sortByDesc('average_rating');
 
         $waterActivityCategory = Category::where('name', 'Water Activities')
             ->where('is_active', 1)

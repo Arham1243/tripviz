@@ -19,7 +19,7 @@ class AdminDashController extends Controller
     public function dashboard()
     {
         $users = User::where('is_active', 1)->get();
-        $tours = Tour::where('is_active', 1)->get();
+        $tours = Tour::where('status', 'publish')->get();
         $data = compact('users', 'tours');
 
         return view('admin.dashboard')->with('title', 'Dashboard')->with($data);

@@ -64,7 +64,7 @@ class CategoriesController extends Controller
     public function edit($id)
     {
         $category = TourCategory::findOrFail($id);
-        $tours = Tour::where('is_active', 1)->get();
+        $tours = Tour::where('status', 'publish')->get();
         $toursReviews = TourReview::where('is_active', 1)->get();
         $seo = $category->seo()->first();
         $data = compact('category', 'seo', 'tours', 'toursReviews');
