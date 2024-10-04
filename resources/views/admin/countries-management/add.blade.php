@@ -24,7 +24,7 @@
                                     <div class="form-fields">
                                         <label class="title">Name <span class="text-danger">*</span> :</label>
                                         <input type="text" name="name" class="field" value="{{ old('name') }}"
-                                            placeholder="Name" data-required data-error="name">
+                                            placeholder="Name" data-required data-error="Name">
                                         @error('name')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror

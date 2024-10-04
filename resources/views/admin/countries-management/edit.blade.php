@@ -28,7 +28,7 @@
                                         <label class="title">Name <span class="text-danger">*</span> :</label>
                                         <input type="text" name="name" class="field"
                                             value="{{ old('name', $item->name) }}" placeholder="Name" data-required
-                                            data-error="name">
+                                            data-error="Name">
                                         @error('name')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror

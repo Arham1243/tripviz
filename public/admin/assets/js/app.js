@@ -1,5 +1,7 @@
 function showIcon(iconField) {
-    iconField.parentElement.querySelector("[data-preview-icon]").setAttribute("class", `${iconField.value} bx-md`);
+    iconField.parentElement
+        .querySelector("[data-preview-icon]")
+        .setAttribute("class", `${iconField.value} bx-md`);
 }
 
 window.addEventListener("load", function () {
@@ -89,7 +91,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-
 
 // Multple File Upload
 document.addEventListener("DOMContentLoaded", () => {
@@ -342,30 +343,22 @@ function confirmBulkAction(event) {
 }
 
 function previewImage(selectElement, imgElementId) {
-    // Get the selected value (the key, which is the number)
-    var selectedValue = selectElement.value;
+    var selectedOption = selectElement.options[selectElement.selectedIndex];
+    var imgUrl = selectedOption.getAttribute("data-image");
 
-    // Get the base path from the data attribute of the image element
+    // Update image src and href
     var imgElement = document.getElementById(imgElementId);
-    var basePath = imgElement.getAttribute("data-public-path");
-
-    // Construct the new image URL based on the selected value
-    var newImagePath = basePath + "/" + selectedValue + ".png";
-
-    // Update the src of the image element
-    if (selectedValue) {
-        imgElement.src = newImagePath;
-        imgElement.parentElement.href = newImagePath;
-    } else {
-        // Set to a default placeholder if no option is selected
-        imgElement.src = basePath + "/placeholder.png";
-    }
+    imgElement.src = imgUrl;
+    imgElement.parentElement.href = imgUrl;
 }
+
 function initializeUploadComponent(uploadComponent) {
     const fileInput = uploadComponent.querySelector("[data-file-input]");
     const uploadBox = uploadComponent.querySelector("[data-upload-box]");
     const uploadImgBox = uploadComponent.querySelector("[data-upload-img]");
-    const uploadPreview = uploadComponent.querySelector("[data-upload-preview]");
+    const uploadPreview = uploadComponent.querySelector(
+        "[data-upload-preview]",
+    );
     const deleteBtn = uploadComponent.querySelector("[data-delete-btn]");
     const errorMessage = uploadComponent.querySelector("[data-error-message]");
 
@@ -417,7 +410,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const uploads = newItem.querySelectorAll("[data-upload]");
 
         uploads.forEach((upload) => {
-            itemCount++; 
+            itemCount++;
             const uniqueId = `upload-${itemCount}`;
             const uploadImgBox = upload.querySelector("[data-upload-img]");
             const uploadBox = upload.querySelector("[data-upload-box]");
@@ -475,7 +468,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         updateDeleteButtonState(container);
-        const initialUploadComponents = container.querySelectorAll("[data-upload]");
+        const initialUploadComponents =
+            container.querySelectorAll("[data-upload]");
         initialUploadComponents.forEach((uploadComponent) => {
             initializeUploadComponent(uploadComponent);
         });
@@ -486,6 +480,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const uploadComponents = document.querySelectorAll("[data-upload]");
 
     uploadComponents.forEach((uploadComponent) => {
-        initializeUploadComponent(uploadComponent)
+        initializeUploadComponent(uploadComponent);
     });
 });

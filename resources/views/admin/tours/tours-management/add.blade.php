@@ -34,18 +34,18 @@
                                         </div>
                                         <div class="col-12 mt-4">
                                             <div class="form-fields">
-                                                <label class="title">Category <span class="text-danger">*</span> :</label>
-                                                <select name="category_id" class="choice-select" data-required
-                                                    data-error="Category">
-                                                    <option value="" selected>Select Category</option>
+                                                <label class="title">Categories <span class="text-danger">*</span>
+                                                    :</label>
+                                                <select name="category_ids[]" class="choice-select" data-required
+                                                    data-error="Category" multiple placeholder="Select Categories">
                                                     @foreach ($categories as $category)
                                                         <option value="{{ $category->id }}"
-                                                            {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                                            {{ old('category_ids') == $category->id ? 'selected' : '' }}>
                                                             {{ $category->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                                @error('category_id')
+                                                @error('category_ids')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -53,17 +53,16 @@
                                         <div class="col-12 mt-4">
                                             <div class="form-fields">
                                                 <label class="title">Location <span class="text-danger">*</span> :</label>
-                                                <select name="category_id" class="choice-select" data-required
-                                                    data-error="Category">
-                                                    <option value="" selected>Select Location</option>
+                                                <select name="city_ids[]" class="choice-select" data-required
+                                                    data-error="Category" multiple placeholder="Select Locations">
                                                     @foreach ($cities as $city)
                                                         <option value="{{ $city->id }}"
-                                                            {{ old('city_id') == $city->id ? 'selected' : '' }}>
+                                                            {{ old('city_ids') == $city->id ? 'selected' : '' }}>
                                                             {{ $city->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                                @error('city_id')
+                                                @error('city_ids')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -107,7 +106,7 @@
                                                     :</label>
                                                 <input type="text" name="badge_name" class="field"
                                                     value="{{ old('badge_name') }}" placeholder="" data-required
-                                                    data-error="badge_name">
+                                                    data-error="Badge Name">
                                                 @error('badge_name')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -116,20 +115,19 @@
                                         <div class="col-md-12 mt-5">
                                             <div class="form-fields">
                                                 <label class="title">Features:</label>
-
                                                 <div class="repeater-table" data-repeater>
                                                     <table class="table table-bordered">
                                                         <thead>
                                                             <tr>
                                                                 <th scope="col">
-                                                                    <div class="d-flex align-items-center gap-3"> Icon <a
+                                                                    <div class="d-flex align-items-center gap-2"> Icon <a
                                                                             class="p-0 nav-link text-lowercase"
                                                                             href="//boxicons.com"
                                                                             target="_blank">(boxicons.com)</a>
                                                                     </div>
                                                                 </th>
                                                                 <th scope="col">Title</th>
-                                                                <th class="text-right" scope="col">Remove</th>
+                                                                <th class="text-end" scope="col">Remove</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody data-repeater-list>
@@ -160,9 +158,8 @@
                                                         </tbody>
                                                     </table>
                                                     <button type="button" class="themeBtn ms-auto"
-                                                        data-repeater-create>Add Item</button>
+                                                        data-repeater-create>Add <i class="bx bx-plus"></i></button>
                                                 </div>
-
                                             </div>
                                         </div>
                                         <div class="col-md-12 mt-3">
@@ -174,7 +171,7 @@
                                                         <thead>
                                                             <tr>
                                                                 <th scope="col">Title</th>
-                                                                <th class="text-right" scope="col">Remove</th>
+                                                                <th class="text-end" scope="col">Remove</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody data-repeater-list>
@@ -194,7 +191,7 @@
                                                         </tbody>
                                                     </table>
                                                     <button type="button" class="themeBtn ms-auto"
-                                                        data-repeater-create>Add Item</button>
+                                                        data-repeater-create>Add <i class="bx bx-plus"></i></button>
                                                 </div>
 
                                             </div>
@@ -208,7 +205,7 @@
                                                         <thead>
                                                             <tr>
                                                                 <th scope="col">Title</th>
-                                                                <th class="text-right" scope="col">Remove</th>
+                                                                <th class="text-end" scope="col">Remove</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody data-repeater-list>
@@ -228,7 +225,7 @@
                                                         </tbody>
                                                     </table>
                                                     <button type="button" class="themeBtn ms-auto"
-                                                        data-repeater-create>Add Item</button>
+                                                        data-repeater-create>Add <i class="bx bx-plus"></i></button>
                                                 </div>
 
                                             </div>
@@ -243,7 +240,7 @@
                                                             <tr>
                                                                 <th scope="col">Question</th>
                                                                 <th scope="col">Answer</th>
-                                                                <th class="text-right" scope="col">Remove</th>
+                                                                <th class="text-end" scope="col">Remove</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody data-repeater-list>
@@ -265,7 +262,7 @@
                                                         </tbody>
                                                     </table>
                                                     <button type="button" class="themeBtn ms-auto"
-                                                        data-repeater-create>Add Item</button>
+                                                        data-repeater-create>Add <i class="bx bx-plus"></i></button>
                                                 </div>
 
                                             </div>
@@ -281,7 +278,7 @@
                                                                 <th scope="col">Feature Image</th>
                                                                 <th scope="col">Title - Description</th>
                                                                 <th scope="col">Content</th>
-                                                                <th class="text-right" scope="col">Remove</th>
+                                                                <th class="text-end" scope="col">Remove</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody data-repeater-list>
@@ -354,7 +351,7 @@
                                                         </tbody>
                                                     </table>
                                                     <button type="button" class="themeBtn ms-auto"
-                                                        data-repeater-create>Add Item</button>
+                                                        data-repeater-create>Add <i class="bx bx-plus"></i></button>
                                                 </div>
 
                                             </div>
@@ -368,7 +365,7 @@
                                 </div>
                                 <div class="form-box__body">
                                     <div class="form-fields">
-                                        <label class="title">Banners <span class="text-danger">*</span> :</label>
+                                        <label class="title">Banners :</label>
                                         <div class="multiple-upload" data-upload-multiple>
                                             <input type="file" class="gallery-input d-none" multiple
                                                 data-upload-multiple-input accept="image/*" id="banners"
@@ -394,14 +391,15 @@
                                                 4 => 'Style 4',
                                             ];
                                         @endphp
-                                        <label class="title">Choose Banner Style <span class="text-danger">*</span>
-                                            :</label>
+                                        <label class="title">Choose Banner Style :</label>
                                         <select onchange="previewImage(this,'banner-style-preview')" name="banner_style"
-                                            class="field" data-required data-error="Banner Style">
-                                            <option value="" selected>Select</option>
+                                            class="field">
+                                            <option value=""
+                                                data-image="{{ asset('admin/assets/images/banner-styles/placeholder.png') }}"
+                                                selected>Select</option>
                                             @foreach ($styles as $key => $style)
                                                 <option value="{{ $key }}"
-                                                    {{ old('banner_style') == $key || $loop->first ? 'selected' : '' }}>
+                                                    data-image="{{ asset('admin/assets/images/banner-styles/' . $key . '.png') }}">
                                                     {{ $style }}
                                                 </option>
                                             @endforeach
@@ -410,17 +408,17 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
+
                                     <div class="form-fields">
                                         <a href="{{ asset('admin/assets/images/banner-styles/1.png') }}"
                                             data-fancybox="gallery" class="preview-image">
                                             <img src="{{ asset('admin/assets/images/banner-styles/1.png') }}"
-                                                alt="image" class="imgFluid" id="banner-style-preview"
-                                                data-public-path="{{ asset('admin/assets/images/banner-styles') }}">
+                                                alt="image" class="imgFluid" id="banner-style-preview">
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                            <x-seo-options :seo="$seo ?? null" :resource="'news'" />
+                            <x-seo-options :seo="$seo ?? null" :resource="'tours'" />
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -490,6 +488,27 @@
                                     </div>
                                 </div>
                             </div>
+                            @foreach ($attributes as $attribute)
+                                <div class="form-box">
+                                    <div class="form-box__header">
+                                        <div class="title">Attribute: {{ $attribute->name }}</div>
+                                    </div>
+                                    <div class="form-box__body">
+                                        @foreach (json_decode($attribute->items) as $index => $item)
+                                            <div class="form-check mb-1">
+                                                <input class="form-check-input" type="checkbox"
+                                                    name="attributes[{{ $attribute->id }}][]"
+                                                    id="attribute-{{ $attribute->id }}-{{ $index }}"
+                                                    value="{{ $item }}">
+                                                <label class="form-check-label"
+                                                    for="attribute-{{ $attribute->id }}-{{ $index }}">
+                                                    {{ $item }}
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

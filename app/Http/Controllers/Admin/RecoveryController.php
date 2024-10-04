@@ -8,6 +8,7 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\News;
 use App\Models\Tour;
+use App\Models\TourAttribute;
 use App\Models\TourCategory;
 use Illuminate\Support\Facades\Redirect;
 
@@ -45,6 +46,10 @@ class RecoveryController extends Controller
             'name' => 'Name',
             'deleted_at' => 'Deleted On',
         ],
+        'tour-attributes' => [
+            'name' => 'Name',
+            'deleted_at' => 'Deleted On',
+        ],
     ];
 
     public function index($resource)
@@ -68,12 +73,16 @@ class RecoveryController extends Controller
             case 'tour-categories':
                 $items = TourCategory::onlyTrashed()->get();
                 break;
+            case 'tour-attributes':
+                $items = TourAttribute::onlyTrashed()->get();
+                $primaryColumn = 'id';
+                break;
             default:
                 return Redirect::back()->with('notify_error', 'Resource not found.');
         }
-
+        $primaryColumn = isset($primaryColumn) ? $primaryColumn : null;
         $columns = $this->columnsConfig[$resource] ?? [];
-        $data = compact('items', 'resource', 'columns');
+        $data = compact('items', 'resource', 'columns', 'primaryColumn');
 
         return view('admin.recovery-management.list')->with('title', 'Recovery')->with($data);
     }

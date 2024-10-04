@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\TourAttribute;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class AttributesController extends Controller
 {
@@ -15,7 +14,13 @@ class AttributesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {}
+    public function index()
+    {
+        $items = TourAttribute::latest()->get();
+        $data = compact('items');
+
+        return view('admin.tours.attributes.main')->with('title', 'Tour Attributes')->with($data);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -31,43 +36,22 @@ class AttributesController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'tour_id' => 'required|exists:tours,id',
-            'title' => 'required|string',
-            'icon_class' => 'required|string',
+        $validatedData = $request->validate([
+            'name' => 'required|string|min:3|max:255',
         ]);
+        $attribute = TourAttribute::create($validatedData);
 
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput()
-                ->with('active_tab', 'attributes');
-        }
-
-        $data = $request->all();
-
-        TourAttribute::create($data);
-
-        return redirect()->back()
-            ->with('notify_success', 'Tour attribute added successfully.')
-            ->with('active_tab', 'attributes');
+        return redirect()->route('admin.tour-attributes.edit', $attribute->id)->with('success', 'Attribute added successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id) {}
+    public function edit($id)
+    {
+        $attribute = TourAttribute::find($id);
+        $attribute->items = json_decode($attribute->items, true);
+        $data = compact('attribute');
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id) {}
+        return view('admin.tours.attributes.edit')->with('title', ucfirst(strtolower($attribute->name)))->with($data);
+    }
 
     /**
      * Update the specified resource in storage.
@@ -77,31 +61,27 @@ class AttributesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try {
-            $attribute = TourAttribute::findOrFail($id);
+        $validatedData = $request->validate([
+            'name' => 'required|string|min:3|max:255',
+            'items' => 'nullable|array',
+            'items.*' => 'nullable|string|min:3',
+            'status' => 'required|in:active,inactive',
+        ]);
 
-            $validator = Validator::make($request->all(), [
-                'title' => 'required|string',
-                'icon_class' => 'required|string',
-            ]);
+        $attribute = TourAttribute::findOrFail($id);
 
-            if ($validator->fails()) {
-                return redirect()->back()
-                    ->withErrors($validator)
-                    ->withInput()
-                    ->with('active_tab', 'attributes');
-            }
+        $validItems = array_filter($validatedData['items'], function ($item) {
+            return ! is_null($item) && trim($item) !== '';
+        });
 
-            $attribute->update($request->all());
+        $attribute->update([
+            'name' => $validatedData['name'],
+            'items' => json_encode($validItems),
+            'status' => $validatedData['status'],
+        ]);
 
-            return redirect()->back()
-                ->with('notify_success', 'Tour attribute updated successfully.')
-                ->with('active_tab', 'attributes');
-        } catch (ModelNotFoundException $e) {
-            return redirect()->back()
-                ->with('notify_error', 'Tour attribute not found.')
-                ->with('active_tab', 'attributes');
-        }
+        return redirect()->route('admin.tour-attributes.index')
+            ->with('success', 'Attribute updated successfully.');
     }
 
     /**

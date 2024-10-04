@@ -186,8 +186,19 @@
                 ],
                 [
                     'title' => 'Attributes',
-                    'icon' => 'bx bx-info-circle',
-                    'route' => 'javascript:void(0)',
+                    'icon' => 'bx bx-check-circle',
+                    'submenu' => [
+                        [
+                            'title' => 'All Attributes',
+                            'icon' => 'bx bx-list-ul',
+                            'route' => route('admin.tour-attributes.index'),
+                        ],
+                        [
+                            'title' => 'Recovery',
+                            'icon' => 'bx bx-refresh',
+                            'route' => route('admin.recovery.index', ['resource' => 'tour-attributes']),
+                        ],
+                    ],
                 ],
                 [
                     'title' => 'Availability',

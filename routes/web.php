@@ -174,8 +174,8 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     // ---------------------------------------tours itineraries management---------------------------------------
 
     // ---------------------------------------tour attributes management---------------------------------------
-    Route::resource('tours-attributes', AdminTourAttributesController::class);
-    Route::get('tours-attributes/{id}/suspend', [AdminTourAttributesController::class, 'suspend'])->name('tours-attributes.suspend');
+
+    Route::get('tour-attributes/{id}/suspend', [AdminTourAttributesController::class, 'suspend'])->name('tour-attributes.suspend');
     // ---------------------------------------tour attributes management---------------------------------------
 
     // ---------------------------------------tour attributes management---------------------------------------
@@ -243,6 +243,7 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('news-categories', AdminNewsCategoriesController::class);
 
     Route::resource('tours', AdminTourController::class);
+    Route::resource('tour-attributes', AdminTourAttributesController::class);
     Route::resource('tour-categories', AdminTourCategoriesController::class);
 });
 

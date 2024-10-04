@@ -12,6 +12,7 @@ use App\Models\News;
 use App\Models\NewsCategory;
 use App\Models\NewsTag;
 use App\Models\Tour;
+use App\Models\TourAttribute;
 use App\Models\TourCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -76,6 +77,11 @@ class BulkActionController extends Controller
                 $column = 'slug';
                 $redirectRoute = 'admin.tour-categories.index';
                 break;
+            case 'tour-attributes':
+                $modelClass = TourAttribute::class;
+                $column = 'id';
+                $redirectRoute = 'admin.tour-attributes.index';
+                break;
             default:
                 return Redirect::back()->with('notify_error', 'Resource not found.');
         }
@@ -101,6 +107,12 @@ class BulkActionController extends Controller
                 $modelClass::withTrashed()->whereIn($idColumn, $selectedIds)->each(function ($model) {
                     $model->restore();
                 });
+                break;
+            case 'active':
+                $modelClass::whereIn($idColumn, $selectedIds)->update(['status' => 'active']);
+                break;
+            case 'inactive':
+                $modelClass::whereIn($idColumn, $selectedIds)->update(['status' => 'inactive']);
                 break;
             case 'permanent_delete':
                 $modelClass::onlyTrashed()->whereIn($idColumn, $selectedIds)->each(function ($model) {

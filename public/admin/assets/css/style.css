@@ -98,6 +98,16 @@ i.bx {
     transition: all 300ms;
     cursor: pointer;
 }
+.themeBtn i {
+    font-size: 1.15rem;
+}
+
+.themeBtn:has(i) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15rem;
+}
 
 .themeBtn--outline {
     border: 2px solid #000;
@@ -688,7 +698,7 @@ th.no-sort span.dt-column-order::before {
 }
 
 .universal-table .dt-layout-cell.dt-layout-full .themeBtn {
-    padding: 5px 9px;
+    padding: 7px 10px;
     font-size: 13px;
     display: flex;
     align-items: center;
@@ -1023,7 +1033,7 @@ form .text-danger {
     width: 100% !important;
     padding: 0.7rem 1rem;
     border-radius: 0.25rem;
-    border: 1px solid #cccccc5c;
+    border: 1px solid #dee2e6;
     outline: none;
     color: #000;
     font-size: 0.85rem;
@@ -1388,7 +1398,13 @@ a.custom-dropdown__active {
     border: none;
     box-shadow: none;
 }
+.form-check-input:active {
+    filter: none;
+}
 
+.form-check-input:focus {
+    box-shadow: none;
+}
 .form-check label {
     font-size: 0.85rem;
     font-weight: 500;
@@ -1616,7 +1632,7 @@ body.responsive.fancybox-active.compensate-for-scrollbar {
 }
 
 .repeater-table .field {
-    padding: 0.5rem;
+    padding: 0.5rem 0.75rem;
 }
 
 .repeater-table td {
@@ -1626,4 +1642,11 @@ body.responsive.fancybox-active.compensate-for-scrollbar {
 [disabled] {
     opacity: 0.65;
     cursor: not-allowed;
+}
+.repeater-table th {
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+    opacity: 0.75;
+    text-transform: capitalize;
+    font-size: 0.9rem;
 }

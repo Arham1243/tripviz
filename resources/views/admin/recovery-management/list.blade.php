@@ -45,7 +45,7 @@
                                             <td>
                                                 <div class="selection item-select-container">
                                                     <input type="checkbox" class="bulk-item" name="bulk_select[]"
-                                                        value="{{ $item->slug }}">
+                                                        value="{{ $primaryColumn ? $item->{$primaryColumn} : $item->slug }}">
                                                 </div>
                                             </td>
                                             @foreach ($columns as $column => $heading)
