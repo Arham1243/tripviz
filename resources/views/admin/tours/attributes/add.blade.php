@@ -16,7 +16,7 @@
 
         <div class="form-fields">
             <label class="title">Name <span class="text-danger">*</span> :</label>
-            <input type="text" name="name" class="field" value="{{ $categoryName }}" placeholder="Tag" required>
+            <input type="text" name="name" class="field" value="{{ $categoryName }}" placeholder="Name" required>
             @error('name')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
