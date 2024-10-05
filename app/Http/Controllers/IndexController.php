@@ -69,15 +69,13 @@ class IndexController extends Controller
             $waterActivityTours = collect();
         }
 
-        $cities = City::where('is_active', 1)
-            ->where('show_on_homepage', 1)
+        $cities = City::where('status', 'publish')
             ->withCount('tours')
             ->orderBy('tours_count', 'desc')
             ->latest()
             ->get();
 
-        $countries = Country::where('is_active', 1)
-            ->where('show_on_homepage', 1)
+        $countries = Country::where('status', 'publish')
             ->latest()
             ->get();
 

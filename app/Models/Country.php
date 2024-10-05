@@ -21,7 +21,7 @@ class Country extends Model
     {
         return Tour::whereHas('cities', function ($query) {
             $query->where('country_id', $this->id);
-        })->where('tours.is_active', true);
+        })->where('tours.status', 'publish');
     }
 
     public function seo()
