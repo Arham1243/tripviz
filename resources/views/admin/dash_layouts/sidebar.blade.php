@@ -201,6 +201,11 @@
                     ],
                 ],
                 [
+                    'title' => 'Reviews',
+                    'icon' => 'bx bxs-chat',
+                    'route' => route('admin.tour-reviews.index'),
+                ],
+                [
                     'title' => 'Availability',
                     'icon' => 'bx bx-calendar',
                     'route' => 'javascript:void(0)',

@@ -34,41 +34,6 @@
                                         </div>
                                         <div class="col-12 mt-4">
                                             <div class="form-fields">
-                                                <label class="title">Categories <span class="text-danger">*</span>
-                                                    :</label>
-                                                <select name="category_ids[]" class="choice-select" data-required
-                                                    data-error="Category" multiple placeholder="Select Categories">
-                                                    @foreach ($categories as $category)
-                                                        <option value="{{ $category->id }}"
-                                                            {{ old('category_ids') == $category->id ? 'selected' : '' }}>
-                                                            {{ $category->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                                @error('category_ids')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-12 mt-4">
-                                            <div class="form-fields">
-                                                <label class="title">Location <span class="text-danger">*</span> :</label>
-                                                <select name="city_ids[]" class="choice-select" data-required
-                                                    data-error="Location" multiple placeholder="Select Locations">
-                                                    @foreach ($cities as $city)
-                                                        <option value="{{ $city->id }}"
-                                                            {{ old('city_ids') == $city->id ? 'selected' : '' }}>
-                                                            {{ $city->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                                @error('city_ids')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-12 mt-4">
-                                            <div class="form-fields">
                                                 <label class="title">Content <span class="text-danger">*</span> :</label>
                                                 <textarea class="editor" name="content" data-placeholder="content" data-required data-error="Content">
                                             {{ old('content') }}
@@ -154,8 +119,8 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <button type="button" class="themeBtn ms-auto"
-                                                        data-repeater-create>Add <i class="bx bx-plus"></i></button>
+                                                    <button type="button" class="themeBtn ms-auto" data-repeater-create>Add
+                                                        <i class="bx bx-plus"></i></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -267,6 +232,191 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-box" x-data="{ tourType: 'normal' }">
+                                <div class="form-box__header d-flex align-items-center justify-content-between">
+                                    <div class="title">Pricing</div>
+                                    <div class="d-flex align-items-center gap-5">
+                                        <div class="form-check p-0">
+                                            <input class="form-check-input" type="radio" name="tour_type"
+                                                id="normal" x-model="tourType" value="normal" checked>
+                                            <label class="form-check-label" for="normal">Normal Tour</label>
+                                        </div>
+                                        <div class="form-check p-0">
+                                            <input class="form-check-input" type="radio" name="tour_type"
+                                                id="private" x-model="tourType" value="private">
+                                            <label class="form-check-label" for="private">Private Tour</label>
+                                        </div>
+                                        <div class="form-check p-0">
+                                            <input class="form-check-input" type="radio" name="tour_type"
+                                                id="water" x-model="tourType" value="water">
+                                            <label class="form-check-label" for="water">Water / Desert
+                                                Activities</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-box__body">
+                                    <div x-show="tourType === 'normal'">
+                                        <div class="form-fields mb-4">
+                                            <div class="title title--sm">Normal Tour Pricing:</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 col-12 mb-3">
+                                                <div class="form-fields">
+                                                    <label class="title">Child Price <span
+                                                            class="text-danger">*</span>:</label>
+                                                    <input step="0.01" min="0" type="number"
+                                                        name="normal_child_price" class="field"
+                                                        value="{{ old('normal_child_price') }}"
+                                                        x-bind:data-required="tourType === 'normal'"
+                                                        data-error="Child Price">
+                                                    @error('normal_child_price')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-3">
+                                                <div class="form-fields">
+                                                    <label class="title">Adult Price <span
+                                                            class="text-danger">*</span>:</label>
+                                                    <input step="0.01" min="0" type="number"
+                                                        name="normal_adult_price" class="field"
+                                                        value="{{ old('normal_adult_price') }}"
+                                                        x-bind:data-required="tourType === 'normal'"
+                                                        data-error="Adult Price">
+                                                    @error('normal_adult_price')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-3">
+                                                <div class="form-fields">
+                                                    <label class="title">Minimum Quantity <span
+                                                            class="text-danger">*</span>:</label>
+                                                    <input type="number" name="normal_min_qty" class="field"
+                                                        value="{{ old('normal_min_qty') }}"
+                                                        x-bind:data-required="tourType === 'normal'"
+                                                        data-error="Minimum Quantity" min="1">
+                                                    @error('normal_min_qty')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-3">
+                                                <div class="form-fields">
+                                                    <label class="title">Maximum Quantity <span
+                                                            class="text-danger">*</span>:</label>
+                                                    <input type="number" name="normal_max_qty" class="field"
+                                                        value="{{ old('normal_max_qty') }}"
+                                                        x-bind:data-required="tourType === 'normal'"
+                                                        data-error="Maximum Quantity" min="1">
+                                                    @error('normal_max_qty')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div x-show="tourType === 'private'">
+                                        <div class="form-fields mb-4">
+                                            <div class="title title--sm">Private Tour Pricing:</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 col-12 mb-3">
+                                                <div class="form-fields">
+                                                    <label class="title">Car Price <span
+                                                            class="text-danger">*</span>:</label>
+                                                    <input step="0.01" min="0" type="number"
+                                                        name="private_car_price" class="field"
+                                                        value="{{ old('private_car_price') }}"
+                                                        x-bind:data-required="tourType === 'private'"
+                                                        data-error="Car Price">
+                                                    @error('private_car_price')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-3">
+                                                <div class="form-fields">
+                                                    <label class="title">Minimum Pax <span
+                                                            class="text-danger">*</span>:</label>
+                                                    <input type="number" name="private_min_qty" class="field"
+                                                        value="{{ old('private_min_qty') }}"
+                                                        x-bind:data-required="tourType === 'private'"
+                                                        data-error="Car Minimum Pax" min="1">
+                                                    @error('private_min_qty')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-3">
+                                                <div class="form-fields">
+                                                    <label class="title">Maximum Pax <span
+                                                            class="text-danger">*</span>:</label>
+                                                    <input type="number" name="private_max_qty" class="field"
+                                                        value="{{ old('private_max_qty') }}"
+                                                        x-bind:data-required="tourType === 'private'"
+                                                        data-error="Car Maximum Pax" min="1">
+                                                    @error('private_max_qty')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div x-show="tourType === 'water'">
+                                        <div class="form-fields mb-4">
+                                            <div class="title title--sm">Water / Desert Activities Pricing:</div>
+                                        </div>
+                                        <div class="form-fields">
+                                            <div class="repeater-table" data-repeater>
+                                                <label class="title">Enter Prices <span
+                                                        class="text-danger">*</span>:</label>
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">Time</th>
+                                                            <th scope="col">Price</th>
+                                                            <th class="text-end" scope="col">Remove</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody data-repeater-list>
+                                                        <tr data-repeater-item>
+                                                            <td>
+                                                                <select id="time-dropdown" name="water_times[]"
+                                                                    class="field"
+                                                                    x-bind:data-required="tourType === 'water'"
+                                                                    data-error="Desert Activities Time"></select>
+                                                            </td>
+                                                            <td>
+                                                                <input name="water_prices[]" type="number"
+                                                                    class="field" placeholder="Price" step="0.01"
+                                                                    min="0"
+                                                                    x-bind:data-required="tourType === 'water'"
+                                                                    data-error="Desert Activities Price">
+                                                            </td>
+                                                            <td>
+                                                                <button type="button"
+                                                                    class="delete-btn ms-auto delete-btn--static"
+                                                                    data-repeater-remove disabled>
+                                                                    <i class='bx bxs-trash-alt'></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <button type="button" class="themeBtn ms-auto" data-repeater-create>Add
+                                                    <i class="bx bx-plus"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
                             <div class="form-box">
                                 <div class="form-box__header">
                                     <div class="title">Banner</div>
@@ -289,41 +439,44 @@
                                             <div class="text-danger error-message d-none" data-upload-multiple-error></div>
                                         </div>
                                     </div>
-                                    <div class="form-fields mt-4">
-                                        @php
-                                            $styles = [
-                                                1 => 'Style 1',
-                                                2 => 'Style 2',
-                                                3 => 'Style 3',
-                                                4 => 'Style 4',
-                                            ];
-                                        @endphp
-                                        <label class="title">Choose Banner Style:</label>
-                                        <select onchange="previewImage(this,'banner-style-preview')" name="banner_style"
-                                            class="field">
-                                            <option value=""
-                                                data-image="{{ asset('admin/assets/images/banner-styles/placeholder.png') }}"
-                                                selected>Select</option>
-                                            @foreach ($styles as $key => $style)
-                                                <option value="{{ $key }}"
-                                                    data-image="{{ asset('admin/assets/images/banner-styles/' . $key . '.png') }}">
-                                                    {{ $style }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('banner_style')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+                                    <div x-data="{
+                                        selectedImage: '{{ asset('admin/assets/images/banner-styles/1.png') }}'
+                                    }">
+                                        <div class="form-fields mt-4">
+                                            @php
+                                                $styles = [
+                                                    1 => 'Style 1',
+                                                    2 => 'Style 2',
+                                                    3 => 'Style 3',
+                                                    4 => 'Style 4',
+                                                ];
+                                            @endphp
+                                            <label class="title">Choose Banner Style:</label>
+                                            <select x-model="selectedImage"
+                                                @change="selectedImage = $el.options[$el.selectedIndex].dataset.image"
+                                                name="banner_style" class="field">
+                                                @foreach ($styles as $key => $style)
+                                                    <option value="{{ $key }}"
+                                                        {{ $key == $loop->first ? 'selected' : '' }}
+                                                        data-image="{{ asset('admin/assets/images/banner-styles/' . $key . '.png') }}">
+                                                        {{ $style }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('banner_style')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <!-- Banner Preview -->
+                                        <div class="form-fields">
+                                            <label class="title">Banner preview:</label>
+                                            <a :href="selectedImage" data-fancybox="gallery" class="preview-image">
+                                                <img :src="selectedImage" alt="image" class="imgFluid">
+                                            </a>
+                                        </div>
                                     </div>
 
-                                    <div class="form-fields">
-                                        <label class="title">Banner preview:</label>
-                                        <a href="{{ asset('admin/assets/images/banner-styles/1.png') }}"
-                                            data-fancybox="gallery" class="preview-image">
-                                            <img src="{{ asset('admin/assets/images/banner-styles/1.png') }}"
-                                                alt="image" class="imgFluid" id="banner-style-preview">
-                                        </a>
-                                    </div>
                                 </div>
                             </div>
                             <div class="form-box">
@@ -419,21 +572,18 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="form-box">
                                 <div class="form-box__header d-flex align-items-center justify-content-between">
                                     <div class="title">Plan Itinerary Experience</div>
                                     <a href="{{ asset('admin/assets/images/itinerary-exp.png') }}"
-                                        data-fancybox="gallery" class="themeBtn p-2" title="Section Preivew"><i
-                                            class='bx bxs-show'></i></a>
+                                        data-fancybox="gallery" class="themeBtn p-2" title="Section Preview">
+                                        <i class='bx bxs-show'></i>
+                                    </a>
                                 </div>
                                 <div class="form-box__body">
                                     <div class="form-fields">
                                         <div class="title d-flex align-items-center gap-2">
-                                            <div>
-                                                Map Iframe Link
-                                                <span class="text-danger p-0">*</span>:
-                                            </div>
+                                            <div>Map Iframe Link<span class="text-danger p-0">*</span>:</div>
                                             <a class="p-0 nav-link" href="https://www.google.com/maps/d/"
                                                 target="_blank">Google Map Generator</a>
                                         </div>
@@ -448,7 +598,7 @@
                                         <div class="col-md-6 col-12">
                                             <div class="form-fields">
                                                 <label class="title">Pickup locations:</label>
-                                                <input class="choice-select" name="itinerary[pickup_location][]"
+                                                <input class="choice-select" name="itinerary[pickup_location]"
                                                     placeholder="Pickup Location Title">
                                                 @error('itinerary_experience_pickups')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -458,7 +608,7 @@
                                         <div class="col-md-6 col-12">
                                             <div class="form-fields">
                                                 <label class="title">Dropoff locations:</label>
-                                                <input class="choice-select" name="itinerary[dropoff_location][]"
+                                                <input class="choice-select" name="itinerary[dropoff_location]"
                                                     placeholder="Dropoff Location Title">
                                                 @error('itinerary_experience_dropoff')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -485,8 +635,7 @@
                                         <div class="dropdown bootsrap-dropdown mt-4 d-flex justify-content-end">
                                             <button type="button" class="themeBtn dropdown-toggle"
                                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                                Add
-                                                <i class="bx bx-chevron-down"></i>
+                                                Add <i class="bx bx-chevron-down"></i>
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li>
@@ -505,13 +654,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-check">
+                                    <div class="form-check d-none" id="add-stop-btn">
                                         <input class="form-check-input" type="checkbox"
                                             name="itinerary[enable_sub_stops]" id="itinerary_experience_enabled_sub_stops"
                                             value="1">
-                                        <label class="form-check-label" for="itinerary_experience_enabled_sub_stops">
-                                            Add Sub Stops
-                                        </label>
+                                        <label class="form-check-label" for="itinerary_experience_enabled_sub_stops">Add
+                                            Sub Stops</label>
                                     </div>
 
                                     <div class="form-fields mt-4 d-none" id="itinerary_experience_sub_stops">
@@ -590,6 +738,45 @@
                             </div>
                             <div class="form-box">
                                 <div class="form-box__header">
+                                    <div class="title">Categories & Locations</div>
+                                </div>
+                                <div class="form-box__body">
+                                    <div class="form-fields">
+                                        <label class="title">Categories <span class="text-danger">*</span>
+                                            :</label>
+                                        <select name="category_ids[]" class="choice-select" data-required
+                                            data-error="Category" multiple placeholder="Select Categories">
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}"
+                                                    {{ old('category_ids') == $category->id ? 'selected' : '' }}>
+                                                    {{ $category->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('category_ids')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-fields">
+                                        <label class="title">Location <span class="text-danger">*</span> :</label>
+                                        <select name="city_ids[]" class="choice-select" data-required
+                                            data-error="Location" multiple placeholder="Select Locations">
+                                            @foreach ($cities as $city)
+                                                <option value="{{ $city->id }}"
+                                                    {{ old('city_ids') == $city->id ? 'selected' : '' }}>
+                                                    {{ $city->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('city_ids')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-box">
+                                <div class="form-box__header">
                                     <div class="title">Feature Image</div>
                                 </div>
                                 <div class="form-box__body">
@@ -660,12 +847,19 @@
     </div>
 @endsection
 @section('css')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
     <style type="text/css">
 
     </style>
 @endsection
 @section('js')
     <script>
+        Alpine.start();
+        Alpine.debug = true;
+
         function updateText(currentInput, ElementId) {
             let textPreview = document.getElementById(ElementId)
             textPreview.textContent = currentInput.value

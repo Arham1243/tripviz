@@ -1,3 +1,27 @@
+function populateTimeDropdown() {
+    const dropdown = document.getElementById("time-dropdown");
+    if (dropdown) {
+        dropdown.innerHTML = "";
+
+        const startTime = 15; // Start from 15 minutes
+        const endTime = 240; // 4 hours in minutes
+        const interval = 15; // Gap of 15 minutes
+
+        for (let minutes = startTime; minutes <= endTime; minutes += interval) {
+            const time = moment()
+                .startOf("day")
+                .add(minutes, "minutes")
+                .format("HH:mm");
+            const option = document.createElement("option");
+            option.value = minutes;
+            option.textContent = `${time} (${minutes} mins)`;
+            dropdown.appendChild(option);
+        }
+    }
+}
+
+populateTimeDropdown();
+
 const sortableTableBody = document.querySelector("[data-sortable-body]");
 if (sortableTableBody) {
     const sortable = new Sortable(sortableTableBody, {
@@ -14,15 +38,36 @@ if (sortableTableBody) {
         },
     });
 }
+function toggleAddStopButton() {
+    const stops = itineraryTableBody.querySelectorAll(
+        'tr[data-item-type="stop"]',
+    );
+    const addStopBtn = document.getElementById("add-stop-btn");
+    const hasValue = Array.from(
+        itineraryTableBody.querySelectorAll(
+            'input[name="itinerary[stops][title][]"]',
+        ),
+    ).some((input) => input.value.trim() !== "");
+
+    if (stops.length > 0 && hasValue) {
+        addStopBtn.classList.remove("d-none");
+    } else {
+        addStopBtn.classList.add("d-none");
+    }
+}
+
 function updateOrderFields() {
     // Update order for all rows (vehicles and stops) in unified order
     const rows = document.querySelectorAll("#itinerary-table-body tr");
     rows.forEach((row, index) => {
-        const orderField = row.querySelector("input[name='itinerary[order][]']");
+        const orderField = row.querySelector(
+            "input[name='itinerary[order][]']",
+        );
         if (orderField) {
-            orderField.value = index + 1;  // Update the order number
+            orderField.value = index + 1; // Update the order number
         }
     });
+    toggleAddStopButton();
 }
 
 const itineraryTableBody = document.getElementById("itinerary-table-body");
@@ -45,10 +90,10 @@ if (itineraryTableBody && subStopsSection && subStopsCheckbox) {
     });
 
     function createRow(type) {
-    let row = null;
-    const order = itineraryTableBody.children.length + 1; // Calculate current order
-    if (type === "vehicle") {
-        row = `
+        let row = null;
+        const order = itineraryTableBody.children.length + 1; // Calculate current order
+        if (type === "vehicle") {
+            row = `
         <tr data-item-type="vehicle" draggable="true">
             <td><div class="order-menu"><i class='bx-sm bx bx-menu'></i></div>
             <input type="hidden" name="itinerary[order][]["type]" value="vehicle">
@@ -58,8 +103,8 @@ if (itineraryTableBody && subStopsSection && subStopsCheckbox) {
             <td><input name="itinerary[vehicles][time][]" type="number" class="field" placeholder="Time (mins)"></td>
             <td><button type="button" class="delete-btn ms-auto delete-btn--static"><i class='bx bxs-trash-alt'></i></button></td>
         </tr>`;
-    } else if (type === "stop") {
-        row = `
+        } else if (type === "stop") {
+            row = `
         <tr data-item-type="stop" draggable="true">
             <td><div class="order-menu"><i class='bx-sm bx bx-menu'></i></div>
             <input type="hidden" name="itinerary[order][][type]" value="stop">
@@ -69,32 +114,37 @@ if (itineraryTableBody && subStopsSection && subStopsCheckbox) {
             <td><input name="itinerary[stops][activities][]" type="text" class="field" placeholder="Activities"></td>
             <td><button type="button" class="delete-btn ms-auto delete-btn--static"><i class='bx bxs-trash-alt'></i></button></td>
         </tr>`;
+        }
+        return row;
     }
-    return row;
-}
-    
 
     document.querySelectorAll("[data-itinerary-action]").forEach((item) => {
         item.addEventListener("click", function () {
             const action = this.getAttribute("data-itinerary-action");
             if (action === "add-vehicle") {
-                itineraryTableBody.insertAdjacentHTML("beforeend", createRow("vehicle"));
+                itineraryTableBody.insertAdjacentHTML(
+                    "beforeend",
+                    createRow("vehicle"),
+                );
             } else if (action === "add-stop") {
-                itineraryTableBody.insertAdjacentHTML("beforeend", createRow("stop"));
+                itineraryTableBody.insertAdjacentHTML(
+                    "beforeend",
+                    createRow("stop"),
+                );
             }
-            updateOrderFields();  // Ensure order is updated after adding rows
-            closeSubStopsSection();  // Close sub stops section after adding new rows
+            updateOrderFields(); // Ensure order is updated after adding rows
+            closeSubStopsSection(); // Close sub stops section after adding new rows
         });
     });
-    
+
     // Update the order whenever a row is removed
     itineraryTableBody.addEventListener("click", function (e) {
         if (e.target.closest(".delete-btn")) {
             const row = e.target.closest("tr");
             row.remove();
-            updateOrderFields();  // Update order after row removal
-            populateMainStopDropdown();  // Repopulate dropdown when stops are removed
-            closeSubStopsSection();  // Close sub stops section after row removal
+            updateOrderFields(); // Update order after row removal
+            populateMainStopDropdown(); // Repopulate dropdown when stops are removed
+            closeSubStopsSection(); // Close sub stops section after row removal
         }
     });
 
@@ -107,6 +157,7 @@ if (itineraryTableBody && subStopsSection && subStopsCheckbox) {
     itineraryTableBody.addEventListener("input", function (e) {
         if (e.target.name === "itinerary[stops][title][]") {
             closeSubStopsSection(); // Close sub stops section if stop name changes
+            toggleAddStopButton();
         }
     });
 
@@ -483,16 +534,6 @@ function confirmBulkAction(event) {
             event.preventDefault();
         }
     }
-}
-
-function previewImage(selectElement, imgElementId) {
-    var selectedOption = selectElement.options[selectElement.selectedIndex];
-    var imgUrl = selectedOption.getAttribute("data-image");
-
-    // Update image src and href
-    var imgElement = document.getElementById(imgElementId);
-    imgElement.src = imgUrl;
-    imgElement.parentElement.href = imgUrl;
 }
 
 function initializeUploadComponent(uploadComponent) {

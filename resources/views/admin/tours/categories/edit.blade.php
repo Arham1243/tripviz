@@ -41,7 +41,15 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-
+                                    <div class="form-fields">
+                                        <label class="title">Whatsapp Number:</label>
+                                        <input type="text" name="phone" class="field"
+                                            value="{{ old('phone', $category->phone) }}" placeholder="Phone"
+                                            data-error="phone">
+                                        @error('phone')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-box">

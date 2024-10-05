@@ -4,5 +4,4 @@
 <script src="{{ asset('admin/toast/js/jquery.toast.js') }}"></script>
 <script src="{{ asset('admin/assets/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('admin/assets/js/fancybox.min.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
 <script src="{{ asset('admin/assets/js/app.js') }}"></script>

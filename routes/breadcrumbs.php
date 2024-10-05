@@ -142,4 +142,12 @@ Breadcrumbs::for('admin.tour-attributes.edit', function (BreadcrumbTrail $trail,
     $trail->parent('admin.tour-attributes.index');
     $trail->push($item->name, route('admin.tour-attributes.edit', $item->id));
 });
+Breadcrumbs::for('admin.tour-reviews.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.tours.index');
+    $trail->push('Reviews', route('admin.tour-reviews.index'));
+});
+Breadcrumbs::for('admin.tour-reviews.edit', function (BreadcrumbTrail $trail, $item) {
+    $trail->parent('admin.tour-reviews.index');
+    $trail->push($item->title, route('admin.tour-reviews.edit', $item->id));
+});
 // ---------------Tours---------------

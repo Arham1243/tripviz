@@ -17,6 +17,7 @@ class TourReview extends Model
         'title',
         'review',
         'rating',
+        'status',
     ];
 
     public function tour()

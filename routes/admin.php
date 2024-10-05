@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\News\TagsController as NewsTagsController;
 use App\Http\Controllers\Admin\RecoveryController;
 use App\Http\Controllers\Admin\Tour\AttributesController;
 use App\Http\Controllers\Admin\Tour\CategoriesController as TourCategoriesController;
+use App\Http\Controllers\Admin\Tour\ReviewController as TourReviewController;
 use App\Http\Controllers\Admin\Tour\TourController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +46,7 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('tours', TourController::class);
     Route::resource('tour-attributes', AttributesController::class);
     Route::resource('tour-categories', TourCategoriesController::class);
+    Route::resource('tour-reviews', TourReviewController::class);
 
     Route::resource('countries', CountryController::class);
     Route::resource('cities', CityController::class);

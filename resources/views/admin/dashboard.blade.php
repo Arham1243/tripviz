@@ -607,18 +607,14 @@
                     <ul class="dropdown-menu">
                         <li>
                             <a class="dropdown-item" href="javascript:void(0)">
-                                <lord-icon src="https://cdn.lordicon.com/xljvqlng.json" trigger="loop" delay="2000">
-                                </lord-icon>
+                                <i class='bx bx-list-ul'></i>
                                 Show by Orders
                             </a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="javascript:void(0)">
 
-
-                                <lord-icon src="https://cdn.lordicon.com/wmlleaaf.json" trigger="loop" delay="2000"
-                                    colors="primary:#000,secondary:#000">
-                                </lord-icon>Show by Inquiries
+                                <i class='bx bxs-group'></i>Show by Inquiries
                             </a>
                         </li>
                     </ul>

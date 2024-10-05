@@ -81,6 +81,7 @@ class CategoriesController extends Controller
             'name' => 'required|string|max:255',
             'status' => 'required|in:publish,draft',
             'slug' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|min:11',
             'bottom_featured_tour_ids' => 'nullable|array',
             'top_featured_tour_ids' => 'nullable|array',
             'recommended_tour_ids' => 'nullable|array',
