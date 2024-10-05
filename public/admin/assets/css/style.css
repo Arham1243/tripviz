@@ -545,7 +545,7 @@ a.custom-card__img img {
     background: var(--color-primary-light);
     color: #777;
     border-radius: 7px;
-    font-size: 14px;
+    font-size: 21px;
     border: none;
     outline: none;
     margin: auto;
@@ -858,7 +858,20 @@ table.custom-table tr {
 }
 
 /* dropdown */
-.dropstart .dropdown-item {
+.dropdown-toggle::before{
+display: none;
+}
+.dropdown-toggle::after{
+display: none;
+}
+.dropdown-item:focus i,  .dropdown-item:hover i {
+    color: #fff;
+}
+
+i {
+    transition: all 300ms;
+}
+.bootsrap-dropdown .dropdown-item {
     font-size: 0.8rem;
     padding: 0.15rem 0.65rem !important;
     display: flex;
@@ -866,28 +879,31 @@ table.custom-table tr {
     gap: 0.35rem;
     height: 36px;
 }
-
-.dropstart .dropdown-item lord-icon,
+.dropdown-item:focus, .dropdown-item:hover {
+    background: var(--color-primary) !important;!i;!;
+    color: #fff;
+}
+.bootsrap-dropdown .dropdown-item lord-icon,
 img {
     width: 17px;
 }
 
-.dropstart .dropdown-item i {
+.bootsrap-dropdown .dropdown-item i {
     font-size: 1.1rem;
     color: var(--color-primary);
 }
 
-.dropstart li:not(:last-child) .dropdown-item {
+.bootsrap-dropdown li:not(:last-child) .dropdown-item {
     border-bottom: 1px solid #cccccc61;
 }
 
-.dropstart .dropdown-item:hover {
+.bootsrap-dropdown .dropdown-item:hover {
     background: var(--color-primary-light);
 }
 
 .dropdown-menu {
     padding: 0;
-    border-radius: 0.5rem;
+    border-radius: 0.25rem;
 }
 
 /* dropdown */
@@ -1010,6 +1026,10 @@ form .text-danger {
     font-size: 0.9rem;
     display: flex;
 }
+.form-fields .title--sm {
+    opacity: 0.85;
+    font-size: 1.2rem;
+}
 .form-fields .title .text-danger {
     padding-left: 0.25rem;
 }
@@ -1026,6 +1046,10 @@ form .text-danger {
 }
 .ck.ck-editor__editable_inline {
     min-height: 170px;
+}
+.choices__inner {
+    display: flex;
+    flex-direction: column-reverse;
 }
 .form-fields .field,
 .choices__list--single,
@@ -1100,7 +1124,7 @@ form .text-danger {
     justify-content: center;
     background: red;
     color: #fff !important;
-    font-size: 0.75rem;
+    font-size: 0.75rem;!;!i;!;
     border-radius: 5px;
     border: none;
     outline: none;
@@ -1374,14 +1398,14 @@ a.custom-dropdown__active {
     border-radius: 0.35rem;
 }
 .form-box:not(:last-child) {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
 }
 .form-box__header {
     border-bottom: 1px solid #dfe4e8;
     padding: 0.85rem;
 }
 .form-box__body {
-    padding: 1.15rem;
+    padding: 1.15rem 0 2rem;
 }
 :is(.form-box__header, .form-box__body) {
     padding-inline: 1.25rem;
@@ -1631,13 +1655,20 @@ body.responsive.fancybox-active.compensate-for-scrollbar {
     object-fit: contain;
 }
 
-.repeater-table .field {
-    padding: 0.5rem 0.75rem;
+.repeater-table .field,.repeater-table .choices__input {
+    padding: 0.5rem 0.75rem !important;
+}
+
+.repeater-table :is(th,td) {
+    padding: 0.75em 1.25rem;
 }
 
 .repeater-table td {
     vertical-align: middle;
-    padding: 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 1.15rem 1.25rem;
+    color: #0000007a;
 }
 [disabled] {
     opacity: 0.65;
@@ -1649,4 +1680,7 @@ body.responsive.fancybox-active.compensate-for-scrollbar {
     opacity: 0.75;
     text-transform: capitalize;
     font-size: 0.9rem;
+}
+.order-menu{
+    cursor: grab;
 }

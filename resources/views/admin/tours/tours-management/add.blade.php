@@ -54,7 +54,7 @@
                                             <div class="form-fields">
                                                 <label class="title">Location <span class="text-danger">*</span> :</label>
                                                 <select name="city_ids[]" class="choice-select" data-required
-                                                    data-error="Category" multiple placeholder="Select Locations">
+                                                    data-error="Location" multiple placeholder="Select Locations">
                                                     @foreach ($cities as $city)
                                                         <option value="{{ $city->id }}"
                                                             {{ old('city_ids') == $city->id ? 'selected' : '' }}>
@@ -82,8 +82,7 @@
                                             <div class="form-fields">
                                                 <div class="title d-flex align-items-center gap-2">
                                                     <div>
-                                                        Badge icon
-                                                        <span class="text-danger p-0">*</span>:
+                                                        Badge icon:
                                                     </div>
                                                     <a class="p-0 nav-link" href="//boxicons.com"
                                                         target="_blank">boxicons</a>
@@ -92,8 +91,7 @@
 
                                                     <input type="text" name="badge_icon_class" class="field"
                                                         value="{{ old('badge_icon_class', 'bx bx-badge-check') }}"
-                                                        placeholder="" data-required
-                                                        oninput="showIcon(this)"data-error="badge_icon_class">
+                                                        placeholder="" oninput="showIcon(this)">
                                                     <i class="bx bx-badge-check bx-md" data-preview-icon></i>
                                                 </div>
                                                 @error('badge_icon_class')
@@ -105,11 +103,9 @@
                                         </div>
                                         <div class="col-md-6 col-12  mt-4">
                                             <div class="form-fields">
-                                                <label class="title">Badge Name <span class="text-danger">*</span>
-                                                    :</label>
+                                                <label class="title">Badge Name:</label>
                                                 <input type="text" name="badge_name" class="field"
-                                                    value="{{ old('badge_name') }}" placeholder="" data-required
-                                                    data-error="Badge Name">
+                                                    value="{{ old('badge_name') }}" placeholder="">
                                                 @error('badge_name')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -137,8 +133,7 @@
                                                                 <td>
                                                                     <div class="d-flex align-items-center gap-3">
                                                                         <input type="text" class="field"
-                                                                            name="features_icons[]"
-                                                                            oninput="showIcon(this)"
+                                                                            name="features_icons[]" oninput="showIcon(this)"
                                                                             value="bx bx-stopwatch">
 
                                                                         <i class="bx bx-stopwatch bx-md"
@@ -273,6 +268,65 @@
                                 </div>
                             </div>
                             <div class="form-box">
+                                <div class="form-box__header">
+                                    <div class="title">Banner</div>
+                                </div>
+                                <div class="form-box__body">
+                                    <div class="form-fields">
+                                        <div class="multiple-upload" data-upload-multiple>
+                                            <input type="file" class="gallery-input d-none" multiple
+                                                data-upload-multiple-input accept="image/*" id="banners"
+                                                name="banners[]">
+                                            <label class="multiple-upload__btn themeBtn" for="banners">
+                                                <i class='bx bx-plus'></i>
+                                                Select Images
+                                            </label>
+                                            <div class="dimensions mt-3">
+                                                <strong>Dimensions:</strong> 1350 &times; 500
+                                            </div>
+                                            <ul class="multiple-upload__imgs" data-upload-multiple-images>
+                                            </ul>
+                                            <div class="text-danger error-message d-none" data-upload-multiple-error></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-fields mt-4">
+                                        @php
+                                            $styles = [
+                                                1 => 'Style 1',
+                                                2 => 'Style 2',
+                                                3 => 'Style 3',
+                                                4 => 'Style 4',
+                                            ];
+                                        @endphp
+                                        <label class="title">Choose Banner Style:</label>
+                                        <select onchange="previewImage(this,'banner-style-preview')" name="banner_style"
+                                            class="field">
+                                            <option value=""
+                                                data-image="{{ asset('admin/assets/images/banner-styles/placeholder.png') }}"
+                                                selected>Select</option>
+                                            @foreach ($styles as $key => $style)
+                                                <option value="{{ $key }}"
+                                                    data-image="{{ asset('admin/assets/images/banner-styles/' . $key . '.png') }}">
+                                                    {{ $style }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('banner_style')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-fields">
+                                        <label class="title">Banner preview:</label>
+                                        <a href="{{ asset('admin/assets/images/banner-styles/1.png') }}"
+                                            data-fancybox="gallery" class="preview-image">
+                                            <img src="{{ asset('admin/assets/images/banner-styles/1.png') }}"
+                                                alt="image" class="imgFluid" id="banner-style-preview">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-box">
                                 <div class="form-box__header d-flex align-items-center justify-content-between">
                                     <div class="title">Itinerary</div>
                                     <a href="{{ asset('admin/assets/images/itinerary.png') }}" data-fancybox="gallery"
@@ -365,71 +419,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-box">
-                                <div class="form-box__header">
-                                    <div class="title">Banner</div>
-                                </div>
-                                <div class="form-box__body">
-                                    <div class="form-fields">
-                                        <div class="multiple-upload" data-upload-multiple>
-                                            <input type="file" class="gallery-input d-none" multiple
-                                                data-upload-multiple-input accept="image/*" id="banners"
-                                                name="banners[]" data-required data-error="Tour Banner">
-                                            <label class="multiple-upload__btn themeBtn" for="banners">
-                                                <i class='bx bx-plus'></i>
-                                                Select Images
-                                            </label>
-                                            <div class="dimensions mt-3">
-                                                <strong>Dimensions:</strong> 1350 &times; 500
-                                            </div>
-                                            <ul class="multiple-upload__imgs" data-upload-multiple-images>
-                                            </ul>
-                                            <div class="text-danger error-message d-none" data-upload-multiple-error></div>
-                                        </div>
-                                    </div>
-                                    <div class="form-fields mt-4">
-                                        @php
-                                            $styles = [
-                                                1 => 'Style 1',
-                                                2 => 'Style 2',
-                                                3 => 'Style 3',
-                                                4 => 'Style 4',
-                                            ];
-                                        @endphp
-                                        <label class="title">Choose Banner Style:</label>
-                                        <select onchange="previewImage(this,'banner-style-preview')" name="banner_style"
-                                            class="field">
-                                            <option value=""
-                                                data-image="{{ asset('admin/assets/images/banner-styles/placeholder.png') }}"
-                                                selected>Select</option>
-                                            @foreach ($styles as $key => $style)
-                                                <option value="{{ $key }}"
-                                                    data-image="{{ asset('admin/assets/images/banner-styles/' . $key . '.png') }}">
-                                                    {{ $style }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('banner_style')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
 
-                                    <div class="form-fields">
-                                        <label class="title">Banner preview:</label>
-                                        <a href="{{ asset('admin/assets/images/banner-styles/1.png') }}"
-                                            data-fancybox="gallery" class="preview-image">
-                                            <img src="{{ asset('admin/assets/images/banner-styles/1.png') }}"
-                                                alt="image" class="imgFluid" id="banner-style-preview">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="form-box">
                                 <div class="form-box__header d-flex align-items-center justify-content-between">
                                     <div class="title">Plan Itinerary Experience</div>
                                     <a href="{{ asset('admin/assets/images/itinerary-exp.png') }}"
                                         data-fancybox="gallery" class="themeBtn p-2" title="Section Preivew"><i
-                                            class='bx  bxs-show'></i></a>
+                                            class='bx bxs-show'></i></a>
                                 </div>
                                 <div class="form-box__body">
                                     <div class="form-fields">
@@ -441,14 +437,130 @@
                                             <a class="p-0 nav-link" href="https://www.google.com/maps/d/"
                                                 target="_blank">Google Map Generator</a>
                                         </div>
-                                        <input type="text" name="title" class="field" value="{{ old('title') }}"
-                                            placeholder="" data-required data-error="Title">
-                                        @error('title')
+                                        <input type="url" name="itinerary_experience_iframe" class="field"
+                                            value="{{ old('itinerary_experience_iframe') }}">
+                                        @error('itinerary_experience_iframe')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
+
+                                    <div class="row mt-4">
+                                        <div class="col-md-6 col-12">
+                                            <div class="form-fields">
+                                                <label class="title">Pickup locations:</label>
+                                                <input class="choice-select" name="itinerary[pickup_location][]"
+                                                    placeholder="Pickup Location Title">
+                                                @error('itinerary_experience_pickups')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-12">
+                                            <div class="form-fields">
+                                                <label class="title">Dropoff locations:</label>
+                                                <input class="choice-select" name="itinerary[dropoff_location][]"
+                                                    placeholder="Dropoff Location Title">
+                                                @error('itinerary_experience_dropoff')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-fields mt-3 repeater-table">
+                                        <div class="form-fields">
+                                            <label class="title title--sm">Experience:</label>
+                                        </div>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Order</th>
+                                                    <th scope="col">Type</th>
+                                                    <th scope="col" colspan="2">Fields</th>
+                                                    <th class="text-end" scope="col">Remove</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="itinerary-table-body" data-sortable-body></tbody>
+                                        </table>
+                                        <div class="dropdown bootsrap-dropdown mt-4 d-flex justify-content-end">
+                                            <button type="button" class="themeBtn dropdown-toggle"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                Add
+                                                <i class="bx bx-chevron-down"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <button type="button" class="dropdown-item"
+                                                        data-itinerary-action="add-vehicle">
+                                                        <i class='bx bxs-car'></i> Add Vehicle
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button type="button" class="dropdown-item"
+                                                        data-itinerary-action="add-stop">
+                                                        <i class="bx bx-star"></i> Add Stop
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox"
+                                            name="itinerary[enable_sub_stops]" id="itinerary_experience_enabled_sub_stops"
+                                            value="1">
+                                        <label class="form-check-label" for="itinerary_experience_enabled_sub_stops">
+                                            Add Sub Stops
+                                        </label>
+                                    </div>
+
+                                    <div class="form-fields mt-4 d-none" id="itinerary_experience_sub_stops">
+                                        <label class="title title--sm">Sub Stops:</label>
+                                        <div class="repeater-table" data-repeater>
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Main Stop</th>
+                                                        <th scope="col">Fields</th>
+                                                        <th class="text-end" scope="col">Remove</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody data-repeater-list>
+                                                    <tr data-repeater-item>
+                                                        <td>
+                                                            <select name="itinerary[stops][sub_stops][main_stop][]"
+                                                                class="field">
+                                                                <option value="" selected disabled>Select</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <input name="itinerary[stops][sub_stops][title][]"
+                                                                type="text" class="field" placeholder="Title">
+                                                            <br>
+                                                            <div class="mt-3">
+                                                                <input name="itinerary[stops][sub_stops][activities][]"
+                                                                    type="text" class="field"
+                                                                    placeholder="Activities">
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <button type="button"
+                                                                class="delete-btn ms-auto delete-btn--static"
+                                                                data-repeater-remove>
+                                                                <i class='bx bxs-trash-alt'></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <button type="button" class="themeBtn ms-auto" data-repeater-create>Add <i
+                                                    class="bx bx-plus"></i></button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
+
                             <x-seo-options :seo="$seo ?? null" :resource="'tours'" />
                         </div>
                     </div>

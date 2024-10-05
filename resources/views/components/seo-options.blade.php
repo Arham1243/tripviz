@@ -5,7 +5,7 @@
             <a href="javascript:void(0)" onclick="document.getElementById('seo_manager').classList.remove('d-none')"
                 class="themeBtn p-2"><i class='bx bxs-edit-alt'></i></a>
         </div>
-        <div class="form-box__body">
+        <div class="form-box__body pb-4">
             <div class="google-preview">
                 <div class="google-preview__header">
                     <div class="logo">

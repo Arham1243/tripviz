@@ -143,19 +143,15 @@
                                     <span class="badge rounded-pill bg-warning">Pending</span>
                                 </td>
                                 <td>
-                                    <div class="dropstart">
+                                    <div class="dropstart bootsrap-dropdown">
                                         <button type="button" class="recent-act__icon dropdown-toggle"
                                             data-bs-toggle="dropdown" aria-expanded="false">
-                                            <lord-icon src="https://cdn.lordicon.com/jpgpblwn.json" trigger="hover">
-                                            </lord-icon>
+                                            <i class='bx bx-dots-horizontal-rounded'></i>
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li>
                                                 <a class="dropdown-item" href="javascript:void(0)">
-                                                    <lord-icon
-                                                        src="https://media.lordicon.com/icons/system/solid/92-visability.json"
-                                                        trigger="loop" delay="2000">
-                                                    </lord-icon>
+                                                    <i class='bx bxs-show'></i>
                                                     View Details
                                                 </a>
                                             </li>
@@ -163,12 +159,7 @@
                                                 <a class="dropdown-item" href="javascript:void(0)">
 
 
-                                                    <lord-icon
-                                                        src="https://media.lordicon.com/icons/wired/outline/2465-restriction.json"
-                                                        trigger="loop" delay="2000"
-                                                        colors="primary:#000,secondary:#000">
-                                                    </lord-icon>
-
+                                                    <i class='bx bx-x'></i>
 
                                                     Suspend
                                                 </a>
@@ -178,9 +169,7 @@
                                                     onclick="return confirm('Are you sure you want to delete')"
                                                     href="javascript:void(0)">
 
-                                                    <lord-icon src="https://cdn.lordicon.com/skkahier.json" trigger="loop"
-                                                        delay="2000">
-                                                    </lord-icon>
+                                                    <i class='bx bxs-trash-alt'></i>
 
                                                     Delete
                                                 </a>
@@ -198,19 +187,15 @@
                                     <span class="badge rounded-pill bg-danger">Cancelled</span>
                                 </td>
                                 <td>
-                                    <div class="dropstart">
+                                    <div class="dropstart bootsrap-dropdown">
                                         <button type="button" class="recent-act__icon dropdown-toggle"
                                             data-bs-toggle="dropdown" aria-expanded="false">
-                                            <lord-icon src="https://cdn.lordicon.com/jpgpblwn.json" trigger="hover">
-                                            </lord-icon>
+                                            <i class='bx bx-dots-horizontal-rounded'></i>
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li>
                                                 <a class="dropdown-item" href="javascript:void(0)">
-                                                    <lord-icon
-                                                        src="https://media.lordicon.com/icons/system/solid/92-visability.json"
-                                                        trigger="loop" delay="2000">
-                                                    </lord-icon>
+                                                    <i class='bx bxs-show'></i>
                                                     View Details
                                                 </a>
                                             </li>
@@ -218,12 +203,7 @@
                                                 <a class="dropdown-item" href="javascript:void(0)">
 
 
-                                                    <lord-icon
-                                                        src="https://media.lordicon.com/icons/wired/outline/2465-restriction.json"
-                                                        trigger="loop" delay="2000"
-                                                        colors="primary:#000,secondary:#000">
-                                                    </lord-icon>
-
+                                                    <i class='bx bx-x'></i>
 
                                                     Suspend
                                                 </a>
@@ -233,9 +213,7 @@
                                                     onclick="return confirm('Are you sure you want to delete')"
                                                     href="javascript:void(0)">
 
-                                                    <lord-icon src="https://cdn.lordicon.com/skkahier.json" trigger="loop"
-                                                        delay="2000">
-                                                    </lord-icon>
+                                                    <i class='bx bxs-trash-alt'></i>
 
                                                     Delete
                                                 </a>
@@ -253,19 +231,15 @@
                                     <span class="badge rounded-pill bg-success">Completed</span>
                                 </td>
                                 <td>
-                                    <div class="dropstart">
+                                    <div class="dropstart bootsrap-dropdown">
                                         <button type="button" class="recent-act__icon dropdown-toggle"
                                             data-bs-toggle="dropdown" aria-expanded="false">
-                                            <lord-icon src="https://cdn.lordicon.com/jpgpblwn.json" trigger="hover">
-                                            </lord-icon>
+                                            <i class='bx bx-dots-horizontal-rounded'></i>
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li>
                                                 <a class="dropdown-item" href="javascript:void(0)">
-                                                    <lord-icon
-                                                        src="https://media.lordicon.com/icons/system/solid/92-visability.json"
-                                                        trigger="loop" delay="2000">
-                                                    </lord-icon>
+                                                    <i class='bx bxs-show'></i>
                                                     View Details
                                                 </a>
                                             </li>
@@ -273,12 +247,7 @@
                                                 <a class="dropdown-item" href="javascript:void(0)">
 
 
-                                                    <lord-icon
-                                                        src="https://media.lordicon.com/icons/wired/outline/2465-restriction.json"
-                                                        trigger="loop" delay="2000"
-                                                        colors="primary:#000,secondary:#000">
-                                                    </lord-icon>
-
+                                                    <i class='bx bx-x'></i>
 
                                                     Suspend
                                                 </a>
@@ -288,9 +257,7 @@
                                                     onclick="return confirm('Are you sure you want to delete')"
                                                     href="javascript:void(0)">
 
-                                                    <lord-icon src="https://cdn.lordicon.com/skkahier.json" trigger="loop"
-                                                        delay="2000">
-                                                    </lord-icon>
+                                                    <i class='bx bxs-trash-alt'></i>
 
                                                     Delete
                                                 </a>
@@ -308,19 +275,15 @@
                                     <span class="badge rounded-pill bg-warning">Pending</span>
                                 </td>
                                 <td>
-                                    <div class="dropstart">
+                                    <div class="dropstart bootsrap-dropdown">
                                         <button type="button" class="recent-act__icon dropdown-toggle"
                                             data-bs-toggle="dropdown" aria-expanded="false">
-                                            <lord-icon src="https://cdn.lordicon.com/jpgpblwn.json" trigger="hover">
-                                            </lord-icon>
+                                            <i class='bx bx-dots-horizontal-rounded'></i>
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li>
                                                 <a class="dropdown-item" href="javascript:void(0)">
-                                                    <lord-icon
-                                                        src="https://media.lordicon.com/icons/system/solid/92-visability.json"
-                                                        trigger="loop" delay="2000">
-                                                    </lord-icon>
+                                                    <i class='bx bxs-show'></i>
                                                     View Details
                                                 </a>
                                             </li>
@@ -328,12 +291,7 @@
                                                 <a class="dropdown-item" href="javascript:void(0)">
 
 
-                                                    <lord-icon
-                                                        src="https://media.lordicon.com/icons/wired/outline/2465-restriction.json"
-                                                        trigger="loop" delay="2000"
-                                                        colors="primary:#000,secondary:#000">
-                                                    </lord-icon>
-
+                                                    <i class='bx bx-x'></i>
 
                                                     Suspend
                                                 </a>
@@ -343,9 +301,7 @@
                                                     onclick="return confirm('Are you sure you want to delete')"
                                                     href="javascript:void(0)">
 
-                                                    <lord-icon src="https://cdn.lordicon.com/skkahier.json" trigger="loop"
-                                                        delay="2000">
-                                                    </lord-icon>
+                                                    <i class='bx bxs-trash-alt'></i>
 
                                                     Delete
                                                 </a>
@@ -363,19 +319,15 @@
                                     <span class="badge rounded-pill bg-success">Completed</span>
                                 </td>
                                 <td>
-                                    <div class="dropstart">
+                                    <div class="dropstart bootsrap-dropdown">
                                         <button type="button" class="recent-act__icon dropdown-toggle"
                                             data-bs-toggle="dropdown" aria-expanded="false">
-                                            <lord-icon src="https://cdn.lordicon.com/jpgpblwn.json" trigger="hover">
-                                            </lord-icon>
+                                            <i class='bx bx-dots-horizontal-rounded'></i>
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li>
                                                 <a class="dropdown-item" href="javascript:void(0)">
-                                                    <lord-icon
-                                                        src="https://media.lordicon.com/icons/system/solid/92-visability.json"
-                                                        trigger="loop" delay="2000">
-                                                    </lord-icon>
+                                                    <i class='bx bxs-show'></i>
                                                     View Details
                                                 </a>
                                             </li>
@@ -383,12 +335,7 @@
                                                 <a class="dropdown-item" href="javascript:void(0)">
 
 
-                                                    <lord-icon
-                                                        src="https://media.lordicon.com/icons/wired/outline/2465-restriction.json"
-                                                        trigger="loop" delay="2000"
-                                                        colors="primary:#000,secondary:#000">
-                                                    </lord-icon>
-
+                                                    <i class='bx bx-x'></i>
 
                                                     Suspend
                                                 </a>
@@ -398,9 +345,7 @@
                                                     onclick="return confirm('Are you sure you want to delete')"
                                                     href="javascript:void(0)">
 
-                                                    <lord-icon src="https://cdn.lordicon.com/skkahier.json" trigger="loop"
-                                                        delay="2000">
-                                                    </lord-icon>
+                                                    <i class='bx bxs-trash-alt'></i>
 
                                                     Delete
                                                 </a>
@@ -442,19 +387,15 @@
                                     <span class="badge rounded-pill bg-warning">Pending</span>
                                 </td>
                                 <td>
-                                    <div class="dropstart">
+                                    <div class="dropstart bootsrap-dropdown">
                                         <button type="button" class="recent-act__icon dropdown-toggle"
                                             data-bs-toggle="dropdown" aria-expanded="false">
-                                            <lord-icon src="https://cdn.lordicon.com/jpgpblwn.json" trigger="hover">
-                                            </lord-icon>
+                                            <i class='bx bx-dots-horizontal-rounded'></i>
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li>
                                                 <a class="dropdown-item" href="javascript:void(0)">
-                                                    <lord-icon
-                                                        src="https://media.lordicon.com/icons/system/solid/92-visability.json"
-                                                        trigger="loop" delay="2000">
-                                                    </lord-icon>
+                                                    <i class='bx bxs-show'></i>
                                                     View Details
                                                 </a>
                                             </li>
@@ -462,12 +403,7 @@
                                                 <a class="dropdown-item" href="javascript:void(0)">
 
 
-                                                    <lord-icon
-                                                        src="https://media.lordicon.com/icons/wired/outline/2465-restriction.json"
-                                                        trigger="loop" delay="2000"
-                                                        colors="primary:#000,secondary:#000">
-                                                    </lord-icon>
-
+                                                    <i class='bx bx-x'></i>
 
                                                     Suspend
                                                 </a>
@@ -477,9 +413,7 @@
                                                     onclick="return confirm('Are you sure you want to delete')"
                                                     href="javascript:void(0)">
 
-                                                    <lord-icon src="https://cdn.lordicon.com/skkahier.json" trigger="loop"
-                                                        delay="2000">
-                                                    </lord-icon>
+                                                    <i class='bx bxs-trash-alt'></i>
 
                                                     Delete
                                                 </a>
@@ -497,19 +431,15 @@
                                     <span class="badge rounded-pill bg-warning">Pending</span>
                                 </td>
                                 <td>
-                                    <div class="dropstart">
+                                    <div class="dropstart bootsrap-dropdown">
                                         <button type="button" class="recent-act__icon dropdown-toggle"
                                             data-bs-toggle="dropdown" aria-expanded="false">
-                                            <lord-icon src="https://cdn.lordicon.com/jpgpblwn.json" trigger="hover">
-                                            </lord-icon>
+                                            <i class='bx bx-dots-horizontal-rounded'></i>
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li>
                                                 <a class="dropdown-item" href="javascript:void(0)">
-                                                    <lord-icon
-                                                        src="https://media.lordicon.com/icons/system/solid/92-visability.json"
-                                                        trigger="loop" delay="2000">
-                                                    </lord-icon>
+                                                    <i class='bx bxs-show'></i>
                                                     View Details
                                                 </a>
                                             </li>
@@ -517,12 +447,7 @@
                                                 <a class="dropdown-item" href="javascript:void(0)">
 
 
-                                                    <lord-icon
-                                                        src="https://media.lordicon.com/icons/wired/outline/2465-restriction.json"
-                                                        trigger="loop" delay="2000"
-                                                        colors="primary:#000,secondary:#000">
-                                                    </lord-icon>
-
+                                                    <i class='bx bx-x'></i>
 
                                                     Suspend
                                                 </a>
@@ -532,9 +457,7 @@
                                                     onclick="return confirm('Are you sure you want to delete')"
                                                     href="javascript:void(0)">
 
-                                                    <lord-icon src="https://cdn.lordicon.com/skkahier.json" trigger="loop"
-                                                        delay="2000">
-                                                    </lord-icon>
+                                                    <i class='bx bxs-trash-alt'></i>
 
                                                     Delete
                                                 </a>
@@ -552,19 +475,15 @@
                                     <span class="badge rounded-pill bg-warning">Pending</span>
                                 </td>
                                 <td>
-                                    <div class="dropstart">
+                                    <div class="dropstart bootsrap-dropdown">
                                         <button type="button" class="recent-act__icon dropdown-toggle"
                                             data-bs-toggle="dropdown" aria-expanded="false">
-                                            <lord-icon src="https://cdn.lordicon.com/jpgpblwn.json" trigger="hover">
-                                            </lord-icon>
+                                            <i class='bx bx-dots-horizontal-rounded'></i>
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li>
                                                 <a class="dropdown-item" href="javascript:void(0)">
-                                                    <lord-icon
-                                                        src="https://media.lordicon.com/icons/system/solid/92-visability.json"
-                                                        trigger="loop" delay="2000">
-                                                    </lord-icon>
+                                                    <i class='bx bxs-show'></i>
                                                     View Details
                                                 </a>
                                             </li>
@@ -572,12 +491,7 @@
                                                 <a class="dropdown-item" href="javascript:void(0)">
 
 
-                                                    <lord-icon
-                                                        src="https://media.lordicon.com/icons/wired/outline/2465-restriction.json"
-                                                        trigger="loop" delay="2000"
-                                                        colors="primary:#000,secondary:#000">
-                                                    </lord-icon>
-
+                                                    <i class='bx bx-x'></i>
 
                                                     Suspend
                                                 </a>
@@ -587,9 +501,7 @@
                                                     onclick="return confirm('Are you sure you want to delete')"
                                                     href="javascript:void(0)">
 
-                                                    <lord-icon src="https://cdn.lordicon.com/skkahier.json" trigger="loop"
-                                                        delay="2000">
-                                                    </lord-icon>
+                                                    <i class='bx bxs-trash-alt'></i>
 
                                                     Delete
                                                 </a>
@@ -607,19 +519,15 @@
                                     <span class="badge rounded-pill bg-warning">Pending</span>
                                 </td>
                                 <td>
-                                    <div class="dropstart">
+                                    <div class="dropstart bootsrap-dropdown">
                                         <button type="button" class="recent-act__icon dropdown-toggle"
                                             data-bs-toggle="dropdown" aria-expanded="false">
-                                            <lord-icon src="https://cdn.lordicon.com/jpgpblwn.json" trigger="hover">
-                                            </lord-icon>
+                                            <i class='bx bx-dots-horizontal-rounded'></i>
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li>
                                                 <a class="dropdown-item" href="javascript:void(0)">
-                                                    <lord-icon
-                                                        src="https://media.lordicon.com/icons/system/solid/92-visability.json"
-                                                        trigger="loop" delay="2000">
-                                                    </lord-icon>
+                                                    <i class='bx bxs-show'></i>
                                                     View Details
                                                 </a>
                                             </li>
@@ -627,12 +535,7 @@
                                                 <a class="dropdown-item" href="javascript:void(0)">
 
 
-                                                    <lord-icon
-                                                        src="https://media.lordicon.com/icons/wired/outline/2465-restriction.json"
-                                                        trigger="loop" delay="2000"
-                                                        colors="primary:#000,secondary:#000">
-                                                    </lord-icon>
-
+                                                    <i class='bx bx-x'></i>
 
                                                     Suspend
                                                 </a>
@@ -642,9 +545,7 @@
                                                     onclick="return confirm('Are you sure you want to delete')"
                                                     href="javascript:void(0)">
 
-                                                    <lord-icon src="https://cdn.lordicon.com/skkahier.json" trigger="loop"
-                                                        delay="2000">
-                                                    </lord-icon>
+                                                    <i class='bx bxs-trash-alt'></i>
 
                                                     Delete
                                                 </a>
@@ -698,11 +599,10 @@
         <div class="custom-box mt-4">
             <div class="custom-box__header">
                 <div class="title">Top Destinations</div>
-                <div class="dropstart">
+                <div class="dropstart bootsrap-dropdown">
                     <button type="button" class="recent-act__icon dropdown-toggle" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        <lord-icon src="https://cdn.lordicon.com/jpgpblwn.json" trigger="hover">
-                        </lord-icon>
+                        <i class='bx bx-dots-horizontal-rounded'></i>
                     </button>
                     <ul class="dropdown-menu">
                         <li>
