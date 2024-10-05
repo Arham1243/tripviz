@@ -3,7 +3,7 @@
         <div class="form-box__header d-flex align-items-center justify-content-between">
             <div class="title">Search Engine</div>
             <a href="javascript:void(0)" onclick="document.getElementById('seo_manager').classList.remove('d-none')"
-                class="nav-link p-0">Edit</a>
+                class="themeBtn p-2"><i class='bx bxs-edit-alt'></i></a>
         </div>
         <div class="form-box__body">
             <div class="google-preview">

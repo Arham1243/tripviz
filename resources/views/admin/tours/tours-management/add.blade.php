@@ -80,11 +80,14 @@
                                         </div>
                                         <div class="col-md-6 col-12  mt-4">
                                             <div class="form-fields">
-                                                <label class="title">Badge icon
-                                                    <a class="ms-2 p-0 nav-link text-lowercase" href="//boxicons.com"
-                                                        target="_blank">(boxicons.com)</a>
-                                                    <span class="text-danger">*</span>
-                                                    :</label>
+                                                <div class="title d-flex align-items-center gap-2">
+                                                    <div>
+                                                        Badge icon
+                                                        <span class="text-danger p-0">*</span>:
+                                                    </div>
+                                                    <a class="p-0 nav-link" href="//boxicons.com"
+                                                        target="_blank">boxicons</a>
+                                                </div>
                                                 <div class="d-flex align-items-center gap-3">
 
                                                     <input type="text" name="badge_icon_class" class="field"
@@ -121,9 +124,8 @@
                                                             <tr>
                                                                 <th scope="col">
                                                                     <div class="d-flex align-items-center gap-2"> Icon <a
-                                                                            class="p-0 nav-link text-lowercase"
-                                                                            href="//boxicons.com"
-                                                                            target="_blank">(boxicons.com)</a>
+                                                                            class="p-0 nav-link" href="//boxicons.com"
+                                                                            target="_blank">boxicons</a>
                                                                     </div>
                                                                 </th>
                                                                 <th scope="col">Title</th>
@@ -267,105 +269,108 @@
 
                                             </div>
                                         </div>
-                                        <div class="col-md-12 mt-3">
-                                            <div class="form-fields">
-                                                <label class="title">Itinerary:</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-box">
+                                <div class="form-box__header d-flex align-items-center justify-content-between">
+                                    <div class="title">Itinerary</div>
+                                    <a href="{{ asset('admin/assets/images/itinerary.png') }}" data-fancybox="gallery"
+                                        class="themeBtn p-2"><i class='bx  bxs-show'></i></a>
+                                </div>
+                                <div class="form-box__body">
+                                    <div class="form-fields">
+                                        <label class="title">Itinerary:</label>
+                                        <div class="repeater-table" data-repeater>
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Day - Title</th>
+                                                        <th scope="col">Content</th>
+                                                        <th scope="col">Feature Image</th>
+                                                        <th class="text-end" scope="col">Remove</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody data-repeater-list>
+                                                    <tr data-repeater-item>
 
-                                                <div class="repeater-table" data-repeater>
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                            <tr>
-                                                                <th scope="col">Feature Image</th>
-                                                                <th scope="col">Title - Description</th>
-                                                                <th scope="col">Content</th>
-                                                                <th class="text-end" scope="col">Remove</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody data-repeater-list>
-                                                            <tr data-repeater-item>
-                                                                <td class="w-25">
-                                                                    <div class="upload upload--sm" data-upload>
-                                                                        <div class="upload-box-wrapper">
-                                                                            <div class="upload-box show" data-upload-box>
+                                                        <td class="w-25">
+                                                            <input name="itinerary_days[]" type="text" class="field"
+                                                                placeholder="Day">
+                                                            <br>
+                                                            <input name="itinerary_title[]" type="text"
+                                                                class="field mt-3" placeholder="Title">
+                                                        </td>
+                                                        <td>
+                                                            <textarea name="itinerary_content[]" class="field"rows="2"></textarea>
+                                                        </td>
+                                                        <td class="w-25">
+                                                            <div class="upload upload--sm" data-upload>
+                                                                <div class="upload-box-wrapper">
+                                                                    <div class="upload-box show" data-upload-box>
 
-                                                                                <div class="upload-box__placeholder"><i
-                                                                                        class='bx bxs-image'></i>
-                                                                                </div>
-                                                                                <label for="itinerary_featured_image"
-                                                                                    class="upload-box__btn themeBtn">Upload
-                                                                                    Image</label>
-                                                                                <input type="file"
-                                                                                    name="itinerary_featured_images[]"
-                                                                                    id="itinerary_featured_image"
-                                                                                    class="upload-box__file d-none"
-                                                                                    accept="image/*" data-file-input>
-                                                                            </div>
-                                                                            <div class="upload-box__img" data-upload-img>
-                                                                                <button type="button" class="delete-btn"
-                                                                                    data-delete-btn><i
-                                                                                        class='bx bxs-trash-alt'></i></button>
-                                                                                <a href="#" class="mask"
-                                                                                    data-fancybox="gallery">
-                                                                                    <img src="{{ asset('admin/assets/images/loading.webp') }}"
-                                                                                        alt="Uploaded Image"
-                                                                                        class="imgFluid"
-                                                                                        data-placeholder="{{ asset('admin/assets/images/loading.webp') }}"
-                                                                                        data-upload-preview>
-                                                                                </a>
-                                                                                <input type="text"
-                                                                                    name="itinerary_featured_image_alt_texts[]"
-                                                                                    class="field"
-                                                                                    placeholder="Enter alt text"
-                                                                                    value="Feature Image">
-                                                                            </div>
+                                                                        <div class="upload-box__placeholder"><i
+                                                                                class='bx bxs-image'></i>
                                                                         </div>
-                                                                        <div data-error-message
-                                                                            class="text-danger mt-2 d-none text-center">
-                                                                            Please
-                                                                            upload a
-                                                                            valid image file
-                                                                        </div>
+                                                                        <label for="itinerary_featured_image"
+                                                                            class="upload-box__btn themeBtn">Upload
+                                                                            Image</label>
+                                                                        <input type="file"
+                                                                            name="itinerary_featured_images[]"
+                                                                            id="itinerary_featured_image"
+                                                                            class="upload-box__file d-none"
+                                                                            accept="image/*" data-file-input>
                                                                     </div>
-                                                                    <div class="dimensions text-center mt-3">
-                                                                        <strong>Dimensions:</strong> 600 &times; 400
+                                                                    <div class="upload-box__img" data-upload-img>
+                                                                        <button type="button" class="delete-btn"
+                                                                            data-delete-btn><i
+                                                                                class='bx bxs-trash-alt'></i></button>
+                                                                        <a href="#" class="mask"
+                                                                            data-fancybox="gallery">
+                                                                            <img src="{{ asset('admin/assets/images/loading.webp') }}"
+                                                                                alt="Uploaded Image" class="imgFluid"
+                                                                                data-placeholder="{{ asset('admin/assets/images/loading.webp') }}"
+                                                                                data-upload-preview>
+                                                                        </a>
+                                                                        <input type="text"
+                                                                            name="itinerary_featured_image_alt_texts[]"
+                                                                            class="field" placeholder="Enter alt text"
+                                                                            value="Feature Image">
                                                                     </div>
-                                                                </td>
-                                                                <td class="w-25">
-                                                                    <input name="itinerary_titles[]" type="text"
-                                                                        class="field" placeholder="Title">
-                                                                    <br>
-                                                                    <input name="itinerary_description[]" type="text"
-                                                                        class="field mt-3" placeholder="Description">
-                                                                </td>
-                                                                <td>
-                                                                    <textarea name="itinerary_content[]" class="field"rows="2"></textarea>
-                                                                </td>
-                                                                <td>
-                                                                    <button type="button"
-                                                                        class="delete-btn ms-auto delete-btn--static"
-                                                                        data-repeater-remove disabled>
-                                                                        <i class='bx bxs-trash-alt'></i>
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <button type="button" class="themeBtn ms-auto"
-                                                        data-repeater-create>Add <i class="bx bx-plus"></i></button>
-                                                </div>
-
-                                            </div>
+                                                                </div>
+                                                                <div data-error-message
+                                                                    class="text-danger mt-2 d-none text-center">
+                                                                    Please
+                                                                    upload a
+                                                                    valid image file
+                                                                </div>
+                                                            </div>
+                                                            <div class="dimensions text-center mt-3">
+                                                                <strong>Dimensions:</strong> 600 &times; 400
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <button type="button"
+                                                                class="delete-btn ms-auto delete-btn--static"
+                                                                data-repeater-remove disabled>
+                                                                <i class='bx bxs-trash-alt'></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <button type="button" class="themeBtn ms-auto" data-repeater-create>Add <i
+                                                    class="bx bx-plus"></i></button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-box">
                                 <div class="form-box__header">
-                                    <div class="title">Tour Banner</div>
+                                    <div class="title">Banner</div>
                                 </div>
                                 <div class="form-box__body">
                                     <div class="form-fields">
-                                        <label class="title">Banners :</label>
                                         <div class="multiple-upload" data-upload-multiple>
                                             <input type="file" class="gallery-input d-none" multiple
                                                 data-upload-multiple-input accept="image/*" id="banners"
@@ -391,7 +396,7 @@
                                                 4 => 'Style 4',
                                             ];
                                         @endphp
-                                        <label class="title">Choose Banner Style :</label>
+                                        <label class="title">Choose Banner Style:</label>
                                         <select onchange="previewImage(this,'banner-style-preview')" name="banner_style"
                                             class="field">
                                             <option value=""
@@ -410,11 +415,37 @@
                                     </div>
 
                                     <div class="form-fields">
+                                        <label class="title">Banner preview:</label>
                                         <a href="{{ asset('admin/assets/images/banner-styles/1.png') }}"
                                             data-fancybox="gallery" class="preview-image">
                                             <img src="{{ asset('admin/assets/images/banner-styles/1.png') }}"
                                                 alt="image" class="imgFluid" id="banner-style-preview">
                                         </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-box">
+                                <div class="form-box__header d-flex align-items-center justify-content-between">
+                                    <div class="title">Plan Itinerary Experience</div>
+                                    <a href="{{ asset('admin/assets/images/itinerary-exp.png') }}"
+                                        data-fancybox="gallery" class="themeBtn p-2" title="Section Preivew"><i
+                                            class='bx  bxs-show'></i></a>
+                                </div>
+                                <div class="form-box__body">
+                                    <div class="form-fields">
+                                        <div class="title d-flex align-items-center gap-2">
+                                            <div>
+                                                Map Iframe Link
+                                                <span class="text-danger p-0">*</span>:
+                                            </div>
+                                            <a class="p-0 nav-link" href="https://www.google.com/maps/d/"
+                                                target="_blank">Google Map Generator</a>
+                                        </div>
+                                        <input type="text" name="title" class="field" value="{{ old('title') }}"
+                                            placeholder="" data-required data-error="Title">
+                                        @error('title')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
