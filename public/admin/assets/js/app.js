@@ -475,6 +475,16 @@ function showErrorToast(message) {
     });
 }
 
+function previewImage(selectElement, imgElementId) {
+    var selectedOption = selectElement.options[selectElement.selectedIndex];
+    var imgUrl = selectedOption.getAttribute("data-image");
+
+    // Update image src and href
+    var imgElement = document.getElementById(imgElementId);
+    imgElement.src = imgUrl;
+    imgElement.parentElement.href = imgUrl;
+}
+
 // Bulk Action
 document.addEventListener("DOMContentLoaded", function () {
     const selectAllCheckbox = document.getElementById("select-all");

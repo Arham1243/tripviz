@@ -439,46 +439,44 @@
                                             <div class="text-danger error-message d-none" data-upload-multiple-error></div>
                                         </div>
                                     </div>
-                                    <div x-data="{
-                                        selectedImage: '{{ asset('admin/assets/images/banner-styles/1.png') }}'
-                                    }">
-                                        <div class="form-fields mt-4">
-                                            @php
-                                                $styles = [
-                                                    1 => 'Style 1',
-                                                    2 => 'Style 2',
-                                                    3 => 'Style 3',
-                                                    4 => 'Style 4',
-                                                ];
-                                            @endphp
-                                            <label class="title">Choose Banner Style:</label>
-                                            <select x-model="selectedImage"
-                                                @change="selectedImage = $el.options[$el.selectedIndex].dataset.image"
-                                                name="banner_style" class="field">
-                                                @foreach ($styles as $key => $style)
-                                                    <option value="{{ $key }}"
-                                                        {{ $key == $loop->first ? 'selected' : '' }}
-                                                        data-image="{{ asset('admin/assets/images/banner-styles/' . $key . '.png') }}">
-                                                        {{ $style }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            @error('banner_style')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-
-                                        <!-- Banner Preview -->
-                                        <div class="form-fields">
-                                            <label class="title">Banner preview:</label>
-                                            <a :href="selectedImage" data-fancybox="gallery" class="preview-image">
-                                                <img :src="selectedImage" alt="image" class="imgFluid">
-                                            </a>
-                                        </div>
+                                    <div class="form-fields mt-4">
+                                        @php
+                                            $styles = [
+                                                1 => 'Style 1',
+                                                2 => 'Style 2',
+                                                3 => 'Style 3',
+                                                4 => 'Style 4',
+                                            ];
+                                        @endphp
+                                        <label class="title">Choose Banner Style:</label>
+                                        <select onchange="previewImage(this,'banner-style-preview')" name="banner_style"
+                                            class="field">
+                                            <option value=""
+                                                data-image="{{ asset('admin/assets/images/banner-styles/placeholder.png') }}"
+                                                selected>Select</option>
+                                            @foreach ($styles as $key => $style)
+                                                <option value="{{ $key }}"
+                                                    data-image="{{ asset('admin/assets/images/banner-styles/' . $key . '.png') }}">
+                                                    {{ $style }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('banner_style')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
+                                    <div class="form-fields">
+                                        <label class="title">Banner preview:</label>
+                                        <a href="{{ asset('admin/assets/images/banner-styles/1.png') }}"
+                                            data-fancybox="gallery" class="preview-image">
+                                            <img src="{{ asset('admin/assets/images/banner-styles/1.png') }}"
+                                                alt="image" class="imgFluid" id="banner-style-preview">
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
+
                             <div class="form-box">
                                 <div class="form-box__header d-flex align-items-center justify-content-between">
                                     <div class="title">Itinerary</div>
