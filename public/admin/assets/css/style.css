@@ -864,9 +864,6 @@ display: none;
 .dropdown-toggle::after{
 display: none;
 }
-.dropdown-item:focus i,  .dropdown-item:hover i {
-    color: #fff;
-}
 
 i {
     transition: all 300ms;
@@ -893,6 +890,9 @@ img {
     color: var(--color-primary);
 }
 
+.dropdown-item:focus i,  .dropdown-item:hover i {
+    color: #fff;
+}
 .bootsrap-dropdown li:not(:last-child) .dropdown-item {
     border-bottom: 1px solid #cccccc61;
 }
