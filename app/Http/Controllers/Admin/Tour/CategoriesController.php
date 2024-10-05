@@ -65,7 +65,7 @@ class CategoriesController extends Controller
     {
         $category = TourCategory::findOrFail($id);
         $tours = Tour::where('status', 'publish')->get();
-        $toursReviews = TourReview::where('is_active', 1)->get();
+        $toursReviews = TourReview::where('status', 'active')->get();
         $seo = $category->seo()->first();
         $data = compact('category', 'seo', 'tours', 'toursReviews');
 
