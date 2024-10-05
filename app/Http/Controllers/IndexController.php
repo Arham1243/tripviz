@@ -60,7 +60,7 @@ class IndexController extends Controller
 
             $waterActivityTours = Tour::whereHas('categories', function ($query) use ($categoryId) {
                 $query->where('category_id', $categoryId);
-            })->where('is_active', 1)
+            })->where('status', 'publish')
                 ->with('cities', 'categories', 'tour_attributes')
                 ->latest()
                 ->get()->sortByDesc('average_rating');
