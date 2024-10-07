@@ -1,8 +1,0 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-# Run format commands
-npm run format
-
-# Re-add changes after formatting
-git add .
