@@ -41,7 +41,7 @@ class AdminLoginController extends Controller
             'password' => $validated['password'],
         ])) {
             // Authentication passed
-            return redirect()->intended('/')->with('notify_success', 'You are logged in as Admin');
+            return redirect()->intended('admin/dashboard')->with('notify_success', 'You are logged in as Admin');
         } else {
             // Authentication failed
             return redirect()->back()->withInput($request->input())->with('notify_error', 'Invalid Credentials');
