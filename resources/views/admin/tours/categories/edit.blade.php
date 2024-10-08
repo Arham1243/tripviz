@@ -42,11 +42,15 @@
                                         @enderror
                                     </div>
                                     <div class="form-fields">
-                                        <label class="title">Whatsapp Number:</label>
-                                        <input type="text" name="phone" class="field"
-                                            value="{{ old('phone', $category->phone) }}" placeholder="Phone"
-                                            data-error="phone">
-                                        @error('phone')
+                                        <label class="title">Parent <span class="text-danger">*</span> :</label>
+                                        <select name="parent_category_id" class="choice-select"
+                                            {{ !$categories->isEmpty() ? 'data-required' : '' }} data-error="Category">
+                                            <option value="" selected>Parent Category</option>
+                                            @php
+                                                renderCategories($categories, $category->parent_category_id);
+                                            @endphp
+                                        </select>
+                                        @error('parent_category_id')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -184,8 +188,8 @@
                                                 data-upload-img>
                                                 <button type="button" class="delete-btn" data-delete-btn><i
                                                         class='bx bxs-trash-alt'></i></button>
-                                                <a href="{{ asset($category->featured_image) }}" class="mask"
-                                                    data-fancybox="gallery">
+                                                <a href="{{ asset($category->featured_image ?? 'admin/assets/images/loading.webp') }}"
+                                                    class="mask" data-fancybox="gallery">
                                                     <img src="{{ asset($category->featured_image) }}"
                                                         alt="{{ $category->featured_image_alt_text }}" class="imgFluid"
                                                         data-upload-preview>
@@ -224,8 +228,8 @@
                                     <label class="title">Top 4 featured tours <span class="text-danger">*</span>
                                         :</label>
                                     <select name="top_featured_tour_ids[]" multiple class="choice-select"
-                                        data-max-items="4" placeholder="Select Tours" data-required
-                                        data-error="Top 4 featured tours">
+                                        data-max-items="4" placeholder="Select Tours"
+                                        {{ !$tours->isEmpty() ? 'data-required' : '' }} data-error="Top 4 featured tours">
                                         @foreach ($tours as $tour)
                                             <option value="{{ $tour->id }}"
                                                 {{ in_array($tour->id, old('top_featured_tour_ids', $selectedTopFeaturedTours)) ? 'selected' : '' }}>
@@ -245,7 +249,8 @@
                                     <label class="title">Bottom featured tours <span class="text-danger">*</span>
                                         :</label>
                                     <select name="bottom_featured_tour_ids[]" multiple class="choice-select"
-                                        placeholder="Select Tours" data-required data-error="Bottom featured tours">
+                                        placeholder="Select Tours" {{ !$tours->isEmpty() ? 'data-required' : '' }}
+                                        data-error="Bottom featured tours">
                                         @foreach ($tours as $tour)
                                             <option value="{{ $tour->id }}"
                                                 {{ in_array($tour->id, old('bottom_featured_tour_ids', $selectedBottomFeaturedTours)) ? 'selected' : '' }}>
@@ -265,8 +270,8 @@
                                     <label class="title">Recommended tours <span class="text-danger">*</span>
                                         :</label>
                                     <select name="recommended_tour_ids[]" multiple class="choice-select"
-                                        data-max-items="4" placeholder="Select Tours" data-required
-                                        data-error="Recommended tours">
+                                        data-max-items="4" placeholder="Select Tours"
+                                        {{ !$tours->isEmpty() ? 'data-required' : '' }} data-error="Recommended tours">
                                         @foreach ($tours as $tour)
                                             <option value="{{ $tour->id }}"
                                                 {{ in_array($tour->id, old('recommended_tour_ids', $selectedRecommendedTours)) ? 'selected' : '' }}>
@@ -292,7 +297,9 @@
                                     <label class="title">Featured Reviews<span class="text-danger">*</span>
                                         :</label>
                                     <select name="tour_reviews_ids[]" multiple class="choice-select" data-max-items="4"
-                                        placeholder="Select Reviews" data-required data-error="Featured Reviews">
+                                        placeholder="Select Reviews"
+                                        {{ !$toursReviews->isEmpty() ? 'data-required' : '' }}
+                                        data-error="Featured Reviews">
                                         @foreach ($toursReviews as $review)
                                             <option value="{{ $review->id }}"
                                                 {{ in_array($review->id, old('tour_reviews_ids', $selectedtoursReviews)) ? 'selected' : '' }}>
@@ -312,9 +319,4 @@
             </form>
         </div>
     </div>
-@endsection
-@section('css')
-    <style type="text/css">
-
-    </style>
 @endsection

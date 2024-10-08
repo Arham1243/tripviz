@@ -9,6 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @include('admin.dash_layouts.links')
     @yield('css')
+    @stack('css')
 </head>
 
 <body class="responsive">
@@ -36,6 +37,7 @@
 
     @include('admin.dash_layouts.scripts')
     @yield('js')
+    @stack('js')
     <script type="text/javascript">
         (() => {
 

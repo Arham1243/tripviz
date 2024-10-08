@@ -39,6 +39,7 @@ class CategoriesController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|min:3|max:255',
             'slug' => 'nullable|string|max:255',
+            'parent_category_id' => 'nullable|exists:tour_categories,id',
         ]);
 
         $slugText = $validatedData['slug'] != '' ? $validatedData['slug'] : $validatedData['name'];
@@ -65,9 +66,10 @@ class CategoriesController extends Controller
     {
         $category = TourCategory::findOrFail($id);
         $tours = Tour::where('status', 'publish')->get();
+        $categories = TourCategory::whereNotIn('id', [$id])->get();
         $toursReviews = TourReview::where('status', 'active')->get();
         $seo = $category->seo()->first();
-        $data = compact('category', 'seo', 'tours', 'toursReviews');
+        $data = compact('category', 'seo', 'tours', 'toursReviews', 'categories');
 
         return view('admin.tours.categories.edit')->with('title', ucfirst(strtolower($category->name)))->with($data);
     }
@@ -79,9 +81,9 @@ class CategoriesController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
+            'parent_category_id' => 'nullable|exists:tour_categories,id',
             'status' => 'required|in:publish,draft',
             'slug' => 'nullable|string|max:255',
-            'phone' => 'nullable|string|min:11',
             'bottom_featured_tour_ids' => 'nullable|array',
             'top_featured_tour_ids' => 'nullable|array',
             'recommended_tour_ids' => 'nullable|array',

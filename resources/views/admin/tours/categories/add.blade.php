@@ -30,6 +30,19 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        <div class="form-fields">
+            <label class="title">Parent <span class="text-danger">*</span> :</label>
+            <select name="parent_category_id" class="choice-select" {{ !$categories->isEmpty() ? 'data-required' : '' }}
+                data-error="Category">
+                <option value="" selected>Parent Category</option>
+                @php
+                renderCategories($categories);
+            @endphp
+            </select>
+            @error('parent_category_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
 
         <div class="form-fields">
             <button class="themeBtn">{{ $buttonText }}</button>

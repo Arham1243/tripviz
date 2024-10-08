@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpine.js Tab Example</title>
+    
+    <!-- Load Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <style>
+        .hidden {
+            display: none;
+        }
+        .active {
+            color: blue;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div x-data="{ activeTab: 'general' }">
+        <ul>
+            <li class="settings-item">
+                <button type="button" 
+                        class="settings-item__link" 
+                     :class="{ 'active': activeTab === 'general' }"
+                        @click="activeTab = 'general'">General</button>
+            </li>
+            <li class="settings-item">
+                <button type="button" 
+                        class="settings-item__link" 
+                     :class="{ 'active': activeTab === 'location' }"
+                        @click="activeTab = 'location'">Location</button>
+            </li>
+            <li class="settings-item">
+                <button type="button" 
+                        class="settings-item__link" 
+                     :class="{ 'active': activeTab === 'pricing' }"
+                        @click="activeTab = 'pricing'">Pricing</button>
+            </li>
+            <li class="settings-item">
+                <button type="button" 
+                        class="settings-item__link" 
+                     :class="{ 'active': activeTab === 'availability' }"
+                        @click="activeTab = 'availability'">Availability</button>
+            </li>
+            <li class="settings-item">
+                <button type="button" 
+                        class="settings-item__link" 
+                     :class="{ 'active': activeTab === 'status' }"
+                        @click="activeTab = 'status'">Status</button>
+            </li>
+            <li class="settings-item">
+                <button type="button" 
+                        class="settings-item__link" 
+                     :class="{ 'active': activeTab === 'seo' }"
+                        @click="activeTab = 'seo'">SEO</button>
+            </li>
+        </ul>
+
+        <!-- Content Sections -->
+        <div :class="{ 'hidden': activeTab !== 'general' }" class="general-options">
+            <p>General content here...</p>
+        </div>
+        <div :class="{ 'hidden': activeTab !== 'location' }" class="location-options">
+            <p>Location content here...</p>
+        </div>
+        <div :class="{ 'hidden': activeTab !== 'pricing' }" class="pricing-options">
+            <p>Pricing content here...</p>
+        </div>
+        <div :class="{ 'hidden': activeTab !== 'availability' }" class="availability-options">
+            <p>Availability content here...</p>
+        </div>
+        <div :class="{ 'hidden': activeTab !== 'status' }" class="status-options">
+            <p>Status content here...</p>
+        </div>
+        <div :class="{ 'hidden': activeTab !== 'seo' }" class="seo-options">
+            <p>SEO content here...</p>
+        </div>
+    </div>
+
+</body>
+</html>
