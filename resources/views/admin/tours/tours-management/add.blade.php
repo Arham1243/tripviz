@@ -11,7 +11,8 @@
                             <h3 class="heading">{{ isset($title) ? $title : '' }}</h3>
                             <div class="permalink">
                                 <div class="title">Permalink:</div>
-                                <div class="title">{{ buildUrl(url('/'), 'tours/') }}
+                                <div class="title">
+                                    <div class="full-url">{{ buildUrl(url('/'), 'tours/') }}</div>
                                     <input value="edit-slug" type="button" class="link permalink-input" name="slug">
                                 </div>
                             </div>
