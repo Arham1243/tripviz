@@ -438,7 +438,6 @@ function initializeUploadComponent(uploadComponent) {
         uploadImgBox.classList.remove("show");
     });
 }
-
 document.addEventListener("DOMContentLoaded", function () {
     let itemCount = 0;
 
@@ -491,6 +490,30 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    function addSubItem(container) {
+        const list = container.querySelector("[data-sub-repeater-list]");
+        const firstItem = list.querySelector("[data-sub-repeater-item]");
+        const newItem = firstItem.cloneNode(true);
+
+        const inputs = newItem.querySelectorAll("input, textarea");
+        inputs.forEach((input) => {
+            input.value = "";
+        });
+
+        updateUploadBox(newItem);
+        updateCheckboxes(newItem);
+        list.appendChild(newItem);
+        updateSubDeleteButtonState(container);
+    }
+
+    function updateSubDeleteButtonState(container) {
+        const items = container.querySelectorAll("[data-sub-repeater-item]");
+        items.forEach((item, index) => {
+            const deleteBtn = item.querySelector("[data-sub-repeater-remove]");
+            deleteBtn.disabled = index === 0;
+        });
+    }
+
     function addItem(container) {
         const list = container.querySelector("[data-repeater-list]");
         const firstItem = list.querySelector("[data-repeater-item]");
@@ -505,6 +528,8 @@ document.addEventListener("DOMContentLoaded", function () {
         updateCheckboxes(newItem);
         list.appendChild(newItem);
         updateDeleteButtonState(container);
+        
+        initializeSubRepeater(newItem);
     }
 
     function removeItem(button) {
@@ -512,6 +537,31 @@ document.addEventListener("DOMContentLoaded", function () {
         const item = button.closest("[data-repeater-item]");
         item.remove();
         updateDeleteButtonState(container);
+    }
+
+    function initializeSubRepeater(parentItem) {
+        const subContainer = parentItem.querySelector("[data-sub-repeater]");
+        if (subContainer) {
+            const addBtn = subContainer.querySelector("[data-sub-repeater-create]");
+            addBtn.addEventListener("click", function () {
+                addSubItem(subContainer);
+            });
+
+            subContainer.addEventListener("click", function (e) {
+                if (e.target.closest("[data-sub-repeater-remove]")) {
+                    removeSubItem(e.target.closest("[data-sub-repeater-remove]"));
+                }
+            });
+
+            updateSubDeleteButtonState(subContainer);
+        }
+    }
+
+    function removeSubItem(button) {
+        const container = button.closest("[data-sub-repeater]");
+        const item = button.closest("[data-sub-repeater-item]");
+        item.remove();
+        updateSubDeleteButtonState(container);
     }
 
     document.querySelectorAll("[data-repeater]").forEach((container) => {
@@ -531,6 +581,10 @@ document.addEventListener("DOMContentLoaded", function () {
         initialUploadComponents.forEach((uploadComponent) => {
             initializeUploadComponent(uploadComponent);
         });
+
+        container.querySelectorAll("[data-repeater-item]").forEach(item => {
+            initializeSubRepeater(item);
+        });
     });
 });
 
@@ -542,11 +596,12 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+
 $(document).ready(function () {
     var input = $(".flag-input");
     if (input.length > 0) {
         input.intlTelInput({
-            initialCountry: "pk",
+            initialCountry: "ae",
             separateDialCode: true,
         });
 

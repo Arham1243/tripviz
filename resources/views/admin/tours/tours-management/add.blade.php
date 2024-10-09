@@ -184,44 +184,6 @@
                                         </div>
                                         <div class="col-md-12 mt-3">
                                             <div class="form-fields">
-                                                <label class="title title--sm">FAQs:</label>
-
-                                                <div class="repeater-table" data-repeater>
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                            <tr>
-                                                                <th scope="col">Question</th>
-                                                                <th scope="col">Answer</th>
-                                                                <th class="text-end" scope="col">Remove</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody data-repeater-list>
-                                                            <tr data-repeater-item>
-                                                                <td>
-                                                                    <textarea name="faq_questions[]" class="field"rows="2"></textarea>
-                                                                </td>
-                                                                <td>
-                                                                    <textarea name="faq_answers[]" class="field"rows="2"></textarea>
-                                                                </td>
-                                                                <td>
-                                                                    <button type="button"
-                                                                        class="delete-btn ms-auto delete-btn--static"
-                                                                        data-repeater-remove disabled>
-                                                                        <i class='bx bxs-trash-alt'></i>
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <button type="button" class="themeBtn ms-auto"
-                                                        data-repeater-create>Add
-                                                        <i class="bx bx-plus"></i></button>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 mt-3">
-                                            <div class="form-fields">
                                                 <label class="title title--sm">Include:</label>
 
                                                 <div class="repeater-table" data-repeater>
@@ -272,6 +234,111 @@
                                                                 <td>
                                                                     <input name="exclusions[]" type="text"
                                                                         class="field">
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button"
+                                                                        class="delete-btn ms-auto delete-btn--static"
+                                                                        data-repeater-remove disabled>
+                                                                        <i class='bx bxs-trash-alt'></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <button type="button" class="themeBtn ms-auto"
+                                                        data-repeater-create>Add
+                                                        <i class="bx bx-plus"></i></button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mt-4">
+                                            <div class="form-fields">
+                                                <label class=" d-flex align-items-center mb-3 justify-content-between"><span
+                                                    class="title title--sm mb-0">Tour Information:</span>
+                                                <span class="title d-flex align-items-center gap-1">Section
+                                                    Preview:
+                                                    <a href="{{ asset('admin/assets/images/tour-infomation.png') }}"
+                                                        data-fancybox="gallery" class="themeBtn p-1"><i
+                                                            class='bx  bxs-show'></i></a>
+                                                </span>
+                                            </label>
+                                                <div class="repeater-table" data-repeater>
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">Heading</th>
+                                                                <th scope="col">Items</th>
+                                                                <th class="text-end" scope="col">Remove</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody data-repeater-list>
+                                                            <tr data-repeater-item>
+                                                                <td>
+                                                                    <input name="tour_information[heading][]" type="text" placeholder="e.g., Timings, What to Bring"
+                                                                        class="field">
+                                                                </td>
+                                                                <td>
+                                                                    <div class="repeater-table" data-sub-repeater>
+                                                                        <table class="table table-bordered">
+                                                                            <tbody data-sub-repeater-list>
+                                                                                <tr data-sub-repeater-item>
+                                                                                    <td>
+                                                                                        <input name="tour_information[items][][]" type="text" placeholder=""
+                                                                                            class="field">
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <button type="button"
+                                                                                            class="delete-btn ms-auto delete-btn--static"
+                                                                                            data-sub-repeater-remove>
+                                                                                            <i class='bx bxs-trash-alt'></i>
+                                                                                        </button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                        <button type="button" class="themeBtn ms-auto" data-sub-repeater-create>
+                                                                            Add <i class="bx bx-plus"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button"
+                                                                        class="delete-btn ms-auto delete-btn--static"
+                                                                        data-repeater-remove>
+                                                                        <i class='bx bxs-trash-alt'></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <button type="button" class="themeBtn ms-auto" data-repeater-create>
+                                                        Add <i class="bx bx-plus"></i>
+                                                    </button>
+                                                </div>
+                                                
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mt-3">
+                                            <div class="form-fields">
+                                                <label class="title title--sm">FAQs:</label>
+                                                <div class="repeater-table" data-repeater>
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">Question</th>
+                                                                <th scope="col">Answer</th>
+                                                                <th class="text-end" scope="col">Remove</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody data-repeater-list>
+                                                            <tr data-repeater-item>
+                                                                <td>
+                                                                    <textarea name="faq_questions[]" class="field"rows="2"></textarea>
+                                                                </td>
+                                                                <td>
+                                                                    <textarea name="faq_answers[]" class="field"rows="2"></textarea>
                                                                 </td>
                                                                 <td>
                                                                     <button type="button"
@@ -377,6 +444,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -734,8 +802,27 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-12" x-show="personType == 1">
-                                                    <div class="row">
-                                                        <div class="col-12 mt-3">
+                                                    <div x-data="{ tourType: 'normal' }">
+                                                        <div class="d-flex align-items-center justify-content-center gap-5 mt-3 mb-4">
+                                                            <div class="form-check p-0">
+                                                                <input class="form-check-input" type="radio" name="tour_type"
+                                                                    id="normal" x-model="tourType" value="normal" checked>
+                                                                <label class="form-check-label" for="normal">Normal Tour Price</label>
+                                                            </div>
+                                                            <div class="form-check p-0">
+                                                                <input class="form-check-input" type="radio" name="tour_type"
+                                                                    id="private" x-model="tourType" value="private">
+                                                                <label class="form-check-label" for="private">Private Tour Price</label>
+                                                            </div>
+                                                            <div class="form-check p-0">
+                                                                <input class="form-check-input" type="radio" name="tour_type"
+                                                                    id="water" x-model="tourType" value="water">
+                                                                <label class="form-check-label" for="water">Water / Desert
+                                                                    Activities</label>
+                                                            </div>
+                                                        </div>
+                    
+                                                        <div x-show="tourType === 'normal'">
                                                             <div class="form-fields">
                                                                 <div class="title">Normal Tour Pricing:</div>
                                                                 <div class="repeater-table" data-repeater>
@@ -798,7 +885,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-12 mt-3">
+                    
+                                                        <div x-show="tourType === 'private'">
                                                             <div class="form-fields">
                                                                 <div class="title">Private Tour Pricing:</div>
                                                                 <div class="repeater-table">
@@ -836,7 +924,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-12 mt-3">
+                    
+                                                        <div x-show="tourType === 'water'">
                                                             <div class="form-fields">
                                                                 <div class="repeater-table" data-repeater>
                                                                     <label class="title">Water / Desert Activities
