@@ -446,17 +446,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const items = container.querySelectorAll("[data-repeater-item]");
         items.forEach((item, index) => {
             const deleteBtn = item.querySelector("[data-repeater-remove]");
-            if (index === 0) {
-                deleteBtn.disabled = true;
-            } else {
-                deleteBtn.disabled = false;
-            }
+            deleteBtn.disabled = index === 0;
         });
     }
 
     function updateUploadBox(newItem) {
         const uploads = newItem.querySelectorAll("[data-upload]");
-
         uploads.forEach((upload) => {
             itemCount++;
             const uniqueId = `upload-${itemCount}`;
@@ -465,7 +460,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const uploadMask = upload.querySelector(".mask");
             const imagePreview = upload.querySelector("[data-upload-preview]");
             const fileInput = upload.querySelector("[data-file-input]");
-            let prevId = fileInput.id;
+            const prevId = fileInput.id;
             const label = newItem.querySelector(`label[for="${prevId}"]`);
 
             fileInput.id = uniqueId;
@@ -481,6 +476,21 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    function updateCheckboxes(newItem) {
+        const checkboxes = newItem.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach((checkbox) => {
+            itemCount++;
+            const uniqueId = `checkbox-${itemCount}`;
+            const prevId = checkbox.id;
+            const label = newItem.querySelector(`label[for="${prevId}"]`);
+
+            checkbox.id = uniqueId;
+            if (label) {
+                label.setAttribute("for", uniqueId);
+            }
+        });
+    }
+
     function addItem(container) {
         const list = container.querySelector("[data-repeater-list]");
         const firstItem = list.querySelector("[data-repeater-item]");
@@ -492,6 +502,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         updateUploadBox(newItem);
+        updateCheckboxes(newItem);
         list.appendChild(newItem);
         updateDeleteButtonState(container);
     }
@@ -516,8 +527,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         updateDeleteButtonState(container);
-        const initialUploadComponents =
-            container.querySelectorAll("[data-upload]");
+        const initialUploadComponents = container.querySelectorAll("[data-upload]");
         initialUploadComponents.forEach((uploadComponent) => {
             initializeUploadComponent(uploadComponent);
         });
@@ -526,11 +536,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.addEventListener("DOMContentLoaded", function () {
     const uploadComponents = document.querySelectorAll("[data-upload]");
-
     uploadComponents.forEach((uploadComponent) => {
         initializeUploadComponent(uploadComponent);
     });
 });
+
 
 $(document).ready(function () {
     var input = $(".flag-input");

@@ -3,83 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alpine.js Tab Example</title>
-    
-    <!-- Load Alpine.js -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
-    <style>
-        .hidden {
-            display: none;
-        }
-        .active {
-            color: blue;
-            font-weight: bold;
-        }
-    </style>
+    <title>Flatpickr Date Picker</title>
+
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
 
-    <div x-data="{ activeTab: 'general' }">
-        <ul>
-            <li class="settings-item">
-                <button type="button" 
-                        class="settings-item__link" 
-                     :class="{ 'active': activeTab === 'general' }"
-                        @click="activeTab = 'general'">General</button>
-            </li>
-            <li class="settings-item">
-                <button type="button" 
-                        class="settings-item__link" 
-                     :class="{ 'active': activeTab === 'location' }"
-                        @click="activeTab = 'location'">Location</button>
-            </li>
-            <li class="settings-item">
-                <button type="button" 
-                        class="settings-item__link" 
-                     :class="{ 'active': activeTab === 'pricing' }"
-                        @click="activeTab = 'pricing'">Pricing</button>
-            </li>
-            <li class="settings-item">
-                <button type="button" 
-                        class="settings-item__link" 
-                     :class="{ 'active': activeTab === 'availability' }"
-                        @click="activeTab = 'availability'">Availability</button>
-            </li>
-            <li class="settings-item">
-                <button type="button" 
-                        class="settings-item__link" 
-                     :class="{ 'active': activeTab === 'status' }"
-                        @click="activeTab = 'status'">Status</button>
-            </li>
-            <li class="settings-item">
-                <button type="button" 
-                        class="settings-item__link" 
-                     :class="{ 'active': activeTab === 'seo' }"
-                        @click="activeTab = 'seo'">SEO</button>
-            </li>
-        </ul>
+    <!-- Your input fields here -->
+    <input type="text" class="form-control date-picker" placeholder="Select a date">
 
-        <!-- Content Sections -->
-        <div :class="{ 'hidden': activeTab !== 'general' }" class="general-options">
-            <p>General content here...</p>
-        </div>
-        <div :class="{ 'hidden': activeTab !== 'location' }" class="location-options">
-            <p>Location content here...</p>
-        </div>
-        <div :class="{ 'hidden': activeTab !== 'pricing' }" class="pricing-options">
-            <p>Pricing content here...</p>
-        </div>
-        <div :class="{ 'hidden': activeTab !== 'availability' }" class="availability-options">
-            <p>Availability content here...</p>
-        </div>
-        <div :class="{ 'hidden': activeTab !== 'status' }" class="status-options">
-            <p>Status content here...</p>
-        </div>
-        <div :class="{ 'hidden': activeTab !== 'seo' }" class="seo-options">
-            <p>SEO content here...</p>
-        </div>
-    </div>
+    <!-- jQuery (Ensure it's loaded first) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <!-- Your custom JS to initialize Flatpickr -->
+    <script>
+        $(document).ready(function () {
+            $('.date-picker').each(function () {
+                $(this).flatpickr({
+                    dateFormat: "Y-m-d",
+                    altInput: true,
+                    altFormat: "F j, Y",
+                    minDate: "today",
+                    disableMobile: true
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>

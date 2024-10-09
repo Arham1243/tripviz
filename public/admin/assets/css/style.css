@@ -1065,6 +1065,7 @@ form .text-danger {
     font-size: 0.85rem;
     font-weight: 500;
     transition: all 300ms;
+    box-shadow: none !important;
     background: #fff;
 }
 
@@ -1705,7 +1706,7 @@ body.responsive.fancybox-active.compensate-for-scrollbar {
 .order-menu {
     cursor: grab;
 }
-input[readonly] {
+input[readonly]:not(.date-picker) {
     background: #cccccc4d !important;
     color: #6c6a6a !important;
 }
@@ -1808,3 +1809,24 @@ input[readonly] {
     background: var(--color-primary);
     color: #fff;
 }
+
+
+/* date picker */
+.flatpickr-day.today:hover, .flatpickr-day.today:focus ,.flatpickr-day.selected{
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.flatpickr-day {
+    transition: all 300ms;
+}
+
+.flatpickr-day:hover {
+    background: var(--color-primary-light);
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+    font-size: 0.96rem;
+    font-weight: 600;
+}
+/* date picker */
