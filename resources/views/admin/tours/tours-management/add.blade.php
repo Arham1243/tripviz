@@ -23,41 +23,61 @@
                     <div class="col-md-3">
                         <div class="form-box">
                             <div class="form-box__header">
-                                <div class="title"><i class='bx bxs-cog'></i> Tour Information
+                                <div class="title">Tour Information
                                 </div>
                             </div>
                             <div class="form-box__body p-0">
-                                <ul>
+                                <ul class="settings">
                                     <li class="settings-item">
-                                        <button type="button" class="settings-item__link"
-                                            :class="{ 'active': optionTab === 'general' }"
-                                            @click="optionTab = 'general'">General</button>
+                                        <button type="button" class="settings-item__link" 
+                                            :class="{ 'active': optionTab === 'general' }" 
+                                            @click="optionTab = 'general'">
+                                            <i class="bx bx-cog"></i> General
+                                        </button>
                                     </li>
                                     <li class="settings-item">
-                                        <button type="button" class="settings-item__link"
-                                            :class="{ 'active': optionTab === 'location' }"
-                                            @click="optionTab = 'location'">Location</button>
+                                        <button type="button" class="settings-item__link" 
+                                            :class="{ 'active': optionTab === 'pricing' }" 
+                                            @click="optionTab = 'pricing'">
+                                            <i class="bx bx-dollar"></i> Pricing
+                                        </button>
                                     </li>
                                     <li class="settings-item">
-                                        <button type="button" class="settings-item__link"
-                                            :class="{ 'active': optionTab === 'pricing' }"
-                                            @click="optionTab = 'pricing'">Pricing</button>
+                                        <button type="button" class="settings-item__link" 
+                                            :class="{ 'active': optionTab === 'location' }" 
+                                            @click="optionTab = 'location'">
+                                            <i class="bx bx-map"></i> Location
+                                        </button>
                                     </li>
                                     <li class="settings-item">
-                                        <button type="button" class="settings-item__link"
-                                            :class="{ 'active': optionTab === 'availability' }"
-                                            @click="optionTab = 'availability'">Availability</button>
+                                        <button type="button" class="settings-item__link" 
+                                            :class="{ 'active': optionTab === 'availability' }" 
+                                            @click="optionTab = 'availability'">
+                                            <i class="bx bx-time-five"></i> Availability
+                                        </button>
                                     </li>
                                     <li class="settings-item">
-                                        <button type="button" class="settings-item__link"
-                                            :class="{ 'active': optionTab === 'status' }"
-                                            @click="optionTab = 'status'">Status</button>
+                                        <button type="button" class="settings-item__link" 
+                                            :class="{ 'active': optionTab === 'addOn' }" 
+                                            @click="optionTab = 'addOn'">
+                                            <i class="bx bx-plus-circle"></i> Add On
+                                        </button>
                                     </li>
                                     <li class="settings-item">
-                                        <button type="button" class="settings-item__link"
-                                            :class="{ 'active': optionTab === 'seo' }"
-                                            @click="optionTab = 'seo'">SEO</button>
+                                        <button type="button" class="settings-item__link" 
+                                            :class="{ 'active': optionTab === 'status' }" 
+                                            @click="optionTab = 'status'">
+                                            <i class="bx bx-check-circle"></i> Status
+                                        </button>
                                     </li>
+                                    <li class="settings-item">
+                                        <button type="button" class="settings-item__link" 
+                                            :class="{ 'active': optionTab === 'seo' }" 
+                                            @click="optionTab = 'seo'">
+                                            <i class="bx bx-search-alt"></i> SEO
+                                        </button>
+                                    </li>
+                                    
                                 </ul>
                             </div>
                         </div>
@@ -781,7 +801,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-12 my-3">
+                                        <div class="col-12 my-2">
                                             <hr>
                                         </div>
                                         <div class="col-12" x-data="{ personType: '0' }">
@@ -976,7 +996,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12 my-3">
+                                        <div class="col-12 my-2">
                                             <hr>
                                         </div>
                                         <div class="col-12" x-data="{ extraPrice: '0' }">
@@ -1070,10 +1090,86 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12 my-3">
+                                        <div class="col-12 my-2">
                                             <hr>
                                         </div>
-                                        <div class="col-12 my-3">
+                                        <div class="col-12 mb-3">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="row">
+                                                        <div class="col-12 mt-3">
+                                                            <div class="form-fields">
+                                                                <div class="title">Discount by number of people:</div>
+                                                                <div class="repeater-table" data-repeater>
+                                                                    <table class="table table-bordered">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th scope="col">
+                                                                                    No of people
+                                                                                </th>
+                                                                                <th scope="col">Discount
+                                                                                </th>
+                                                                                <th scope="col">Type</th>
+                                                                                <th></th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody data-repeater-list>
+                                                                            <tr data-repeater-item>
+                                                                                <td>
+                                                                                   <div class="row">
+                                                                                    <div class="col-md-6">
+                                                                                        <input type="number" 
+                                                                                        min="0"
+                                                                                        name="discount[people_from][]"
+                                                                                        class="field" placeholder="from">
+                                                                                    </div>
+                                                                                    <div class="col-md-6">
+                                                                                        <input type="number" 
+                                                                                        min="0"
+                                                                                        name="discount[people_to][]"
+                                                                                        class="field" placeholder="to">
+                                                                                    </div>
+                                                                                   </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input type="number" 
+                                                                                    min="0"
+                                                                                    name="discount[discount][]"
+                                                                                    class="field" placeholder="">
+                                                                                </td>
+                                                                                <td>
+                                                                                    <select class="field"
+                                                                                        name="discount[type][]">
+                                                                                        <option value="fixed">Fixed
+                                                                                        </option>
+                                                                                        <option value="percent">Percent
+                                                                                        </option>
+                                                                                    </select>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <button type="button"
+                                                                                        class="delete-btn ms-auto delete-btn--static"
+                                                                                        data-repeater-remove disabled>
+                                                                                        <i class='bx bxs-trash-alt'></i>
+                                                                                    </button>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <button type="button" class="themeBtn ms-auto"
+                                                                        data-repeater-create>Add
+                                                                        <i class="bx bx-plus"></i></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 my-2">
+                                            <hr>
+                                        </div>
+                                        <div class="col-12 my-2">
                                             <div class="row">
                                                 <div class="col-12 mb-2">
                                                     <div class="form-fields">
@@ -1092,7 +1188,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-12 mt-2">
                                             <div class="form-fields mb-4">
                                                 <div class="d-flex align-items-center gap-3 mb-2">
                                                     <span class="title mb-0">Whatsapp Number:</span>
@@ -1161,6 +1257,31 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div x-show="optionTab === 'addOn'" class="addOn-options">
+                            <div class="form-box">
+                                <div class="form-box__header">
+                                    <div class="title">Add On (You might also like)</div>
+                                </div>
+                                <div class="form-box__body">
+                                    <div class="form-fields">
+                                        <label class="title">Select 4 tours <span class="text-danger">*</span>
+                                            :</label>
+                                        <select name="add_on_tours_ids[]" multiple class="choice-select"
+                                            data-max-items="4" placeholder="Select Tours"
+                                            {{ !$tours->isEmpty() ? 'data-required' : '' }} data-error="Top 4 featured tours">
+                                            @foreach ($tours as $tour)
+                                                <option value="{{ $tour->id }}">
+                                                    {{ $tour->title }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('top_featured_tour_ids')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>

@@ -35,12 +35,13 @@ class TourController extends Controller
     public function create()
     {
         $categories = TourCategory::where('status', 'publish')->latest()->get();
+        $tours = Tour::where('status', 'draft')->get();
         $attributes = TourAttribute::where('status', 'active')
             ->whereRaw('JSON_LENGTH(items) > 0')
             ->latest()->get();
 
         $cities = City::where('status', 'publish')->get();
-        $data = compact('categories', 'cities', 'attributes');
+        $data = compact('categories', 'cities', 'attributes','tours');
 
         return view('admin.tours.tours-management.add', $data)->with('title', 'Add New Tour');
     }

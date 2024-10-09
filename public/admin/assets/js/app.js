@@ -230,39 +230,77 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Tiny Editor
+// function initializeEditors(form) {
+//     const editors = [];
+//     const editorElements = form.querySelectorAll(".editor");
+
+//     editorElements.forEach((editorElement) => {
+//         tinymce.init({
+//             target: editorElement,
+//             plugins:
+//                 "advlist autolink link image lists charmap print preview anchor \
+//                       searchreplace visualblocks code fullscreen insertdatetime media table \
+//                       paste code wordcount emoticons hr pagebreak save directionality \
+//                       template toc textpattern imagetools visualchars nonbreaking codesample",
+//             toolbar:
+//                 "undo redo | formatselect | bold italic underline strikethrough forecolor backcolor | \
+//                       alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | \
+//                       link image media | preview fullscreen | emoticons codesample blockquote hr pagebreak | \
+//                       removeformat",
+//             height: 300, // Adjust the height for the editor
+//             menubar: true, // Show the menubar
+//             branding: false, // Remove TinyMCE branding
+//             image_advtab: true, // Advanced image options
+//             media_live_embeds: true, // Auto-embed media
+//             paste_data_images: true, // Allow pasting images
+//             automatic_uploads: true, // Auto-upload images while editing
+//             file_picker_types: "image media", // Enable file picker for image/media
+//             content_style:
+//                 "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+//             setup: function (editor) {
+//                 editor.on("init", function () {
+//                     editors.push(editor);
+//                 });
+//             },
+//         });
+//     });
+
+//     return editors;
+// }
+
+// Ck Editor
 function initializeEditors(form) {
     const editors = [];
     const editorElements = form.querySelectorAll(".editor");
 
     editorElements.forEach((editorElement) => {
-        tinymce.init({
-            target: editorElement,
-            plugins:
-                "advlist autolink link image lists charmap print preview anchor \
-                      searchreplace visualblocks code fullscreen insertdatetime media table \
-                      paste code wordcount emoticons hr pagebreak save directionality \
-                      template toc textpattern imagetools visualchars nonbreaking codesample",
-            toolbar:
-                "undo redo | formatselect | bold italic underline strikethrough forecolor backcolor | \
-                      alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | \
-                      link image media | preview fullscreen | emoticons codesample blockquote hr pagebreak | \
-                      removeformat",
-            height: 300, // Adjust the height for the editor
-            menubar: true, // Show the menubar
-            branding: false, // Remove TinyMCE branding
-            image_advtab: true, // Advanced image options
-            media_live_embeds: true, // Auto-embed media
-            paste_data_images: true, // Allow pasting images
-            automatic_uploads: true, // Auto-upload images while editing
-            file_picker_types: "image media", // Enable file picker for image/media
-            content_style:
-                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-            setup: function (editor) {
-                editor.on("init", function () {
-                    editors.push(editor);
-                });
-            },
-        });
+        ClassicEditor
+            .create(editorElement, {
+                toolbar: [
+                    'undo', 'redo',
+                    '|', 'heading',
+                    '|', 'bold', 'italic', 'underline', 'strikethrough',
+                    'fontColor', 'highlight',
+                    '|', 'alignment',
+                    '|', 'bulletedList', 'numberedList', 'outdent', 'indent',
+                    '|', 'link', 'imageUpload', 'blockQuote', 'insertTable',
+                    '|', 'mediaEmbed', 'horizontalLine', 'pageBreak',
+                    '|', 'removeFormat', 'codeBlock',
+                    '|', 'specialCharacters',
+                    '|', 'fullScreen',
+                    '|', 'preview'
+                ],
+                // You can set additional configurations here
+                height: '300px',
+                // Add custom styles here if needed
+                // Note: CKEditor 5 does not support `content_style` like TinyMCE
+            })
+            .then(editor => {
+                editors.push(editor);
+            })
+            .catch(error => {
+                console.error('There was a problem initializing the editor:', error);
+            });
     });
 
     return editors;
@@ -306,6 +344,20 @@ function validateEditor(editorInstance) {
         .get(editorInstance.id)
         .getContent({ format: "text" });
     const editorElement = editorInstance.targetElm;
+
+    if (!editorData.trim()) {
+        showErrorToast(
+            `${editorElement.dataset.error || editorElement.name} is Required!`,
+        );
+        return false;
+    }
+    return true;
+}
+
+// Ck editor
+function validateEditor(editorInstance) {
+    const editorData = editorInstance.getData();
+    const editorElement = editorInstance.sourceElement;
 
     if (!editorData.trim()) {
         showErrorToast(

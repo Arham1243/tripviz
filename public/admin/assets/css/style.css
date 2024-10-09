@@ -1794,10 +1794,14 @@ input[readonly]:not(.date-picker) {
     border: none;
     font-size: 0.8rem;
     font-weight: 500;
-    padding: 0.76rem 1.35rem;
+    padding: 0.76rem 1.2rem;
     width: 100%;
     text-align: left;
     border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #777;
 }
 
 .settings-item__link:hover {
@@ -1809,7 +1813,10 @@ input[readonly]:not(.date-picker) {
     background: var(--color-primary);
     color: #fff;
 }
-
+button.settings-item__link i {
+    font-size: 18px;
+    transition: none;
+}
 
 /* date picker */
 .flatpickr-day.today:hover, .flatpickr-day.today:focus ,.flatpickr-day.selected{

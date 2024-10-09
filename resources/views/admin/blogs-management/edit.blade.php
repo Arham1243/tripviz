@@ -97,7 +97,7 @@
                                             Right side top highlighted tour card
                                             <span class="text-danger">*</span> :
                                         </label>
-                                        <select name="top_highlighted_tour_id" class="choice-select" data-required
+                                        <select name="top_highlighted_tour_id" class="choice-select" {{ !$tours->isEmpty() ? 'data-required' : '' }} 
                                             data-error="Right Side Top Highlighted Tour Card">
                                             <option value="" selected>Select Tour</option>
                                             @foreach ($tours as $tour)
@@ -120,7 +120,7 @@
                                         <label class="title">Below Blog Slider Tour Card <span class="text-danger">*</span>
                                             :</label>
                                         <select name="featured_tours_ids[]" multiple class="choice-select"
-                                            data-max-items="4" placeholder="Select Tours" data-required
+                                            data-max-items="4" placeholder="Select Tours" {{ !$tours->isEmpty() ? 'data-required' : '' }} 
                                             data-error="Below Blog Slider Tour Card">
                                             @foreach ($tours as $tour)
                                                 <option value="{{ $tour->id }}"
