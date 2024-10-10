@@ -1421,7 +1421,7 @@ a.custom-dropdown__active {
     padding-inline: 1.25rem;
 }
 
-.form-box__header .title {
+.form-box__header .title{
     font-size: 0.95rem;
     font-weight: 700;
     text-transform: capitalize;
@@ -1706,7 +1706,7 @@ body.responsive.fancybox-active.compensate-for-scrollbar {
 .order-menu {
     cursor: grab;
 }
-input[readonly]:not(.date-picker) {
+input[readonly]:not(.date-picker,.date-picker-time) {
     background: #cccccc4d !important;
     color: #6c6a6a !important;
 }
@@ -1805,7 +1805,6 @@ input[readonly]:not(.date-picker) {
 }
 
 .settings-item__link:hover {
-    color: #000;
     background: #1c4d990a;
 }
 
@@ -1837,3 +1836,53 @@ button.settings-item__link i {
     font-weight: 600;
 }
 /* date picker */
+
+/* Fc */
+.fc .fc-toolbar-title {
+    font-size: 1.15rem;
+}
+.form-box.form-box--calendar {
+    padding: 1.25rem;
+}
+.fc-button-primary {
+    box-shadow: none !important;
+    background: var(--color-primary) !important;
+    text-transform: capitalize !important;
+    border: none !important;
+    font-size: 0.95rem !important;
+}
+.fc .fc-daygrid-day.fc-day-today {
+    background: var(--color-primary-light);
+}
+
+.fc-h-event {
+    background: var(--color-primary);
+}
+/* Fc */
+
+/* modal */
+.modal-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.modal-header {
+    padding: 0.85rem;
+}
+
+:is(.modal-header,.modal-body,.modal-footer) {
+    padding-inline: 1.25rem;
+}
+
+.modal-footer {
+    border:none;
+}
+.modal {
+    padding: 0 !important;
+}
+
+body.modal-open {
+    padding: 0 !important;
+}
+/* modal */

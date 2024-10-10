@@ -208,7 +208,7 @@
                 [
                     'title' => 'Availability',
                     'icon' => 'bx bx-calendar',
-                    'route' => 'javascript:void(0)',
+                    'route' => route('admin.tour-availability.index'),
                 ],
                 [
                     'title' => 'Booking Calendar',

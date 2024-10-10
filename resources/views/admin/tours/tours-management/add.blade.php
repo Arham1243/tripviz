@@ -29,55 +29,49 @@
                             <div class="form-box__body p-0">
                                 <ul class="settings">
                                     <li class="settings-item">
-                                        <button type="button" class="settings-item__link" 
-                                            :class="{ 'active': optionTab === 'general' }" 
-                                            @click="optionTab = 'general'">
+                                        <button type="button" class="settings-item__link"
+                                            :class="{ 'active': optionTab === 'general' }" @click="optionTab = 'general'">
                                             <i class="bx bx-cog"></i> General
                                         </button>
                                     </li>
                                     <li class="settings-item">
-                                        <button type="button" class="settings-item__link" 
-                                            :class="{ 'active': optionTab === 'pricing' }" 
-                                            @click="optionTab = 'pricing'">
+                                        <button type="button" class="settings-item__link"
+                                            :class="{ 'active': optionTab === 'pricing' }" @click="optionTab = 'pricing'">
                                             <i class="bx bx-dollar"></i> Pricing
                                         </button>
                                     </li>
                                     <li class="settings-item">
-                                        <button type="button" class="settings-item__link" 
-                                            :class="{ 'active': optionTab === 'location' }" 
-                                            @click="optionTab = 'location'">
+                                        <button type="button" class="settings-item__link"
+                                            :class="{ 'active': optionTab === 'location' }" @click="optionTab = 'location'">
                                             <i class="bx bx-map"></i> Location
                                         </button>
                                     </li>
                                     <li class="settings-item">
-                                        <button type="button" class="settings-item__link" 
-                                            :class="{ 'active': optionTab === 'availability' }" 
+                                        <button type="button" class="settings-item__link"
+                                            :class="{ 'active': optionTab === 'availability' }"
                                             @click="optionTab = 'availability'">
                                             <i class="bx bx-time-five"></i> Availability
                                         </button>
                                     </li>
                                     <li class="settings-item">
-                                        <button type="button" class="settings-item__link" 
-                                            :class="{ 'active': optionTab === 'addOn' }" 
-                                            @click="optionTab = 'addOn'">
+                                        <button type="button" class="settings-item__link"
+                                            :class="{ 'active': optionTab === 'addOn' }" @click="optionTab = 'addOn'">
                                             <i class="bx bx-plus-circle"></i> Add On
                                         </button>
                                     </li>
                                     <li class="settings-item">
-                                        <button type="button" class="settings-item__link" 
-                                            :class="{ 'active': optionTab === 'status' }" 
-                                            @click="optionTab = 'status'">
+                                        <button type="button" class="settings-item__link"
+                                            :class="{ 'active': optionTab === 'status' }" @click="optionTab = 'status'">
                                             <i class="bx bx-check-circle"></i> Status
                                         </button>
                                     </li>
                                     <li class="settings-item">
-                                        <button type="button" class="settings-item__link" 
-                                            :class="{ 'active': optionTab === 'seo' }" 
-                                            @click="optionTab = 'seo'">
+                                        <button type="button" class="settings-item__link"
+                                            :class="{ 'active': optionTab === 'seo' }" @click="optionTab = 'seo'">
                                             <i class="bx bx-search-alt"></i> SEO
                                         </button>
                                     </li>
-                                    
+
                                 </ul>
                             </div>
                         </div>
@@ -274,15 +268,16 @@
                                         </div>
                                         <div class="col-md-12 mt-4">
                                             <div class="form-fields">
-                                                <label class=" d-flex align-items-center mb-3 justify-content-between"><span
-                                                    class="title title--sm mb-0">Tour Information:</span>
-                                                <span class="title d-flex align-items-center gap-1">Section
-                                                    Preview:
-                                                    <a href="{{ asset('admin/assets/images/tour-infomation.png') }}"
-                                                        data-fancybox="gallery" class="themeBtn p-1"><i
-                                                            class='bx  bxs-show'></i></a>
-                                                </span>
-                                            </label>
+                                                <label
+                                                    class=" d-flex align-items-center mb-3 justify-content-between"><span
+                                                        class="title title--sm mb-0">Tour Information:</span>
+                                                    <span class="title d-flex align-items-center gap-1">Section
+                                                        Preview:
+                                                        <a href="{{ asset('admin/assets/images/tour-infomation.png') }}"
+                                                            data-fancybox="gallery" class="themeBtn p-1"><i
+                                                                class='bx  bxs-show'></i></a>
+                                                    </span>
+                                                </label>
                                                 <div class="repeater-table" data-repeater>
                                                     <table class="table table-bordered">
                                                         <thead>
@@ -295,7 +290,9 @@
                                                         <tbody data-repeater-list>
                                                             <tr data-repeater-item>
                                                                 <td>
-                                                                    <input name="tour_information[heading][]" type="text" placeholder="e.g., Timings, What to Bring"
+                                                                    <input name="tour_information[heading][]"
+                                                                        type="text"
+                                                                        placeholder="e.g., Timings, What to Bring"
                                                                         class="field">
                                                                 </td>
                                                                 <td>
@@ -304,20 +301,24 @@
                                                                             <tbody data-sub-repeater-list>
                                                                                 <tr data-sub-repeater-item>
                                                                                     <td>
-                                                                                        <input name="tour_information[items][][]" type="text" placeholder=""
+                                                                                        <input
+                                                                                            name="tour_information[items][][]"
+                                                                                            type="text" placeholder=""
                                                                                             class="field">
                                                                                     </td>
                                                                                     <td>
                                                                                         <button type="button"
                                                                                             class="delete-btn ms-auto delete-btn--static"
                                                                                             data-sub-repeater-remove>
-                                                                                            <i class='bx bxs-trash-alt'></i>
+                                                                                            <i
+                                                                                                class='bx bxs-trash-alt'></i>
                                                                                         </button>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
-                                                                        <button type="button" class="themeBtn ms-auto" data-sub-repeater-create>
+                                                                        <button type="button" class="themeBtn ms-auto"
+                                                                            data-sub-repeater-create>
                                                                             Add <i class="bx bx-plus"></i>
                                                                         </button>
                                                                     </div>
@@ -336,7 +337,7 @@
                                                         Add <i class="bx bx-plus"></i>
                                                     </button>
                                                 </div>
-                                                
+
 
                                             </div>
                                         </div>
@@ -464,7 +465,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -823,25 +824,39 @@
                                                 </div>
                                                 <div class="col-12" x-show="personType == 1">
                                                     <div x-data="{ tourType: 'normal' }">
-                                                        <div class="d-flex align-items-center justify-content-center gap-5 mt-3 mb-4">
+                                                        <div
+                                                            class="d-flex align-items-center justify-content-center gap-5 mt-3 mb-4">
                                                             <div class="form-check p-0">
-                                                                <input class="form-check-input" type="radio" name="tour_type"
-                                                                    id="normal" x-model="tourType" value="normal" checked>
-                                                                <label class="form-check-label" for="normal">Normal Tour Price</label>
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="tour_type" id="normal" x-model="tourType"
+                                                                    value="normal" checked>
+                                                                <label class="form-check-label" for="normal">Normal Tour
+                                                                    Price</label>
                                                             </div>
                                                             <div class="form-check p-0">
-                                                                <input class="form-check-input" type="radio" name="tour_type"
-                                                                    id="private" x-model="tourType" value="private">
-                                                                <label class="form-check-label" for="private">Private Tour Price</label>
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="tour_type" id="private" x-model="tourType"
+                                                                    value="private">
+                                                                <label class="form-check-label" for="private">Private
+                                                                    Tour Price</label>
                                                             </div>
                                                             <div class="form-check p-0">
-                                                                <input class="form-check-input" type="radio" name="tour_type"
-                                                                    id="water" x-model="tourType" value="water">
-                                                                <label class="form-check-label" for="water">Water / Desert
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="tour_type" id="water" x-model="tourType"
+                                                                    value="water">
+                                                                <label class="form-check-label" for="water">Water /
+                                                                    Desert
                                                                     Activities</label>
                                                             </div>
+                                                            <div class="form-check p-0">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="tour_type" id="promo" x-model="tourType"
+                                                                    value="promo">
+                                                                <label class="form-check-label"
+                                                                    for="promo">Promo</label>
+                                                            </div>
                                                         </div>
-                    
+
                                                         <div x-show="tourType === 'normal'">
                                                             <div class="form-fields">
                                                                 <div class="title">Normal Tour Pricing:</div>
@@ -905,7 +920,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                    
+
                                                         <div x-show="tourType === 'private'">
                                                             <div class="form-fields">
                                                                 <div class="title">Private Tour Pricing:</div>
@@ -916,7 +931,7 @@
                                                                                 <th scope="col">Car Price</th>
                                                                                 <th scope="col">Min</th>
                                                                                 <th scope="col">Max</th>
-                                                                               
+
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
@@ -937,14 +952,14 @@
                                                                                         name="person_type[max][]"
                                                                                         class="field">
                                                                                 </td>
-                                                                                
+
                                                                             </tr>
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
                                                             </div>
                                                         </div>
-                    
+
                                                         <div x-show="tourType === 'water'">
                                                             <div class="form-fields">
                                                                 <div class="repeater-table" data-repeater>
@@ -992,6 +1007,83 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div x-show="tourType === 'promo'">
+                                                            <div class="form-fields">
+                                                                <div class="repeater-table" data-repeater>
+                                                                    <label class="title">Promo Pricing:</label>
+                                                                    <table class="table table-bordered">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th scope="col">Package Title</th>
+                                                                                <th scope="col">Pricing Details</th>
+                                                                                <th scope="col">Offer Expires At</th>
+                                                                                <th class="text-end" scope="col">Remove
+                                                                                </th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody data-repeater-list>
+                                                                            <tr data-repeater-item>
+                                                                                <td>
+                                                                                    <input type="text"
+                                                                                        name="promo_prices[title][]"
+                                                                                        class="field"
+                                                                                        placeholder="E.g., For One Adult"
+                                                                                        required
+                                                                                        data-error="Package Title is required">
+                                                                                </td>
+                                                                                <td style="width: 35%">
+                                                                                    <div>
+                                                                                        <input
+                                                                                            name="promo_prices[original_price][]"
+                                                                                            type="number" class="field"
+                                                                                            placeholder="Original Price"
+                                                                                            step="0.01" min="0"
+                                                                                            x-bind:data-required="tourType === 'promo'"
+                                                                                            data-error="Original Price is required">
+                                                                                    </div>
+                                                                                    <div class="mt-2">
+                                                                                        <input
+                                                                                            name="promo_prices[discount_price][]"
+                                                                                            type="number" class="field"
+                                                                                            placeholder="Discounted Price"
+                                                                                            step="0.01" min="0"
+                                                                                            x-bind:data-required="tourType === 'promo'"
+                                                                                            data-error="Discount Price is required">
+                                                                                    </div>
+                                                                                    <div class="mt-2">
+                                                                                        <input
+                                                                                            name="promo_prices[promo_price][]"
+                                                                                            type="number" class="field"
+                                                                                            placeholder="Promo Price with Discount"
+                                                                                            step="0.01" min="0"
+                                                                                            x-bind:data-required="tourType === 'promo'"
+                                                                                            data-error="Promo Price is required">
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input type="text" class="field"
+                                                                                        name="promo_prices[expiry_time][]"
+                                                                                        required
+                                                                                        data-error="Expiry Date & Time is required">
+                                                                                </td>
+                                                                                <td>
+                                                                                    <button type="button"
+                                                                                        class="delete-btn ms-auto delete-btn--static"
+                                                                                        data-repeater-remove disabled>
+                                                                                        <i class='bx bxs-trash-alt'></i>
+                                                                                    </button>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <button type="button" class="themeBtn ms-auto"
+                                                                        data-repeater-create>Add
+                                                                        <i class="bx bx-plus"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -1116,26 +1208,27 @@
                                                                         <tbody data-repeater-list>
                                                                             <tr data-repeater-item>
                                                                                 <td>
-                                                                                   <div class="row">
-                                                                                    <div class="col-md-6">
-                                                                                        <input type="number" 
-                                                                                        min="0"
-                                                                                        name="discount[people_from][]"
-                                                                                        class="field" placeholder="from">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number"
+                                                                                                min="0"
+                                                                                                name="discount[people_from][]"
+                                                                                                class="field"
+                                                                                                placeholder="from">
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number"
+                                                                                                min="0"
+                                                                                                name="discount[people_to][]"
+                                                                                                class="field"
+                                                                                                placeholder="to">
+                                                                                        </div>
                                                                                     </div>
-                                                                                    <div class="col-md-6">
-                                                                                        <input type="number" 
-                                                                                        min="0"
-                                                                                        name="discount[people_to][]"
-                                                                                        class="field" placeholder="to">
-                                                                                    </div>
-                                                                                   </div>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <input type="number" 
-                                                                                    min="0"
-                                                                                    name="discount[discount][]"
-                                                                                    class="field" placeholder="">
+                                                                                    <input type="number" min="0"
+                                                                                        name="discount[discount][]"
+                                                                                        class="field" placeholder="">
                                                                                 </td>
                                                                                 <td>
                                                                                     <select class="field"
@@ -1272,7 +1365,8 @@
                                             :</label>
                                         <select name="add_on_tours_ids[]" multiple class="choice-select"
                                             data-max-items="4" placeholder="Select Tours"
-                                            {{ !$tours->isEmpty() ? 'data-required' : '' }} data-error="Top 4 featured tours">
+                                            {{ !$tours->isEmpty() ? 'data-required' : '' }}
+                                            data-error="Top 4 featured tours">
                                             @foreach ($tours as $tour)
                                                 <option value="{{ $tour->id }}">
                                                     {{ $tour->title }}
@@ -1358,6 +1452,55 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-box">
+                                <div class="form-box__header">
+                                    <div class="title">Author Settings</div>
+                                </div>
+                                <div class="form-box__body">
+                                    <div class="form-fields">
+                                        <label class="title">Author <span class="text-danger">*</span> :</label>
+                                        <select class="choice-select" name="user_id" data-required
+                                            data-error="Author">
+                                            <option value="" selected>Select</option>
+                                            @foreach ($users as $users)
+                                                <option value="{{ $users->id }}"
+                                                    {{ old('user_id') == $users->id ? 'selected' : '' }}>
+                                                    {{ $users->full_name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('user_id')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-box">
+                                <div class="form-box__header">
+                                    <div class="title">Tour Featured</div>
+                                </div>
+                                <div class="form-box__body">
+                                    <div class="form-fields">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="is_featured"
+                                                id="is_featured" value="1">
+                                            <label class="form-check-label" for="is_featured">
+                                                Enable featured
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-fields mt-3">
+                                        <label class="title">Default State <span class="text-danger">*</span> :</label>
+                                        <select name="is_featured[default_state]" class="field">
+                                            <option value="always">Always Available</option>
+                                            <option value="specific_dates">Only available on specific Dates</option>
+                                        </select>
+                                        @error('is_featured[default_state]')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>

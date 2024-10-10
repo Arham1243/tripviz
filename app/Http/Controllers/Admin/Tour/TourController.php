@@ -14,6 +14,7 @@ use App\Models\TourInclusion;
 use App\Models\TourItinerary;
 use App\Models\ToursAdditional;
 use App\Models\ToursFaq;
+use App\Models\User;
 use App\Traits\Sluggable;
 use App\Traits\UploadImageTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -35,13 +36,15 @@ class TourController extends Controller
     public function create()
     {
         $categories = TourCategory::where('status', 'publish')->latest()->get();
-        $tours = Tour::where('status', 'draft')->get();
+        // $tours = Tour::where('status', 'publish')->get();
+        $tours = Tour::all();
+        $users = User::where('is_active', 1)->get();
         $attributes = TourAttribute::where('status', 'active')
             ->whereRaw('JSON_LENGTH(items) > 0')
             ->latest()->get();
 
         $cities = City::where('status', 'publish')->get();
-        $data = compact('categories', 'cities', 'attributes','tours');
+        $data = compact('categories', 'cities', 'attributes','tours','users');
 
         return view('admin.tours.tours-management.add', $data)->with('title', 'Add New Tour');
     }
