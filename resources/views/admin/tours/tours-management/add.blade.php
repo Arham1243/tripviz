@@ -172,6 +172,16 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @php
+                                                            $icons = [
+                                                                'bx bx-stopwatch',
+                                                                'bx bx-user',
+                                                                'bx bx-wifi',
+                                                                'bx bx-calendar',
+                                                                'bx bx-user-check',
+                                                                'bx bxs-map',
+                                                            ]
+                                                            @endphp
                                                             @for ($i = 0; $i < 6; $i++)
                                                                 <tr>
                                                                     <td>
@@ -179,9 +189,9 @@
                                                                             <input type="text" class="field"
                                                                                 name="features_icons[]"
                                                                                 oninput="showIcon(this)"
-                                                                                value="bx bx-check">
+                                                                                value="{{$icons[$i]}}">
 
-                                                                            <i class="bx bx-check bx-md"
+                                                                            <i class="{{$icons[$i]}} bx-md"
                                                                                 data-preview-icon></i>
                                                                         </div>
                                                                     </td>
