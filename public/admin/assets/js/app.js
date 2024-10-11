@@ -1,3 +1,22 @@
+$(function() {
+    $(".date-picker").daterangepicker({
+        singleDatePicker: true,
+        showCalendar: false,
+        autoUpdateInput: false,
+        sameDate: true,
+        autoApply: true,
+        disabledPast: true,
+        enableLoading: true,
+        showEventTooltip: true,
+        classNotAvailable: ["disabled", "off"],
+        disableHightLight: true,
+        locale: { format: "YYYY/MM/DD" },
+    })
+    .on("apply.daterangepicker", function(event, picker) {
+        $(this).val(picker.startDate.format("YYYY/MM/DD"));
+    });
+});
+
 // Function to update the label text based on the switch state
 function updateLabel(container) {
     const checkbox = container.querySelector("input[data-toggle-switch]");

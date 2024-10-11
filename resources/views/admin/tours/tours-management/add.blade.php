@@ -1351,7 +1351,7 @@
                                                             <label class="title">Start Date <span class="text-danger">*</span>
                                                                 :</label>
                                                             <input type="text" class="field date-picker"
-                                                                placeholder="Select a date" name="start_date">
+                                                                placeholder="Select a date" name="start_date" autocomplete="off">
                                                             @error('start_date')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
@@ -1362,7 +1362,7 @@
                                                             <label class="title">End Date <span class="text-danger">*</span>
                                                                 :</label>
                                                             <input type="text" class="field date-picker"
-                                                                placeholder="Select a date" name="end_date">
+                                                                placeholder="Select a date" name="end_date" autocomplete="off">
                                                             @error('end_date')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
@@ -1641,26 +1641,12 @@
 
 @push('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 @endpush
 @push('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput-jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="{{ asset('admin/assets/js/add-tour.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $('.date-picker').each(function() {
-                $(this).flatpickr({
-                    dateFormat: "Y-m-d",
-                    altInput: true,
-                    altFormat: "F j, Y",
-                    minDate: "today",
-                    disableMobile: true
-                });
-            });
-        });
-    </script>
 @endpush

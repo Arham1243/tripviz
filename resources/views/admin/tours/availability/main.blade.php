@@ -38,13 +38,13 @@
         </div>
     </div>
 
-
-    <div class="modal" tabindex="-1" id="eventModal">
-        <div class="modal-dialog">
+    <div class="modal " tabindex="-1" id="eventModal">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title d-flex align-items-center gap-2">Date Information: <div id="selectedDateInfo"></div></h5>
-
+                    <h5 class="modal-title d-flex align-items-center gap-2">Date Information: <div id="selectedDateInfo">
+                        </div>
+                    </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -52,8 +52,29 @@
                         @csrf
                         <input type="hidden" name="date" id="tourDate">
                         <input type="hidden" name="tour_id" id="tourId" value="1">
-
-                        <div id="dynamicFormFields"></div>
+                        <div class="row">
+                            <div class="col-md-12 my-3">
+                                <div class="form-fields">
+                                    <label class="title">Date Ranges:</label>
+                                    <input type="text" name="dates" class="field" id="dateRange" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-12 my-3">
+                                <div class="form-fields">
+                                    <label class="title">Max Guest <span class="text-danger">*</span>:</label>
+                                    <input type="number" name="max_guest" class="field" placeholder="" required="">
+                                </div>
+                            </div>
+                            <div class="col-md-12 my-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="status" id="publish" checked
+                                        value="publish">
+                                    <label class="form-check-label" for="publish">
+                                        Available for booking?
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -67,57 +88,24 @@
 
 @push('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.15/fullcalendar.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 @endpush
 
 @push('js')
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.29.1/moment.min.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script>
-        let formFields = {
-            max_guest: {
-                label: 'Max Guest',
-                type: 'number',
-                placeholder: '',
-                required: true
-            }
-        };
-
-        function generateFormFields(fields) {
-            let formContainer = $('#dynamicFormFields');
-            formContainer.empty();
-            let fieldHtml = ''
-            for (const key in fields) {
-                let field = fields[key];
-                fieldHtml += `
-        <div class="form-fields">
-            <label class="title">${field.label} ${field.required ? '<span class="text-danger">*</span>' : ''}:</label>
-            <input type="${field.type}" name="${key}" class="field" 
-                placeholder="${field.placeholder}" ${field.required ? 'required' : ''}>
-        </div>`;
-            }
-            formContainer.append(fieldHtml);
-        }
-
-        function fillFormFields(fields, data = {}) {
-            for (const key in fields) {
-                let fieldValue = data[key] || '';
-                $(`input[name="${key}"]`).val(fieldValue);
-            }
-        }
-
         function formatDate(date) {
             let dateClass = new Date(date);
-
             let formattedDate = dateClass.toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric'
             });
-            return formattedDate
+            return formattedDate;
         }
-
-
 
         document.addEventListener('DOMContentLoaded', function() {
             let calendarEl = document.getElementById('calendar');
@@ -135,56 +123,28 @@
                     }
                 ],
                 dateClick: function(info) {
-                    // Find if an event exists on the clicked date
                     let event = calendar.getEvents().find(e => e.startStr === info.dateStr);
-                    $('#tourDate').val(info.dateStr); // Set the clicked date in the form
-
-                    generateFormFields(formFields); // Generate fields dynamically
-
-                    if (event) {
-                        // If event exists, prefill form with event data
-                        let data = {
-                            max_guest: event.extendedProps.max_guest || '',
-                            tour_duration: event.extendedProps.tour_duration || ''
-                        };
-                        fillFormFields(formFields, data); // Fill fields with event data
-                    } else {
-                        // If no event, clear form fields for a new entry
-                        fillFormFields(formFields);
-                    }
-
+                    $('#tourDate').val(info.dateStr);
                     $('#selectedDateInfo').text(`${formatDate(info.dateStr)}`);
-
-
-                    $('#eventModal').modal('show'); // Show modal for both cases
+                    $('#eventModal').modal('show');
                 },
                 eventClick: function(info) {
-                    let event = info.event;
-                    let data = {
-                        max_guest: event.extendedProps.max_guest || '',
-                        tour_duration: event.extendedProps.tour_duration || ''
-                    };
-                    $('#selectedDateInfo').text(`${formatDate(event.startStr)}`);
-
-
-                    $('#tourDate').val(event.startStr);
-                    generateFormFields(formFields); // Generate fields dynamically
-                    fillFormFields(formFields, data); // Fill fields with existing event data
+                    $('#selectedDateInfo').text(`${formatDate(info.event.start)}`);
+                    $('#tourDate').val(info.event.start);
                     $('#eventModal').modal('show');
                 }
             });
             calendar.render();
-
-            // Save button handler
             $('#saveEvent').on('click', function() {
                 const date = $('#tourDate').val();
                 const maxGuest = $('input[name="max_guest"]').val();
                 const tourId = $('#tourId').val();
-
-                // Handle save logic here
-
                 $('#eventModal').modal('hide');
             });
         });
+
+
+        $('input[name="dates"]').daterangepicker();
+
     </script>
 @endpush
