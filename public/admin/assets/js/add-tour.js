@@ -1,26 +1,40 @@
 function populateTimeDropdown() {
-    const dropdown = document.getElementById("time-dropdown");
-    if (dropdown) {
-        dropdown.innerHTML = "";
+    const dropdowns = document.querySelectorAll(".time-dropdown");
+    if (dropdowns.length > 0) {
+        dropdowns.forEach((dropdown) => {
+            dropdown.innerHTML = "";
 
-        const startTime = 15; // Start from 15 minutes
-        const endTime = 240; // 4 hours in minutes
-        const interval = 15; // Gap of 15 minutes
+            // Parse dataset values to numbers
+            const startTime = parseInt(dropdown.dataset.timeStart, 10);
+            const endTime = parseInt(dropdown.dataset.timeEnd, 10);
+            const interval = parseInt(dropdown.dataset.timeSpan, 10);
+            const showMinutes = dropdown.dataset.showMinutes === 'true'; // Handle boolean flag
 
-        for (let minutes = startTime; minutes <= endTime; minutes += interval) {
-            const time = moment()
-                .startOf("day")
-                .add(minutes, "minutes")
-                .format("HH:mm");
-            const option = document.createElement("option");
-            option.value = minutes;
-            option.textContent = `${time} (${minutes} mins)`;
-            dropdown.appendChild(option);
-        }
+            if (startTime && endTime && interval) {
+                for (let minutes = startTime; minutes <= endTime; minutes += interval) {
+                    const time = moment()
+                        .startOf("day")
+                        .add(minutes, "minutes")
+                        .format("HH:mm");
+
+                    const option = document.createElement("option");
+                    option.value = minutes;
+
+                    // Check if we should show minutes in the option text
+                    option.textContent = showMinutes
+                        ? `${time} (${minutes} mins)`
+                        : time;
+
+                    dropdown.appendChild(option);
+                }
+            }
+        });
     }
 }
 
+// Call the function to populate the dropdowns
 populateTimeDropdown();
+
 
 const sortableTableBody = document.querySelector("[data-sortable-body]");
 if (sortableTableBody) {

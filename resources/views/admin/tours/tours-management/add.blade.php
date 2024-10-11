@@ -987,9 +987,13 @@
                                                                         <tbody data-repeater-list>
                                                                             <tr data-repeater-item>
                                                                                 <td>
-                                                                                    <select id="time-dropdown"
+                                                                                    <select 
+                                                                                    data-time-start="15"
+                                                                                    data-time-end="240"
+                                                                                    data-time-span="15"
+                                                                                    data-show-minutes='true'
                                                                                         name="water_times[]"
-                                                                                        class="field"
+                                                                                        class="field time-dropdown"
                                                                                         x-bind:data-required="tourType === 'water'"
                                                                                         data-error="Desert Activities Time"></select>
                                                                                 </td>
@@ -1326,38 +1330,124 @@
                                     <div class="title">Availability</div>
                                 </div>
                                 <div class="form-box__body">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-fields">
-                                                <label class="title">Start Date <span class="text-danger">*</span>
-                                                    :</label>
-                                                <input type="text" class="field date-picker"
-                                                    placeholder="Select a date" name="start_date">
-                                                @error('start_date')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
+                                    <div class="col-12" x-data="{ fixedDate: '0' }">
+                                        <div class="row">
+                                            <div class="col-12 mb-2">
+                                                <div class="form-fields">
+                                                    <div class="title">Fixed dates:</div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="fixed_date" id="fixed_date" value="1"
+                                                            x-model="fixedDate">
+                                                        <label class="form-check-label" for="fixed_date">
+                                                            Enable Fixed Date
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12" x-show="fixedDate == 1">
+                                                <div class="row my-2">
+                                                    <div class="col-md-4">
+                                                        <div class="form-fields">
+                                                            <label class="title">Start Date <span class="text-danger">*</span>
+                                                                :</label>
+                                                            <input type="text" class="field date-picker"
+                                                                placeholder="Select a date" name="start_date">
+                                                            @error('start_date')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-fields">
+                                                            <label class="title">End Date <span class="text-danger">*</span>
+                                                                :</label>
+                                                            <input type="text" class="field date-picker"
+                                                                placeholder="Select a date" name="end_date">
+                                                            @error('end_date')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-fields">
+                                                            <label class="title">Last Booking Date <span class="text-danger">*</span>
+                                                                :</label>
+                                                            <input type="text" class="field date-picker"
+                                                                placeholder="Select a date" name="last_booking_date">
+                                                            @error('last_booking_date')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="form-fields">
-                                                <label class="title">End Date <span class="text-danger">*</span>
-                                                    :</label>
-                                                <input type="text" class="field date-picker"
-                                                    placeholder="Select a date" name="end_date">
-                                                @error('end_date')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
+                                    </div>
+                                    <div class="col-12 mt-3" x-data="{ openHours: '0' }">
+                                        <div class="row">
+                                            <div class="col-12 mb-2">
+                                                <div class="form-fields">
+                                                    <div class="title">Open Hours:</div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="openHours" id="openHours" value="1"
+                                                            x-model="openHours">
+                                                        <label class="form-check-label" for="openHours">
+                                                            Enable Open Hours
+                                                        </label>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-fields">
-                                                <label class="title">Last Booking Date <span class="text-danger">*</span>
-                                                    :</label>
-                                                <input type="text" class="field date-picker"
-                                                    placeholder="Select a date" name="last_booking_date">
-                                                @error('last_booking_date')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
+                                            <div class="col-12" x-show="openHours == 1">
+                                                <div class="row my-2">
+                                                    <div class="repeater-table form-fields">
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col">Enable?	</th>
+                                                                    <th scope="col">Day of Week	</th>
+                                                                    <th scope="col">Open</th>
+                                                                    <th scope="col">Close</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @php
+                                                                $days = [
+                                                                    'Monday',
+                                                                    'Tuesday',
+                                                                    'Wednesday',
+                                                                    'Thursday',
+                                                                    'Friday',
+                                                                ]
+                                                                @endphp
+                                                                @foreach($days as $day)
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div class="form-check">
+                                                                                <input class="form-check-input" type="checkbox"
+                                                                                    name="open_hours[day][]" id="{{$day}}"
+                                                                                    value="1">
+                                                                                <label class="form-check-label" for="{{$day}}">
+                                                                                    Enable
+                                                                                </label>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input name="open_hours[day][]" type="text" value="{{$day}}"
+                                                                                class="field" readonly>
+                                                                        </td>
+                                                                        <td>
+                                                                            <select name="open_hours[open][]" data-time-start="60" data-time-end="1440" data-time-span="60" class="field time-dropdown"></select>
+                                                                        </td>
+                                                                        <td>
+                                                                            <select name="open_hours[close][]" data-time-start="60" data-time-end="1440" data-time-span="60" class="field time-dropdown"></select>
+                                                                        </td>
+                                                                        
+                                                                    </tr>
+                                                                    @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
