@@ -1276,7 +1276,7 @@
                                         <div class="col-12 my-2">
                                             <hr>
                                         </div>
-                                        <div class="col-12 my-2">
+                                        <div class="col-12 my-2" x-data="{ serviceFee: '0' }">
                                             <div class="row">
                                                 <div class="col-12 mb-2">
                                                     <div class="form-fields">
@@ -1286,11 +1286,21 @@
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox"
                                                                 name="enebled_service_fee" id="enebled_service_fee"
-                                                                value="1">
+                                                                value="1" x-model="serviceFee">
                                                             <label class="form-check-label" for="enebled_service_fee">
                                                                 Enable service fee
                                                             </label>
                                                         </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12" x-show="serviceFee == 1">
+                                                    <div class="form-fields mt-2">
+                                                        <input step="0.01" min="0" type="number" name="service_fee"
+                                                            class="field" value="{{ old('service_fee') }}" data-required
+                                                            data-error="Price">
+                                                        @error('service_fee')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>
