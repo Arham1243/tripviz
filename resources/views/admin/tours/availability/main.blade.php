@@ -52,20 +52,14 @@
                         @csrf
                         <input type="hidden" name="date" id="tourDate">
                         <input type="hidden" name="tour_id" id="tourId" value="1">
-                        <div class="row">
-                            <div class="col-md-12 my-3">
+                        <div class="row align-items-center mt-3">
+                            <div class="col-md-6">
                                 <div class="form-fields">
                                     <label class="title">Date Ranges:</label>
                                     <input type="text" name="dates" class="field" id="dateRange" readonly>
                                 </div>
                             </div>
-                            <div class="col-md-12 my-3">
-                                <div class="form-fields">
-                                    <label class="title">Max Guest <span class="text-danger">*</span>:</label>
-                                    <input type="number" name="max_guest" class="field" placeholder="" required="">
-                                </div>
-                            </div>
-                            <div class="col-md-12 my-3">
+                            <div class="col-md-6 mt-4">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="status" id="publish" checked
                                         value="publish">
@@ -73,6 +67,59 @@
                                         Available for booking?
                                     </label>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-md-12">
+                                <div class="form-fields">
+                                    <label class="title">Max Guest <span class="text-danger">*</span>:</label>
+                                    <input type="number" name="max_guest" class="field" placeholder="" required="">
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-4">
+                                <div class="repeater-table form-fields">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Min</th>
+                                                <th scope="col">Max</th>
+                                                <th scope="col">Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" name="adult[name]" class="field" value="Adult" readonly>
+                                                </td>
+                                                <td>
+                                                    <input type="number" min="0" name="adult[min]" class="field">
+                                                </td>
+                                                <td>
+                                                    <input type="number" min="0" name="adult[max]" class="field">
+                                                </td>
+                                                <td>
+                                                    <input type="number" step="0.01" min="0" name="adult[price]" class="field">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" name="child[name]" class="field" value="Child" readonly>
+                                                </td>
+                                                <td>
+                                                    <input type="number" min="0" name="child[min]" class="field">
+                                                </td>
+                                                <td>
+                                                    <input type="number" min="0" name="child[max]" class="field">
+                                                </td>
+                                                <td>
+                                                    <input type="number" step="0.01" min="0" name="child[price]" class="field">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
                             </div>
                         </div>
                     </form>
@@ -145,6 +192,5 @@
 
 
         $('input[name="dates"]').daterangepicker();
-
     </script>
 @endpush

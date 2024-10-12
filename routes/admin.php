@@ -25,7 +25,7 @@ Route::get('/admins', function () {
 
 Route::middleware('guest')->prefix('admin')->namespace('Admin')->group(function () {
     Route::get('/auth', [AdminLoginController::class, 'login'])->name('admin.login');
-    Route::post('/perform-login', [AdminLoginController::class, 'performLogin'])->name('admin.performLogin');
+    Route::post('/perform-login', [AdminLoginController::class, 'performLogin'])->name('admin.performLogin')->middleware('throttle:5,1');
 });
 
 Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {

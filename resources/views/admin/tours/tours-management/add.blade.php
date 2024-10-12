@@ -173,14 +173,14 @@
                                                         </thead>
                                                         <tbody>
                                                             @php
-                                                            $icons = [
-                                                                'bx bx-stopwatch',
-                                                                'bx bx-user',
-                                                                'bx bx-wifi',
-                                                                'bx bx-calendar',
-                                                                'bx bx-user-check',
-                                                                'bx bxs-map',
-                                                            ]
+                                                                $icons = [
+                                                                    'bx bx-stopwatch',
+                                                                    'bx bx-user',
+                                                                    'bx bx-wifi',
+                                                                    'bx bx-calendar',
+                                                                    'bx bx-user-check',
+                                                                    'bx bxs-map',
+                                                                ];
                                                             @endphp
                                                             @for ($i = 0; $i < 6; $i++)
                                                                 <tr>
@@ -189,9 +189,9 @@
                                                                             <input type="text" class="field"
                                                                                 name="features_icons[]"
                                                                                 oninput="showIcon(this)"
-                                                                                value="{{$icons[$i]}}">
+                                                                                value="{{ $icons[$i] }}">
 
-                                                                            <i class="{{$icons[$i]}} bx-md"
+                                                                            <i class="{{ $icons[$i] }} bx-md"
                                                                                 data-preview-icon></i>
                                                                         </div>
                                                                     </td>
@@ -987,11 +987,10 @@
                                                                         <tbody data-repeater-list>
                                                                             <tr data-repeater-item>
                                                                                 <td>
-                                                                                    <select 
-                                                                                    data-time-start="15"
-                                                                                    data-time-end="240"
-                                                                                    data-time-span="15"
-                                                                                    data-show-minutes='true'
+                                                                                    <select data-time-start="15"
+                                                                                        data-time-end="240"
+                                                                                        data-time-span="15"
+                                                                                        data-show-minutes='true'
                                                                                         name="water_times[]"
                                                                                         class="field time-dropdown"
                                                                                         x-bind:data-required="tourType === 'water'"
@@ -1295,8 +1294,9 @@
                                                 </div>
                                                 <div class="col-12" x-show="serviceFee == 1">
                                                     <div class="form-fields mt-2">
-                                                        <input step="0.01" min="0" type="number" name="service_fee"
-                                                            class="field" value="{{ old('service_fee') }}" data-required
+                                                        <input step="0.01" min="0" type="number"
+                                                            name="service_fee" class="field"
+                                                            value="{{ old('service_fee') }}" data-required
                                                             data-error="Price">
                                                         @error('service_fee')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -1346,8 +1346,8 @@
                                                 <div class="form-fields">
                                                     <div class="title">Fixed dates:</div>
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="fixed_date" id="fixed_date" value="1"
-                                                            x-model="fixedDate">
+                                                        <input class="form-check-input" type="checkbox" name="fixed_date"
+                                                            id="fixed_date" value="1" x-model="fixedDate">
                                                         <label class="form-check-label" for="fixed_date">
                                                             Enable Fixed Date
                                                         </label>
@@ -1358,10 +1358,12 @@
                                                 <div class="row my-2">
                                                     <div class="col-md-4">
                                                         <div class="form-fields">
-                                                            <label class="title">Start Date <span class="text-danger">*</span>
+                                                            <label class="title">Start Date <span
+                                                                    class="text-danger">*</span>
                                                                 :</label>
                                                             <input type="text" class="field date-picker"
-                                                                placeholder="Select a date" name="start_date" autocomplete="off">
+                                                                placeholder="Select a date" name="start_date"
+                                                                autocomplete="off">
                                                             @error('start_date')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
@@ -1369,10 +1371,12 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-fields">
-                                                            <label class="title">End Date <span class="text-danger">*</span>
+                                                            <label class="title">End Date <span
+                                                                    class="text-danger">*</span>
                                                                 :</label>
                                                             <input type="text" class="field date-picker"
-                                                                placeholder="Select a date" name="end_date" autocomplete="off">
+                                                                placeholder="Select a date" name="end_date"
+                                                                autocomplete="off">
                                                             @error('end_date')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
@@ -1380,7 +1384,8 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-fields">
-                                                            <label class="title">Last Booking Date <span class="text-danger">*</span>
+                                                            <label class="title">Last Booking Date <span
+                                                                    class="text-danger">*</span>
                                                                 :</label>
                                                             <input type="text" class="field date-picker"
                                                                 placeholder="Select a date" name="last_booking_date">
@@ -1399,8 +1404,8 @@
                                                 <div class="form-fields">
                                                     <div class="title">Open Hours:</div>
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="openHours" id="openHours" value="1"
-                                                            x-model="openHours">
+                                                        <input class="form-check-input" type="checkbox" name="openHours"
+                                                            id="openHours" value="1" x-model="openHours">
                                                         <label class="form-check-label" for="openHours">
                                                             Enable Open Hours
                                                         </label>
@@ -1413,47 +1418,57 @@
                                                         <table class="table table-bordered">
                                                             <thead>
                                                                 <tr>
-                                                                    <th scope="col">Enable?	</th>
-                                                                    <th scope="col">Day of Week	</th>
+                                                                    <th scope="col">Enable? </th>
+                                                                    <th scope="col">Day of Week </th>
                                                                     <th scope="col">Open</th>
                                                                     <th scope="col">Close</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 @php
-                                                                $days = [
-                                                                    'Monday',
-                                                                    'Tuesday',
-                                                                    'Wednesday',
-                                                                    'Thursday',
-                                                                    'Friday',
-                                                                ]
+                                                                    $days = [
+                                                                        'Monday',
+                                                                        'Tuesday',
+                                                                        'Wednesday',
+                                                                        'Thursday',
+                                                                        'Friday',
+                                                                    ];
                                                                 @endphp
-                                                                @foreach($days as $day)
+                                                                @foreach ($days as $day)
                                                                     <tr>
                                                                         <td>
                                                                             <div class="form-check">
-                                                                                <input class="form-check-input" type="checkbox"
-                                                                                    name="open_hours[day][]" id="{{$day}}"
+                                                                                <input class="form-check-input"
+                                                                                    type="checkbox"
+                                                                                    name="open_hours[day][]"
+                                                                                    id="{{ $day }}"
                                                                                     value="1">
-                                                                                <label class="form-check-label" for="{{$day}}">
+                                                                                <label class="form-check-label"
+                                                                                    for="{{ $day }}">
                                                                                     Enable
                                                                                 </label>
                                                                             </div>
                                                                         </td>
                                                                         <td>
-                                                                            <input name="open_hours[day][]" type="text" value="{{$day}}"
+                                                                            <input name="open_hours[day][]" type="text"
+                                                                                value="{{ $day }}"
                                                                                 class="field" readonly>
                                                                         </td>
                                                                         <td>
-                                                                            <select name="open_hours[open][]" data-time-start="60" data-time-end="1440" data-time-span="60" class="field time-dropdown"></select>
+                                                                            <select name="open_hours[open][]"
+                                                                                data-time-start="60" data-time-end="1440"
+                                                                                data-time-span="60"
+                                                                                class="field time-dropdown"></select>
                                                                         </td>
                                                                         <td>
-                                                                            <select name="open_hours[close][]" data-time-start="60" data-time-end="1440" data-time-span="60" class="field time-dropdown"></select>
+                                                                            <select name="open_hours[close][]"
+                                                                                data-time-start="60"
+                                                                                data-time-end="1440" data-time-span="60"
+                                                                                class="field time-dropdown"></select>
                                                                         </td>
-                                                                        
+
                                                                     </tr>
-                                                                    @endforeach
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -1635,6 +1650,29 @@
                                     </div>
                                 </div>
                             @endforeach
+                            <div class="form-box">
+                                <div class="form-box__header">
+                                    <div class="title">Ical</div>
+                                </div>
+                                <div class="form-box__body">
+                                    <div class="form-fields">
+                                        <label class="title">Import url <span class="text-danger">*</span> :</label>
+                                        <input type="url" name="title" class="field"
+                                            value="{{ old('import_url') }}" placeholder="">
+                                        @error('import_url')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-fields">
+                                        <label class="title">Export url <span class="text-danger">*</span> :</label>
+                                        <input type="url" name="title" class="field"
+                                            value="{{ old('export_url') }}" placeholder="">
+                                        @error('export_url')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div x-show="optionTab === 'seo'" class="seo-options">
                             <x-seo-options :seo="$seo ?? null" :resource="'tours'" />
