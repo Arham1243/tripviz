@@ -12,6 +12,7 @@ use App\Models\TourCategory;
 use App\Models\TourExclusion;
 use App\Models\TourInclusion;
 use App\Models\TourItinerary;
+use App\Models\TourMedia;
 use App\Models\ToursAdditional;
 use App\Models\ToursFaq;
 use App\Models\User;
@@ -28,7 +29,7 @@ class TourController extends Controller
 
     public function index()
     {
-        $tours = Tour::with(['category', 'city'])->latest()->get();
+        $tours = Tour::with(['category'])->latest()->get();
 
         return view('admin.tours.tours-management.list', compact('tours'))->with('title', 'All Tours');
     }
@@ -44,55 +45,97 @@ class TourController extends Controller
             ->latest()->get();
 
         $cities = City::where('status', 'publish')->get();
-        $data = compact('categories', 'cities', 'attributes','tours','users');
+        $data = compact('categories', 'cities', 'attributes', 'tours', 'users');
 
         return view('admin.tours.tours-management.add', $data)->with('title', 'Add New Tour');
     }
 
     public function store(Request $request)
     {
-        dd($request->all());
-
-        $priceType = $request->input('price_type');
-
-        // Define validation rules
-        $rules = [
-            'title' => 'required|string|max:255',
-            'img_path' => 'required',
-            'short_desc' => 'required|string',
-            'price_type' => 'required|in:per_person,per_car',
-            'city_ids' => 'required|array',
-            'category_ids' => 'required|array',
-            'show_on_homepage' => 'nullable',
-        ];
-
-        if ($priceType === 'per_person') {
-            $rules['for_adult_price'] = 'required|numeric|min:0';
-            $rules['for_child_price'] = 'required|numeric|min:0';
-        } else {
-            $rules['for_car_price'] = 'required|numeric|min:0';
+        $general = $request->input('tour.general', []);
+        $statusTab = $request->input('tour.status', []);
+    
+        $slugText = !empty($general['slug']) ? $general['slug'] : $general['title'];
+        $slug = $this->createSlug($slugText, 'tours');
+    
+        $inclusions = !empty($general['inclusions']) ? json_encode($general['inclusions']) : null;
+        $exclusions = !empty($general['exclusions']) ? json_encode($general['exclusions']) : null;
+        $features = !empty($general['features']) ? json_encode($general['features']) : null;
+        $details = !empty($general['details']) ? json_encode($general['details']) : null;
+    
+        $processedAttributes = [];
+    
+        $attributes = $statusTab['attributes'] ?? [];
+        foreach ($attributes as $attributeId => $items) {
+            $processedAttributes[$attributeId] = json_encode($items);
         }
-
-        $validatedData = $request->validate($rules);
-
-        // Generate unique slug
-        $slug = $this->createSlug($validatedData['title'], 'tours');
-
-        // Add the slug to the validated data
-        $data = array_merge($validatedData, ['price_type' => $priceType, 'slug' => $slug]);
-
-        // Create the Tour record
-        $tour = Tour::create($data);
-
-        // Sync relationships
-        $tour->cities()->attach($validatedData['city_ids']);
-        $tour->categories()->attach($validatedData['category_ids']);
-
-        // Handle image upload
-        $this->uploadImg('img_path', 'img_path', 'Tour/Cover-images', $tour);
-
-        return redirect()->route('admin.tours.edit', $tour->id)->with('notify_success', 'Tour Added successfully.')->with('active_tab', 'details');
+    
+        $relatedTours = !empty($request->input('related_tour_ids')) ? json_encode($request->input('related_tour_ids')) : null;
+    
+        $tour = Tour::create([
+            'title' => $general['title'],
+            'slug' => $slug,
+            'content' => $general['content'],
+            'category_id' => $general['category_id'] ?? null,
+            'badge_icon_class' => $general['badge_icon_class'],
+            'badge_name' => $general['badge_name'],
+            'banner_image_alt_text' => $request->input('banner_image_alt_text'),
+            'feature_image_alt_text' => $request->input('feature_image_alt_text'),
+            'banner_type' => $general['banner_type'],
+            'video_link' => $general['video_link'],
+            'inclusions' => $inclusions,
+            'exclusions' => $exclusions,
+            'features' => $features,
+            'details' => $details,
+            'status' => $statusTab['status'],
+            'author_id' => $statusTab['author_id'],
+            'is_featured' => $statusTab['is_featured'] ?? 0,
+            'featured_state' => $statusTab['featured_state'] ?? null,
+            'ical_import_url' => $statusTab['ical_import_url'] ?? null,
+            'ical_export_url' => $statusTab['ical_export_url'] ?? null,
+            'related_tour_ids' => $relatedTours,
+            'attributes' => !empty($processedAttributes) ? json_encode($processedAttributes) : null, // Safely handle attributes
+        ]);
+    
+        // Handle FAQs
+        if (isset($general['faq']['question']) && is_array($general['faq']['question'])) {
+            foreach ($general['faq']['question'] as $index => $question) {
+                $answer = $general['faq']['answer'][$index] ?? null;
+                
+                if (!empty($question) && !empty($answer)) {
+                    ToursFaq::create([
+                        'question' => $question,
+                        'answer' => $answer,
+                        'tour_id' => $tour->id,
+                    ]);
+                }
+            }
+        }
+    
+        // Handle gallery images
+        if (!empty($request['gallery'])) {
+            $this->uploadMultipleImages(
+                'gallery', // Input name for the images
+                'Tour/Banner/Gallery', // Folder to store images
+                new TourMedia, // Pass the model class name here
+                'image_path', // Column name for image path
+                'alt_text', // Column name for alt text
+                $request['gallery_alt_texts'] ?? null, // Pass alt texts if provided
+                'tour_id', // Pass the foreign key column name
+                $tour->id // foreign key value
+            );
+        }
+    
+        // Handle banner and featured images
+        $this->uploadImg('banner_image', 'Tour/Banner/Featured-image', $tour, 'banner_image');
+        $this->uploadImg('featured_image', 'Tour/Featured-image', $tour, 'featured_image');
+    
+        // Handle SEO data
+        handleSeoData($request, $tour, 'Tour');
+    
+        return redirect()->route('admin.tours.index')->with('notify_success', 'Tour Added successfully.')->with('active_tab', 'details');
     }
+    
 
     public function show($id)
     {
@@ -107,23 +150,18 @@ class TourController extends Controller
 
     public function edit($id)
     {
-        try {
-            $tour = Tour::findOrFail($id);
-            $categories = Category::where('is_active', 1)->get();
-            $cities = City::where('is_active', 1)->get();
-            $faqs = ToursFaq::where('tour_id', $tour->id)->with('tour')->get();
-            $itineraries = TourItinerary::where('tour_id', $tour->id)->orderBy('day', 'asc')->get();
-            $attributes = TourAttribute::where('tour_id', $tour->id)->get();
-            $inclusions = TourInclusion::where('tour_id', $tour->id)->get();
-            $exclusions = TourExclusion::where('tour_id', $tour->id)->get();
-            $additionals = ToursAdditional::where('is_active', 1)->get();
-            $additionalItems = AdditionalItem::where('tour_id', $tour->id)->get();
-            $data = compact('tour', 'categories', 'cities', 'faqs', 'itineraries', 'attributes', 'inclusions', 'exclusions', 'additionals', 'additionalItems');
+        $tour = Tour::findOrFail($id);
+        $categories = TourCategory::where('status', 'publish')->latest()->get();
+        // $tours = Tour::where('status', 'publish')->get();
+        $tours = Tour::all();
+        $users = User::where('is_active', 1)->get();
+        $attributes = TourAttribute::where('status', 'active')
+            ->whereRaw('JSON_LENGTH(items) > 0')
+            ->latest()->get();
 
-            return view('admin.tours-management.edit', $data)->with('title', 'Edit Tour');
-        } catch (ModelNotFoundException $e) {
-            return redirect()->route('admin.tours.index')->with('notify_error', 'Tour not found.');
-        }
+        $cities = City::where('status', 'publish')->get();
+        $data = compact('tour', 'categories', 'cities', 'attributes', 'tours', 'users');
+        return view('admin.tours.tours-management.edit', $data)->with('title', ucfirst(strtolower($tour->title)));
     }
 
     public function update(Request $request, $id)

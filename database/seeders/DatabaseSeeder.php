@@ -13,11 +13,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            AdminsTableSeeder::class,
-            ContinentsTableSeeder::class,
-            CountriesTableSeeder::class,
-            CitiesTableSeeder::class,
-            CategorySeeder::class,
+            AdminsTableSeeder::class
         ]);
     }
 }

@@ -13,7 +13,9 @@
                                 <div class="title">Permalink:</div>
                                 <div class="title">
                                     <div class="full-url">{{ buildUrl(url('/'), 'tours/') }}</div>
-                                    <input value="edit-slug" type="button" class="link permalink-input" name="slug">
+                                    <input value="edit-slug" type="button" class="link permalink-input"
+                                        data-field-id="slug">
+                                    <input type="hidden" id="slug" name="tour[general][slug]">
                                 </div>
                             </div>
                         </div>
@@ -87,10 +89,10 @@
                                         <div class="col-12">
                                             <div class="form-fields">
                                                 <label class="title">Title <span class="text-danger">*</span> :</label>
-                                                <input type="text" name="title" class="field"
-                                                    value="{{ old('title') }}" placeholder="" data-required
+                                                <input type="text" name="tour[general][title]" class="field"
+                                                    value="{{ old('tour[general][title]') }}" placeholder=""
                                                     data-error="Title">
-                                                @error('title')
+                                                @error('tour[general][title]')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -99,10 +101,10 @@
                                             <div class="form-fields">
                                                 <label class="title">Content <span class="text-danger">*</span>
                                                     :</label>
-                                                <textarea class="editor" name="content" data-placeholder="content" data-required data-error="Content">
-                                            {{ old('content') }}
+                                                <textarea class="editor" name="tour[general][content]" data-placeholder="content" data-error="Content">
+                                            {{ old('tour[general][content]') }}
                                         </textarea>
-                                                @error('content')
+                                                @error('tour[general][content]')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -111,13 +113,13 @@
                                             <div class="form-fields">
                                                 <label class="title">Categories <span class="text-danger">*</span>
                                                     :</label>
-                                                <select name="category_id[]" class="choice-select" data-required
+                                                <select name="tour[general][category_id]" class="choice-select"
                                                     data-error="Category" placeholder="Select Categories">
                                                     @php
                                                         renderCategories($categories);
                                                     @endphp
                                                 </select>
-                                                @error('category_id')
+                                                @error('tour[general][category_id]')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -133,12 +135,13 @@
                                                 </div>
                                                 <div class="d-flex align-items-center gap-3">
 
-                                                    <input type="text" name="badge_icon_class" class="field"
-                                                        value="{{ old('badge_icon_class', 'bx bx-badge-check') }}"
+                                                    <input type="text" name="tour[general][badge_icon_class]"
+                                                        class="field"
+                                                        value="{{ old('tour[general][badge_icon_class]', 'bx bx-badge-check') }}"
                                                         placeholder="" oninput="showIcon(this)">
                                                     <i class="bx bx-badge-check bx-md" data-preview-icon></i>
                                                 </div>
-                                                @error('badge_icon_class')
+                                                @error('tour[general][badge_icon_class]')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
 
@@ -148,9 +151,9 @@
                                         <div class="col-md-6 col-12  mt-4">
                                             <div class="form-fields">
                                                 <label class="title">Badge Name:</label>
-                                                <input type="text" name="badge_name" class="field"
-                                                    value="{{ old('badge_name') }}" placeholder="">
-                                                @error('badge_name')
+                                                <input type="text" name="tour[general][badge_name]" class="field"
+                                                    value="{{ old('tour[general][badge_name]') }}" placeholder="">
+                                                @error('tour[general][badge_name]')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -187,20 +190,22 @@
                                                                     <td>
                                                                         <div class="d-flex align-items-center gap-3">
                                                                             <input type="text" class="field"
-                                                                                name="features_icons[]"
+                                                                                name="tour[general][features][{{ $i }}][icon]"
                                                                                 oninput="showIcon(this)"
-                                                                                value="{{ $icons[$i] }}">
-
-                                                                            <i class="{{ $icons[$i] }} bx-md"
+                                                                                value="{{ $icons[$i] ?? '' }}">
+                                                                            <i class="{{ $icons[$i] ?? '' }} bx-md"
                                                                                 data-preview-icon></i>
                                                                         </div>
                                                                     </td>
                                                                     <td>
-                                                                        <input name="features_titles[]" type="text"
-                                                                            class="field">
+                                                                        <input
+                                                                            name="tour[general][features][{{ $i }}][title]"
+                                                                            type="text" class="field"
+                                                                            value="{{ $titles[$i] ?? '' }}">
                                                                     </td>
                                                                 </tr>
                                                             @endfor
+
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -221,8 +226,8 @@
                                                         <tbody data-repeater-list>
                                                             <tr data-repeater-item>
                                                                 <td>
-                                                                    <input name="inclusions[]" type="text"
-                                                                        class="field">
+                                                                    <input name="tour[general][inclusions][]"
+                                                                        type="text" class="field">
                                                                 </td>
                                                                 <td>
                                                                     <button type="button"
@@ -256,8 +261,8 @@
                                                         <tbody data-repeater-list>
                                                             <tr data-repeater-item>
                                                                 <td>
-                                                                    <input name="exclusions[]" type="text"
-                                                                        class="field">
+                                                                    <input name="tour[general][exclusions][]"
+                                                                        type="text" class="field">
                                                                 </td>
                                                                 <td>
                                                                     <button type="button"
@@ -300,7 +305,7 @@
                                                         <tbody data-repeater-list>
                                                             <tr data-repeater-item>
                                                                 <td>
-                                                                    <input name="tour_information[heading][]"
+                                                                    <input name="tour[general][details][0][name]"
                                                                         type="text"
                                                                         placeholder="e.g., Timings, What to Bring"
                                                                         class="field">
@@ -312,7 +317,7 @@
                                                                                 <tr data-sub-repeater-item>
                                                                                     <td>
                                                                                         <input
-                                                                                            name="tour_information[items][][]"
+                                                                                            name="tour[general][details][0][items][]"
                                                                                             type="text" placeholder=""
                                                                                             class="field">
                                                                                     </td>
@@ -366,10 +371,10 @@
                                                         <tbody data-repeater-list>
                                                             <tr data-repeater-item>
                                                                 <td>
-                                                                    <textarea name="faq_questions[]" class="field"rows="2"></textarea>
+                                                                    <textarea name="tour[general][faq][question][]" class="field"rows="2"></textarea>
                                                                 </td>
                                                                 <td>
-                                                                    <textarea name="faq_answers[]" class="field"rows="2"></textarea>
+                                                                    <textarea name="tour[general][faq][answer][]" class="field"rows="2"></textarea>
                                                                 </td>
                                                                 <td>
                                                                     <button type="button"
@@ -402,16 +407,18 @@
                                             </div>
 
                                             <div class="form-fields">
+                                                <input type="hidden" name="tour[general][banner_type]" value="1">
                                                 <div class="title">
                                                     <div>Banner Image <span class="text-danger">*</span>:</div>
                                                 </div>
+
                                                 <div class="upload upload--banner" data-upload>
                                                     <div class="upload-box-wrapper">
                                                         <div class="upload-box show" data-upload-box>
-                                                            <input type="file" name="banner[featured_image]"
-                                                                data-required data-error="Feature Image"
-                                                                id="banner_featured_image" class="upload-box__file d-none"
-                                                                accept="image/*" data-file-input>
+                                                            <input type="file" name="banner_image"
+                                                                data-error="Feature Image" id="banner_featured_image"
+                                                                class="upload-box__file d-none" accept="image/*"
+                                                                data-file-input>
                                                             <div class="upload-box__placeholder"><i
                                                                     class='bx bxs-image'></i>
                                                             </div>
@@ -427,8 +434,9 @@
                                                                     alt="Uploaded Image" class="imgFluid"
                                                                     data-upload-preview>
                                                             </a>
-                                                            <input type="text" name="banner[alt_text]" class="field"
-                                                                placeholder="Enter alt text" value="Feature Image">
+                                                            <input type="text" name="banner_image_alt_text"
+                                                                class="field" placeholder="Enter alt text"
+                                                                value="Feature Image">
                                                         </div>
                                                     </div>
                                                     <div data-error-message class="text-danger mt-2 d-none text-center">
@@ -436,7 +444,7 @@
                                                         upload a
                                                         valid image file
                                                     </div>
-                                                    @error('banner[featured_image]')
+                                                    @error('banner_image')
                                                         <div class="text-danger mt-2 text-center">{{ $message }}
                                                         </div>
                                                     @enderror
@@ -449,9 +457,9 @@
                                                 <div class="title">
                                                     <div>Youtube Video <span class="text-danger">*</span>:</div>
                                                 </div>
-                                                <input type="url" name="banner[yt_link]" class="field"
-                                                    value="{{ old('banner[yt_link]') }}">
-                                                @error('banner[yt_link]')
+                                                <input type="url" name="tour[general][video_link]" class="field"
+                                                    value="{{ old('tour[general][video_link]') }}">
+                                                @error('tour[general][video_link]')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -459,7 +467,7 @@
                                                 <div class="multiple-upload" data-upload-multiple>
                                                     <input type="file" class="gallery-input d-none" multiple
                                                         data-upload-multiple-input accept="image/*" id="banners"
-                                                        name="banners[]">
+                                                        name="gallery[]">
                                                     <label class="multiple-upload__btn themeBtn" for="banners">
                                                         <i class='bx bx-plus'></i>
                                                         Gallery
@@ -509,7 +517,7 @@
                                     <div x-show="locationType === 'normalLocation'">
                                         <div class="form-fields">
                                             <label class="title">Location <span class="text-danger">*</span> :</label>
-                                            <select name="location[city_ids[]]" class="choice-select" data-required
+                                            <select name="location[city_ids[]]" class="choice-select"
                                                 data-error="Location" multiple placeholder="Select Locations">
                                                 @foreach ($cities as $city)
                                                     <option value="{{ $city->id }}"
@@ -526,8 +534,7 @@
                                             <label class="title">Real Tour address <span class="text-danger">*</span>
                                                 :</label>
                                             <input type="text" name="location[address]" class="field"
-                                                value="{{ old('location[address]') }}" data-required
-                                                data-error="Real Tour address">
+                                                value="{{ old('location[address]') }}" data-error="Real Tour address">
                                             @error('location[address]')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -793,7 +800,7 @@
                                             <div class="form-fields">
                                                 <label class="title">Price <span class="text-danger">*</span>:</label>
                                                 <input step="0.01" min="0" type="number" name="regular_price"
-                                                    class="field" value="{{ old('regular_price') }}" data-required
+                                                    class="field" value="{{ old('regular_price') }}"
                                                     data-error="Price">
                                                 @error('regular_price')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -805,7 +812,7 @@
                                                 <label class="title">Sale Price <span
                                                         class="text-danger">*</span>:</label>
                                                 <input step="0.01" min="0" type="number" name="sale_price"
-                                                    class="field" value="{{ old('sale_price') }}" data-required
+                                                    class="field" value="{{ old('sale_price') }}"
                                                     data-error="Sale Price">
                                                 @error('sale_price')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -993,7 +1000,6 @@
                                                                                         data-show-minutes='true'
                                                                                         name="water_times[]"
                                                                                         class="field time-dropdown"
-                                                                                        x-bind:data-required="tourType === 'water'"
                                                                                         data-error="Desert Activities Time"></select>
                                                                                 </td>
                                                                                 <td>
@@ -1001,7 +1007,6 @@
                                                                                         type="number" class="field"
                                                                                         placeholder="Price" step="0.01"
                                                                                         min="0"
-                                                                                        x-bind:data-required="tourType === 'water'"
                                                                                         data-error="Desert Activities Price">
                                                                                 </td>
                                                                                 <td>
@@ -1041,8 +1046,7 @@
                                                                                         name="promo_prices[title][]"
                                                                                         class="field"
                                                                                         placeholder="E.g., For One Adult"
-                                                                                        required
-                                                                                        data-error="Package Title is required">
+                                                                                        data-error="Package Title">
                                                                                 </td>
                                                                                 <td style="width: 35%">
                                                                                     <div>
@@ -1051,8 +1055,7 @@
                                                                                             type="number" class="field"
                                                                                             placeholder="Original Price"
                                                                                             step="0.01" min="0"
-                                                                                            x-bind:data-required="tourType === 'promo'"
-                                                                                            data-error="Original Price is required">
+                                                                                            data-error="Original Price">
                                                                                     </div>
                                                                                     <div class="mt-2">
                                                                                         <input
@@ -1060,8 +1063,7 @@
                                                                                             type="number" class="field"
                                                                                             placeholder="Discounted Price"
                                                                                             step="0.01" min="0"
-                                                                                            x-bind:data-required="tourType === 'promo'"
-                                                                                            data-error="Discount Price is required">
+                                                                                            data-error="Discount Price">
                                                                                     </div>
                                                                                     <div class="mt-2">
                                                                                         <input
@@ -1069,15 +1071,13 @@
                                                                                             type="number" class="field"
                                                                                             placeholder="Promo Price with Discount"
                                                                                             step="0.01" min="0"
-                                                                                            x-bind:data-required="tourType === 'promo'"
-                                                                                            data-error="Promo Price is required">
+                                                                                            data-error="Promo Price">
                                                                                     </div>
                                                                                 </td>
                                                                                 <td>
                                                                                     <input type="text" class="field"
                                                                                         name="promo_prices[expiry_time][]"
-                                                                                        required
-                                                                                        data-error="Expiry Date & Time is required">
+                                                                                        data-error="Expiry Date & Time">
                                                                                 </td>
                                                                                 <td>
                                                                                     <button type="button"
@@ -1296,8 +1296,7 @@
                                                     <div class="form-fields mt-2">
                                                         <input step="0.01" min="0" type="number"
                                                             name="service_fee" class="field"
-                                                            value="{{ old('service_fee') }}" data-required
-                                                            data-error="Price">
+                                                            value="{{ old('service_fee') }}" data-error="Price">
                                                         @error('service_fee')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
@@ -1488,17 +1487,16 @@
                                     <div class="form-fields">
                                         <label class="title">Select 4 tours <span class="text-danger">*</span>
                                             :</label>
-                                        <select name="add_on_tours_ids[]" multiple class="choice-select"
+                                        <select name="related_tour_ids[]" multiple class="choice-select"
                                             data-max-items="4" placeholder="Select Tours"
-                                            {{ !$tours->isEmpty() ? 'data-required' : '' }}
-                                            data-error="Top 4 featured tours">
+                                            {{ !$tours->isEmpty() ? '' : '' }} data-error="Top 4 featured tours">
                                             @foreach ($tours as $tour)
                                                 <option value="{{ $tour->id }}">
                                                     {{ $tour->title }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('top_featured_tour_ids')
+                                        @error('related_tour_ids[]')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -1512,15 +1510,15 @@
                                 </div>
                                 <div class="form-box__body">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="status" id="publish"
-                                            checked value="publish">
+                                        <input class="form-check-input" type="radio" name="tour[status][status]"
+                                            id="publish" checked value="publish">
                                         <label class="form-check-label" for="publish">
                                             Publish
                                         </label>
                                     </div>
                                     <div class="form-check mt-2">
-                                        <input class="form-check-input" type="radio" name="status" id="draft"
-                                            value="draft">
+                                        <input class="form-check-input" type="radio" name="tour[status][status]"
+                                            id="draft" value="draft">
                                         <label class="form-check-label" for="draft">
                                             Draft
                                         </label>
@@ -1538,7 +1536,7 @@
                                                 <div class="upload" data-upload>
                                                     <div class="upload-box-wrapper">
                                                         <div class="upload-box show" data-upload-box>
-                                                            <input type="file" name="featured_image" data-required
+                                                            <input type="file" name="featured_image"
                                                                 data-error="Feature Image" id="featured_image"
                                                                 class="upload-box__file d-none" accept="image/*"
                                                                 data-file-input>
@@ -1587,17 +1585,17 @@
                                 <div class="form-box__body">
                                     <div class="form-fields">
                                         <label class="title">Author <span class="text-danger">*</span> :</label>
-                                        <select class="choice-select" name="user_id" data-required
+                                        <select class="choice-select" name="tour[status][author_id]"
                                             data-error="Author">
                                             <option value="" selected>Select</option>
                                             @foreach ($users as $users)
                                                 <option value="{{ $users->id }}"
-                                                    {{ old('user_id') == $users->id ? 'selected' : '' }}>
+                                                    {{ old('tour[status][author_id]') == $users->id ? 'selected' : '' }}>
                                                     {{ $users->full_name }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('user_id')
+                                        @error('tour[status][author_id]')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -1610,8 +1608,8 @@
                                 <div class="form-box__body">
                                     <div class="form-fields">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="is_featured"
-                                                id="is_featured" value="1">
+                                            <input class="form-check-input" type="checkbox"
+                                                name="tour[status][is_featured]" id="is_featured" value="1">
                                             <label class="form-check-label" for="is_featured">
                                                 Enable featured
                                             </label>
@@ -1619,37 +1617,41 @@
                                     </div>
                                     <div class="form-fields mt-3">
                                         <label class="title">Default State <span class="text-danger">*</span> :</label>
-                                        <select name="is_featured[default_state]" class="field">
+                                        <select name="tour[status][featured_state]" class="field">
+
+                                            <option value="" selected disabled>Select</option>
                                             <option value="always">Always Available</option>
                                             <option value="specific_dates">Only available on specific Dates</option>
                                         </select>
-                                        @error('is_featured[default_state]')
+                                        @error('tour[status][featured_state]')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
                             </div>
-                            @foreach ($attributes as $attribute)
-                                <div class="form-box">
-                                    <div class="form-box__header">
-                                        <div class="title">Attribute: {{ $attribute->name }}</div>
+                            @if (!$attributes->isEmpty())
+                                @foreach ($attributes as $attribute)
+                                    <div class="form-box">
+                                        <div class="form-box__header">
+                                            <div class="title">Attribute: {{ $attribute->name }}</div>
+                                        </div>
+                                        <div class="form-box__body">
+                                            @foreach (json_decode($attribute->items) as $index => $item)
+                                                <div class="form-check mb-1">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        name="tour[status][attributes][{{ $attribute->id }}][]"
+                                                        id="attribute-{{ $attribute->id }}-{{ $index }}"
+                                                        value="{{ $item }}">
+                                                    <label class="form-check-label"
+                                                        for="attribute-{{ $attribute->id }}-{{ $index }}">
+                                                        {{ $item }}
+                                                    </label>
+                                                </div>
+                                            @endforeach
+                                        </div>
                                     </div>
-                                    <div class="form-box__body">
-                                        @foreach (json_decode($attribute->items) as $index => $item)
-                                            <div class="form-check mb-1">
-                                                <input class="form-check-input" type="checkbox"
-                                                    name="attributes[{{ $attribute->id }}][]"
-                                                    id="attribute-{{ $attribute->id }}-{{ $index }}"
-                                                    value="{{ $item }}">
-                                                <label class="form-check-label"
-                                                    for="attribute-{{ $attribute->id }}-{{ $index }}">
-                                                    {{ $item }}
-                                                </label>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            @endif
                             <div class="form-box">
                                 <div class="form-box__header">
                                     <div class="title">Ical</div>
@@ -1657,17 +1659,17 @@
                                 <div class="form-box__body">
                                     <div class="form-fields">
                                         <label class="title">Import url <span class="text-danger">*</span> :</label>
-                                        <input type="url" name="title" class="field"
-                                            value="{{ old('import_url') }}" placeholder="">
-                                        @error('import_url')
+                                        <input type="url" name="tour[status][ical_import_url]" class="field"
+                                            placeholder="">
+                                        @error('tour[status][ical_import_url]')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-fields">
                                         <label class="title">Export url <span class="text-danger">*</span> :</label>
-                                        <input type="url" name="title" class="field"
-                                            value="{{ old('export_url') }}" placeholder="">
-                                        @error('export_url')
+                                        <input type="url" name="tour[status][ical_export_url]" class="field"
+                                            placeholder="">
+                                        @error('tour[status][ical_export_url]')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>

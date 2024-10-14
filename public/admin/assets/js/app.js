@@ -1,20 +1,21 @@
-$(function() {
-    $(".date-picker").daterangepicker({
-        singleDatePicker: true,
-        showCalendar: false,
-        autoUpdateInput: false,
-        sameDate: true,
-        autoApply: true,
-        disabledPast: true,
-        enableLoading: true,
-        showEventTooltip: true,
-        classNotAvailable: ["disabled", "off"],
-        disableHightLight: true,
-        locale: { format: "YYYY/MM/DD" },
-    })
-    .on("apply.daterangepicker", function(event, picker) {
-        $(this).val(picker.startDate.format("YYYY/MM/DD"));
-    });
+$(function () {
+    $(".date-picker")
+        .daterangepicker({
+            singleDatePicker: true,
+            showCalendar: false,
+            autoUpdateInput: false,
+            sameDate: true,
+            autoApply: true,
+            disabledPast: true,
+            enableLoading: true,
+            showEventTooltip: true,
+            classNotAvailable: ["disabled", "off"],
+            disableHightLight: true,
+            locale: { format: "YYYY/MM/DD" },
+        })
+        .on("apply.daterangepicker", function (event, picker) {
+            $(this).val(picker.startDate.format("YYYY/MM/DD"));
+        });
 });
 
 // Function to update the label text based on the switch state
@@ -38,7 +39,7 @@ const switches = document.querySelectorAll("input[data-toggle-switch]");
 
 switches.forEach((switchElement) => {
     const container = switchElement.closest(
-        "[data-enabled-text], [data-disabled-text]",
+        "[data-enabled-text], [data-disabled-text]"
     );
 
     if (container) {
@@ -49,7 +50,6 @@ switches.forEach((switchElement) => {
 });
 
 document
-
     .querySelector(".permalink-input")
     ?.addEventListener("click", function () {
         if (this.type === "button") {
@@ -57,10 +57,14 @@ document
             this.focus();
         }
     });
+
 document
     .querySelector(".permalink-input")
     ?.addEventListener("blur", function () {
+        const hiddenField = document.getElementById(this.dataset.fieldId);
         if (this.type === "text") {
+            // Update the hidden input field with the value from the permalink input
+            hiddenField.value = this.value;
             this.type = "button";
         }
     });
@@ -98,7 +102,7 @@ function showImage(input, previewImgId, filenamePreviewId) {
         reader.readAsDataURL(file);
     } else if (file) {
         alert(
-            "Please select a valid image file. Supported formats: JPEG, PNG, GIF, WEBP, SVG, BMP, TIFF.",
+            "Please select a valid image file. Supported formats: JPEG, PNG, GIF, WEBP, SVG, BMP, TIFF."
         );
         input.value = "";
     }
@@ -128,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // If it has sub-dropdowns, toggle its children as well
             const subDropdown = parentDropdown.querySelector(
-                ".custom-dropdown__values",
+                ".custom-dropdown__values"
             );
             if (subDropdown) {
                 subDropdown.classList.toggle("open");
@@ -162,18 +166,18 @@ document.addEventListener("DOMContentLoaded", function () {
 // Multple File Upload
 document.addEventListener("DOMContentLoaded", () => {
     const uploadComponents = document.querySelectorAll(
-        "[data-upload-multiple]",
+        "[data-upload-multiple]"
     );
 
     uploadComponents.forEach((uploadComponent) => {
         const fileInput = uploadComponent.querySelector(
-            "[data-upload-multiple-input]",
+            "[data-upload-multiple-input]"
         );
         const imageContainer = uploadComponent.querySelector(
-            "[data-upload-multiple-images]",
+            "[data-upload-multiple-images]"
         );
         const errorMessage = uploadComponent.querySelector(
-            "[data-upload-multiple-error]",
+            "[data-upload-multiple-error]"
         );
 
         fileInput.addEventListener("change", (event) => {
@@ -222,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         "click",
                         () => {
                             imageContainer.removeChild(li);
-                        },
+                        }
                     );
                 };
 
@@ -239,7 +243,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const editors = initializeEditors(form);
 
         form.addEventListener("submit", function (event) {
-            const isValid = validateForm(form, editors);
+            const requiredEditors = editors.filter((editor) => {
+                return editor.sourceElement.dataset.required !== undefined;
+            });
+            const isValid = validateForm(form, requiredEditors);
 
             if (!isValid) {
                 event.preventDefault();
@@ -293,32 +300,58 @@ function initializeEditors(form) {
     const editorElements = form.querySelectorAll(".editor");
 
     editorElements.forEach((editorElement) => {
-        ClassicEditor
-            .create(editorElement, {
-                toolbar: [
-                    'undo', 'redo',
-                    '|', 'heading',
-                    '|', 'bold', 'italic', 'underline', 'strikethrough',
-                    'fontColor', 'highlight',
-                    '|', 'alignment',
-                    '|', 'bulletedList', 'numberedList', 'outdent', 'indent',
-                    '|', 'link', 'imageUpload', 'blockQuote', 'insertTable',
-                    '|', 'mediaEmbed', 'horizontalLine', 'pageBreak',
-                    '|', 'removeFormat', 'codeBlock',
-                    '|', 'specialCharacters',
-                    '|', 'fullScreen',
-                    '|', 'preview'
-                ],
-                // You can set additional configurations here
-                height: '300px',
-                // Add custom styles here if needed
-                // Note: CKEditor 5 does not support `content_style` like TinyMCE
-            })
-            .then(editor => {
+        ClassicEditor.create(editorElement, {
+            toolbar: [
+                "undo",
+                "redo",
+                "|",
+                "heading",
+                "|",
+                "bold",
+                "italic",
+                "underline",
+                "strikethrough",
+                "fontColor",
+                "highlight",
+                "|",
+                "alignment",
+                "|",
+                "bulletedList",
+                "numberedList",
+                "outdent",
+                "indent",
+                "|",
+                "link",
+                "imageUpload",
+                "blockQuote",
+                "insertTable",
+                "|",
+                "mediaEmbed",
+                "horizontalLine",
+                "pageBreak",
+                "|",
+                "removeFormat",
+                "codeBlock",
+                "|",
+                "specialCharacters",
+                "|",
+                "fullScreen",
+                "|",
+                "preview",
+            ],
+            // You can set additional configurations here
+            height: "300px",
+            // Add custom styles here if needed
+            // Note: CKEditor 5 does not support `content_style` like TinyMCE
+        })
+            .then((editor) => {
                 editors.push(editor);
             })
-            .catch(error => {
-                console.error('There was a problem initializing the editor:', error);
+            .catch((error) => {
+                console.error(
+                    "There was a problem initializing the editor:",
+                    error
+                );
             });
     });
 
@@ -366,7 +399,7 @@ function validateEditor(editorInstance) {
 
     if (!editorData.trim()) {
         showErrorToast(
-            `${editorElement.dataset.error || editorElement.name} is Required!`,
+            `${editorElement.dataset.error || editorElement.name} is Required!`
         );
         return false;
     }
@@ -380,7 +413,7 @@ function validateEditor(editorInstance) {
 
     if (!editorData.trim()) {
         showErrorToast(
-            `${editorElement.dataset.error || editorElement.name} is Required!`,
+            `${editorElement.dataset.error || editorElement.name} is Required!`
         );
         return false;
     }
@@ -427,7 +460,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             function handleItemCheckboxChange() {
                 const allChecked = Array.from(itemCheckboxes).every(
-                    (checkbox) => checkbox.checked,
+                    (checkbox) => checkbox.checked
                 );
                 selectAllCheckbox.checked = allChecked;
             }
@@ -454,7 +487,7 @@ function confirmBulkAction(event) {
 
     if (selectedAction === "delete") {
         const confirmation = confirm(
-            "Are you sure you want to delete the selected items?",
+            "Are you sure you want to delete the selected items?"
         );
         if (!confirmation) {
             event.preventDefault();
@@ -476,7 +509,7 @@ function initializeUploadComponent(uploadComponent) {
     const uploadBox = uploadComponent.querySelector("[data-upload-box]");
     const uploadImgBox = uploadComponent.querySelector("[data-upload-img]");
     const uploadPreview = uploadComponent.querySelector(
-        "[data-upload-preview]",
+        "[data-upload-preview]"
     );
     const deleteBtn = uploadComponent.querySelector("[data-delete-btn]");
     const errorMessage = uploadComponent.querySelector("[data-error-message]");
@@ -575,6 +608,26 @@ document.addEventListener("DOMContentLoaded", function () {
         updateCheckboxes(newItem);
         list.appendChild(newItem);
         updateSubDeleteButtonState(container);
+        updateIndices(container);
+    }
+
+    function updateIndices(container) {
+        const items = container.querySelectorAll("[data-repeater-item]");
+        items.forEach((item, index) => {
+            const nameInput = item.querySelector("input[name*='[name]']");
+            if (nameInput) {
+                nameInput.name = nameInput.name.replace(
+                    /\[\d+\]/,
+                    `[${index}]`
+                );
+            }
+            const itemInputs = item.querySelectorAll(
+                "input[name*='[items][]']"
+            );
+            itemInputs.forEach((input) => {
+                input.name = input.name.replace(/\[\d+\]/, `[${index}]`);
+            });
+        });
     }
 
     function updateSubDeleteButtonState(container) {
@@ -599,7 +652,7 @@ document.addEventListener("DOMContentLoaded", function () {
         updateCheckboxes(newItem);
         list.appendChild(newItem);
         updateDeleteButtonState(container);
-        
+        updateIndices(container);
         initializeSubRepeater(newItem);
     }
 
@@ -608,19 +661,24 @@ document.addEventListener("DOMContentLoaded", function () {
         const item = button.closest("[data-repeater-item]");
         item.remove();
         updateDeleteButtonState(container);
+        updateIndices(container);
     }
 
     function initializeSubRepeater(parentItem) {
         const subContainer = parentItem.querySelector("[data-sub-repeater]");
         if (subContainer) {
-            const addBtn = subContainer.querySelector("[data-sub-repeater-create]");
+            const addBtn = subContainer.querySelector(
+                "[data-sub-repeater-create]"
+            );
             addBtn.addEventListener("click", function () {
                 addSubItem(subContainer);
             });
 
             subContainer.addEventListener("click", function (e) {
                 if (e.target.closest("[data-sub-repeater-remove]")) {
-                    removeSubItem(e.target.closest("[data-sub-repeater-remove]"));
+                    removeSubItem(
+                        e.target.closest("[data-sub-repeater-remove]")
+                    );
                 }
             });
 
@@ -648,12 +706,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         updateDeleteButtonState(container);
-        const initialUploadComponents = container.querySelectorAll("[data-upload]");
+        const initialUploadComponents =
+            container.querySelectorAll("[data-upload]");
         initialUploadComponents.forEach((uploadComponent) => {
             initializeUploadComponent(uploadComponent);
         });
 
-        container.querySelectorAll("[data-repeater-item]").forEach(item => {
+        container.querySelectorAll("[data-repeater-item]").forEach((item) => {
             initializeSubRepeater(item);
         });
     });
@@ -665,8 +724,6 @@ document.addEventListener("DOMContentLoaded", function () {
         initializeUploadComponent(uploadComponent);
     });
 });
-
-
 
 $(document).ready(function () {
     var input = $(".flag-input");

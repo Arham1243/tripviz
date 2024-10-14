@@ -4,66 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Tour extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = [
-        'title',
-        'slug',
-        'short_desc',
-        'rating',
-        'img_path',
-        'for_adult_price',
-        'for_child_price',
-        'for_car_price',
-        'show_on_homepage',
-        'price_type',
-        'highlights'.
-            'is_active',
-    ];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     protected $appends = ['average_rating'];
 
-    public function getForAdultPriceAttribute($value)
-    {
-        return env('APP_CURRENCY').$value;
-    }
-
-    public function getForChildPriceAttribute($value)
-    {
-        return env('APP_CURRENCY').$value;
-    }
-
-    public function getForCarPriceAttribute($value)
-    {
-        return env('APP_CURRENCY').$value;
-    }
-
-    public function normalForAdultPrice()
-    {
-        return $this->attributes['for_adult_price'];
-    }
-
-    public function normalForChildPrice()
-    {
-        return $this->attributes['for_child_price'];
-    }
-
-    public function normalForCarPrice()
-    {
-        return $this->attributes['for_car_price'];
-    }
-
-    public function city()
-    {
-        return $this->belongsTo(City::class);
-    }
-
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(TourCategory::class);
     }
 
     public function cities()
@@ -71,14 +24,18 @@ class Tour extends Model
         return $this->belongsToMany(City::class);
     }
 
-    public function categories()
-    {
-        return $this->belongsToMany(Category::class);
-    }
-
     public function reviews()
     {
-        return $this->hasMany(TourReview::class)->where('tour_reviews.is_active', true);
+        return $this->hasMany(TourReview::class);
+    }
+    public function faqs()
+    {
+        return $this->hasMany(ToursFaq::class);
+    }
+
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoable');
     }
 
     public function getAverageRatingAttribute()
@@ -89,57 +46,40 @@ class Tour extends Model
         return $totalReviews > 0 ? round($sumOfRatings / $totalReviews, 1) : null;
     }
 
-    public function faqs()
+    public function medias()
     {
-        return $this->hasMany(ToursFaq::class, 'tour_id');
-    }
-
-    public function itineraries()
-    {
-        return $this->hasMany(TourItinerary::class, 'tour_id');
-    }
-
-    public function tour_attributes()
-    {
-        return $this->hasMany(TourAttribute::class, 'tour_id');
-    }
-
-    public function inclusions()
-    {
-        return $this->hasMany(TourInclusion::class, 'tour_id');
-    }
-
-    public function exclusions()
-    {
-        return $this->hasMany(TourExclusion::class, 'tour_id');
+        return $this->hasMany(TourMedia::class, 'tour_id');
     }
 
     protected static function boot()
     {
         parent::boot();
 
-        static::deleting(function ($tour) {
-            $tour->cities()->detach();
-            $tour->categories()->detach();
+        static::deleting(function ($item) {
+            if ($item->isForceDeleting()) {
+                self::deleteImage($item->featured_image);
+                if ($item->seo) {
+                    self::deleteImage($item->seo->seo_featured_image);
+                    self::deleteImage($item->seo->fb_featured_image);
+                    self::deleteImage($item->seo->tw_featured_image);
+                    $item->seo->delete();
+                }
+                $item->cities()->detach();
 
-            $tour->faqs()->each(function ($faq) {
-                $faq->delete();
-            });
-            $tour->itineraries()->each(function ($itinerary) {
-                $itinerary->delete();
-            });
-            $tour->tour_attributes()->each(function ($tour_attribute) {
-                $tour_attribute->delete();
-            });
-            $tour->inclusions()->each(function ($inclusion) {
-                $inclusion->delete();
-            });
-            $tour->exclusions()->each(function ($exclusion) {
-                $exclusion->delete();
-            });
-            $tour->reviews()->each(function ($review) {
-                $review->delete();
-            });
+                $item->medias()->each(function ($media) {
+                    self::deleteImage($media->image_path);
+                });
+                $item->reviews()->each(function ($review) {
+                    $review->delete();
+                });
+            }
         });
+    }
+
+    public static function deleteImage($path)
+    {
+        if ($path && Storage::disk('public')->exists($path)) {
+            Storage::disk('public')->delete($path);
+        }
     }
 }

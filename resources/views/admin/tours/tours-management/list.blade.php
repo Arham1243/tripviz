@@ -54,9 +54,11 @@
                                                 </div>
                                             </td>
                                             <td>
+                                                
                                                 <a href="{{ route('admin.tours.edit', $item->id) }}"
                                                     class="link">{{ $item->title }}</a>
                                             </td>
+                                            
                                             <td>{{ $item->category->name ?? 'N/A' }}</td>
                                             <td>{{ formatDateTime($item->created_at) }}</td>
                                             <td>
