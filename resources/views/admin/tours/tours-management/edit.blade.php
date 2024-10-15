@@ -118,7 +118,7 @@
                                                 <select name="tour[general][category_id]" class="choice-select"
                                                     data-error="Category" placeholder="Select Categories">
                                                     @php
-                                                        renderCategories($categories, $tour->category->id);
+                                                        renderCategories($categories, $tour->category->id ?? null);
                                                     @endphp
                                                 </select>
                                                 @error('tour[general][category_id]')
@@ -284,7 +284,7 @@
                                                                     <td>
                                                                         <input name="tour[general][exclusions][]"
                                                                             type="text" class="field"
-                                                                            value="{{ $exclusion }}"> 
+                                                                            value="{{ $exclusion }}">
                                                                     </td>
                                                                     <td>
                                                                         <button type="button"
@@ -438,14 +438,16 @@
                                             </div>
 
                                             <div class="form-fields">
-                                                <input type="hidden" name="tour[general][banner_type]" value="{{$tour->banner_type ?? '1'}}">
+                                                <input type="hidden" name="tour[general][banner_type]"
+                                                    value="{{ $tour->banner_type ?? '1' }}">
                                                 <div class="title">
                                                     <div>Banner Image <span class="text-danger">*</span>:</div>
                                                 </div>
 
                                                 <div class="upload upload--banner" data-upload>
                                                     <div class="upload-box-wrapper">
-                                                        <div class="upload-box {{$tour->banner_image ?? '1'}}show" data-upload-box>
+                                                        <div class="upload-box {{ $tour->banner_image ?? '1' }}show"
+                                                            data-upload-box>
                                                             <input type="file" name="banner_image"
                                                                 data-error="Feature Image" id="banner_featured_image"
                                                                 class="upload-box__file d-none" accept="image/*"
@@ -1661,29 +1663,40 @@
                                     </div>
                                 </div>
                             </div>
-                            @if (!$attributes->isEmpty())
-                                @foreach ($attributes as $attribute)
-                                    <div class="form-box">
-                                        <div class="form-box__header">
-                                            <div class="title">Attribute: {{ $attribute->name }}</div>
-                                        </div>
-                                        <div class="form-box__body">
-                                            @foreach (json_decode($attribute->items) as $index => $item)
-                                                <div class="form-check mb-1">
-                                                    <input class="form-check-input" type="checkbox"
-                                                        name="tour[status][attributes][{{ $attribute->id }}][]"
-                                                        id="attribute-{{ $attribute->id }}-{{ $index }}"
-                                                        value="{{ $item }}">
-                                                    <label class="form-check-label"
-                                                        for="attribute-{{ $attribute->id }}-{{ $index }}">
-                                                        {{ $item }}
-                                                    </label>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                @endforeach
-                            @endif
+
+
+                            @if (!$tour->attributes || $tour->attributes->isEmpty())
+@else
+    @foreach ($attributes as $attribute)
+        @if (!$attribute->attributeItems->isEmpty())
+            <div class="form-box">
+                <div class="form-box__header">
+                    <div class="title">Attribute: {{ $attribute->name }}</div>
+                </div>
+                <div class="form-box__body">
+                    @foreach ($attribute->attributeItems as $index => $item)
+                        <div class="form-check mb-1">
+                            <input class="form-check-input" type="checkbox"
+                                name="tour[status][attributes][{{ $attribute->id }}][]"
+                                id="attribute-{{ $item->id }}-{{ $index }}"
+                                value="{{ $item->id }}"
+                                @if ($tour->attributes->contains($attribute->id) && 
+                                     $item->tourAttributes && 
+                                     $item->tourAttributes->contains($attribute->id)) checked @endif>
+                            <label class="form-check-label"
+                                for="attribute-{{ $item->id }}-{{ $index }}">
+                                {{ $item->item }}
+                            </label>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
+    @endforeach
+@endif
+
+
+
                             <div class="form-box">
                                 <div class="form-box__header">
                                     <div class="title">Ical</div>
@@ -1709,7 +1722,7 @@
                             </div>
                         </div>
                         <div x-show="optionTab === 'seo'" class="seo-options">
-                            <x-seo-options :seo="$seo ??  null" :resource="'tours'" />
+                            <x-seo-options :seo="$seo ?? null" :resource="'tours'" />
                         </div>
                         <button type="submit" class="themeBtn mt-4 ms-auto">Save Changes<i
                                 class='bx bx-check'></i></button>

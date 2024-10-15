@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\Tour\CategoriesController as TourCategoriesContro
 use App\Http\Controllers\Admin\Tour\ReviewController as TourReviewController;
 use App\Http\Controllers\Admin\Tour\AvailabilityController as TourAvailabilityController;
 use App\Http\Controllers\Admin\Tour\TourController;
+use App\Http\Controllers\Admin\IcalController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/admins', function () {
@@ -46,9 +47,11 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('tours', TourController::class);
     Route::resource('tour-attributes', AttributesController::class);
+    Route::get('delete/attribute-item/{id}', [AttributesController::class,'deleteItem'])->name('tour-attribute-item.delete');
     Route::resource('tour-categories', TourCategoriesController::class);
     Route::resource('tour-reviews', TourReviewController::class);
     Route::resource('tour-availability', TourAvailabilityController::class);
+    Route::get('export-ical', IcalController::class)->name('ical.export');
 
     Route::resource('countries', CountryController::class);
     Route::resource('cities', CityController::class);

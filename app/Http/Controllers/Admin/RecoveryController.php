@@ -69,6 +69,7 @@ class RecoveryController extends Controller
                 break;
             case 'tours':
                 $items = Tour::onlyTrashed()->get();
+                $primaryColumn = 'id';
                 break;
             case 'tour-categories':
                 $items = TourCategory::onlyTrashed()->get();

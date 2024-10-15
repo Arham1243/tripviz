@@ -70,7 +70,7 @@ class BulkActionController extends Controller
                 break;
             case 'tours':
                 $modelClass = Tour::class;
-                $column = 'slug';
+                $column = 'id';
                 $redirectRoute = 'admin.tours.index';
                 break;
             case 'tour-categories':

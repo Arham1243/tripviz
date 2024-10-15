@@ -18,7 +18,7 @@ function populateTimeDropdown() {
                         .format("HH:mm");
 
                     const option = document.createElement("option");
-                    option.value = minutes;
+                    option.value = time;
 
                     // Check if we should show minutes in the option text
                     option.textContent = showMinutes

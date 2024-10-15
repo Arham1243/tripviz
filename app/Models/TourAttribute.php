@@ -16,4 +16,16 @@ class TourAttribute extends Model
         'status',
         'items',
     ];
+
+    public function attributeItems()
+    {
+        return $this->hasMany(TourAttributeItem::class);
+    }
+
+    public function tours()
+    {
+        return $this->belongsToMany(Tour::class, 'tour_attribute_tour_attribute_item')
+            ->withPivot('tour_attribute_item_id')
+            ->withTimestamps();
+    }
 }

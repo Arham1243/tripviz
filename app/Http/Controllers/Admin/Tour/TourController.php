@@ -8,16 +8,20 @@ use App\Models\Category;
 use App\Models\City;
 use App\Models\Tour;
 use App\Models\TourAttribute;
+use App\Models\TourAvailability;
 use App\Models\TourCategory;
+use App\Models\TourDetail;
 use App\Models\TourExclusion;
 use App\Models\TourInclusion;
 use App\Models\TourItinerary;
 use App\Models\TourMedia;
+use App\Models\TourOpenHour;
 use App\Models\ToursAdditional;
 use App\Models\ToursFaq;
 use App\Models\User;
 use App\Traits\Sluggable;
 use App\Traits\UploadImageTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -41,7 +45,6 @@ class TourController extends Controller
         $tours = Tour::all();
         $users = User::where('is_active', 1)->get();
         $attributes = TourAttribute::where('status', 'active')
-            ->whereRaw('JSON_LENGTH(items) > 0')
             ->latest()->get();
 
         $cities = City::where('status', 'publish')->get();
@@ -54,24 +57,19 @@ class TourController extends Controller
     {
         $general = $request->input('tour.general', []);
         $statusTab = $request->input('tour.status', []);
-    
+        $availabilityData = $request->input('tour.availability', []);
+
+
         $slugText = !empty($general['slug']) ? $general['slug'] : $general['title'];
         $slug = $this->createSlug($slugText, 'tours');
-    
+
         $inclusions = !empty($general['inclusions']) ? json_encode($general['inclusions']) : null;
         $exclusions = !empty($general['exclusions']) ? json_encode($general['exclusions']) : null;
         $features = !empty($general['features']) ? json_encode($general['features']) : null;
         $details = !empty($general['details']) ? json_encode($general['details']) : null;
-    
-        $processedAttributes = [];
-    
-        $attributes = $statusTab['attributes'] ?? [];
-        foreach ($attributes as $attributeId => $items) {
-            $processedAttributes[$attributeId] = json_encode($items);
-        }
-    
+
         $relatedTours = !empty($request->input('related_tour_ids')) ? json_encode($request->input('related_tour_ids')) : null;
-    
+
         $tour = Tour::create([
             'title' => $general['title'],
             'slug' => $slug,
@@ -94,14 +92,13 @@ class TourController extends Controller
             'ical_import_url' => $statusTab['ical_import_url'] ?? null,
             'ical_export_url' => $statusTab['ical_export_url'] ?? null,
             'related_tour_ids' => $relatedTours,
-            'attributes' => !empty($processedAttributes) ? json_encode($processedAttributes) : null, // Safely handle attributes
         ]);
-    
+
         // Handle FAQs
         if (isset($general['faq']['question']) && is_array($general['faq']['question'])) {
             foreach ($general['faq']['question'] as $index => $question) {
                 $answer = $general['faq']['answer'][$index] ?? null;
-                
+
                 if (!empty($question) && !empty($answer)) {
                     ToursFaq::create([
                         'question' => $question,
@@ -111,7 +108,16 @@ class TourController extends Controller
                 }
             }
         }
-    
+
+        // Handle attributes and items
+        if (!empty($statusTab['attributes'])) {
+            foreach ($statusTab['attributes'] as $attributeId => $itemIds) {
+                foreach ($itemIds as $itemId) {
+                    $tour->attributes()->attach($attributeId, ['tour_attribute_item_id' => $itemId]);
+                }
+            }
+        }
+
         // Handle gallery images
         if (!empty($request['gallery'])) {
             $this->uploadMultipleImages(
@@ -125,17 +131,54 @@ class TourController extends Controller
                 $tour->id // foreign key value
             );
         }
-    
+
+        // Handle details
+        if (!empty($general['details'])) {
+            foreach ($general['details'] as $detail) {
+                TourDetail::create([
+                    'tour_id' => $tour->id,
+                    'name' => $detail['name'],
+                    'items' => json_encode($detail['items']),
+                ]);
+            }
+        }
+
+        // Store Availability
+        if (!empty($availabilityData)) {
+            $availability = TourAvailability::create([
+                'tour_id' => $tour->id,
+                'is_fixed_date' => $availabilityData['is_fixed_date'] ?? 0,
+                'start_date' => Carbon::createFromFormat('d-M-Y', $availabilityData['start_date'])->format('Y-m-d'),
+                'end_date' => Carbon::createFromFormat('d-M-Y', $availabilityData['end_date'])->format('Y-m-d'),
+                'last_booking_date' => Carbon::createFromFormat('d-M-Y', $availabilityData['last_booking_date'])->format('Y-m-d'),
+                'is_open_hours' => $availabilityData['is_open_hours'] ?? 0,
+            ]);
+
+            // Store Open Hours if is_open_hours is true
+            if ($availabilityData['is_open_hours'] && !empty($availabilityData['open_hours'])) {
+                foreach ($availabilityData['open_hours'] as $hours) {
+                    TourOpenHour::create([
+                        'tour_availability_id' => $availability->id,
+                        'day' => $hours['day'],
+                        'open_time' => $hours['open_time'],
+                        'close_time' => $hours['close_time'],
+                        'enabled' => $hours['enabled'] ?? 0,
+                    ]);
+                }
+            }
+        }
+
+
         // Handle banner and featured images
         $this->uploadImg('banner_image', 'Tour/Banner/Featured-image', $tour, 'banner_image');
         $this->uploadImg('featured_image', 'Tour/Featured-image', $tour, 'featured_image');
-    
+
         // Handle SEO data
         handleSeoData($request, $tour, 'Tour');
-    
+
         return redirect()->route('admin.tours.index')->with('notify_success', 'Tour Added successfully.')->with('active_tab', 'details');
     }
-    
+
 
     public function show($id)
     {
@@ -150,74 +193,22 @@ class TourController extends Controller
 
     public function edit($id)
     {
-        $tour = Tour::findOrFail($id);
+        $tour = Tour::with(['attributes', 'attributes.attributeItems'])->find($id);
+        $attributes = TourAttribute::where('status', 'active')
+            ->latest()->get();
         $categories = TourCategory::where('status', 'publish')->latest()->get();
         // $tours = Tour::where('status', 'publish')->get();
         $tours = Tour::all();
         $users = User::where('is_active', 1)->get();
-        $attributes = TourAttribute::where('status', 'active')
-            ->whereRaw('JSON_LENGTH(items) > 0')
-            ->latest()->get();
 
         $cities = City::where('status', 'publish')->get();
-        $data = compact('tour', 'categories', 'cities', 'attributes', 'tours', 'users');
+        $data = compact('tour', 'categories', 'cities', 'tours', 'users', 'attributes');
         return view('admin.tours.tours-management.edit', $data)->with('title', ucfirst(strtolower($tour->title)));
     }
 
     public function update(Request $request, $id)
     {
-        $tour = Tour::findOrFail($id);
-        $priceType = $request->input('price_type');
-
-        // Define validation rules
-        $rules = [
-            'title' => 'nullable|string|max:255',
-            'short_desc' => 'nullable|string',
-            'price_type' => 'required|in:per_person,per_car',
-            'city_ids' => 'required|array',
-            'category_ids' => 'required|array',
-            'show_on_homepage' => 'nullable',
-        ];
-        if ($priceType === 'per_person') {
-            $rules['for_adult_price'] = 'required|numeric|min:0';
-            $rules['for_child_price'] = 'required|numeric|min:0';
-            $rules['for_car_price'] = 'nullable'; // Ensure 'for_car_price' is not validated if not needed
-        } else {
-            $rules['for_car_price'] = 'required|numeric|min:0';
-            $rules['for_adult_price'] = 'nullable'; // Ensure 'for_adult_price' is not validated if not needed
-            $rules['for_child_price'] = 'nullable'; // Ensure 'for_child_price' is not validated if not needed
-        }
-
-        if (! $request->show_on_homepage) {
-            $show_on_homepage = 0;
-        }
-
-        $validatedData = $request->validate($rules);
-
-        // Set price_type and other fields
-        $data = array_merge($validatedData, ['price_type' => $priceType, 'show_on_homepage' => isset($show_on_homepage) ? $show_on_homepage : $request->show_on_homepage]);
-
-        // Handle price fields based on price_type
-        if ($priceType === 'per_person') {
-            $data['for_car_price'] = null; // Clear irrelevant field
-        } else {
-            $data['for_adult_price'] = null; // Clear irrelevant fields
-            $data['for_child_price'] = null;
-        }
-
-        // Generate new slug if the title has changed
-        if (! empty($validatedData['title']) && $validatedData['title'] !== $tour->title) {
-            $data['slug'] = $this->createSlug($validatedData['title'], 'tours');
-        }
-
-        $tour->update($data);
-
-        // Sync relationships
-        $tour->cities()->sync($validatedData['city_ids']);
-        $tour->categories()->sync($validatedData['category_ids']);
-
-        // Handle image upload
-        $this->uploadImg('img_path', 'img_path', 'Tour/Cover-images', $tour);
+        dd($request->all());
 
         return redirect()->route('admin.tours.index')->with('notify_success', 'Tour updated successfully.');
     }

@@ -1781,6 +1781,9 @@ input[readonly]:not(.date-picker,.date-picker-time) {
 .permalink .link[type="button"] {
     color: blue;
 }
+.permalink .link[type="button"]:hover {
+    text-decoration: underline !important;
+}
 .permalink .link[type="text"] {
     border-color: #000;
     color: #000;

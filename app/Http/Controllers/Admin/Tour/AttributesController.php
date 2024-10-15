@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Tour;
 
 use App\Http\Controllers\Controller;
 use App\Models\TourAttribute;
+use App\Models\TourAttributeItem;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
@@ -47,9 +48,7 @@ class AttributesController extends Controller
     public function edit($id)
     {
         $attribute = TourAttribute::find($id);
-        $attribute->items = json_decode($attribute->items, true);
         $data = compact('attribute');
-
         return view('admin.tours.attributes.edit')->with('title', ucfirst(strtolower($attribute->name)))->with($data);
     }
 
@@ -64,24 +63,27 @@ class AttributesController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|min:3|max:255',
             'items' => 'nullable|array',
-            'items.*' => 'nullable|string|min:3',
+            'items.*.id' => 'nullable|integer|exists:tour_attribute_items,id',
+            'items.*.item' => 'nullable|string|min:3',
             'status' => 'required|in:active,inactive',
         ]);
 
         $attribute = TourAttribute::findOrFail($id);
 
         $validItems = array_filter($validatedData['items'], function ($item) {
-            return ! is_null($item) && trim($item) !== '';
+            return !is_null($item['item']) && trim($item['item']) !== '';
         });
 
-        $attribute->update([
-            'name' => $validatedData['name'],
-            'items' => json_encode($validItems),
-            'status' => $validatedData['status'],
-        ]);
+        foreach ($validItems as $item) {
+            if (isset($item['id']) && !empty($item['id'])) {
+                $attribute->attributeItems()->where('id', $item['id'])->update(['item' => $item['item']]);
+            } else {
+                $attribute->attributeItems()->create(['item' => $item['item']]);
+            }
+        }
 
         return redirect()->route('admin.tour-attributes.index')
-            ->with('success', 'Attribute updated successfully.');
+            ->with('notify_success', 'Attribute updated successfully.');
     }
 
     /**
@@ -90,18 +92,18 @@ class AttributesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deleteItem($id)
     {
         try {
-            $attribute = TourAttribute::findOrFail($id);
+            $attribute = TourAttributeItem::findOrFail($id);
             $attribute->delete();
 
             return redirect()->back()
-                ->with('notify_success', 'Tour attribute deleted successfully.')
+                ->with('notify_success', 'Attribute Item deleted successfully.')
                 ->with('active_tab', 'attributes');
         } catch (ModelNotFoundException $e) {
             return redirect()->back()
-                ->with('notify_error', 'Tour attribute not found.')
+                ->with('notify_error', 'Attribute Item not found.')
                 ->with('active_tab', 'attributes');
         }
     }

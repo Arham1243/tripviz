@@ -32,10 +32,21 @@ class Tour extends Model
     {
         return $this->hasMany(ToursFaq::class);
     }
+    public function details()
+    {
+        return $this->hasMany(TourDetail::class);
+    }
 
     public function seo()
     {
         return $this->morphOne(Seo::class, 'seoable');
+    }
+
+    public function attributes()
+    {
+        return $this->belongsToMany(TourAttribute::class, 'tour_attribute_tour_attribute_item')
+            ->withPivot('tour_attribute_item_id')
+            ->withTimestamps();
     }
 
     public function getAverageRatingAttribute()
@@ -50,6 +61,11 @@ class Tour extends Model
     {
         return $this->hasMany(TourMedia::class, 'tour_id');
     }
+    public function availabilities()
+    {
+        return $this->hasMany(TourAvailability::class);
+    }
+
 
     protected static function boot()
     {
@@ -64,13 +80,24 @@ class Tour extends Model
                     self::deleteImage($item->seo->tw_featured_image);
                     $item->seo->delete();
                 }
-                $item->cities()->detach();
-
+                $item->attributes()->detach();
                 $item->medias()->each(function ($media) {
                     self::deleteImage($media->image_path);
                 });
                 $item->reviews()->each(function ($review) {
                     $review->delete();
+                });
+                $item->faqs()->each(function ($faq) {
+                    $faq->delete();
+                });
+                $item->details()->each(function ($detail) {
+                    $detail->delete();
+                });
+                $item->availabilities()->each(function ($availability) {
+                    $availability->openHours()->each(function ($openHour) {
+                        $openHour->delete();
+                    });
+                    $availability->delete();
                 });
             }
         });

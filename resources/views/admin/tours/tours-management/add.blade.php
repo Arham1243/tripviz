@@ -91,7 +91,7 @@
                                                 <label class="title">Title <span class="text-danger">*</span> :</label>
                                                 <input type="text" name="tour[general][title]" class="field"
                                                     value="{{ old('tour[general][title]') }}" placeholder=""
-                                                    data-error="Title">
+                                                    data-error="Title" data-required-->
                                                 @error('tour[general][title]')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -101,7 +101,7 @@
                                             <div class="form-fields">
                                                 <label class="title">Content <span class="text-danger">*</span>
                                                     :</label>
-                                                <textarea class="editor" name="tour[general][content]" data-placeholder="content" data-error="Content">
+                                                <textarea class="editor" data-required-- name="tour[general][content]" data-placeholder="content" data-error="Content">
                                             {{ old('tour[general][content]') }}
                                         </textarea>
                                                 @error('tour[general][content]')
@@ -114,7 +114,8 @@
                                                 <label class="title">Categories <span class="text-danger">*</span>
                                                     :</label>
                                                 <select name="tour[general][category_id]" class="choice-select"
-                                                    data-error="Category" placeholder="Select Categories">
+                                                    data-error="Category" data-required-->
+                                                    <option value="" disabled selected>Select Category</option>
                                                     @php
                                                         renderCategories($categories);
                                                     @endphp
@@ -416,9 +417,9 @@
                                                     <div class="upload-box-wrapper">
                                                         <div class="upload-box show" data-upload-box>
                                                             <input type="file" name="banner_image"
-                                                                data-error="Feature Image" id="banner_featured_image"
+                                                                data-error="Banner Image" id="banner_featured_image"
                                                                 class="upload-box__file d-none" accept="image/*"
-                                                                data-file-input>
+                                                                data-file-input data-required-->
                                                             <div class="upload-box__placeholder"><i
                                                                     class='bx bxs-image'></i>
                                                             </div>
@@ -1345,8 +1346,9 @@
                                                 <div class="form-fields">
                                                     <div class="title">Fixed dates:</div>
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="fixed_date"
-                                                            id="fixed_date" value="1" x-model="fixedDate">
+                                                        <input class="form-check-input" type="checkbox"
+                                                            name="tour[availability][is_fixed_date]" id="fixed_date"
+                                                            value="0" x-model="fixedDate"  @change="fixedDate = fixedDate ? 1 : 0">
                                                         <label class="form-check-label" for="fixed_date">
                                                             Enable Fixed Date
                                                         </label>
@@ -1361,9 +1363,9 @@
                                                                     class="text-danger">*</span>
                                                                 :</label>
                                                             <input type="text" class="field date-picker"
-                                                                placeholder="Select a date" name="start_date"
-                                                                autocomplete="off">
-                                                            @error('start_date')
+                                                                placeholder="Select a date"
+                                                                name="tour[availability][start_date]" autocomplete="off">
+                                                            @error('availability[start_date]')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
                                                         </div>
@@ -1374,9 +1376,9 @@
                                                                     class="text-danger">*</span>
                                                                 :</label>
                                                             <input type="text" class="field date-picker"
-                                                                placeholder="Select a date" name="end_date"
-                                                                autocomplete="off">
-                                                            @error('end_date')
+                                                                placeholder="Select a date"
+                                                                name="tour[availability][end_date]" autocomplete="off">
+                                                            @error('availability[end_date]')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
                                                         </div>
@@ -1387,8 +1389,9 @@
                                                                     class="text-danger">*</span>
                                                                 :</label>
                                                             <input type="text" class="field date-picker"
-                                                                placeholder="Select a date" name="last_booking_date">
-                                                            @error('last_booking_date')
+                                                                placeholder="Select a date"
+                                                                name="tour[availability][last_booking_date]">
+                                                            @error('availability[last_booking_date]')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
                                                         </div>
@@ -1403,8 +1406,9 @@
                                                 <div class="form-fields">
                                                     <div class="title">Open Hours:</div>
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="openHours"
-                                                            id="openHours" value="1" x-model="openHours">
+                                                        <input class="form-check-input" type="checkbox"
+                                                            name="tour[availability][is_open_hours]" id="openHours"
+                                                            value="0" x-model="openHours" @change="openHours = openHours ? 1 : 0">
                                                         <label class="form-check-label" for="openHours">
                                                             Enable Open Hours
                                                         </label>
@@ -1433,13 +1437,16 @@
                                                                         'Friday',
                                                                     ];
                                                                 @endphp
-                                                                @foreach ($days as $day)
+                                                                @for ($i = 0; $i < count($days); $i++)
+                                                                    @php
+                                                                        $day = $days[$i];
+                                                                    @endphp
                                                                     <tr>
                                                                         <td>
                                                                             <div class="form-check">
                                                                                 <input class="form-check-input"
                                                                                     type="checkbox"
-                                                                                    name="open_hours[day][]"
+                                                                                    name="tour[availability][open_hours][{{ $i }}][enabled]"
                                                                                     id="{{ $day }}"
                                                                                     value="1">
                                                                                 <label class="form-check-label"
@@ -1449,26 +1456,30 @@
                                                                             </div>
                                                                         </td>
                                                                         <td>
-                                                                            <input name="open_hours[day][]" type="text"
+                                                                            <input
+                                                                                name="tour[availability][open_hours][{{ $i }}][day]"
+                                                                                type="text"
                                                                                 value="{{ $day }}"
                                                                                 class="field" readonly>
                                                                         </td>
                                                                         <td>
-                                                                            <select name="open_hours[open][]"
+                                                                            <select
+                                                                                name="tour[availability][open_hours][{{ $i }}][open_time]"
                                                                                 data-time-start="60" data-time-end="1440"
                                                                                 data-time-span="60"
                                                                                 class="field time-dropdown"></select>
                                                                         </td>
                                                                         <td>
-                                                                            <select name="open_hours[close][]"
+                                                                            <select
+                                                                                name="tour[availability][open_hours][{{ $i }}][close_time]"
                                                                                 data-time-start="60"
                                                                                 data-time-end="1440" data-time-span="60"
                                                                                 class="field time-dropdown"></select>
                                                                         </td>
-
                                                                     </tr>
-                                                                @endforeach
+                                                                @endfor
                                                             </tbody>
+
                                                         </table>
                                                     </div>
                                                 </div>
@@ -1539,7 +1550,7 @@
                                                             <input type="file" name="featured_image"
                                                                 data-error="Feature Image" id="featured_image"
                                                                 class="upload-box__file d-none" accept="image/*"
-                                                                data-file-input>
+                                                                data-file-input data-required-->
                                                             <div class="upload-box__placeholder"><i
                                                                     class='bx bxs-image'></i>
                                                             </div>
@@ -1555,7 +1566,7 @@
                                                                     alt="Uploaded Image" class="imgFluid"
                                                                     data-upload-preview>
                                                             </a>
-                                                            <input type="text" name="feature_image_alt_text"
+                                                            <input type="text" name="featured_image_alt_text"
                                                                 class="field" placeholder="Enter alt text"
                                                                 value="Feature Image">
                                                         </div>
@@ -1631,27 +1642,30 @@
                             </div>
                             @if (!$attributes->isEmpty())
                                 @foreach ($attributes as $attribute)
-                                    <div class="form-box">
-                                        <div class="form-box__header">
-                                            <div class="title">Attribute: {{ $attribute->name }}</div>
+                                    @if (!$attribute->attributeItems->isEmpty())
+                                        <div class="form-box">
+                                            <div class="form-box__header">
+                                                <div class="title">Attribute: {{ $attribute->name }}</div>
+                                            </div>
+                                            <div class="form-box__body">
+                                                @foreach ($attribute->attributeItems as $index => $item)
+                                                    <div class="form-check mb-1">
+                                                        <input class="form-check-input" type="checkbox"
+                                                            name="tour[status][attributes][{{ $attribute->id }}][]"
+                                                            id="attribute-{{ $item->id }}-{{ $index }}"
+                                                            value="{{ $item->id }}">
+                                                        <label class="form-check-label"
+                                                            for="attribute-{{ $item->id }}-{{ $index }}">
+                                                            {{ $item->item }}
+                                                        </label>
+                                                    </div>
+                                                @endforeach
+                                            </div>
                                         </div>
-                                        <div class="form-box__body">
-                                            @foreach (json_decode($attribute->items) as $index => $item)
-                                                <div class="form-check mb-1">
-                                                    <input class="form-check-input" type="checkbox"
-                                                        name="tour[status][attributes][{{ $attribute->id }}][]"
-                                                        id="attribute-{{ $attribute->id }}-{{ $index }}"
-                                                        value="{{ $item }}">
-                                                    <label class="form-check-label"
-                                                        for="attribute-{{ $attribute->id }}-{{ $index }}">
-                                                        {{ $item }}
-                                                    </label>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
+                                    @endif
                                 @endforeach
                             @endif
+
                             <div class="form-box">
                                 <div class="form-box__header">
                                     <div class="title">Ical</div>
