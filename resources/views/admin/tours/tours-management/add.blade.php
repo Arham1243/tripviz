@@ -1436,6 +1436,32 @@
                                                                         'Thursday',
                                                                         'Friday',
                                                                     ];
+                                                                    $timeSlots = [
+                                                                                    '00:00:00',
+                                                                                    '02:00:00',
+                                                                                    '03:00:00',
+                                                                                    '04:00:00',
+                                                                                    '05:00:00',
+                                                                                    '06:00:00',
+                                                                                    '07:00:00',
+                                                                                    '08:00:00',
+                                                                                    '09:00:00',
+                                                                                    '10:00:00',
+                                                                                    '11:00:00',
+                                                                                    '12:00:00',
+                                                                                    '13:00:00',
+                                                                                    '14:00:00',
+                                                                                    '15:00:00',
+                                                                                    '16:00:00',
+                                                                                    '17:00:00',
+                                                                                    '18:00:00',
+                                                                                    '19:00:00',
+                                                                                    '20:00:00',
+                                                                                    '21:00:00',
+                                                                                    '22:00:00',
+                                                                                    '23:00:00',
+                                                                                ];
+
                                                                 @endphp
                                                                 @for ($i = 0; $i < count($days); $i++)
                                                                     @php
@@ -1465,16 +1491,24 @@
                                                                         <td>
                                                                             <select
                                                                                 name="tour[availability][open_hours][{{ $i }}][open_time]"
-                                                                                data-time-start="60" data-time-end="1440"
-                                                                                data-time-span="60"
-                                                                                class="field time-dropdown"></select>
+                                                                                class="field">
+                                                                                @foreach ($timeSlots as $slot)
+                                                                                <option value="{{ $slot }}">
+                                                                                    {{ date('H:i', strtotime($slot)) }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
                                                                         </td>
                                                                         <td>
                                                                             <select
                                                                                 name="tour[availability][open_hours][{{ $i }}][close_time]"
-                                                                                data-time-start="60"
-                                                                                data-time-end="1440" data-time-span="60"
-                                                                                class="field time-dropdown"></select>
+                                                                                class="field">
+                                                                                @foreach ($timeSlots as $slot)
+                                                                                <option value="{{ $slot }}">
+                                                                                    {{ date('H:i', strtotime($slot)) }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
                                                                         </td>
                                                                     </tr>
                                                                 @endfor

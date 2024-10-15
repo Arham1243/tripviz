@@ -32,7 +32,7 @@ class Tour extends Model
     {
         return $this->hasMany(ToursFaq::class);
     }
-    public function details()
+    public function tourDetails()
     {
         return $this->hasMany(TourDetail::class);
     }
@@ -57,7 +57,7 @@ class Tour extends Model
         return $totalReviews > 0 ? round($sumOfRatings / $totalReviews, 1) : null;
     }
 
-    public function medias()
+    public function media()
     {
         return $this->hasMany(TourMedia::class, 'tour_id');
     }
@@ -90,7 +90,7 @@ class Tour extends Model
                 $item->faqs()->each(function ($faq) {
                     $faq->delete();
                 });
-                $item->details()->each(function ($detail) {
+                $item->tourDetails()->each(function ($detail) {
                     $detail->delete();
                 });
                 $item->availabilities()->each(function ($availability) {

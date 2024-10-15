@@ -54,11 +54,11 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                
-                                                <a href="javascript:void(0)"
+
+                                                <a href="{{ route('admin.tours.edit', $item->id) }}"
                                                     class="link">{{ $item->title }}</a>
                                             </td>
-                                            
+
                                             <td>{{ $item->category->name ?? 'N/A' }}</td>
                                             <td>{{ formatDateTime($item->created_at) }}</td>
                                             <td>
@@ -68,7 +68,7 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <a href="javascript:void(0)" class="themeBtn"><i
+                                                <a href="{{ route('admin.tours.edit', $item->id) }}" class="themeBtn"><i
                                                         class='bx bxs-edit'></i>Edit</a>
                                             </td>
                                         </tr>

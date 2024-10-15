@@ -78,7 +78,7 @@ class TourController extends Controller
             'badge_icon_class' => $general['badge_icon_class'],
             'badge_name' => $general['badge_name'],
             'banner_image_alt_text' => $request->input('banner_image_alt_text'),
-            'feature_image_alt_text' => $request->input('feature_image_alt_text'),
+            'featured_image_alt_text' => $request->input('featured_image_alt_text'),
             'banner_type' => $general['banner_type'],
             'video_link' => $general['video_link'],
             'inclusions' => $inclusions,
@@ -148,9 +148,9 @@ class TourController extends Controller
             $availability = TourAvailability::create([
                 'tour_id' => $tour->id,
                 'is_fixed_date' => $availabilityData['is_fixed_date'] ?? 0,
-                'start_date' => Carbon::createFromFormat('d-M-Y', $availabilityData['start_date'])->format('Y-m-d'),
-                'end_date' => Carbon::createFromFormat('d-M-Y', $availabilityData['end_date'])->format('Y-m-d'),
-                'last_booking_date' => Carbon::createFromFormat('d-M-Y', $availabilityData['last_booking_date'])->format('Y-m-d'),
+                'start_date' => Carbon::createFromFormat('Y/m/d', $availabilityData['start_date'])->format('Y-m-d'),
+                'end_date' => Carbon::createFromFormat('Y/m/d', $availabilityData['end_date'])->format('Y-m-d'),
+                'last_booking_date' => Carbon::createFromFormat('Y/m/d', $availabilityData['last_booking_date'])->format('Y-m-d'),
                 'is_open_hours' => $availabilityData['is_open_hours'] ?? 0,
             ]);
 
@@ -180,6 +180,17 @@ class TourController extends Controller
     }
 
 
+    public function deleteMedia(TourMedia $media)
+    {
+        if (!$media) {
+            return redirect()->back()->with('notify_error', 'Media not found');
+        }
+        $this->deletePreviousImage($media->image_path ?? null);
+        $media->delete();
+
+        return redirect()->back()->with('notify_success', 'Media deleted successfully');
+    }
+
     public function show($id)
     {
         try {
@@ -193,7 +204,7 @@ class TourController extends Controller
 
     public function edit($id)
     {
-        $tour = Tour::with(['attributes', 'attributes.attributeItems'])->find($id);
+        $tour = Tour::with(['attributes', 'attributes.attributeItems','availabilities.openHours'])->find($id);
         $attributes = TourAttribute::where('status', 'active')
             ->latest()->get();
         $categories = TourCategory::where('status', 'publish')->latest()->get();
