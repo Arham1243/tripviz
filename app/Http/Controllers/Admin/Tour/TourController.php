@@ -144,7 +144,7 @@ class TourController extends Controller
         }
 
         // Store Availability
-        if (!empty($availabilityData)) {
+        if (isset($availabilityData['is_fixed_date']) && $availabilityData['is_fixed_date'] == 1) {
             $availability = TourAvailability::create([
                 'tour_id' => $tour->id,
                 'is_fixed_date' => $availabilityData['is_fixed_date'] ?? 0,
@@ -155,7 +155,7 @@ class TourController extends Controller
             ]);
 
             // Store Open Hours if is_open_hours is true
-            if ($availabilityData['is_open_hours'] && !empty($availabilityData['open_hours'])) {
+            if (isset($availabilityData['is_open_hours']) && $availabilityData['is_open_hours'] == 1) {
                 foreach ($availabilityData['open_hours'] as $hours) {
                     TourOpenHour::create([
                         'tour_availability_id' => $availability->id,

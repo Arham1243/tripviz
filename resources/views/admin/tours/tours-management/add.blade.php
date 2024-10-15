@@ -91,7 +91,7 @@
                                                 <label class="title">Title <span class="text-danger">*</span> :</label>
                                                 <input type="text" name="tour[general][title]" class="field"
                                                     value="{{ old('tour[general][title]') }}" placeholder=""
-                                                    data-error="Title" data-required-->
+                                                    data-error="Title" data-required>
                                                 @error('tour[general][title]')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -101,7 +101,7 @@
                                             <div class="form-fields">
                                                 <label class="title">Content <span class="text-danger">*</span>
                                                     :</label>
-                                                <textarea class="editor" data-required-- name="tour[general][content]" data-placeholder="content" data-error="Content">
+                                                <textarea class="editor" data-required name="tour[general][content]" data-placeholder="content" data-error="Content">
                                             {{ old('tour[general][content]') }}
                                         </textarea>
                                                 @error('tour[general][content]')
@@ -114,7 +114,7 @@
                                                 <label class="title">Categories <span class="text-danger">*</span>
                                                     :</label>
                                                 <select name="tour[general][category_id]" class="choice-select"
-                                                    data-error="Category" data-required-->
+                                                    data-error="Category" data-required>
                                                     <option value="" disabled selected>Select Category</option>
                                                     @php
                                                         renderCategories($categories);
@@ -419,7 +419,7 @@
                                                             <input type="file" name="banner_image"
                                                                 data-error="Banner Image" id="banner_featured_image"
                                                                 class="upload-box__file d-none" accept="image/*"
-                                                                data-file-input data-required-->
+                                                                data-file-input data-required>
                                                             <div class="upload-box__placeholder"><i
                                                                     class='bx bxs-image'></i>
                                                             </div>
@@ -1550,7 +1550,7 @@
                                                             <input type="file" name="featured_image"
                                                                 data-error="Feature Image" id="featured_image"
                                                                 class="upload-box__file d-none" accept="image/*"
-                                                                data-file-input data-required-->
+                                                                data-file-input data-required>
                                                             <div class="upload-box__placeholder"><i
                                                                     class='bx bxs-image'></i>
                                                             </div>
