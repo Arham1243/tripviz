@@ -40,7 +40,7 @@
                                             class="bulk-item" name="bulk_select[]" value="{{ $item->id }}"></div>
                                 </td>
                                 <td>
-                                    <a href="{{ route('admin.tour-attributes.edit', $attribute->id) }}"
+                                    <a href="{{ route('admin.tour-attributes.edit', $item->id) }}"
                                         class="link">{{ $item->name }}</a>
                                 </td>
                                 <td>
@@ -53,7 +53,7 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <a href="{{ route('admin.tour-attributes.edit', $attribute->id) }}" class="themeBtn"><i
+                                    <a href="{{ route('admin.tour-attributes.edit', $item->id) }}" class="themeBtn"><i
                                             class='bx bxs-edit'></i>Edit</a>
                                 </td>
                             </tr>
