@@ -81,7 +81,7 @@ class Tour extends Model
                     $item->seo->delete();
                 }
                 $item->attributes()->detach();
-                $item->medias()->each(function ($media) {
+                $item->media()->each(function ($media) {
                     self::deleteImage($media->image_path);
                 });
                 $item->reviews()->each(function ($review) {
