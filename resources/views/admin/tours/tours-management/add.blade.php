@@ -3,7 +3,7 @@
     <div class="col-md-12">
         <div class="dashboard-content">
             {{ Breadcrumbs::render('admin.tours.create') }}
-            <form action="{{ route('admin.tours.store') }}" method="POST" enctype="multipart/form-data" id="validation-form">
+            <form action="{{ route('admin.tours.store') }}" method="POST" enctype="multipart/form-data" id="validation-forms">
                 @csrf
                 <div class="custom-sec custom-sec--form">
                     <div class="custom-sec__header">
@@ -800,10 +800,10 @@
                                         <div class="col-md-6 col-12 mb-3">
                                             <div class="form-fields">
                                                 <label class="title">Price <span class="text-danger">*</span>:</label>
-                                                <input step="0.01" min="0" type="number" name="regular_price"
-                                                    class="field" value="{{ old('regular_price') }}"
+                                                <input step="0.01" min="0" type="number" name="tour[pricing][regular_price]"
+                                                    class="field" value="{{ old('tour[pricing][regular_price]') }}"
                                                     data-error="Price">
-                                                @error('regular_price')
+                                                @error('tour[pricing][regular_price]')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -812,10 +812,10 @@
                                             <div class="form-fields">
                                                 <label class="title">Sale Price <span
                                                         class="text-danger">*</span>:</label>
-                                                <input step="0.01" min="0" type="number" name="sale_price"
-                                                    class="field" value="{{ old('sale_price') }}"
+                                                <input step="0.01" min="0" type="number" name="tour[pricing][sale_price]"
+                                                    class="field" value="{{ old('tour[pricing][sale_price]') }}"
                                                     data-error="Sale Price">
-                                                @error('sale_price')
+                                                @error('tour[pricing][sale_price]')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -832,8 +832,8 @@
                                                     <div class="form-fields">
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox"
-                                                                name="enebled_person_types" id="enebled_person_types"
-                                                                value="1" x-model="personType">
+                                                                name="tour[pricing][is_person_type_enabled]" id="enebled_person_types"
+                                                                value="1" x-model="personType" @change="personType = personType ? 1 : 0">
                                                             <label class="form-check-label" for="enebled_person_types">
                                                                 Enable Person Types
                                                             </label>
@@ -846,32 +846,32 @@
                                                             class="d-flex align-items-center justify-content-center gap-5 mt-3 mb-4">
                                                             <div class="form-check p-0">
                                                                 <input class="form-check-input" type="radio"
-                                                                    name="tour_type" id="normal" x-model="tourType"
-                                                                    value="normal" checked>
-                                                                <label class="form-check-label" for="normal">Normal Tour
+                                                                    name="tour[pricing][price_type]" x-model="tourType"
+                                                                    value="normal" id="normalPrice" checked>
+                                                                <label class="form-check-label" for="normalPrice">Normal Tour
                                                                     Price</label>
                                                             </div>
                                                             <div class="form-check p-0">
                                                                 <input class="form-check-input" type="radio"
-                                                                    name="tour_type" id="private" x-model="tourType"
-                                                                    value="private">
-                                                                <label class="form-check-label" for="private">Private
+                                                                    name="tour[pricing][price_type]" x-model="tourType"
+                                                                    value="private" id="privatePrice">
+                                                                <label class="form-check-label" for="privatePrice">Private
                                                                     Tour Price</label>
                                                             </div>
                                                             <div class="form-check p-0">
                                                                 <input class="form-check-input" type="radio"
-                                                                    name="tour_type" id="water" x-model="tourType"
-                                                                    value="water">
-                                                                <label class="form-check-label" for="water">Water /
+                                                                    name="tour[pricing][price_type]" x-model="tourType"
+                                                                    value="water" id="waterPrice">
+                                                                <label class="form-check-label" for="waterPrice">Water /
                                                                     Desert
                                                                     Activities</label>
                                                             </div>
                                                             <div class="form-check p-0">
                                                                 <input class="form-check-input" type="radio"
-                                                                    name="tour_type" id="promo" x-model="tourType"
-                                                                    value="promo">
+                                                                    name="tour[pricing][price_type]" x-model="tourType"
+                                                                    value="promo" id="promoPrice">
                                                                 <label class="form-check-label"
-                                                                    for="promo">Promo</label>
+                                                                    for="promoPrice">Promo</label>
                                                             </div>
                                                         </div>
 
@@ -1114,7 +1114,8 @@
                                                     <div class="form-fields">
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox"
-                                                                name="enebled_extra_price" id="enebled_extra_price"
+                                                                name="tour[pricing][is_extra_price_enabled]" id="enebled_extra_price"
+                                                                @change="extraPrice = extraPrice ? 1 : 0"
                                                                 value="1" x-model="extraPrice">
                                                             <label class="form-check-label" for="enebled_extra_price">
                                                                 Enable extra price
@@ -1131,9 +1132,7 @@
                                                                     <table class="table table-bordered">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th scope="col">
-                                                                                    Name
-                                                                                </th>
+                                                                                <th scope="col">Name</th>
                                                                                 <th scope="col">Price</th>
                                                                                 <th scope="col">Type</th>
                                                                                 <th></th>
@@ -1142,54 +1141,34 @@
                                                                         <tbody data-repeater-list>
                                                                             <tr data-repeater-item>
                                                                                 <td>
-                                                                                    <input type="text"
-                                                                                        name="extra_price[name][]"
-                                                                                        class="field"
-                                                                                        placeholder="Extra Price Name">
+                                                                                    <input type="text" name="tour[pricing][extra_price][0][name]" class="field" placeholder="Extra Price Name">
                                                                                 </td>
                                                                                 <td>
-                                                                                    <input type="number" step="0.01"
-                                                                                        min="0"
-                                                                                        name="extra_price[price][]"
-                                                                                        class="field">
+                                                                                    <input type="number" step="0.01" min="0" name="tour[pricing][extra_price][0][price]" class="field">
                                                                                 </td>
                                                                                 <td>
-                                                                                    <select class="field"
-                                                                                        name="extra_price[type][]">
-                                                                                        <option value="one-time">One-time
-                                                                                        </option>
-                                                                                        <option value="per-hour">Per Hour
-                                                                                        </option>
-                                                                                        <option value="per-day">Per day
-                                                                                        </option>
+                                                                                    <select class="field" name="tour[pricing][extra_price][0][type]">
+                                                                                        <option value="one-time">One-time</option>
+                                                                                        <option value="per-hour">Per Hour</option>
+                                                                                        <option value="per-day">Per Day</option>
                                                                                     </select>
                                                                                     <br>
                                                                                     <div class="form-check mt-3">
-                                                                                        <input class="form-check-input"
-                                                                                            type="checkbox"
-                                                                                            name="extra_price[is_per_person]]"
-                                                                                            id="is_per_person"
-                                                                                            value="1">
-                                                                                        <label class="form-check-label"
-                                                                                            for="is_per_person">
-                                                                                            Price per person
-                                                                                        </label>
+                                                                                        <input  id="is_per_person" class="form-check-input" type="checkbox" name="tour[pricing][extra_price][0][is_per_person]" value="1">
+                                                                                        <label for="is_per_person" class="form-check-label">Price per person</label>
                                                                                     </div>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <button type="button"
-                                                                                        class="delete-btn ms-auto delete-btn--static"
-                                                                                        data-repeater-remove disabled>
+                                                                                    <button type="button" class="delete-btn ms-auto delete-btn--static" data-repeater-remove disabled>
                                                                                         <i class='bx bxs-trash-alt'></i>
                                                                                     </button>
                                                                                 </td>
                                                                             </tr>
                                                                         </tbody>
                                                                     </table>
-                                                                    <button type="button" class="themeBtn ms-auto"
-                                                                        data-repeater-create>Add
-                                                                        <i class="bx bx-plus"></i></button>
+                                                                    <button type="button" class="themeBtn ms-auto" data-repeater-create>Add <i class="bx bx-plus"></i></button>
                                                                 </div>
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1226,14 +1205,14 @@
                                                                                         <div class="col-md-6">
                                                                                             <input type="number"
                                                                                                 min="0"
-                                                                                                name="discount[people_from][]"
+                                                                                                name="tour[pricing][discount][people_from][]"
                                                                                                 class="field"
                                                                                                 placeholder="from">
                                                                                         </div>
                                                                                         <div class="col-md-6">
                                                                                             <input type="number"
                                                                                                 min="0"
-                                                                                                name="discount[people_to][]"
+                                                                                                name="tour[pricing][discount][people_to][]"
                                                                                                 class="field"
                                                                                                 placeholder="to">
                                                                                         </div>
@@ -1241,12 +1220,12 @@
                                                                                 </td>
                                                                                 <td>
                                                                                     <input type="number" min="0"
-                                                                                        name="discount[discount][]"
+                                                                                        name="tour[pricing][discount][discount][]"
                                                                                         class="field" placeholder="">
                                                                                 </td>
                                                                                 <td>
                                                                                     <select class="field"
-                                                                                        name="discount[type][]">
+                                                                                        name="tour[pricing][discount][type][]">
                                                                                         <option value="fixed">Fixed
                                                                                         </option>
                                                                                         <option value="percent">Percent
@@ -1284,8 +1263,7 @@
                                                     </div>
                                                     <div class="form-fields">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox"
-                                                                name="enebled_service_fee" id="enebled_service_fee"
+                                                            <input class="form-check-input" type="checkbox"  id="enebled_service_fee"
                                                                 value="1" x-model="serviceFee">
                                                             <label class="form-check-label" for="enebled_service_fee">
                                                                 Enable service fee
@@ -1296,9 +1274,9 @@
                                                 <div class="col-12" x-show="serviceFee == 1">
                                                     <div class="form-fields mt-2">
                                                         <input step="0.01" min="0" type="number"
-                                                            name="service_fee" class="field"
-                                                            value="{{ old('service_fee') }}" data-error="Price">
-                                                        @error('service_fee')
+                                                            name="tour[pricing][service_fee_price]" class="field"
+                                                            value="{{ old('tour[pricing][service_fee_price]') }}" data-error="Price">
+                                                        @error('tour[pricing][service_fee_price]')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
                                                     </div>
@@ -1313,19 +1291,19 @@
                                                         data-disabled-text="Disabled">
                                                         <input class="form-check-input" data-toggle-switch checked
                                                             type="checkbox" id="enable-section" checked value="1"
-                                                            name="show_phone">
+                                                            name="tour[pricing][show_phone]">
                                                         <label class="form-check-label"
                                                             for="enable-section">Enabled</label>
                                                     </div>
                                                 </div>
-                                                <input type="hidden" name="phone_country_code" id="phone_country_code">
-                                                <input type="text" name="phone" class="field flag-input"
-                                                    value="{{ old('phone') }}" placeholder="Phone" data-error="phone"
+                                                <input type="hidden" name="tour[pricing][phone_country_code]" id="phone_country_code">
+                                                <input type="text" name="tour[pricing][phone_number]" class="field flag-input"
+                                                    value="{{ old('tour[pricing][phone_number]') }}" placeholder="Phone" data-error="phone"
                                                     inputmode="numeric" pattern="[0-9]*"
                                                     oninput="this.value = this.value.replace(/[^0-9]/g, '');"
                                                     maxlength="15">
 
-                                                @error('phone')
+                                                @error('tour[pricing][phone_number]')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -1390,6 +1368,7 @@
                                                                 :</label>
                                                             <input type="text" class="field date-picker"
                                                                 placeholder="Select a date"
+                                                                autocomplete="off"
                                                                 name="tour[availability][last_booking_date]">
                                                             @error('availability[last_booking_date]')
                                                                 <div class="text-danger">{{ $message }}</div>
@@ -1492,6 +1471,8 @@
                                                                             <select
                                                                                 name="tour[availability][open_hours][{{ $i }}][open_time]"
                                                                                 class="field">
+                                                                                <option value="">Select Time
+                                                                                </option>
                                                                                 @foreach ($timeSlots as $slot)
                                                                                 <option value="{{ $slot }}">
                                                                                     {{ date('H:i', strtotime($slot)) }}
@@ -1503,6 +1484,8 @@
                                                                             <select
                                                                                 name="tour[availability][open_hours][{{ $i }}][close_time]"
                                                                                 class="field">
+                                                                                <option value="">Select Time
+                                                                                </option>
                                                                                 @foreach ($timeSlots as $slot)
                                                                                 <option value="{{ $slot }}">
                                                                                     {{ date('H:i', strtotime($slot)) }}

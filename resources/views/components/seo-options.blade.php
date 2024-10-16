@@ -37,7 +37,7 @@
                             search
                             results?
                             :</label>
-                        <select name="is_seo_index" class="field" onchange="toggleElement(this, '0', 'seo_options')">
+                        <select name="seo[is_seo_index]" class="field" onchange="toggleElement(this, '0', 'seo_options')">
                             <option value="" disabled selected>Select</option>
                             <option {{ old('is_seo_index', $seo->is_seo_index ?? '') == '1' ? 'selected' : '' }}
                                 value="1">Yes
@@ -47,7 +47,7 @@
                             </option>
                         </select>
 
-                        @error('is_seo_index')
+                        @error('seo[is_seo_index]')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
@@ -92,11 +92,11 @@
                                             <label class="title">
                                                 Seo Title:
                                             </label>
-                                            <input type="text" name="seo_title" class="field"
-                                                value="{{ old('seo_title', $seo->seo_title ?? '') }}"
+                                            <input type="text" name="seo[seo_title]" class="field"
+                                                value="{{ old('seo[seo_title]', $seo->seo_title ?? '') }}"
                                                 placeholder="Leave blank to use service title"
                                                 oninput="updateText(this,'google_title')">
-                                            @error('seo_title')
+                                            @error('seo[seo_title]')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -105,9 +105,9 @@
                                             <label class="title">
                                                 Seo Description:
                                             </label>
-                                            <textarea name="seo_description" class="field" rows="3" placeholder="Enter Description..."
-                                                oninput="updateText(this,'google_desc')">{{ old('seo_description', $seo->seo_description ?? '') }}</textarea>
-                                            @error('seo_description')
+                                            <textarea name="seo[seo_description]" class="field" rows="3" placeholder="Enter Description..."
+                                                oninput="updateText(this,'google_desc')">{{ old('seo[seo_description]', $seo->seo_description ?? '') }}</textarea>
+                                            @error('seo[seo_description]')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -120,7 +120,7 @@
                                                 <div class="upload-box-wrapper">
                                                     <div class="upload-box {{ empty($seo->seo_featured_image) ? 'show' : '' }}"
                                                         data-upload-box>
-                                                        <input type="file" name="seo_featured_image"
+                                                        <input type="file" name="seo[seo_featured_image]"
                                                             id="seo_featured_image" class="upload-box__file d-none"
                                                             accept="image/*" data-file-input>
                                                         <div class="upload-box__placeholder">
@@ -166,10 +166,10 @@
                                             <label class="title">
                                                 Facebook Title:
                                             </label>
-                                            <input type="text" name="fb_title" class="field"
-                                                value="{{ old('fb_title', $seo->fb_title ?? '') }}"
+                                            <input type="text" name="seo[fb_title]" class="field"
+                                                value="{{ old('seo[fb_title]', $seo->fb_title ?? '') }}"
                                                 placeholder="Leave blank to use service title">
-                                            @error('fb_title')
+                                            @error('seo[fb_title]')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -179,8 +179,8 @@
                                             <label class="title">
                                                 Facebook Description:
                                             </label>
-                                            <textarea name="fb_description" class="field" rows="3" placeholder="Enter Description...">{{ old('fb_description', $seo->fb_description ?? '') }}</textarea>
-                                            @error('fb_description')
+                                            <textarea name="seo[fb_description]" class="field" rows="3" placeholder="Enter Description...">{{ old('seo[fb_description]', $seo->fb_description ?? '') }}</textarea>
+                                            @error('seo[fb_description]')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -193,7 +193,7 @@
                                                 <div class="upload-box-wrapper">
                                                     <div class="upload-box {{ empty($seo->fb_featured_image) ? 'show' : '' }}"
                                                         data-upload-box>
-                                                        <input type="file" name="fb_featured_image"
+                                                        <input type="file" name="seo[fb_featured_image]"
                                                             id="fb_featured_image" class="upload-box__file d-none"
                                                             accept="image/*" data-file-input>
                                                         <div class="upload-box__placeholder">
@@ -234,10 +234,10 @@
                                             <label class="title">
                                                 Twitter Title:
                                             </label>
-                                            <input type="text" name="tw_title" class="field"
-                                                value="{{ old('tw_title', $seo->tw_title ?? '') }}"
+                                            <input type="text" name="seo[tw_title]" class="field"
+                                                value="{{ old('seo[tw_title]', $seo->tw_title ?? '') }}"
                                                 placeholder="Leave blank to use service title">
-                                            @error('tw_title')
+                                            @error('seo[tw_title]')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -247,8 +247,8 @@
                                             <label class="title">
                                                 Twitter Description:
                                             </label>
-                                            <textarea name="tw_description" class="field" rows="3" placeholder="Enter Description...">{{ old('tw_description', $seo->tw_description ?? '') }}</textarea>
-                                            @error('tw_description')
+                                            <textarea name="seo[tw_description]" class="field" rows="3" placeholder="Enter Description...">{{ old('seo[tw_description]', $seo->tw_description ?? '') }}</textarea>
+                                            @error('seo[tw_description]')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -262,7 +262,7 @@
                                                 <div class="upload-box-wrapper">
                                                     <div class="upload-box {{ empty($seo->tw_featured_image) ? 'show' : '' }}"
                                                         data-upload-box>
-                                                        <input type="file" name="tw_featured_image"
+                                                        <input type="file" name="seo[tw_featured_image]"
                                                             id="tw_featured_image" class="upload-box__file d-none"
                                                             accept="image/*" data-file-input>
                                                         <div class="upload-box__placeholder">
@@ -305,8 +305,8 @@
                                             <label class="title">
                                                 Schema:
                                             </label>
-                                            <textarea name="schema" class="field" rows="15">{{ old('schema', $seo->schema ?? '') }}</textarea>
-                                            @error('schema')
+                                            <textarea name="seo[schema]" class="field" rows="15">{{ old('seo[schema]', $seo->schema ?? '') }}</textarea>
+                                            @error('seo[schema]')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -320,10 +320,10 @@
                                             <label class="title">
                                                 Canonical:
                                             </label>
-                                            <input type="url" name="canonical" class="field"
-                                                value="{{ old('canonical', $seo->canonical ?? '') }}"
+                                            <input type="url" name="seo[canonical]" class="field"
+                                                value="{{ old('seo[canonical]', $seo->canonical ?? '') }}"
                                                 placeholder="Enter URL">
-                                            @error('canonical')
+                                            @error('seo[canonical]')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>

@@ -3,21 +3,16 @@
 namespace App\Http\Controllers\Admin\Tour;
 
 use App\Http\Controllers\Controller;
-use App\Models\AdditionalItem;
-use App\Models\Category;
 use App\Models\City;
 use App\Models\Tour;
 use App\Models\TourAttribute;
-use App\Models\TourAvailability;
 use App\Models\TourCategory;
 use App\Models\TourDetail;
-use App\Models\TourExclusion;
-use App\Models\TourInclusion;
-use App\Models\TourItinerary;
+use App\Models\TourExtraPrice;
 use App\Models\TourMedia;
 use App\Models\TourOpenHour;
-use App\Models\ToursAdditional;
-use App\Models\ToursFaq;
+use App\Models\TourFaq;
+use App\Models\TourPriceDiscount;
 use App\Models\User;
 use App\Traits\Sluggable;
 use App\Traits\UploadImageTrait;
@@ -58,33 +53,40 @@ class TourController extends Controller
         $general = $request->input('tour.general', []);
         $statusTab = $request->input('tour.status', []);
         $availabilityData = $request->input('tour.availability', []);
+        $pricing = $request->input('tour.pricing', []);
 
 
         $slugText = !empty($general['slug']) ? $general['slug'] : $general['title'];
         $slug = $this->createSlug($slugText, 'tours');
 
-        $inclusions = !empty($general['inclusions']) ? json_encode($general['inclusions']) : null;
-        $exclusions = !empty($general['exclusions']) ? json_encode($general['exclusions']) : null;
-        $features = !empty($general['features']) ? json_encode($general['features']) : null;
-        $details = !empty($general['details']) ? json_encode($general['details']) : null;
+        $inclusions = !empty($general['inclusions']) && !in_array(null, $general['inclusions'], true)
+            ? json_encode(array_filter($general['inclusions'], fn($value) => $value !== null))
+            : null;
+
+        $exclusions = !empty($general['exclusions']) && !in_array(null, $general['exclusions'], true)
+            ? json_encode(array_filter($general['exclusions'], fn($value) => $value !== null))
+            : null;
+
+        $features = !empty($general['features']) && !in_array(null, $general['features'], true)
+            ? json_encode(array_filter($general['features'], fn($value) => $value !== null))
+            : null;
 
         $relatedTours = !empty($request->input('related_tour_ids')) ? json_encode($request->input('related_tour_ids')) : null;
 
         $tour = Tour::create([
-            'title' => $general['title'],
-            'slug' => $slug,
-            'content' => $general['content'],
+            'title' => $general['title']  ?? null,
+            'slug' => $slug  ?? null,
+            'content' => $general['content']  ?? null,
             'category_id' => $general['category_id'] ?? null,
-            'badge_icon_class' => $general['badge_icon_class'],
-            'badge_name' => $general['badge_name'],
+            'badge_icon_class' => $general['badge_icon_class']  ?? null,
+            'badge_name' => $general['badge_name']  ?? null,
             'banner_image_alt_text' => $request->input('banner_image_alt_text'),
             'featured_image_alt_text' => $request->input('featured_image_alt_text'),
-            'banner_type' => $general['banner_type'],
-            'video_link' => $general['video_link'],
+            'banner_type' => $general['banner_type']  ?? null,
+            'video_link' => $general['video_link']  ?? null,
             'inclusions' => $inclusions,
             'exclusions' => $exclusions,
             'features' => $features,
-            'details' => $details,
             'status' => $statusTab['status'],
             'author_id' => $statusTab['author_id'],
             'is_featured' => $statusTab['is_featured'] ?? 0,
@@ -92,6 +94,21 @@ class TourController extends Controller
             'ical_import_url' => $statusTab['ical_import_url'] ?? null,
             'ical_export_url' => $statusTab['ical_export_url'] ?? null,
             'related_tour_ids' => $relatedTours,
+            'is_fixed_date' => $availabilityData['is_fixed_date'] ?? 0,
+            'is_open_hours' => $availabilityData['is_open_hours'] ?? 0,
+            'is_fixed_date' => $availabilityData['is_fixed_date'] ?? 0,
+            'start_date' => $availabilityData['start_date'],
+            'end_date' => $availabilityData['end_date']  ?? null,
+            'last_booking_date' => $availabilityData['last_booking_date'],
+            'regular_price' => $pricing['regular_price']  ?? null,
+            'sale_price' => $pricing['sale_price']  ?? null,
+            'is_person_type_enabled' => $pricing['is_person_type_enabled'] ?? 0,
+            'price_type' =>   isset($pricing['is_person_type_enabled']) && $pricing['is_person_type_enabled'] == 1 ? $pricing['price_type'] : null,
+            'is_extra_price_enabled' => $pricing['is_extra_price_enabled'] ?? 0,
+            'service_fee_price' => $pricing['service_fee_price']  ?? null,
+            'show_phone' => $pricing['show_phone'] ?? 0,
+            'phone_country_code' => $pricing['phone_country_code'] ?? null,
+            'phone_number' => $pricing['phone_number']  ?? null,
         ]);
 
         // Handle FAQs
@@ -100,7 +117,7 @@ class TourController extends Controller
                 $answer = $general['faq']['answer'][$index] ?? null;
 
                 if (!empty($question) && !empty($answer)) {
-                    ToursFaq::create([
+                    TourFaq::create([
                         'question' => $question,
                         'answer' => $answer,
                         'tour_id' => $tour->id,
@@ -135,39 +152,63 @@ class TourController extends Controller
         // Handle details
         if (!empty($general['details'])) {
             foreach ($general['details'] as $detail) {
-                TourDetail::create([
-                    'tour_id' => $tour->id,
-                    'name' => $detail['name'],
-                    'items' => json_encode($detail['items']),
-                ]);
-            }
-        }
-
-        // Store Availability
-        if (isset($availabilityData['is_fixed_date']) && $availabilityData['is_fixed_date'] == 1) {
-            $availability = TourAvailability::create([
-                'tour_id' => $tour->id,
-                'is_fixed_date' => $availabilityData['is_fixed_date'] ?? 0,
-                'start_date' => Carbon::createFromFormat('Y/m/d', $availabilityData['start_date'])->format('Y-m-d'),
-                'end_date' => Carbon::createFromFormat('Y/m/d', $availabilityData['end_date'])->format('Y-m-d'),
-                'last_booking_date' => Carbon::createFromFormat('Y/m/d', $availabilityData['last_booking_date'])->format('Y-m-d'),
-                'is_open_hours' => $availabilityData['is_open_hours'] ?? 0,
-            ]);
-
-            // Store Open Hours if is_open_hours is true
-            if (isset($availabilityData['is_open_hours']) && $availabilityData['is_open_hours'] == 1) {
-                foreach ($availabilityData['open_hours'] as $hours) {
-                    TourOpenHour::create([
-                        'tour_availability_id' => $availability->id,
-                        'day' => $hours['day'],
-                        'open_time' => $hours['open_time'],
-                        'close_time' => $hours['close_time'],
-                        'enabled' => $hours['enabled'] ?? 0,
+                if ($detail['name'] !== null && !empty($detail['items'])) {
+                    TourDetail::create([
+                        'tour_id' => $tour->id,
+                        'name' => $detail['name'],
+                        'items' => json_encode($detail['items']),
                     ]);
                 }
             }
         }
 
+        // Store Open Hours if is_open_hours is true
+        if (isset($availabilityData['is_open_hours']) && $availabilityData['is_open_hours'] == 1) {
+            foreach ($availabilityData['open_hours'] as $hours) {
+                TourOpenHour::create([
+                    'tour_id' => $tour->id,
+                    'day' => $hours['day']??null,
+                    'open_time' => $hours['open_time']??null,
+                    'close_time' => $hours['close_time']??null,
+                    'enabled' => $hours['enabled'] ?? 0,
+                ]);
+            }
+        }
+
+        // Check if discounts exist and save them
+        if (!empty($pricing['discount'])) {
+
+            $discountCount = count($pricing['discount']['people_from']);
+            for ($i = 0; $i < $discountCount; $i++) {
+                $peopleFrom = $pricing['discount']['people_from'][$i] ?? null;
+                $peopleTo = $pricing['discount']['people_to'][$i] ?? null;
+                $amount = $pricing['discount']['discount'][$i] ?? null;
+                $type = $pricing['discount']['type'][$i] ?? null;
+
+                TourPriceDiscount::create([
+                    'tour_id' => $tour->id,
+                    'people_from' => $peopleFrom,
+                    'people_to' => $peopleTo,
+                    'amount' => $amount,
+                    'type' => $type,
+                ]);
+            }
+        }
+
+
+        if (isset($pricing['extra_price'])) {
+            foreach ($pricing['extra_price'] as $extraPriceData) {
+                if (isset($extraPriceData['name'], $extraPriceData['price'], $extraPriceData['type'])) {
+                    TourExtraPrice::create([
+                        'tour_id' => $tour->id,
+                        'name' => $extraPriceData['name'],
+                        'price' => $extraPriceData['price'],
+                        'type' => $extraPriceData['type'],
+                        'is_per_person' => $extraPriceData['is_per_person'] ?? 0,
+                    ]);
+                }
+            }
+        }
 
         // Handle banner and featured images
         $this->uploadImg('banner_image', 'Tour/Banner/Featured-image', $tour, 'banner_image');
@@ -204,7 +245,7 @@ class TourController extends Controller
 
     public function edit($id)
     {
-        $tour = Tour::with(['attributes', 'attributes.attributeItems','availabilities.openHours'])->find($id);
+        $tour = Tour::with(['attributes', 'attributes.attributeItems'])->find($id);
         $attributes = TourAttribute::where('status', 'active')
             ->latest()->get();
         $categories = TourCategory::where('status', 'publish')->latest()->get();

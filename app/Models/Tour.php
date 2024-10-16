@@ -30,7 +30,7 @@ class Tour extends Model
     }
     public function faqs()
     {
-        return $this->hasMany(ToursFaq::class);
+        return $this->hasMany(TourFaq::class);
     }
     public function tourDetails()
     {
@@ -61,11 +61,11 @@ class Tour extends Model
     {
         return $this->hasMany(TourMedia::class, 'tour_id');
     }
-    public function availabilities()
+    
+    public function openHours()
     {
-        return $this->hasMany(TourAvailability::class);
+        return $this->hasMany(TourOpenHour::class);
     }
-
 
     protected static function boot()
     {
@@ -83,21 +83,6 @@ class Tour extends Model
                 $item->attributes()->detach();
                 $item->media()->each(function ($media) {
                     self::deleteImage($media->image_path);
-                });
-                $item->reviews()->each(function ($review) {
-                    $review->delete();
-                });
-                $item->faqs()->each(function ($faq) {
-                    $faq->delete();
-                });
-                $item->tourDetails()->each(function ($detail) {
-                    $detail->delete();
-                });
-                $item->availabilities()->each(function ($availability) {
-                    $availability->openHours()->each(function ($openHour) {
-                        $openHour->delete();
-                    });
-                    $availability->delete();
                 });
             }
         });

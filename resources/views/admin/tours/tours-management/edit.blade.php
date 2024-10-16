@@ -1395,16 +1395,16 @@
                                     <div class="title">Availability</div>
                                 </div>
                                 <div class="form-box__body">
-                                    <div class="col-12" x-data="{ fixedDate: '{{ optional($tour->availabilities->first())->is_fixed_date ? '1' : '0' }}' }">
+                                    <div class="col-12" x-data="{ fixedDate: '{{ $tour->is_fixed_date ? '1' : '0' }}' }">
                                         <div class="row">
                                             <div class="col-12 mb-2">
                                                 <div class="form-fields">
                                                     <div class="title">Fixed dates:</div>
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox" name="fixed_date"
-                                                            {{ optional($tour->availabilities->first())->is_fixed_date ? 'checked' : '' }}
+                                                            {{ $tour->is_fixed_date ? 'checked' : '' }}
                                                             id="fixed_date"
-                                                            value="{{ optional($tour->availabilities->first())->is_fixed_date ? '1' : '0' }}"
+                                                            value="{{ $tour->is_fixed_date ? '1' : '0' }}"
                                                             x-model="fixedDate">
                                                         <label class="form-check-label" for="fixed_date">
                                                             Enable Fixed Date
@@ -1421,7 +1421,7 @@
                                                             <input type="text" class="field date-picker"
                                                                 placeholder="Select a date" name="start_date"
                                                                 autocomplete="off"
-                                                                value="{{ optional($tour->availabilities->first())->start_date }}">
+                                                                value="{{ $tour->start_date }}">
                                                             @error('start_date')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
@@ -1434,7 +1434,7 @@
                                                             <input type="text" class="field date-picker"
                                                                 placeholder="Select a date" name="end_date"
                                                                 autocomplete="off"
-                                                                value="{{ optional($tour->availabilities->first())->end_date }}">
+                                                                value="{{ $tour->end_date }}">
                                                             @error('end_date')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
@@ -1446,7 +1446,7 @@
                                                                     class="text-danger">*</span>:</label>
                                                             <input type="text" class="field date-picker"
                                                                 placeholder="Select a date" name="last_booking_date"
-                                                                value="{{ optional($tour->availabilities->first())->last_booking_date }}">
+                                                                value="{{ $tour->last_booking_date }}">
                                                             @error('last_booking_date')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
@@ -1457,16 +1457,16 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 mt-3" x-data="{ openHours: '{{ optional($tour->availabilities->first())->is_open_hours ? '1' : '0' }}' }">
+                                    <div class="col-12 mt-3" x-data="{ openHours: '{{ $tour->is_open_hours ? '1' : '0' }}' }">
                                         <div class="row">
                                             <div class="col-12 mb-2">
                                                 <div class="form-fields">
                                                     <div class="title">Open Hours:</div>
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox" name="openHours"
-                                                            {{ optional($tour->availabilities->first())->is_open_hours ? 'checked' : '' }}
+                                                            {{ $tour->is_open_hours ? 'checked' : '' }}
                                                             id="openHours"
-                                                            value="{{ optional($tour->availabilities->first())->is_open_hours ? '1' : '0' }}"
+                                                            value="{{ $tour->is_open_hours ? '1' : '0' }}"
                                                             x-model="openHours">
                                                         <label class="form-check-label" for="openHours">
                                                             Enable Open Hours
@@ -1522,11 +1522,10 @@
                                                                     ];
 
                                                                 @endphp
-                                                                @foreach ($days as $day)
+                                                                @for ($i = 0; $i < count($days); $i++)
                                                                     @php
-                                                                        $openHour = $tour->availabilities
-                                                                            ->first()
-                                                                            ->openHours->firstWhere('day', $day);
+                                                                        $openHour = !$tour->openHours->isEmpty() ? $tour->openHours[$i] : null;
+                                                                        $day = $days[$i];
                                                                     @endphp
                                                                     <tr>
                                                                         <td>
@@ -1556,7 +1555,7 @@
                                                                                 </option>
                                                                                 @foreach ($timeSlots as $slot)
                                                                                     <option value="{{ $slot }}"
-                                                                                        {{ $openHour->open_time === $slot ? 'selected' : '' }}>
+                                                                                        {{  $openHour && $openHour->open_time === $slot ? 'selected' : '' }}>
                                                                                         {{ date('H:i', strtotime($slot)) }}
                                                                                     </option>
                                                                                 @endforeach
@@ -1569,14 +1568,14 @@
                                                                                 </option>
                                                                                 @foreach ($timeSlots as $slot)
                                                                                     <option value="{{ $slot }}"
-                                                                                        {{ $openHour->close_time === $slot ? 'selected' : '' }}>
+                                                                                        {{ $openHour && $openHour->close_time === $slot ? 'selected' : '' }}>
                                                                                         {{ date('H:i', strtotime($slot)) }}
                                                                                     </option>
                                                                                 @endforeach
                                                                             </select>
                                                                         </td>
                                                                     </tr>
-                                                                @endforeach
+                                                                @endfor
                                                             </tbody>
                                                         </table>
                                                     </div>

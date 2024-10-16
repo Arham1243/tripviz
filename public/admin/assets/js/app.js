@@ -12,10 +12,10 @@ $(function () {
                 showEventTooltip: true,
                 classNotAvailable: ["disabled", "off"],
                 disableHightLight: true,
-                locale: { format: "YYYY/MM/DD" },
+                locale: { format: "YYYY-MM-DD" },
             })
             .on("apply.daterangepicker", function (event, picker) {
-                $(this).val(picker.startDate.format("YYYY/MM/DD"));
+                $(this).val(picker.startDate.format("YYYY-MM-DD"));
             });
     }
 });
@@ -616,21 +616,21 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateIndices(container) {
         const items = container.querySelectorAll("[data-repeater-item]");
         items.forEach((item, index) => {
-            const nameInput = item.querySelector("input[name*='[name]']");
-            if (nameInput) {
-                nameInput.name = nameInput.name.replace(
-                    /\[\d+\]/,
-                    `[${index}]`,
-                );
-            }
-            const itemInputs = item.querySelectorAll(
-                "input[name*='[items][]']",
-            );
+            const pricingFields = ['name', 'price', 'type', 'is_per_person'];
+    
+            pricingFields.forEach(field => {
+                const input = item.querySelector(`input[name*='[${field}]'], select[name*='[${field}]']`);
+                if (input) {
+                    input.name = input.name.replace(/\[\d+\]/, `[${index}]`);
+                }
+            });
+    
+            const itemInputs = item.querySelectorAll("input[name*='[items][]']");
             itemInputs.forEach((input) => {
                 input.name = input.name.replace(/\[\d+\]/, `[${index}]`);
             });
         });
-    }
+    }    
 
     function updateSubDeleteButtonState(container) {
         const items = container.querySelectorAll("[data-sub-repeater-item]");
@@ -647,7 +647,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const inputs = newItem.querySelectorAll("input, textarea");
         inputs.forEach((input) => {
-            input.value = "";
+            if (input.type !== "checkbox") {
+                input.value = "";
+            }
         });
 
         updateUploadBox(newItem);
