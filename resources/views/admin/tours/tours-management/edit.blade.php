@@ -1101,7 +1101,7 @@
                                                                                     <input type="text"
                                                                                         name="promo_prices[title][]"
                                                                                         class="field"
-                                                                                        placeholder="E.g., For One Adult"
+                                                                                        placeholder=""
                                                                                         data-error="Package Title">
                                                                                 </td>
                                                                                 <td style="width: 35%">
@@ -1418,7 +1418,7 @@
                                                         <div class="form-fields">
                                                             <label class="title">Start Date <span
                                                                     class="text-danger">*</span>:</label>
-                                                            <input type="text" class="field date-picker"
+                                                            <input readonly type="text" class="field date-picker"
                                                                 placeholder="Select a date" name="start_date"
                                                                 autocomplete="off"
                                                                 value="{{ $tour->start_date }}">
@@ -1431,7 +1431,7 @@
                                                         <div class="form-fields">
                                                             <label class="title">End Date <span
                                                                     class="text-danger">*</span>:</label>
-                                                            <input type="text" class="field date-picker"
+                                                            <input readonly type="text" class="field date-picker"
                                                                 placeholder="Select a date" name="end_date"
                                                                 autocomplete="off"
                                                                 value="{{ $tour->end_date }}">
@@ -1444,7 +1444,7 @@
                                                         <div class="form-fields">
                                                             <label class="title">Last Booking Date <span
                                                                     class="text-danger">*</span>:</label>
-                                                            <input type="text" class="field date-picker"
+                                                            <input readonly type="text" class="field date-picker"
                                                                 placeholder="Select a date" name="last_booking_date"
                                                                 value="{{ $tour->last_booking_date }}">
                                                             @error('last_booking_date')

@@ -13,6 +13,7 @@ use App\Models\TourMedia;
 use App\Models\TourOpenHour;
 use App\Models\TourFaq;
 use App\Models\TourPriceDiscount;
+use App\Models\TourPricing;
 use App\Models\User;
 use App\Traits\Sluggable;
 use App\Traits\UploadImageTrait;
@@ -195,7 +196,6 @@ class TourController extends Controller
             }
         }
 
-
         if (isset($pricing['extra_price'])) {
             foreach ($pricing['extra_price'] as $extraPriceData) {
                 if (isset($extraPriceData['name'], $extraPriceData['price'], $extraPriceData['type'])) {
@@ -209,6 +209,62 @@ class TourController extends Controller
                 }
             }
         }
+
+        if (isset($pricing['is_person_type_enabled']) && $pricing['is_person_type_enabled'] == "1") {
+            // Handle Normal Pricing
+            if ($pricing['price_type'] === 'normal' && isset($pricing['normal'])) {
+                foreach ($pricing['normal']['person_type'] as $index => $personType) {
+                    TourPricing::create([
+                        'tour_id' => $tour->id,
+                        'price_type' => $pricing['price_type'],
+                        'person_type' => $personType,
+                        'person_description' => $pricing['normal']['person_description'][$index] ?? null,
+                        'min_person' => $pricing['normal']['min_person'][$index] ?? null,
+                        'max_person' => $pricing['normal']['max_person'][$index] ?? null,
+                        'price' => $pricing['normal']['price'][$index] ?? null,
+                    ]);
+                }
+            }
+    
+            // Handle Private Pricing
+            if ($pricing['price_type'] === 'private') {
+                TourPricing::create([
+                    'tour_id' => $tour->id,
+                    'price_type' => $pricing['price_type'],
+                    'car_price' => $pricing['private']['car_price'] ?? null,
+                    'min_person' => $pricing['private']['min_person'] ?? null,
+                    'max_person' => $pricing['private']['max_person'] ?? null,
+                ]);
+            }
+    
+            // Handle Water Pricing
+            if ($pricing['price_type'] === 'water' && isset($pricing['water'])) {
+                foreach ($pricing['water']['time'] as $index => $waterTime) {
+                    TourPricing::create([
+                        'tour_id' => $tour->id,
+                        'price_type' => $pricing['price_type'],
+                        'time' => $waterTime,
+                        'water_price' => $pricing['water']['water_price'][$index] ?? null,
+                    ]);
+                }
+            }
+    
+            // Handle Promo Pricing
+            if ($pricing['price_type'] === 'promo' && isset($pricing['promo'])) {
+                foreach ($pricing['promo']['promo_title'] as $index => $promoTitle) {
+                    TourPricing::create([
+                        'tour_id' => $tour->id,
+                        'price_type' => $pricing['price_type'],
+                        'promo_title' => $promoTitle,
+                        'original_price' => $pricing['promo']['original_price'][$index] ?? null,
+                        'discount_price' => $pricing['promo']['discount_price'][$index] ?? null,
+                        'promo_price' => $pricing['promo']['promo_price'][$index] ?? null,
+                        'offer_expire_at' => $pricing['promo']['offer_expire_at'][$index] ?? null,
+                    ]);
+                }
+            }
+        }
+    
 
         // Handle banner and featured images
         $this->uploadImg('banner_image', 'Tour/Banner/Featured-image', $tour, 'banner_image');

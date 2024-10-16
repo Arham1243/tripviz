@@ -800,9 +800,9 @@
                                         <div class="col-md-6 col-12 mb-3">
                                             <div class="form-fields">
                                                 <label class="title">Price <span class="text-danger">*</span>:</label>
-                                                <input step="0.01" min="0" type="number" name="tour[pricing][regular_price]"
-                                                    class="field" value="{{ old('tour[pricing][regular_price]') }}"
-                                                    data-error="Price">
+                                                <input step="0.01" min="0" type="number"
+                                                    name="tour[pricing][regular_price]" class="field"
+                                                    value="{{ old('tour[pricing][regular_price]') }}" data-error="Price">
                                                 @error('tour[pricing][regular_price]')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -812,8 +812,9 @@
                                             <div class="form-fields">
                                                 <label class="title">Sale Price <span
                                                         class="text-danger">*</span>:</label>
-                                                <input step="0.01" min="0" type="number" name="tour[pricing][sale_price]"
-                                                    class="field" value="{{ old('tour[pricing][sale_price]') }}"
+                                                <input step="0.01" min="0" type="number"
+                                                    name="tour[pricing][sale_price]" class="field"
+                                                    value="{{ old('tour[pricing][sale_price]') }}"
                                                     data-error="Sale Price">
                                                 @error('tour[pricing][sale_price]')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -832,8 +833,10 @@
                                                     <div class="form-fields">
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox"
-                                                                name="tour[pricing][is_person_type_enabled]" id="enebled_person_types"
-                                                                value="1" x-model="personType" @change="personType = personType ? 1 : 0">
+                                                                name="tour[pricing][is_person_type_enabled]"
+                                                                id="enebled_person_types" value="1"
+                                                                x-model="personType"
+                                                                @change="personType = personType ? 1 : 0">
                                                             <label class="form-check-label" for="enebled_person_types">
                                                                 Enable Person Types
                                                             </label>
@@ -848,7 +851,8 @@
                                                                 <input class="form-check-input" type="radio"
                                                                     name="tour[pricing][price_type]" x-model="tourType"
                                                                     value="normal" id="normalPrice" checked>
-                                                                <label class="form-check-label" for="normalPrice">Normal Tour
+                                                                <label class="form-check-label" for="normalPrice">Normal
+                                                                    Tour
                                                                     Price</label>
                                                             </div>
                                                             <div class="form-check p-0">
@@ -895,31 +899,31 @@
                                                                             <tr data-repeater-item>
                                                                                 <td>
                                                                                     <input type="text"
-                                                                                        name="person_type[title][]"
+                                                                                        name="tour[pricing][normal][person_type][]"
                                                                                         class="field"
                                                                                         placeholder="Eg: Adult">
                                                                                     <br>
                                                                                     <div class="mt-3">
                                                                                         <input type="text"
-                                                                                            name="person_type[description][]"
+                                                                                            name="tour[pricing][normal][person_description][]"
                                                                                             class="field"
                                                                                             placeholder="Description">
                                                                                     </div>
                                                                                 </td>
                                                                                 <td>
                                                                                     <input type="number" min="0"
-                                                                                        name="person_type[min][]"
+                                                                                        name="tour[pricing][normal][min_person][]"
                                                                                         class="field">
                                                                                 </td>
                                                                                 <td>
                                                                                     <input type="number" min="0"
-                                                                                        name="person_type[max][]"
+                                                                                        name="tour[pricing][normal][max_person][]"
                                                                                         class="field">
                                                                                 </td>
                                                                                 <td>
                                                                                     <input type="number" step="0.01"
                                                                                         min="0"
-                                                                                        name="person_type[price][]"
+                                                                                        name="tour[pricing][normal][price][]"
                                                                                         class="field">
                                                                                 </td>
                                                                                 <td>
@@ -957,17 +961,17 @@
                                                                                 <td>
                                                                                     <input type="number" step="0.01"
                                                                                         min="0"
-                                                                                        name="person_type[price][]"
+                                                                                        name="tour[pricing][private][car_price]"
                                                                                         class="field">
                                                                                 </td>
                                                                                 <td>
                                                                                     <input type="number" min="0"
-                                                                                        name="person_type[min][]"
+                                                                                        name="tour[pricing][private][min_person]"
                                                                                         class="field">
                                                                                 </td>
                                                                                 <td>
                                                                                     <input type="number" min="0"
-                                                                                        name="person_type[max][]"
+                                                                                        name="tour[pricing][private][max_person]"
                                                                                         class="field">
                                                                                 </td>
 
@@ -992,19 +996,44 @@
                                                                                 </th>
                                                                             </tr>
                                                                         </thead>
+                                                                        @php
+                                                                            $waterMints = [
+                                                                                '00:15',
+                                                                                '00:30',
+                                                                                '00:45',
+                                                                                '01:00',
+                                                                                '01:15',
+                                                                                '01:30',
+                                                                                '01:45',
+                                                                                '02:00',
+                                                                                '02:15',
+                                                                                '02:30',
+                                                                                '02:45',
+                                                                                '03:00',
+                                                                                '03:15',
+                                                                                '03:30',
+                                                                                '03:45',
+                                                                                '04:00',
+                                                                            ];
+                                                                        @endphp
                                                                         <tbody data-repeater-list>
                                                                             <tr data-repeater-item>
                                                                                 <td>
-                                                                                    <select data-time-start="15"
-                                                                                        data-time-end="240"
-                                                                                        data-time-span="15"
-                                                                                        data-show-minutes='true'
-                                                                                        name="water_times[]"
-                                                                                        class="field time-dropdown"
-                                                                                        data-error="Desert Activities Time"></select>
+                                                                                    <select name="tour[pricing][water][time][]"
+                                                                                        class="field"
+                                                                                        data-error="Desert Activities Time">
+                                                                                        <option value="">Select Time
+                                                                                        </option>
+                                                                                        @foreach($waterMints as $waterMint)
+                                                                                        <option value="{{ $waterMint }}" >
+                                                                                            
+                                                                                            {{ $waterMint }} ({{ (int)substr($waterMint, 0, 2) * 60 + (int)substr($waterMint, 3, 2) }} mins)
+                                                                                        </option>
+                                                                                    @endforeach
+                                                                                    </select>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <input name="water_prices[]"
+                                                                                    <input name="tour[pricing][water][water_price][]"
                                                                                         type="number" class="field"
                                                                                         placeholder="Price" step="0.01"
                                                                                         min="0"
@@ -1044,7 +1073,7 @@
                                                                             <tr data-repeater-item>
                                                                                 <td>
                                                                                     <input type="text"
-                                                                                        name="promo_prices[title][]"
+                                                                                        name="tour[pricing][promo][promo_title][]"
                                                                                         class="field"
                                                                                         placeholder="E.g., For One Adult"
                                                                                         data-error="Package Title">
@@ -1052,7 +1081,7 @@
                                                                                 <td style="width: 35%">
                                                                                     <div>
                                                                                         <input
-                                                                                            name="promo_prices[original_price][]"
+                                                                                            name="tour[pricing][promo][original_price][]"
                                                                                             type="number" class="field"
                                                                                             placeholder="Original Price"
                                                                                             step="0.01" min="0"
@@ -1060,7 +1089,7 @@
                                                                                     </div>
                                                                                     <div class="mt-2">
                                                                                         <input
-                                                                                            name="promo_prices[discount_price][]"
+                                                                                            name="tour[pricing][promo][discount_price][]"
                                                                                             type="number" class="field"
                                                                                             placeholder="Discounted Price"
                                                                                             step="0.01" min="0"
@@ -1068,17 +1097,19 @@
                                                                                     </div>
                                                                                     <div class="mt-2">
                                                                                         <input
-                                                                                            name="promo_prices[promo_price][]"
+                                                                                            name="tour[pricing][promo][promo_price][]"
                                                                                             type="number" class="field"
-                                                                                            placeholder="Promo Price with Discount"
+                                                                                            placeholder="Promo Price"
                                                                                             step="0.01" min="0"
                                                                                             data-error="Promo Price">
                                                                                     </div>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <input type="text" class="field"
-                                                                                        name="promo_prices[expiry_time][]"
-                                                                                        data-error="Expiry Date & Time">
+                                                                                    <input type="datetime-local"
+                                                                                        class="field"
+                                                                                        name="tour[pricing][promo][offer_expire_at][]"
+                                                                                        data-error="Expiry Date & Time"
+                                                                                        autocomplete="off">
                                                                                 </td>
                                                                                 <td>
                                                                                     <button type="button"
@@ -1114,9 +1145,10 @@
                                                     <div class="form-fields">
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox"
-                                                                name="tour[pricing][is_extra_price_enabled]" id="enebled_extra_price"
-                                                                @change="extraPrice = extraPrice ? 1 : 0"
-                                                                value="1" x-model="extraPrice">
+                                                                name="tour[pricing][is_extra_price_enabled]"
+                                                                id="enebled_extra_price"
+                                                                @change="extraPrice = extraPrice ? 1 : 0" value="1"
+                                                                x-model="extraPrice">
                                                             <label class="form-check-label" for="enebled_extra_price">
                                                                 Enable extra price
                                                             </label>
@@ -1141,34 +1173,54 @@
                                                                         <tbody data-repeater-list>
                                                                             <tr data-repeater-item>
                                                                                 <td>
-                                                                                    <input type="text" name="tour[pricing][extra_price][0][name]" class="field" placeholder="Extra Price Name">
+                                                                                    <input type="text"
+                                                                                        name="tour[pricing][extra_price][0][name]"
+                                                                                        class="field"
+                                                                                        placeholder="Extra Price Name">
                                                                                 </td>
                                                                                 <td>
-                                                                                    <input type="number" step="0.01" min="0" name="tour[pricing][extra_price][0][price]" class="field">
+                                                                                    <input type="number" step="0.01"
+                                                                                        min="0"
+                                                                                        name="tour[pricing][extra_price][0][price]"
+                                                                                        class="field">
                                                                                 </td>
                                                                                 <td>
-                                                                                    <select class="field" name="tour[pricing][extra_price][0][type]">
-                                                                                        <option value="one-time">One-time</option>
-                                                                                        <option value="per-hour">Per Hour</option>
-                                                                                        <option value="per-day">Per Day</option>
+                                                                                    <select class="field"
+                                                                                        name="tour[pricing][extra_price][0][type]">
+                                                                                        <option value="one-time">One-time
+                                                                                        </option>
+                                                                                        <option value="per-hour">Per Hour
+                                                                                        </option>
+                                                                                        <option value="per-day">Per Day
+                                                                                        </option>
                                                                                     </select>
                                                                                     <br>
                                                                                     <div class="form-check mt-3">
-                                                                                        <input  id="is_per_person" class="form-check-input" type="checkbox" name="tour[pricing][extra_price][0][is_per_person]" value="1">
-                                                                                        <label for="is_per_person" class="form-check-label">Price per person</label>
+                                                                                        <input id="is_per_person"
+                                                                                            class="form-check-input"
+                                                                                            type="checkbox"
+                                                                                            name="tour[pricing][extra_price][0][is_per_person]"
+                                                                                            value="1">
+                                                                                        <label for="is_per_person"
+                                                                                            class="form-check-label">Price
+                                                                                            per person</label>
                                                                                     </div>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <button type="button" class="delete-btn ms-auto delete-btn--static" data-repeater-remove disabled>
+                                                                                    <button type="button"
+                                                                                        class="delete-btn ms-auto delete-btn--static"
+                                                                                        data-repeater-remove disabled>
                                                                                         <i class='bx bxs-trash-alt'></i>
                                                                                     </button>
                                                                                 </td>
                                                                             </tr>
                                                                         </tbody>
                                                                     </table>
-                                                                    <button type="button" class="themeBtn ms-auto" data-repeater-create>Add <i class="bx bx-plus"></i></button>
+                                                                    <button type="button" class="themeBtn ms-auto"
+                                                                        data-repeater-create>Add <i
+                                                                            class="bx bx-plus"></i></button>
                                                                 </div>
-                                                                
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1263,8 +1315,9 @@
                                                     </div>
                                                     <div class="form-fields">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox"  id="enebled_service_fee"
-                                                                value="1" x-model="serviceFee">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                id="enebled_service_fee" value="1"
+                                                                x-model="serviceFee">
                                                             <label class="form-check-label" for="enebled_service_fee">
                                                                 Enable service fee
                                                             </label>
@@ -1275,7 +1328,8 @@
                                                     <div class="form-fields mt-2">
                                                         <input step="0.01" min="0" type="number"
                                                             name="tour[pricing][service_fee_price]" class="field"
-                                                            value="{{ old('tour[pricing][service_fee_price]') }}" data-error="Price">
+                                                            value="{{ old('tour[pricing][service_fee_price]') }}"
+                                                            data-error="Price">
                                                         @error('tour[pricing][service_fee_price]')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
@@ -1296,10 +1350,12 @@
                                                             for="enable-section">Enabled</label>
                                                     </div>
                                                 </div>
-                                                <input type="hidden" name="tour[pricing][phone_country_code]" id="phone_country_code">
-                                                <input type="text" name="tour[pricing][phone_number]" class="field flag-input"
-                                                    value="{{ old('tour[pricing][phone_number]') }}" placeholder="Phone" data-error="phone"
-                                                    inputmode="numeric" pattern="[0-9]*"
+                                                <input type="hidden" name="tour[pricing][phone_country_code]"
+                                                    id="phone_country_code">
+                                                <input type="text" name="tour[pricing][phone_number]"
+                                                    class="field flag-input"
+                                                    value="{{ old('tour[pricing][phone_number]') }}" placeholder="Phone"
+                                                    data-error="phone" inputmode="numeric" pattern="[0-9]*"
                                                     oninput="this.value = this.value.replace(/[^0-9]/g, '');"
                                                     maxlength="15">
 
@@ -1326,7 +1382,8 @@
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox"
                                                             name="tour[availability][is_fixed_date]" id="fixed_date"
-                                                            value="0" x-model="fixedDate"  @change="fixedDate = fixedDate ? 1 : 0">
+                                                            value="0" x-model="fixedDate"
+                                                            @change="fixedDate = fixedDate ? 1 : 0">
                                                         <label class="form-check-label" for="fixed_date">
                                                             Enable Fixed Date
                                                         </label>
@@ -1340,7 +1397,7 @@
                                                             <label class="title">Start Date <span
                                                                     class="text-danger">*</span>
                                                                 :</label>
-                                                            <input type="text" class="field date-picker"
+                                                            <input readonly type="text" class="field date-picker"
                                                                 placeholder="Select a date"
                                                                 name="tour[availability][start_date]" autocomplete="off">
                                                             @error('availability[start_date]')
@@ -1353,7 +1410,7 @@
                                                             <label class="title">End Date <span
                                                                     class="text-danger">*</span>
                                                                 :</label>
-                                                            <input type="text" class="field date-picker"
+                                                            <input readonly type="text" class="field date-picker"
                                                                 placeholder="Select a date"
                                                                 name="tour[availability][end_date]" autocomplete="off">
                                                             @error('availability[end_date]')
@@ -1366,9 +1423,8 @@
                                                             <label class="title">Last Booking Date <span
                                                                     class="text-danger">*</span>
                                                                 :</label>
-                                                            <input type="text" class="field date-picker"
-                                                                placeholder="Select a date"
-                                                                autocomplete="off"
+                                                            <input readonly type="text" class="field date-picker"
+                                                                placeholder="Select a date" autocomplete="off"
                                                                 name="tour[availability][last_booking_date]">
                                                             @error('availability[last_booking_date]')
                                                                 <div class="text-danger">{{ $message }}</div>
@@ -1387,7 +1443,8 @@
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox"
                                                             name="tour[availability][is_open_hours]" id="openHours"
-                                                            value="0" x-model="openHours" @change="openHours = openHours ? 1 : 0">
+                                                            value="0" x-model="openHours"
+                                                            @change="openHours = openHours ? 1 : 0">
                                                         <label class="form-check-label" for="openHours">
                                                             Enable Open Hours
                                                         </label>
@@ -1416,30 +1473,30 @@
                                                                         'Friday',
                                                                     ];
                                                                     $timeSlots = [
-                                                                                    '00:00:00',
-                                                                                    '02:00:00',
-                                                                                    '03:00:00',
-                                                                                    '04:00:00',
-                                                                                    '05:00:00',
-                                                                                    '06:00:00',
-                                                                                    '07:00:00',
-                                                                                    '08:00:00',
-                                                                                    '09:00:00',
-                                                                                    '10:00:00',
-                                                                                    '11:00:00',
-                                                                                    '12:00:00',
-                                                                                    '13:00:00',
-                                                                                    '14:00:00',
-                                                                                    '15:00:00',
-                                                                                    '16:00:00',
-                                                                                    '17:00:00',
-                                                                                    '18:00:00',
-                                                                                    '19:00:00',
-                                                                                    '20:00:00',
-                                                                                    '21:00:00',
-                                                                                    '22:00:00',
-                                                                                    '23:00:00',
-                                                                                ];
+                                                                        '00:00:00',
+                                                                        '02:00:00',
+                                                                        '03:00:00',
+                                                                        '04:00:00',
+                                                                        '05:00:00',
+                                                                        '06:00:00',
+                                                                        '07:00:00',
+                                                                        '08:00:00',
+                                                                        '09:00:00',
+                                                                        '10:00:00',
+                                                                        '11:00:00',
+                                                                        '12:00:00',
+                                                                        '13:00:00',
+                                                                        '14:00:00',
+                                                                        '15:00:00',
+                                                                        '16:00:00',
+                                                                        '17:00:00',
+                                                                        '18:00:00',
+                                                                        '19:00:00',
+                                                                        '20:00:00',
+                                                                        '21:00:00',
+                                                                        '22:00:00',
+                                                                        '23:00:00',
+                                                                    ];
 
                                                                 @endphp
                                                                 @for ($i = 0; $i < count($days); $i++)
@@ -1474,11 +1531,11 @@
                                                                                 <option value="">Select Time
                                                                                 </option>
                                                                                 @foreach ($timeSlots as $slot)
-                                                                                <option value="{{ $slot }}">
-                                                                                    {{ date('H:i', strtotime($slot)) }}
-                                                                                </option>
-                                                                            @endforeach
-                                                                        </select>
+                                                                                    <option value="{{ $slot }}">
+                                                                                        {{ date('H:i', strtotime($slot)) }}
+                                                                                    </option>
+                                                                                @endforeach
+                                                                            </select>
                                                                         </td>
                                                                         <td>
                                                                             <select
@@ -1487,11 +1544,11 @@
                                                                                 <option value="">Select Time
                                                                                 </option>
                                                                                 @foreach ($timeSlots as $slot)
-                                                                                <option value="{{ $slot }}">
-                                                                                    {{ date('H:i', strtotime($slot)) }}
-                                                                                </option>
-                                                                            @endforeach
-                                                                        </select>
+                                                                                    <option value="{{ $slot }}">
+                                                                                        {{ date('H:i', strtotime($slot)) }}
+                                                                                    </option>
+                                                                                @endforeach
+                                                                            </select>
                                                                         </td>
                                                                     </tr>
                                                                 @endfor
