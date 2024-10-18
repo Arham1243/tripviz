@@ -109,6 +109,7 @@ class TourController extends Controller
             'service_fee_price' => $pricing['service_fee_price']  ?? null,
             'show_phone' => $pricing['show_phone'] ?? 0,
             'phone_country_code' => $pricing['phone_country_code'] ?? null,
+            'phone_dial_code' => $pricing['phone_dial_code'] ?? null,
             'phone_number' => $pricing['phone_number']  ?? null,
         ]);
 

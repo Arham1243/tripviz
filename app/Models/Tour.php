@@ -36,7 +36,30 @@ class Tour extends Model
     {
         return $this->hasMany(TourDetail::class);
     }
-
+    public function discounts()
+    {
+        return $this->hasMany(TourPriceDiscount::class);
+    }
+    public function extraPrices()
+    {
+        return $this->hasMany(TourExtraPrice::class);
+    }
+    public function normalPrices()
+    {
+        return $this->hasMany(TourPricing::class)->where('price_type', 'normal');
+    }
+    public function privatePrices()
+    {
+        return $this->hasOne(TourPricing::class)->where('price_type', 'private');
+    }
+    public function waterPrices()
+    {
+        return $this->hasMany(TourPricing::class)->where('price_type', 'water');
+    }
+    public function promoPrices()
+    {
+        return $this->hasMany(TourPricing::class)->where('price_type', 'promo');
+    }
     public function seo()
     {
         return $this->morphOne(Seo::class, 'seoable');

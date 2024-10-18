@@ -786,7 +786,7 @@
                             </div>
                         </div>
                         <div x-show="optionTab === 'pricing'" class="pricing-options">
-                            <div class="form-box" x-data="{ tourType: 'normal' }">
+                            <div class="form-box">
                                 <div class="form-box__header d-flex align-items-center justify-content-between">
                                     <div class="title">Pricing</div>
                                 </div>
@@ -1019,21 +1019,26 @@
                                                                         <tbody data-repeater-list>
                                                                             <tr data-repeater-item>
                                                                                 <td>
-                                                                                    <select name="tour[pricing][water][time][]"
+                                                                                    <select
+                                                                                        name="tour[pricing][water][time][]"
                                                                                         class="field"
                                                                                         data-error="Desert Activities Time">
                                                                                         <option value="">Select Time
                                                                                         </option>
-                                                                                        @foreach($waterMints as $waterMint)
-                                                                                        <option value="{{ $waterMint }}" >
-                                                                                            
-                                                                                            {{ $waterMint }} ({{ (int)substr($waterMint, 0, 2) * 60 + (int)substr($waterMint, 3, 2) }} mins)
-                                                                                        </option>
-                                                                                    @endforeach
+                                                                                        @foreach ($waterMints as $waterMint)
+                                                                                            <option
+                                                                                                value="{{ $waterMint }}">
+
+                                                                                                {{ $waterMint }}
+                                                                                                ({{ (int) substr($waterMint, 0, 2) * 60 + (int) substr($waterMint, 3, 2) }}
+                                                                                                mins)
+                                                                                            </option>
+                                                                                        @endforeach
                                                                                     </select>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <input name="tour[pricing][water][water_price][]"
+                                                                                    <input
+                                                                                        name="tour[pricing][water][water_price][]"
                                                                                         type="number" class="field"
                                                                                         placeholder="Price" step="0.01"
                                                                                         min="0"
@@ -1187,6 +1192,8 @@
                                                                                 <td>
                                                                                     <select class="field"
                                                                                         name="tour[pricing][extra_price][0][type]">
+                                                                                        <option value="" selected>
+                                                                                            Select</option>
                                                                                         <option value="one-time">One-time
                                                                                         </option>
                                                                                         <option value="per-hour">Per Hour
@@ -1278,6 +1285,8 @@
                                                                                 <td>
                                                                                     <select class="field"
                                                                                         name="tour[pricing][discount][type][]">
+                                                                                        <option value="" selected>
+                                                                                            Select</option>
                                                                                         <option value="fixed">Fixed
                                                                                         </option>
                                                                                         <option value="percent">Percent
@@ -1350,15 +1359,19 @@
                                                             for="enable-section">Enabled</label>
                                                     </div>
                                                 </div>
-                                                <input type="hidden" name="tour[pricing][phone_country_code]"
-                                                    id="phone_country_code">
-                                                <input type="text" name="tour[pricing][phone_number]"
-                                                    class="field flag-input"
-                                                    value="{{ old('tour[pricing][phone_number]') }}" placeholder="Phone"
-                                                    data-error="phone" inputmode="numeric" pattern="[0-9]*"
-                                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');"
-                                                    maxlength="15">
-
+                                                <div data-flag-input-wrapper>
+                                                    <input type="hidden" name="tour[pricing][phone_dial_code]"
+                                                        data-flag-input-dial-code value="971">
+                                                    <input type="hidden" name="tour[pricing][phone_country_code]"
+                                                        data-flag-input-country-code value="ae">
+                                                    <input type="text" name="tour[pricing][phone_number]"
+                                                        class="field flag-input" data-flag-input
+                                                        value="{{ old('tour[pricing][phone_number]') }}"
+                                                        placeholder="Phone" data-error="phone" inputmode="numeric"
+                                                        pattern="[0-9]*"
+                                                        oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                                                        maxlength="15">
+                                                </div>
                                                 @error('tour[pricing][phone_number]')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror

@@ -38,8 +38,7 @@ function updateLabel(container) {
 }
 
 const switches = document.querySelectorAll("input[data-toggle-switch]");
-
-switches.forEach((switchElement) => {
+switches?.forEach((switchElement) => {
     const container = switchElement.closest(
         "[data-enabled-text], [data-disabled-text]",
     );
@@ -616,21 +615,25 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateIndices(container) {
         const items = container.querySelectorAll("[data-repeater-item]");
         items.forEach((item, index) => {
-            const pricingFields = ['name', 'price', 'type', 'is_per_person'];
-    
-            pricingFields.forEach(field => {
-                const input = item.querySelector(`input[name*='[${field}]'], select[name*='[${field}]']`);
+            const pricingFields = ["name", "price", "type", "is_per_person"];
+
+            pricingFields.forEach((field) => {
+                const input = item.querySelector(
+                    `input[name*='[${field}]'], select[name*='[${field}]']`,
+                );
                 if (input) {
                     input.name = input.name.replace(/\[\d+\]/, `[${index}]`);
                 }
             });
-    
-            const itemInputs = item.querySelectorAll("input[name*='[items][]']");
+
+            const itemInputs = item.querySelectorAll(
+                "input[name*='[items][]']",
+            );
             itemInputs.forEach((input) => {
                 input.name = input.name.replace(/\[\d+\]/, `[${index}]`);
             });
         });
-    }    
+    }
 
     function updateSubDeleteButtonState(container) {
         const items = container.querySelectorAll("[data-sub-repeater-item]");
@@ -650,6 +653,13 @@ document.addEventListener("DOMContentLoaded", function () {
             if (input.type !== "checkbox") {
                 input.value = "";
             }
+            else if (input.type == "checkbox") {
+                input.checked = false;
+            }
+        });
+        const selects = newItem.querySelectorAll("select");
+        selects.forEach((select) => {
+            select.selectedIndex = 0;
         });
 
         updateUploadBox(newItem);
@@ -734,23 +744,33 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 $(document).ready(function () {
-    var input = $(".flag-input");
-    if (input.length > 0) {
-        input.intlTelInput({
-            initialCountry: "ae",
-            separateDialCode: true,
-        });
+    $('[data-flag-input-wrapper]').each(function () {
+        var $wrapper = $(this);
+        var input = $wrapper.find('[data-flag-input]');
 
-        function updateCountryCode() {
-            var countryData = input.intlTelInput("getSelectedCountryData");
-            if (countryData && countryData.dialCode) {
-                $("#phone_country_code").val(countryData.dialCode);
+        if (input.length > 0) {
+            input.intlTelInput({
+                initialCountry: "ae",
+                separateDialCode: true,
+            });
+
+            function updateCountryCode() {
+                var countryData = input.intlTelInput("getSelectedCountryData");
+                if (countryData && countryData.dialCode) {
+                    $wrapper.find('[data-flag-input-country-code]').val(countryData.iso2);
+                    $wrapper.find('[data-flag-input-dial-code]').val(countryData.dialCode);
+                }
+            }
+
+            input.on("countrychange", function (e) {
+                updateCountryCode();
+            });
+
+
+            var countryCode = $wrapper.find('[data-flag-input-country-code]').val();
+            if (countryCode) {
+                input.intlTelInput("setCountry", countryCode);
             }
         }
-        input.on("countrychange", function (e) {
-            updateCountryCode();
-        });
-
-        updateCountryCode();
-    }
+    });
 });
