@@ -43,31 +43,7 @@
                     </div>
                 </div>
             </div>
-
-            <!-- <div class="header-form__bannerBtns">
-                                                                                                                                                                                                                                                                                    <div class="header-btns mt-4">
-                                                                                                                                                                                                                                                                                        <div class="currencys">
-                                                                                                                                                                                                                                                                                            <div class="themeBtn themeBtn-white">Price</div>
-                                                                                                                                                                                                                                                                                            <div class="themeBtn themeBtn-white">Languages</div>
-                                                                                                                                                                                                                                                                                            <div class="themeBtn themeBtn-white">Duration</div>
-                                                                                                                                                                                                                                                                                            <div class="themeBtn themeBtn-white">Time</div>
-
-                                                                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                                                                                                    <div class="header-btns mt-4">
-                                                                                                                                                                                                                                                                                        <div class="currencys">
-                                                                                                                                                                                                                                                                                            <div class="themeBtn themeBtn-white filter-icon">
-
-                                                                                                                                                                                                                                                                                                <i class='bx bx-filter'></i>
-
-
-                                                                                                                                                                                                                                                                                                filter
-                                                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                                                                                  </div>
-
-                                                                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                                                                                 -->
+            \
             <div class="activity-sorting-block">
                 <div class="search-header__activity">
                     <div class="activities-found">
@@ -89,248 +65,10 @@
                         </label>
                     </div>
                 </div>
-
-
-
             </div>
-
         </div>
     </div>
 
-    <!--<div class="tour-activity__cards">-->
-    <!--    <div class="container">-->
-    <!--        <div class="row">-->
-    <!--            <div class="col-md-3">-->
-    <!--                <div class="card-content">-->
-    <!--                    <a href="#" class="card_img">-->
-    <!--                        <img src="{{ asset('assets/images/132.webp') }}" alt='image' class='imgFluid' loading='lazy'>-->
-    <!--                        <div class="price-details">-->
-    <!--                            <div class="price">-->
-    <!--                                <span>-->
-    <!--                                    Top pick-->
-    <!--                                </span>-->
-    <!--                            </div>-->
-    <!--                            <div class="heart-icon">-->
-    <!--                                <div class="service-wishlis">-->
-    <!--                                    <i class='bx bx-heart'></i>-->
-    <!--                                </div>-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-    <!--                    </a>-->
-    <!--                    <div class="tour-activity-card__details">-->
-    <!--                        <div class="vertical-activity-card__header">-->
-    <!--                            <div class=""><span>Day trip</span></div>-->
-    <!--                            <div class="tour-activity-card__details--title">Dubai: Safari, Quad Bike, Camel Ride, and-->
-    <!--                                Buffet Dinner</div>-->
-    <!--                        </div>-->
-
-
-
-
-
-    <!--                        <div class="card-rating">-->
-    <!--                            <i class='bx bxs-star yellow-star'></i>-->
-    <!--                            <i class='bx bxs-star yellow-star'></i>-->
-    <!--                            <i class='bx bxs-star yellow-star'></i>-->
-    <!--                            <i class='bx bxs-star yellow-star'></i>-->
-    <!--                            <i class='bx bxs-star'></i>-->
-    <!--                            <span>1 Reviews</span>-->
-    <!--                        </div>-->
-
-
-    <!--                        <div class="baseline-pricing__value baseline-pricing__value--high">-->
-    <!--                            <p class="baseline-pricing__from">-->
-    <!--                                <span class="baseline-pricing__from--text">From</span>-->
-    <!--                                <span class="baseline-pricing__from--value">$50.77</span>-->
-    <!--                            </p>-->
-    <!--                        </div>-->
-    <!--                        <div class="baseline-pricing__value baseline-pricing__value--low">-->
-    <!--                            <p class="baseline-pricing__from">From $33.00</p>-->
-
-    <!--                            <p class="baseline-pricing__category">per person</p>-->
-    <!--                        </div>-->
-
-    <!--                    </div>-->
-
-
-
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--            <div class="col-md-3">-->
-    <!--                <div class="card-content">-->
-    <!--                    <a href="#" class="card_img">-->
-    <!--                        <img src="{{ asset('assets/images/132 (1).webp') }}" alt='image' class='imgFluid'-->
-    <!--                            loading='lazy'>-->
-    <!--                        <div class="price-details">-->
-    <!--                            <div class="price">-->
-    <!--                                <span>-->
-    <!--                                    Top pick-->
-    <!--                                </span>-->
-    <!--                            </div>-->
-    <!--                            <div class="heart-icon">-->
-    <!--                                <div class="service-wishlis">-->
-    <!--                                    <i class='bx bx-heart'></i>-->
-    <!--                                </div>-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-    <!--                    </a>-->
-    <!--                    <div class="tour-activity-card__details">-->
-    <!--                        <div class="vertical-activity-card__header">-->
-    <!--                            <div class=""><span>Day trip</span></div>-->
-    <!--                            <div class="tour-activity-card__details--title">Dubai: Safari, Quad Bike, Camel Ride, and-->
-    <!--                                Buffet Dinner</div>-->
-    <!--                        </div>-->
-
-
-
-
-
-    <!--                        <div class="card-rating">-->
-    <!--                            <i class='bx bxs-star yellow-star'></i>-->
-    <!--                            <i class='bx bxs-star yellow-star'></i>-->
-    <!--                            <i class='bx bxs-star yellow-star'></i>-->
-    <!--                            <i class='bx bxs-star yellow-star'></i>-->
-    <!--                            <i class='bx bxs-star'></i>-->
-    <!--                            <span>1 Reviews</span>-->
-    <!--                        </div>-->
-
-
-    <!--                        <div class="baseline-pricing__value baseline-pricing__value--high">-->
-    <!--                            <p class="baseline-pricing__from">-->
-    <!--                                <span class="baseline-pricing__from--text">From</span>-->
-    <!--                                <span class="baseline-pricing__from--value">$50.77</span>-->
-    <!--                            </p>-->
-    <!--                        </div>-->
-    <!--                        <div class="baseline-pricing__value baseline-pricing__value--low">-->
-    <!--                            <p class="baseline-pricing__from">From $33.00</p>-->
-
-    <!--                            <p class="baseline-pricing__category">per person</p>-->
-    <!--                        </div>-->
-
-    <!--                    </div>-->
-
-
-
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--            <div class="col-md-3">-->
-    <!--                <div class="card-content">-->
-    <!--                    <a href="#" class="card_img">-->
-    <!--                        <img src="{{ asset('assets/images/132 (2).webp') }}" alt='image' class='imgFluid'-->
-    <!--                            loading='lazy'>-->
-    <!--                        <div class="price-details">-->
-    <!--                            <div class="price">-->
-    <!--                                <span>-->
-    <!--                                    Top pick-->
-    <!--                                </span>-->
-    <!--                            </div>-->
-    <!--                            <div class="heart-icon">-->
-    <!--                                <div class="service-wishlis">-->
-    <!--                                    <i class='bx bx-heart'></i>-->
-    <!--                                </div>-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-    <!--                    </a>-->
-    <!--                    <div class="tour-activity-card__details">-->
-    <!--                        <div class="vertical-activity-card__header">-->
-    <!--                            <div class=""><span>Day trip</span></div>-->
-    <!--                            <div class="tour-activity-card__details--title">Dubai: Safari, Quad Bike, Camel Ride, and-->
-    <!--                                Buffet Dinner</div>-->
-    <!--                        </div>-->
-
-
-
-
-
-    <!--                        <div class="card-rating">-->
-    <!--                            <i class='bx bxs-star yellow-star'></i>-->
-    <!--                            <i class='bx bxs-star yellow-star'></i>-->
-    <!--                            <i class='bx bxs-star yellow-star'></i>-->
-    <!--                            <i class='bx bxs-star yellow-star'></i>-->
-    <!--                            <i class='bx bxs-star'></i>-->
-    <!--                            <span>1 Reviews</span>-->
-    <!--                        </div>-->
-
-
-    <!--                        <div class="baseline-pricing__value baseline-pricing__value--high">-->
-    <!--                            <p class="baseline-pricing__from">-->
-    <!--                                <span class="baseline-pricing__from--text">From</span>-->
-    <!--                                <span class="baseline-pricing__from--value">$50.77</span>-->
-    <!--                            </p>-->
-    <!--                        </div>-->
-    <!--                        <div class="baseline-pricing__value baseline-pricing__value--low">-->
-    <!--                            <p class="baseline-pricing__from">From $33.00</p>-->
-
-    <!--                            <p class="baseline-pricing__category">per person</p>-->
-    <!--                        </div>-->
-
-    <!--                    </div>-->
-
-
-
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--            <div class="col-md-3">-->
-    <!--                <div class="card-content">-->
-    <!--                    <a href="#" class="card_img">-->
-    <!--                        <img src="{{ asset('assets/images/132 (3).webp') }}" alt='image' class='imgFluid'-->
-    <!--                            loading='lazy'>-->
-    <!--                        <div class="price-details">-->
-    <!--                            <div class="price">-->
-    <!--                                <span>-->
-    <!--                                    Top pick-->
-    <!--                                </span>-->
-    <!--                            </div>-->
-    <!--                            <div class="heart-icon">-->
-    <!--                                <div class="service-wishlis">-->
-    <!--                                    <i class='bx bx-heart'></i>-->
-    <!--                                </div>-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-    <!--                    </a>-->
-    <!--                    <div class="tour-activity-card__details">-->
-    <!--                        <div class="vertical-activity-card__header">-->
-    <!--                            <div class=""><span>Day trip</span></div>-->
-    <!--                            <div class="tour-activity-card__details--title">Dubai: Safari, Quad Bike, Camel Ride, and-->
-    <!--                                Buffet Dinner</div>-->
-    <!--                        </div>-->
-
-
-
-
-
-    <!--                        <div class="card-rating">-->
-    <!--                            <i class='bx bxs-star yellow-star'></i>-->
-    <!--                            <i class='bx bxs-star yellow-star'></i>-->
-    <!--                            <i class='bx bxs-star yellow-star'></i>-->
-    <!--                            <i class='bx bxs-star yellow-star'></i>-->
-    <!--                            <i class='bx bxs-star'></i>-->
-    <!--                            <span>1 Reviews</span>-->
-    <!--                        </div>-->
-
-
-    <!--                        <div class="baseline-pricing__value baseline-pricing__value--high">-->
-    <!--                            <p class="baseline-pricing__from">-->
-    <!--                                <span class="baseline-pricing__from--text">From</span>-->
-    <!--                                <span class="baseline-pricing__from--value">$50.77</span>-->
-    <!--                            </p>-->
-    <!--                        </div>-->
-    <!--                        <div class="baseline-pricing__value baseline-pricing__value--low">-->
-    <!--                            <p class="baseline-pricing__from">From $33.00</p>-->
-
-    <!--                            <p class="baseline-pricing__category">per person</p>-->
-    <!--                        </div>-->
-
-    <!--                    </div>-->
-
-
-
-    <!--                </div>-->
-    <!--            </div>-->
-
-    <!--        </div>-->
-    <!--    </div>-->
-    <!--</div>-->
 
 
 
@@ -861,13 +599,13 @@
                 <div class="tour-activity-card__details">
                     <div class="vertical-activity-card__header">
                         ${tour.categories && tour.categories.length > 0 ? `
-                                                                                                                                                                                                                                                                                <div class="tour-categories">
-                                                                                                                                                                                                                                                                                    <span>${tour.categories[0].name}</span>
-                                                                                                                                                                                                                                                                                    <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="${tour.categories.map(category => category.name).join('<br>')}">
-                                                                                                                                                                                                                                                                                        <i class='bx bxs-info-circle'></i>
-                                                                                                                                                                                                                                                                                    </button>
-                                                                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                                                                            ` : ''}
+                                                                                                                                                                                                                                                                                        <div class="tour-categories">
+                                                                                                                                                                                                                                                                                            <span>${tour.categories[0].name}</span>
+                                                                                                                                                                                                                                                                                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="${tour.categories.map(category => category.name).join('<br>')}">
+                                                                                                                                                                                                                                                                                                <i class='bx bxs-info-circle'></i>
+                                                                                                                                                                                                                                                                                            </button>
+                                                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                                                    ` : ''}
                         <a href="/tours/details/${tour.slug}" class="tour-activity-card__details--title">${tour.title}</a>
                     </div>
                     <div class="card-rating">
@@ -877,19 +615,19 @@
                         <span>${reviewText}</span>
                     </div>
                     ${tour.price_type === 'per_person' ? `
-                                                                                                                                                                                                                                                                            <div class="baseline-pricing__value baseline-pricing__value--low">
-                                                                                                                                                                                                                                                                                <p class="baseline-pricing__from">From</p>
-                                                                                                                                                                                                                                                                                <p class="baseline-pricing__from">${tour.for_adult_price}</p>
-                                                                                                                                                                                                                                                                                <p class="baseline-pricing__category">Per Person</p>
-                                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                                                        ` : ''}
+                                                                                                                                                                                                                                                                                    <div class="baseline-pricing__value baseline-pricing__value--low">
+                                                                                                                                                                                                                                                                                        <p class="baseline-pricing__from">From</p>
+                                                                                                                                                                                                                                                                                        <p class="baseline-pricing__from">${tour.for_adult_price}</p>
+                                                                                                                                                                                                                                                                                        <p class="baseline-pricing__category">Per Person</p>
+                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                ` : ''}
                     ${tour.price_type === 'per_car' ? `
-                                                                                                                                                                                                                                                                            <div class="baseline-pricing__value baseline-pricing__value--low">
-                                                                                                                                                                                                                                                                                <p class="baseline-pricing__from">From</p>
-                                                                                                                                                                                                                                                                                <p class="baseline-pricing__from">${tour.for_car_price}</p>
-                                                                                                                                                                                                                                                                                <p class="baseline-pricing__category">Per Car</p>
-                                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                                                        ` : ''}
+                                                                                                                                                                                                                                                                                    <div class="baseline-pricing__value baseline-pricing__value--low">
+                                                                                                                                                                                                                                                                                        <p class="baseline-pricing__from">From</p>
+                                                                                                                                                                                                                                                                                        <p class="baseline-pricing__from">${tour.for_car_price}</p>
+                                                                                                                                                                                                                                                                                        <p class="baseline-pricing__category">Per Car</p>
+                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                ` : ''}
                 </div>
             </div>
         </div>`;

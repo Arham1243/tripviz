@@ -257,7 +257,7 @@
                                 <span>Total</span>
                                 <span>$53.97</span>
                             </div>
-                        </div>                                                                                                                                                                                                                                               </div> -->
+                        </div>
                     </div>
                 </div>
             </form>
