@@ -257,22 +257,7 @@
                                 <span>Total</span>
                                 <span>$53.97</span>
                             </div>
-                        </div>
-                        <!-- <div class="checkout__paymentMethod">
-                                                                                                                                                                                                                                                                    <h4>Payment Method</h4>
-                                                                                                                                                                                                                                                                    <ul class="checkout__paymentMethodRadios">
-                                                                                                                                                                                                                                                                        <li>
-                                                                                                                                                                                                                                                                            <input type="radio" name="payment" id="stripe">
-                                                                                                                                                                                                                                                                            <label for="stripe">Stripe <img src="{{ asset('assets/images/Stripe.webp') }}" alt=""></label>
-                                                                                                                                                                                                                                                                        </li>
-                                                                                                                                                                                                                                                                        <li>
-                                                                                                                                                                                                                                                                            <input type="radio" name="payment" id="paypal">
-                                                                                                                                                                                                                                                                            <label for="paypal">Paypal <img src="{{ asset('assets/images/paypal.webp') }}" alt=""></label>
-                                                                                                                                                                                                                                                                        </li>
-
-                                                                                                                                                                                                                                                                    </ul>
-                                                                                                                                                                                                                                                                    <button type="submit" class="app-btn themeBtn">Place Your Order</button>
-                                                                                                                                                                                                                                                                </div> -->
+                        </div>                                                                                                                                                                                                                                               </div> -->
                     </div>
                 </div>
             </form>
