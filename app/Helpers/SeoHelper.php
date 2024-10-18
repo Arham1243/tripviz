@@ -10,9 +10,9 @@ class SeoHelper
 
     public function handleSeoData($request, $entry, $resource)
     {
-        $seoData = $request->all('seo')['seo']; 
+        $seoData = $request->all('seo')['seo'];
         if (isset($seoData['is_seo_index'])) {
-            
+
             $seo = $entry->seo()->updateOrCreate([], $seoData);
             $imageFields = [
                 'seo_featured_image',

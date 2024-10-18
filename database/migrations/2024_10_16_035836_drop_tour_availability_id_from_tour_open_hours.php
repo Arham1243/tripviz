@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('tour_open_hours', function (Blueprint $table) {
             $table->dropForeign(['tour_availability_id']);
-            
+
             $table->dropColumn('tour_availability_id');
         });
     }
@@ -25,7 +25,7 @@ return new class extends Migration
     {
         Schema::table('tour_open_hours', function (Blueprint $table) {
             $table->unsignedBigInteger('tour_availability_id')->nullable();
-            
+
             $table->foreign('tour_availability_id')->references('id')->on('tour_availabilities')->onDelete('cascade');
         });
     }

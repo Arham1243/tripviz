@@ -110,7 +110,6 @@
                                                                 <input type="hidden" name="items[{{ $index }}][id]"
                                                                     value="{{ old('items.' . $index . '.id', $item['id']) }}" />
                                                                 @if ($item['id'])
-                                                                    
                                                                     <a href="{{ route('admin.tour-attribute-item.delete', $item['id']) }}"
                                                                         onclick="return confirm('Are you sure you want to delete?')"
                                                                         class="delete-btn ms-auto delete-btn--static">

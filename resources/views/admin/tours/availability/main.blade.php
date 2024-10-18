@@ -90,7 +90,8 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <input type="text" name="adult[name]" class="field" value="Adult" readonly>
+                                                    <input type="text" name="adult[name]" class="field" value="Adult"
+                                                        readonly>
                                                 </td>
                                                 <td>
                                                     <input type="number" min="0" name="adult[min]" class="field">
@@ -99,27 +100,31 @@
                                                     <input type="number" min="0" name="adult[max]" class="field">
                                                 </td>
                                                 <td>
-                                                    <input type="number" step="0.01" min="0" name="adult[price]" class="field">
+                                                    <input type="number" step="0.01" min="0" name="adult[price]"
+                                                        class="field">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <input type="text" name="child[name]" class="field" value="Child" readonly>
+                                                    <input type="text" name="child[name]" class="field" value="Child"
+                                                        readonly>
                                                 </td>
                                                 <td>
                                                     <input type="number" min="0" name="child[min]" class="field">
                                                 </td>
                                                 <td>
-                                                    <input type="number" min="0" name="child[max]" class="field">
+                                                    <input type="number" min="0" name="child[max]"
+                                                        class="field">
                                                 </td>
                                                 <td>
-                                                    <input type="number" step="0.01" min="0" name="child[price]" class="field">
+                                                    <input type="number" step="0.01" min="0"
+                                                        name="child[price]" class="field">
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </form>

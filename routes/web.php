@@ -4,7 +4,6 @@ use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\TourController;
-use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
 
 // ---------------------------------------All Pages---------------------------------------
@@ -28,7 +27,6 @@ Route::get('/dump-intended-urls', function (Illuminate\Http\Request $request) {
     $intendedUrls = $request->session()->get('url.intended', []);
     dd($intendedUrls);
 });
-
 
 // ---------------------------------------Tours---------------------------------------
 Route::prefix('tours')->name('tours.')->group(function () {

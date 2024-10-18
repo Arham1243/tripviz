@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tour_open_hours', function (Blueprint $table) {
-            $table->boolean('enabled')->default(0); 
+            $table->boolean('enabled')->default(0);
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('tour_open_hours', function (Blueprint $table) {
-            $table->dropColumn('enabled'); 
+            $table->dropColumn('enabled');
         });
     }
 };

@@ -3,9 +3,8 @@
     <div class="col-md-12">
         <div class="dashboard-content">
             {{ Breadcrumbs::render('admin.tours.edit', $tour) }}
-            <form action="javascript:void(0)"  method="POST" enctype="multipart/form-data"
-                id="validation-form">
-                @method("PATCH")
+            <form action="javascript:void(0)" method="POST" enctype="multipart/form-data" id="validation-form">
+                @method('PATCH')
                 @csrf
                 <div class="custom-sec custom-sec--form">
                     <div class="custom-sec__header">
@@ -1058,15 +1057,14 @@
                                                                             </tr>
                                                                         </thead>
                                                                         @php
-                                                                            $privateTourPrice = $tour->privatePrices != null
-                                                                                ? $tour->privatePrices
-                                                                                : 
-                                                                                    [
+                                                                            $privateTourPrice =
+                                                                                $tour->privatePrices != null
+                                                                                    ? $tour->privatePrices
+                                                                                    : [
                                                                                         'car_price' => '',
                                                                                         'min_person' => '',
                                                                                         'max_person' => '',
-                                                                                    ]
-                                                                                ;
+                                                                                    ];
                                                                         @endphp
                                                                         <tbody>
                                                                             <tr>
@@ -1137,12 +1135,12 @@
                                                                                     [
                                                                                         'time' => '00:15:00',
                                                                                         'water_price' => '',
-                                                                                ]
+                                                                                    ],
                                                                                 ];
                                                                         @endphp
                                                                         <tbody data-repeater-list>
                                                                             @foreach ($waterTourPrices as $waterTourPrice)
-                                                                            @php
+                                                                                @php
                                                                                     $selectedTime = substr(
                                                                                         $waterTourPrice['time'],
                                                                                         0,
@@ -1160,7 +1158,8 @@
                                                                                             </option>
                                                                                             @foreach ($waterMints as $waterMint)
                                                                                                 <option
-                                                                                                    value="{{ $waterMint }}" {{ $waterMint === $selectedTime ? 'selected' : '' }}>
+                                                                                                    value="{{ $waterMint }}"
+                                                                                                    {{ $waterMint === $selectedTime ? 'selected' : '' }}>
 
                                                                                                     {{ $waterMint }}
                                                                                                     ({{ (int) substr($waterMint, 0, 2) * 60 + (int) substr($waterMint, 3, 2) }}
@@ -1211,75 +1210,82 @@
                                                                                 </th>
                                                                             </tr>
                                                                         </thead>
-@php
-                                                                        $promoTourPrices = !$tour->promoPrices->isEmpty()
-                                                                        ? $tour->promoPrices
-                                                                        : [
-                                                                            [
-                                                                                'promo_title' => '',
-                                                                                'original_price' => '',
-                                                                                'discount_price' => '',
-                                                                                'promo_price' => '',
-                                                                                'offer_expire_at' => '',
-                                                                        ]
-                                                                        ];
-                                                                @endphp
+                                                                        @php
+                                                                            $promoTourPrices = !$tour->promoPrices->isEmpty()
+                                                                                ? $tour->promoPrices
+                                                                                : [
+                                                                                    [
+                                                                                        'promo_title' => '',
+                                                                                        'original_price' => '',
+                                                                                        'discount_price' => '',
+                                                                                        'promo_price' => '',
+                                                                                        'offer_expire_at' => '',
+                                                                                    ],
+                                                                                ];
+                                                                        @endphp
                                                                         <tbody data-repeater-list>
                                                                             @foreach ($promoTourPrices as $promoTourPrice)
-                                                                            <tr data-repeater-item>
-                                                                                <td>
-                                                                                    <input type="text"
-                                                                                        name="tour[pricing][promo][promo_title][]"
-                                                                                        class="field"
-                                                                                        value="{{$promoTourPrice['promo_title']}}"
-                                                                                        placeholder="E.g., For One Adult"
-                                                                                        data-error="Package Title">
-                                                                                </td>
-                                                                                <td style="width: 35%">
-                                                                                    <div>
-                                                                                        <input
-                                                                                            name="tour[pricing][promo][original_price][]"
-                                                                                            type="number" class="field"
-                                                                                            placeholder="Original Price"
-                                                                                            value="{{$promoTourPrice['original_price']}}"
-                                                                                            step="0.01" min="0"
-                                                                                            data-error="Original Price">
-                                                                                    </div>
-                                                                                    <div class="mt-2">
-                                                                                        <input
-                                                                                            name="tour[pricing][promo][discount_price][]"
-                                                                                            type="number" class="field"
-                                                                                            placeholder="Discounted Price"
-                                                                                            value="{{$promoTourPrice['discount_price']}}"
-                                                                                            step="0.01" min="0"
-                                                                                            data-error="Discount Price">
-                                                                                    </div>
-                                                                                    <div class="mt-2">
-                                                                                        <input
-                                                                                            name="tour[pricing][promo][promo_price][]"
-                                                                                            type="number" class="field"
-                                                                                            placeholder="Promo Price"
-                                                                                            value="{{$promoTourPrice['promo_price']}}"
-                                                                                            step="0.01" min="0"
-                                                                                            data-error="Promo Price">
-                                                                                    </div>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <input type="datetime-local"
-                                                                                        class="field"
-                                                                                        name="tour[pricing][promo][offer_expire_at][]"
-                                                                                        data-error="Expiry Date & Time"
-                                                                                        value="{{$promoTourPrice['offer_expire_at']}}"
-                                                                                        autocomplete="off">
-                                                                                </td>
-                                                                                <td>
-                                                                                    <button type="button"
-                                                                                        class="delete-btn ms-auto delete-btn--static"
-                                                                                        data-repeater-remove disabled>
-                                                                                        <i class='bx bxs-trash-alt'></i>
-                                                                                    </button>
-                                                                                </td>
-                                                                            </tr>
+                                                                                <tr data-repeater-item>
+                                                                                    <td>
+                                                                                        <input type="text"
+                                                                                            name="tour[pricing][promo][promo_title][]"
+                                                                                            class="field"
+                                                                                            value="{{ $promoTourPrice['promo_title'] }}"
+                                                                                            placeholder="E.g., For One Adult"
+                                                                                            data-error="Package Title">
+                                                                                    </td>
+                                                                                    <td style="width: 35%">
+                                                                                        <div>
+                                                                                            <input
+                                                                                                name="tour[pricing][promo][original_price][]"
+                                                                                                type="number"
+                                                                                                class="field"
+                                                                                                placeholder="Original Price"
+                                                                                                value="{{ $promoTourPrice['original_price'] }}"
+                                                                                                step="0.01"
+                                                                                                min="0"
+                                                                                                data-error="Original Price">
+                                                                                        </div>
+                                                                                        <div class="mt-2">
+                                                                                            <input
+                                                                                                name="tour[pricing][promo][discount_price][]"
+                                                                                                type="number"
+                                                                                                class="field"
+                                                                                                placeholder="Discounted Price"
+                                                                                                value="{{ $promoTourPrice['discount_price'] }}"
+                                                                                                step="0.01"
+                                                                                                min="0"
+                                                                                                data-error="Discount Price">
+                                                                                        </div>
+                                                                                        <div class="mt-2">
+                                                                                            <input
+                                                                                                name="tour[pricing][promo][promo_price][]"
+                                                                                                type="number"
+                                                                                                class="field"
+                                                                                                placeholder="Promo Price"
+                                                                                                value="{{ $promoTourPrice['promo_price'] }}"
+                                                                                                step="0.01"
+                                                                                                min="0"
+                                                                                                data-error="Promo Price">
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <input type="datetime-local"
+                                                                                            class="field"
+                                                                                            name="tour[pricing][promo][offer_expire_at][]"
+                                                                                            data-error="Expiry Date & Time"
+                                                                                            value="{{ $promoTourPrice['offer_expire_at'] }}"
+                                                                                            autocomplete="off">
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <button type="button"
+                                                                                            class="delete-btn ms-auto delete-btn--static"
+                                                                                            data-repeater-remove disabled>
+                                                                                            <i
+                                                                                                class='bx bxs-trash-alt'></i>
+                                                                                        </button>
+                                                                                    </td>
+                                                                                </tr>
                                                                             @endforeach
                                                                         </tbody>
                                                                     </table>
@@ -1569,19 +1575,20 @@
                                                             for="enable-section">Enabled</label>
                                                     </div>
                                                 </div>
-                                                    <div data-flag-input-wrapper>
-                                                        <input type="hidden" name="tour[pricing][phone_dial_code]"
-                                                            data-flag-input-dial-code value="{{ $tour->phone_dial_code }}">
-                                                        <input type="hidden" name="tour[pricing][phone_country_code]"
-                                                            data-flag-input-country-code value="{{ $tour->phone_country_code }}">
-                                                        <input type="text" name="tour[pricing][phone_number]"
-                                                            class="field flag-input" data-flag-input
-                                                            value="{{ old('tour[pricing][phone_number]', $tour->phone_number) }}"
-                                                            placeholder="Phone" data-error="phone" inputmode="numeric"
-                                                            pattern="[0-9]*"
-                                                            oninput="this.value = this.value.replace(/[^0-9]/g, '');"
-                                                            maxlength="15">
-                                                    </div>
+                                                <div data-flag-input-wrapper>
+                                                    <input type="hidden" name="tour[pricing][phone_dial_code]"
+                                                        data-flag-input-dial-code value="{{ $tour->phone_dial_code }}">
+                                                    <input type="hidden" name="tour[pricing][phone_country_code]"
+                                                        data-flag-input-country-code
+                                                        value="{{ $tour->phone_country_code }}">
+                                                    <input type="text" name="tour[pricing][phone_number]"
+                                                        class="field flag-input" data-flag-input
+                                                        value="{{ old('tour[pricing][phone_number]', $tour->phone_number) }}"
+                                                        placeholder="Phone" data-error="phone" inputmode="numeric"
+                                                        pattern="[0-9]*"
+                                                        oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                                                        maxlength="15">
+                                                </div>
 
                                                 @error('tour[pricing][phone_number]')
                                                     <div class="text-danger">{{ $message }}</div>

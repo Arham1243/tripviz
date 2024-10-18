@@ -7,10 +7,10 @@ if (! function_exists('buildUrl')) {
     {
         $url = $base;
         if ($resource) {
-            $url .= '/' . $resource;
+            $url .= '/'.$resource;
         }
         if ($slug) {
-            $url .= '/' . $slug;
+            $url .= '/'.$slug;
         }
 
         return $url;
@@ -37,8 +37,8 @@ if (! function_exists('renderCategories')) {
             if ($category->parent_category_id == $parent_id) {
                 $selected = (old('category_id', $selectedCategory) == $category->id) ? 'selected' : '';
 
-                echo '<option value="' . $category->id . '" ' . $selected . '>';
-                echo str_repeat('-', $level) . ' ' . $category->name;
+                echo '<option value="'.$category->id.'" '.$selected.'>';
+                echo str_repeat('-', $level).' '.$category->name;
                 echo '</option>';
 
                 renderCategories($categories, $selectedCategory, $category->id, $level + 1);

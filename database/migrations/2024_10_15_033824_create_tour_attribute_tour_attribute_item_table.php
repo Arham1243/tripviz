@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('tour_attribute_tour_attribute_item', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tour_id')->constrained()->onDelete('cascade');
-    
+
             $table->foreignId('tour_attribute_id')->constrained()->onDelete('cascade');
-    
+
             $table->foreignId('tour_attribute_item_id')
-                  ->constrained('tour_attribute_items')
-                  ->onDelete('cascade')
-                  ->name('fk_tour_attr_item'); 
+                ->constrained('tour_attribute_items')
+                ->onDelete('cascade')
+                ->name('fk_tour_attr_item');
             $table->timestamps();
         });
     }

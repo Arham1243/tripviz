@@ -14,20 +14,20 @@ return new class extends Migration
         Schema::create('tour_pricings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tour_id')->nullable()->constrained()->onDelete('cascade');
-            $table->string('price_type')->nullable(); 
-            $table->string('person_type')->nullable(); 
-            $table->string('person_description')->nullable(); 
-            $table->integer('min_person')->nullable(); 
-            $table->integer('max_person')->nullable(); 
-            $table->decimal('price', 10, 2)->nullable(); 
-            $table->decimal('car_price', 10, 2)->nullable(); 
+            $table->string('price_type')->nullable();
+            $table->string('person_type')->nullable();
+            $table->string('person_description')->nullable();
+            $table->integer('min_person')->nullable();
+            $table->integer('max_person')->nullable();
+            $table->decimal('price', 10, 2)->nullable();
+            $table->decimal('car_price', 10, 2)->nullable();
             $table->time('time')->nullable();
-            $table->decimal('water_price', 10, 2)->nullable(); 
-            $table->string('promo_title')->nullable(); 
-            $table->decimal('original_price', 10, 2)->nullable(); 
-            $table->decimal('discount_price', 10, 2)->nullable(); 
-            $table->decimal('promo_price', 10, 2)->nullable(); 
-            $table->date('offer_expire_at')->nullable(); 
+            $table->decimal('water_price', 10, 2)->nullable();
+            $table->string('promo_title')->nullable();
+            $table->decimal('original_price', 10, 2)->nullable();
+            $table->decimal('discount_price', 10, 2)->nullable();
+            $table->decimal('promo_price', 10, 2)->nullable();
+            $table->date('offer_expire_at')->nullable();
             $table->timestamps();
         });
     }

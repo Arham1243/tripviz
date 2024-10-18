@@ -490,36 +490,39 @@
                             </div>
                         </div>
                         <div x-show="optionTab === 'location'" class="location-options">
-                            <div class="form-box" x-data="{ locationType: 'normalLocation' }">
+                            <div class="form-box" x-data="{ locationType: 'normal_location' }">
                                 <div class="form-box__header d-flex align-items-center justify-content-between">
                                     <div class="title">Tour Locations</div>
                                     <div class="d-flex align-items-center gap-5">
                                         <div class="form-check p-0">
-                                            <input class="form-check-input" type="radio" name="location_type"
-                                                id="normalLocation" x-model="locationType" value="normalLocation"
-                                                checked="">
-                                            <label class="form-check-label" for="normalLocation">Location</label>
+                                            <input class="form-check-input" type="radio"
+                                                name="tour[pricing][location_type]" id="normal_location"
+                                                x-model="locationType" value="normal_location" checked>
+                                            <label class="form-check-label" for="normal_location">Location</label>
                                         </div>
                                         <div class="form-check p-0">
-                                            <input class="form-check-input" type="radio" name="location_type"
-                                                id="normalItinerary" x-model="locationType" value="normalItinerary">
-                                            <label class="form-check-label" for="normalItinerary">Normal Itinerary</label>
+                                            <input class="form-check-input" type="radio"
+                                                name="tour[pricing][location_type]" id="normal_itinerary"
+                                                x-model="locationType" value="normal_itinerary">
+                                            <label class="form-check-label" for="normal_itinerary">Normal
+                                                Itinerary</label>
                                         </div>
                                         <div class="form-check p-0">
-                                            <input class="form-check-input" type="radio" name="location_type"
-                                                id="itineraryExperience" x-model="locationType"
-                                                value="itineraryExperience">
-                                            <label class="form-check-label" for="itineraryExperience">Plan Itinerary
+                                            <input class="form-check-input" type="radio"
+                                                name="tour[pricing][location_type]" id="itinerary_experience"
+                                                x-model="locationType" value="itinerary_experience">
+                                            <label class="form-check-label" for="itinerary_experience">Plan Itinerary
                                                 Experience</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-box__body">
-                                    <div x-show="locationType === 'normalLocation'">
+                                    <div x-show="locationType === 'normal_location'">
                                         <div class="form-fields">
                                             <label class="title">Location <span class="text-danger">*</span> :</label>
-                                            <select name="location[city_ids[]]" class="choice-select"
-                                                data-error="Location" multiple placeholder="Select Locations">
+                                            <select name="tour[location][city_ids][]" class="choice-select"
+                                                data-error="Location" multiple placeholder="Select Locations"
+                                                autocomplete="new-password">
                                                 @foreach ($cities as $city)
                                                     <option value="{{ $city->id }}"
                                                         {{ old('city_ids') == $city->id ? 'selected' : '' }}>
@@ -534,14 +537,14 @@
                                         <div class="form-fields">
                                             <label class="title">Real Tour address <span class="text-danger">*</span>
                                                 :</label>
-                                            <input type="text" name="location[address]" class="field"
+                                            <input type="text" name="tour[location][address]" class="field"
                                                 value="{{ old('location[address]') }}" data-error="Real Tour address">
                                             @error('location[address]')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
-                                    <div x-show="locationType === 'normalItinerary'">
+                                    <div x-show="locationType === 'normal_itinerary'">
                                         <div class="form-fields">
                                             <label class=" d-flex align-items-center mb-3 justify-content-between"><span
                                                     class="title title--sm mb-0">Itinerary:</span>
@@ -636,7 +639,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div x-show="locationType === 'itineraryExperience'">
+                                    <div x-show="locationType === 'itinerary_experience'">
                                         <div class="plan-itenirary">
                                             <div class="form-fields">
                                                 <label class="d-flex align-items-center mb-3 justify-content-between">

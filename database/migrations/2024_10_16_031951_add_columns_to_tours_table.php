@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::table('tours', function (Blueprint $table) {
             $table->boolean('is_fixed_date')->default(0);
-        $table->date('start_date')->nullable();
-        $table->date('end_date')->nullable();
-        $table->date('last_booking_date')->nullable();
-        $table->boolean('is_open_hours')->default(0);
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->date('last_booking_date')->nullable();
+            $table->boolean('is_open_hours')->default(0);
         });
     }
 
@@ -27,11 +27,11 @@ return new class extends Migration
     {
         Schema::table('tours', function (Blueprint $table) {
             $table->dropColumn([
-                'is_fixed_date', 
-                'start_date', 
-                'end_date', 
-                'last_booking_date', 
-                'is_open_hours'
+                'is_fixed_date',
+                'start_date',
+                'end_date',
+                'last_booking_date',
+                'is_open_hours',
             ]);
         });
     }

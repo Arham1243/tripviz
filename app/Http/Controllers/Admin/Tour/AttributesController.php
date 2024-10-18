@@ -49,6 +49,7 @@ class AttributesController extends Controller
     {
         $attribute = TourAttribute::find($id);
         $data = compact('attribute');
+
         return view('admin.tours.attributes.edit')->with('title', ucfirst(strtolower($attribute->name)))->with($data);
     }
 
@@ -71,11 +72,11 @@ class AttributesController extends Controller
         $attribute = TourAttribute::findOrFail($id);
 
         $validItems = array_filter($validatedData['items'], function ($item) {
-            return !is_null($item['item']) && trim($item['item']) !== '';
+            return ! is_null($item['item']) && trim($item['item']) !== '';
         });
 
         foreach ($validItems as $item) {
-            if (isset($item['id']) && !empty($item['id'])) {
+            if (isset($item['id']) && ! empty($item['id'])) {
                 $attribute->attributeItems()->where('id', $item['id'])->update(['item' => $item['item']]);
             } else {
                 $attribute->attributeItems()->create(['item' => $item['item']]);

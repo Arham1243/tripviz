@@ -36,8 +36,8 @@
                 data-error="Category">
                 <option value="" selected>Parent Category</option>
                 @php
-                renderCategories($categories);
-            @endphp
+                    renderCategories($categories);
+                @endphp
             </select>
             @error('parent_category_id')
                 <div class="text-danger">{{ $message }}</div>

@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tours', function (Blueprint $table) {
-            $table->unsignedBigInteger('author_id')->nullable()->after('id'); 
-            $table->boolean('is_featured')->default(0)->nullable()->after('author_id'); 
-            $table->text('featured_state')->nullable()->after('is_featured'); 
-            $table->string('ical_import_url')->nullable()->after('featured_state'); 
-            $table->string('ical_export_url')->nullable()->after('ical_import_url'); 
+            $table->unsignedBigInteger('author_id')->nullable()->after('id');
+            $table->boolean('is_featured')->default(0)->nullable()->after('author_id');
+            $table->text('featured_state')->nullable()->after('is_featured');
+            $table->string('ical_import_url')->nullable()->after('featured_state');
+            $table->string('ical_export_url')->nullable()->after('ical_import_url');
         });
     }
 

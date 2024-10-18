@@ -37,7 +37,8 @@
                             search
                             results?
                             :</label>
-                        <select name="seo[is_seo_index]" class="field" onchange="toggleElement(this, '0', 'seo_options')">
+                        <select name="seo[is_seo_index]" class="field"
+                            onchange="toggleElement(this, '0', 'seo_options')">
                             <option value="" disabled selected>Select</option>
                             <option {{ old('is_seo_index', $seo->is_seo_index ?? '') == '1' ? 'selected' : '' }}
                                 value="1">Yes

@@ -18,10 +18,11 @@ class TourCategory extends Model
     {
         return $this->morphOne(Seo::class, 'seoable');
     }
+
     public function children()
-{
-    return $this->hasMany(TourCategory::class, 'parent_category_id');
-}
+    {
+        return $this->hasMany(TourCategory::class, 'parent_category_id');
+    }
 
     protected static function boot()
     {

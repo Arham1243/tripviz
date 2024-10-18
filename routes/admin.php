@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Blog\BlogController;
 use App\Http\Controllers\Admin\Blog\CategoriesController as BlogCategoriesController;
 use App\Http\Controllers\Admin\Blog\TagsController as BlogTagsController;
 use App\Http\Controllers\Admin\BulkActionController;
+use App\Http\Controllers\Admin\IcalController;
 use App\Http\Controllers\Admin\Locations\CityController;
 use App\Http\Controllers\Admin\Locations\CountryController;
 use App\Http\Controllers\Admin\News\CategoriesController as NewsCategoriesController;
@@ -13,11 +14,10 @@ use App\Http\Controllers\Admin\News\NewsController;
 use App\Http\Controllers\Admin\News\TagsController as NewsTagsController;
 use App\Http\Controllers\Admin\RecoveryController;
 use App\Http\Controllers\Admin\Tour\AttributesController;
+use App\Http\Controllers\Admin\Tour\AvailabilityController as TourAvailabilityController;
 use App\Http\Controllers\Admin\Tour\CategoriesController as TourCategoriesController;
 use App\Http\Controllers\Admin\Tour\ReviewController as TourReviewController;
-use App\Http\Controllers\Admin\Tour\AvailabilityController as TourAvailabilityController;
 use App\Http\Controllers\Admin\Tour\TourController;
-use App\Http\Controllers\Admin\IcalController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/admins', function () {
@@ -48,7 +48,7 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('tours', TourController::class);
     Route::get('tour-media/{media}', [TourController::class, 'deleteMedia'])->name('tour-media.delete');
     Route::resource('tour-attributes', AttributesController::class);
-    Route::get('delete/attribute-item/{id}', [AttributesController::class,'deleteItem'])->name('tour-attribute-item.delete');
+    Route::get('delete/attribute-item/{id}', [AttributesController::class, 'deleteItem'])->name('tour-attribute-item.delete');
     Route::resource('tour-categories', TourCategoriesController::class);
     Route::resource('tour-reviews', TourReviewController::class);
     Route::resource('tour-availability', TourAvailabilityController::class);
