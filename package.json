@@ -7,11 +7,13 @@
         "configure-husky": "npx husky-init"
     },
     "devDependencies": {
+        "blade-formatter": "^1.41.1",
         "husky": "^8.0.0",
         "lint-staged": "^15.2.10",
         "vite": "^5.0"
     },
     "lint-staged": {
-        "*.php": "php ./vendor/bin/pint"
+        "*.php": "php ./vendor/bin/pint",
+        "*.blade.php": "blade-formatter --write"
     }
 }
