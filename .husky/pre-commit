@@ -4,8 +4,14 @@
 # Format all PHP files
 php ./vendor/bin/pint
 
-# Check if any files were modified
+# Check for any changes after formatting
 if ! git diff --quiet; then
-    # If files were modified by the formatter, stage the changes
-    git add .
+    # Stash the current changes to allow for clean working directory
+    git stash -q --keep-index
+
+    # Reapply the changes, excluding formatting
+    git stash pop -q
+
+    # Stage only the modified files
+    git add -u
 fi
