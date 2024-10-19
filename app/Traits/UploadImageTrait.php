@@ -20,35 +20,31 @@ trait UploadImageTrait
      */
     public function uploadImg(string $inputName, string $folder, Model $entry, string $columnName): void
     {
-
-        $tableName = $entry->getTable();
-        $entryId = $entry->id;
-
-        $currentEntry = DB::table($tableName)->where('id', $entryId)->first();
-
-        // Get the previous image path from the current entry
-        $prevImgPath = $currentEntry->{$columnName} ?? null;
-
         if (request()->hasFile($inputName)) {
             $uploadedFile = request()->file($inputName);
 
             if ($uploadedFile instanceof UploadedFile) {
-
                 // Handle new file upload
-                $filename = Str::uuid().'.'.$uploadedFile->getClientOriginalExtension();
-                $folderPath = 'uploads/'.$folder;
+                $filename = Str::uuid() . '.' . $uploadedFile->getClientOriginalExtension();
+                $folderPath = 'uploads/' . $folder;
+
                 $filePath = $uploadedFile->storeAs($folderPath, $filename, 'public');
-
-                // Delete the previous image if it exists
-
                 // Update the model with the new file path
                 $entry->update([$columnName => $filePath]);
             }
-            if ($prevImgPath) {
-                $this->deletePreviousImage($prevImgPath);
-            }
         }
     }
+
+    public function simpleUploadImg($file, string $folder)
+    {
+        if ($file instanceof UploadedFile) {
+            $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+            $folderPath = 'uploads/' . $folder;
+            return $file->storeAs($folderPath, $filename, 'public');
+        }
+        return 'Provided file is not a valid UploadedFile instance.';
+    }
+
 
     public function uploadMultipleImages(
         string $inputName,
@@ -64,8 +60,8 @@ trait UploadImageTrait
             foreach (request()->file($inputName) as $index => $uploadedFile) {
                 if ($uploadedFile instanceof UploadedFile) {
                     // Use a unique identifier for the filename
-                    $filename = Str::uuid().'.'.$uploadedFile->getClientOriginalExtension();
-                    $folderPath = 'uploads/'.$folder; // No need for a unique sub-folder here
+                    $filename = Str::uuid() . '.' . $uploadedFile->getClientOriginalExtension();
+                    $folderPath = 'uploads/' . $folder; // No need for a unique sub-folder here
                     $filePath = $uploadedFile->storeAs($folderPath, $filename, 'public'); // Use storeAs to set the filename
 
                     // Prepare data for creating a new entry

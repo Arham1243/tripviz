@@ -98,6 +98,10 @@ class Tour extends Model
     {
         return $this->hasMany(TourOpenHour::class);
     }
+    public function normalItineraries()
+    {
+        return $this->hasMany(TourItinerary::class);
+    }
 
     protected static function boot()
     {

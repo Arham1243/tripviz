@@ -3,7 +3,7 @@
     <div class="col-md-12">
         <div class="dashboard-content">
             {{ Breadcrumbs::render('admin.tours.create') }}
-            <form action="{{ route('admin.tours.store') }}" method="POST" enctype="multipart/form-data" id="validation-form">
+            <form action="{{ route('admin.tours.store') }}" method="POST" enctype="multipart/form-data" id="validation-forms">
                 @csrf
                 <div class="custom-sec custom-sec--form">
                     <div class="custom-sec__header">
@@ -496,20 +496,20 @@
                                     <div class="d-flex align-items-center gap-5">
                                         <div class="form-check p-0">
                                             <input class="form-check-input" type="radio"
-                                                name="tour[pricing][location_type]" id="normal_location"
+                                                name="tour[location][location_type]" id="normal_location"
                                                 x-model="locationType" value="normal_location" checked>
                                             <label class="form-check-label" for="normal_location">Location</label>
                                         </div>
                                         <div class="form-check p-0">
                                             <input class="form-check-input" type="radio"
-                                                name="tour[pricing][location_type]" id="normal_itinerary"
+                                                name="tour[location][location_type]" id="normal_itinerary"
                                                 x-model="locationType" value="normal_itinerary">
                                             <label class="form-check-label" for="normal_itinerary">Normal
                                                 Itinerary</label>
                                         </div>
                                         <div class="form-check p-0">
                                             <input class="form-check-input" type="radio"
-                                                name="tour[pricing][location_type]" id="itinerary_experience"
+                                                name="tour[location][location_type]" id="itinerary_experience"
                                                 x-model="locationType" value="itinerary_experience">
                                             <label class="form-check-label" for="itinerary_experience">Plan Itinerary
                                                 Experience</label>
@@ -520,7 +520,7 @@
                                     <div x-show="locationType === 'normal_location'">
                                         <div class="form-fields">
                                             <label class="title">Location <span class="text-danger">*</span> :</label>
-                                            <select name="tour[location][city_ids][]" class="choice-select"
+                                            <select name="tour[location][normal_location][city_ids][]" class="choice-select"
                                                 data-error="Location" multiple placeholder="Select Locations"
                                                 autocomplete="new-password">
                                                 @foreach ($cities as $city)
@@ -537,9 +537,9 @@
                                         <div class="form-fields">
                                             <label class="title">Real Tour address <span class="text-danger">*</span>
                                                 :</label>
-                                            <input type="text" name="tour[location][address]" class="field"
-                                                value="{{ old('location[address]') }}" data-error="Real Tour address">
-                                            @error('location[address]')
+                                            <input type="text" name="tour[location][normal_location][address]" class="field"
+                                                value="{{ old('tour[location][normal_location][address]') }}" data-error="Real Tour address">
+                                            @error('tour[location][normal_location][address]')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -567,16 +567,16 @@
                                                     </thead>
                                                     <tbody data-repeater-list>
                                                         <tr data-repeater-item>
-
+                                                            
                                                             <td class="w-25">
-                                                                <input name="itinerary_days[]" type="text"
+                                                                <input name="tour[location][normal_itinerary][days][]" type="text"
                                                                     class="field" placeholder="Day">
                                                                 <br>
-                                                                <input name="itinerary_title[]" type="text"
+                                                                <input name="tour[location][normal_itinerary][title][]" type="text"
                                                                     class="field mt-3" placeholder="Title">
                                                             </td>
                                                             <td>
-                                                                <textarea name="itinerary_content[]" class="field"rows="2"></textarea>
+                                                                <textarea name="tour[location][normal_itinerary][description][]" class="field"rows="2"></textarea>
                                                             </td>
                                                             <td class="w-25">
                                                                 <div class="upload upload--sm" data-upload>
@@ -590,7 +590,7 @@
                                                                                 class="upload-box__btn themeBtn">Upload
                                                                                 Image</label>
                                                                             <input type="file"
-                                                                                name="itinerary_featured_images[]"
+                                                                                name="tour[location][normal_itinerary][featured_image][]"
                                                                                 id="itinerary_featured_image"
                                                                                 class="upload-box__file d-none"
                                                                                 accept="image/*" data-file-input>
@@ -607,7 +607,7 @@
                                                                                     data-upload-preview>
                                                                             </a>
                                                                             <input type="text"
-                                                                                name="itinerary_featured_image_alt_texts[]"
+                                                                                name="tour[location][normal_itinerary][featured_image_alt_text][]"
                                                                                 class="field"
                                                                                 placeholder="Enter alt text"
                                                                                 value="Feature Image">
@@ -660,20 +660,20 @@
                                                     <a class="p-0 nav-link" href="https://www.google.com/maps/d/"
                                                         target="_blank">Google Map Generator</a>
                                                 </div>
-                                                <input type="url" name="itinerary_experience_iframe" class="field"
-                                                    value="{{ old('itinerary_experience_iframe') }}">
-                                                @error('itinerary_experience_iframe')
+                                                <input type="url" name="itinerary_experience[map_iframe]" class="field"
+                                                    value="{{ old('itinerary_experience[map_iframe]') }}">
+                                                @error('itinerary_experience[map_iframe]')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
-
+                                            
                                             <div class="row mt-4">
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-fields">
                                                         <label class="title">Pickup locations:</label>
-                                                        <input class="choice-select" name="itinerary[pickup_location]"
+                                                        <input class="choice-select" name="itinerary_experience[pickup_locations]"
                                                             placeholder="Pickup Location Title">
-                                                        @error('itinerary_experience_pickups')
+                                                        @error('itinerary_experience[pickup_locations]')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
                                                     </div>
@@ -681,9 +681,9 @@
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-fields">
                                                         <label class="title">Dropoff locations:</label>
-                                                        <input class="choice-select" name="itinerary[dropoff_location]"
+                                                        <input class="choice-select" name="itinerary_experience[dropoff_locations]"
                                                             placeholder="Dropoff Location Title">
-                                                        @error('itinerary_experience_dropoff')
+                                                        @error('itinerary_experience[dropoff_locations]')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
                                                     </div>
@@ -706,36 +706,31 @@
                                                     <tbody id="itinerary-table-body" data-sortable-body></tbody>
                                                 </table>
                                                 <div class="dropdown bootsrap-dropdown mt-4 d-flex justify-content-end">
-                                                    <button type="button" class="themeBtn dropdown-toggle"
-                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <button type="button" class="themeBtn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                                         Add <i class="bx bx-chevron-down"></i>
                                                     </button>
                                                     <ul class="dropdown-menu">
                                                         <li>
-                                                            <button type="button" class="dropdown-item"
-                                                                data-itinerary-action="add-vehicle">
+                                                            <button type="button" class="dropdown-item" data-itinerary-action="add-vehicle">
                                                                 <i class='bx bxs-car'></i> Add Vehicle
                                                             </button>
                                                         </li>
                                                         <li>
-                                                            <button type="button" class="dropdown-item"
-                                                                data-itinerary-action="add-stop">
+                                                            <button type="button" class="dropdown-item" data-itinerary-action="add-stop">
                                                                 <i class="bx bx-star"></i> Add Stop
                                                             </button>
                                                         </li>
                                                     </ul>
                                                 </div>
                                             </div>
-
+                                            
                                             <div class="form-check d-none" id="add-stop-btn">
-                                                <input class="form-check-input" type="checkbox"
-                                                    name="itinerary[enable_sub_stops]"
+                                                <input class="form-check-input" type="checkbox" name="itinerary[enable_sub_stops]"
                                                     id="itinerary_experience_enabled_sub_stops" value="1">
-                                                <label class="form-check-label"
-                                                    for="itinerary_experience_enabled_sub_stops">Add
+                                                <label class="form-check-label" for="itinerary_experience_enabled_sub_stops">Add
                                                     Sub Stops</label>
                                             </div>
-
+                                            
                                             <div class="form-fields mt-4 d-none" id="itinerary_experience_sub_stops">
                                                 <label class="title title--sm">Sub Stops:</label>
                                                 <div class="repeater-table" data-repeater>
@@ -750,39 +745,33 @@
                                                         <tbody data-repeater-list>
                                                             <tr data-repeater-item>
                                                                 <td>
-                                                                    <select name="itinerary[stops][sub_stops][main_stop][]"
-                                                                        class="field">
+                                                                    <select name="itinerary[stops][sub_stops][main_stop][]" class="field">
                                                                         <option value="" selected disabled>Select
                                                                         </option>
                                                                     </select>
                                                                 </td>
                                                                 <td>
-                                                                    <input name="itinerary[stops][sub_stops][title][]"
-                                                                        type="text" class="field"
+                                                                    <input name="itinerary[stops][sub_stops][title][]" type="text" class="field"
                                                                         placeholder="Title">
                                                                     <br>
                                                                     <div class="mt-3">
-                                                                        <input
-                                                                            name="itinerary[stops][sub_stops][activities][]"
-                                                                            type="text" class="field"
+                                                                        <input name="itinerary[stops][sub_stops][activities][]" type="text" class="field"
                                                                             placeholder="Activities">
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    <button type="button"
-                                                                        class="delete-btn ms-auto delete-btn--static"
-                                                                        data-repeater-remove>
+                                                                    <button type="button" class="delete-btn ms-auto delete-btn--static" data-repeater-remove>
                                                                         <i class='bx bxs-trash-alt'></i>
                                                                     </button>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <button type="button" class="themeBtn ms-auto"
-                                                        data-repeater-create>Add
+                                                    <button type="button" class="themeBtn ms-auto" data-repeater-create>Add
                                                         <i class="bx bx-plus"></i></button>
                                                 </div>
                                             </div>
+                                            
                                         </div>
                                     </div>
                                 </div>

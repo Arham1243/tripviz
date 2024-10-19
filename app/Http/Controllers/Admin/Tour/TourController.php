@@ -10,6 +10,7 @@ use App\Models\TourCategory;
 use App\Models\TourDetail;
 use App\Models\TourExtraPrice;
 use App\Models\TourFaq;
+use App\Models\TourItinerary;
 use App\Models\TourMedia;
 use App\Models\TourOpenHour;
 use App\Models\TourPriceDiscount;
@@ -50,24 +51,26 @@ class TourController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->all());
         $general = $request->input('tour.general', []);
         $statusTab = $request->input('tour.status', []);
         $availabilityData = $request->input('tour.availability', []);
         $pricing = $request->input('tour.pricing', []);
+        $location = $request->input('tour.location', []);
 
         $slugText = ! empty($general['slug']) ? $general['slug'] : $general['title'];
         $slug = $this->createSlug($slugText, 'tours');
 
         $inclusions = ! empty($general['inclusions']) && ! in_array(null, $general['inclusions'], true)
-            ? json_encode(array_filter($general['inclusions'], fn ($value) => $value !== null))
+            ? json_encode(array_filter($general['inclusions'], fn($value) => $value !== null))
             : null;
 
         $exclusions = ! empty($general['exclusions']) && ! in_array(null, $general['exclusions'], true)
-            ? json_encode(array_filter($general['exclusions'], fn ($value) => $value !== null))
+            ? json_encode(array_filter($general['exclusions'], fn($value) => $value !== null))
             : null;
 
         $features = ! empty($general['features']) && ! in_array(null, $general['features'], true)
-            ? json_encode(array_filter($general['features'], fn ($value) => $value !== null))
+            ? json_encode(array_filter($general['features'], fn($value) => $value !== null))
             : null;
 
         $relatedTours = ! empty($request->input('related_tour_ids')) ? json_encode($request->input('related_tour_ids')) : null;
@@ -109,6 +112,9 @@ class TourController extends Controller
             'phone_country_code' => $pricing['phone_country_code'] ?? null,
             'phone_dial_code' => $pricing['phone_dial_code'] ?? null,
             'phone_number' => $pricing['phone_number'] ?? null,
+            'address' => $location['normal_location']['address'] ?? null,
+            'location_type' => $location['location_type'] ?? null,
+
         ]);
 
         // Handle FAQs
@@ -133,20 +139,6 @@ class TourController extends Controller
                     $tour->attributes()->attach($attributeId, ['tour_attribute_item_id' => $itemId]);
                 }
             }
-        }
-
-        // Handle gallery images
-        if (! empty($request['gallery'])) {
-            $this->uploadMultipleImages(
-                'gallery', // Input name for the images
-                'Tour/Banner/Gallery', // Folder to store images
-                new TourMedia, // Pass the model class name here
-                'image_path', // Column name for image path
-                'alt_text', // Column name for alt text
-                $request['gallery_alt_texts'] ?? null, // Pass alt texts if provided
-                'tour_id', // Pass the foreign key column name
-                $tour->id // foreign key value
-            );
         }
 
         // Handle details
@@ -264,9 +256,58 @@ class TourController extends Controller
             }
         }
 
+
+        // Handle Location 
+        if (isset($location['location_type'])) {
+            if ($location['location_type'] == 'normal_location') {
+                $cityIds = $location['normal_location']['city_ids'] ?? [];
+                $tour->cities()->sync($cityIds);
+            }
+            if ($location['location_type'] === 'normal_itinerary') {
+                $days = array_filter($location['normal_itinerary']['days'] ?? []);
+                $titles = array_filter($location['normal_itinerary']['title'] ?? []);
+                $descriptions = array_filter($location['normal_itinerary']['description'] ?? []);
+                $locationFiles = $request->file('tour.location', []);
+                $featuredImages = $locationFiles['normal_itinerary']['featured_image'] ?? [];
+                $featuredImageAltTexts = array_filter($location['normal_itinerary']['featured_image_alt_text'] ?? []);
+                foreach ($days as $index => $day) {
+                    if (isset($titles[$index]) && isset($descriptions[$index])) {
+                        TourItinerary::create([
+                            'tour_id' => $tour->id,
+                            'day' => $day  ?? null,
+                            'title' => $titles[$index]  ?? null,
+                            'description' => $descriptions[$index]  ?? null,
+                            'featured_image' => isset($featuredImages[$index])
+                                ? $this->simpleUploadImg($featuredImages[$index], 'Tours/Tour-itinerary/Featured-images')
+                                : null,
+                            'featured_image_alt_text' => $featuredImageAltTexts[$index] ?? null,
+                        ]);
+                    }
+                }
+            }
+            if ($location['location_type'] === 'itinerary_experience') {
+
+            }
+        }
+
         // Handle banner and featured images
         $this->uploadImg('banner_image', 'Tour/Banner/Featured-image', $tour, 'banner_image');
         $this->uploadImg('featured_image', 'Tour/Featured-image', $tour, 'featured_image');
+
+        // Handle gallery images
+        if (! empty($request['gallery'])) {
+            $this->uploadMultipleImages(
+                'gallery', // Input name for the images
+                'Tour/Banner/Gallery', // Folder to store images
+                new TourMedia, // Pass the model class name here
+                'image_path', // Column name for image path
+                'alt_text', // Column name for alt text
+                $request['gallery_alt_texts'] ?? null, // Pass alt texts if provided
+                'tour_id', // Pass the foreign key column name
+                $tour->id // foreign key value
+            );
+        }
+
 
         // Handle SEO data
         handleSeoData($request, $tour, 'Tour');
