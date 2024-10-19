@@ -62,15 +62,15 @@ class TourController extends Controller
         $slug = $this->createSlug($slugText, 'tours');
 
         $inclusions = ! empty($general['inclusions']) && ! in_array(null, $general['inclusions'], true)
-            ? json_encode(array_filter($general['inclusions'], fn($value) => $value !== null))
+            ? json_encode(array_filter($general['inclusions'], fn ($value) => $value !== null))
             : null;
 
         $exclusions = ! empty($general['exclusions']) && ! in_array(null, $general['exclusions'], true)
-            ? json_encode(array_filter($general['exclusions'], fn($value) => $value !== null))
+            ? json_encode(array_filter($general['exclusions'], fn ($value) => $value !== null))
             : null;
 
         $features = ! empty($general['features']) && ! in_array(null, $general['features'], true)
-            ? json_encode(array_filter($general['features'], fn($value) => $value !== null))
+            ? json_encode(array_filter($general['features'], fn ($value) => $value !== null))
             : null;
 
         $relatedTours = ! empty($request->input('related_tour_ids')) ? json_encode($request->input('related_tour_ids')) : null;
@@ -256,8 +256,7 @@ class TourController extends Controller
             }
         }
 
-
-        // Handle Location 
+        // Handle Location
         if (isset($location['location_type'])) {
             if ($location['location_type'] == 'normal_location') {
                 $cityIds = $location['normal_location']['city_ids'] ?? [];
@@ -274,9 +273,9 @@ class TourController extends Controller
                     if (isset($titles[$index]) && isset($descriptions[$index])) {
                         TourItinerary::create([
                             'tour_id' => $tour->id,
-                            'day' => $day  ?? null,
-                            'title' => $titles[$index]  ?? null,
-                            'description' => $descriptions[$index]  ?? null,
+                            'day' => $day ?? null,
+                            'title' => $titles[$index] ?? null,
+                            'description' => $descriptions[$index] ?? null,
                             'featured_image' => isset($featuredImages[$index])
                                 ? $this->simpleUploadImg($featuredImages[$index], 'Tours/Tour-itinerary/Featured-images')
                                 : null,
@@ -307,7 +306,6 @@ class TourController extends Controller
                 $tour->id // foreign key value
             );
         }
-
 
         // Handle SEO data
         handleSeoData($request, $tour, 'Tour');

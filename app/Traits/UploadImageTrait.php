@@ -4,7 +4,6 @@ namespace App\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -25,8 +24,8 @@ trait UploadImageTrait
 
             if ($uploadedFile instanceof UploadedFile) {
                 // Handle new file upload
-                $filename = Str::uuid() . '.' . $uploadedFile->getClientOriginalExtension();
-                $folderPath = 'uploads/' . $folder;
+                $filename = Str::uuid().'.'.$uploadedFile->getClientOriginalExtension();
+                $folderPath = 'uploads/'.$folder;
 
                 $filePath = $uploadedFile->storeAs($folderPath, $filename, 'public');
                 // Update the model with the new file path
@@ -38,13 +37,14 @@ trait UploadImageTrait
     public function simpleUploadImg($file, string $folder)
     {
         if ($file instanceof UploadedFile) {
-            $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
-            $folderPath = 'uploads/' . $folder;
+            $filename = Str::uuid().'.'.$file->getClientOriginalExtension();
+            $folderPath = 'uploads/'.$folder;
+
             return $file->storeAs($folderPath, $filename, 'public');
         }
+
         return 'Provided file is not a valid UploadedFile instance.';
     }
-
 
     public function uploadMultipleImages(
         string $inputName,
@@ -60,8 +60,8 @@ trait UploadImageTrait
             foreach (request()->file($inputName) as $index => $uploadedFile) {
                 if ($uploadedFile instanceof UploadedFile) {
                     // Use a unique identifier for the filename
-                    $filename = Str::uuid() . '.' . $uploadedFile->getClientOriginalExtension();
-                    $folderPath = 'uploads/' . $folder; // No need for a unique sub-folder here
+                    $filename = Str::uuid().'.'.$uploadedFile->getClientOriginalExtension();
+                    $folderPath = 'uploads/'.$folder; // No need for a unique sub-folder here
                     $filePath = $uploadedFile->storeAs($folderPath, $filename, 'public'); // Use storeAs to set the filename
 
                     // Prepare data for creating a new entry
