@@ -39,13 +39,13 @@ class TourController extends Controller
         $categories = TourCategory::where('status', 'publish')->latest()->get();
         // $tours = Tour::where('status', 'publish')->get();
         $tours = Tour::all();
-                                                                                                                                           $users = User::where('is_active', 1)->get();
+        $users = User::where('is_active', 1)->get();
         $attributes = TourAttribute::where('status', 'active')
             ->latest()->get();
 
-        $cities =                           City::where('status', 'publish')->get();
+        $cities = City::where('status', 'publish')->get();
         $data = compact('categories', 'cities',
-         'attributes', 'tours', 'users');
+            'attributes', 'tours', 'users');
 
         return view('admin.tours.tours-management.add', $data)->with('title', 'Add New Tour');
     }

@@ -1,4 +1,11 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm run format
+# Format all PHP files
+php ./vendor/bin/pint
+
+# Check if any files were modified
+if ! git diff --quiet; then
+    # If files were modified by the formatter, stage the changes
+    git add .
+fi
