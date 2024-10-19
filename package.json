@@ -3,14 +3,12 @@
     "type": "module",
     "scripts": {
         "format:php": "php ./vendor/bin/pint",
-        "format:blade": "blade-formatter --write resources/**/*.blade.php",
-        "format": "npm run format:php && npm run format:blade",
+        "format": "npm run format:php",
         "dev": "vite",
         "build": "vite build",
-        "prepare": "husky install"
+        "configure-husky": "husky install"
     },
     "devDependencies": {
-        "blade-formatter": "^1.41.1",
         "husky": "^8.0.0",
         "vite": "^5.0"
     }
