@@ -2,14 +2,16 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "format:php": "php ./vendor/bin/pint",
-        "format": "npm run format:php",
         "dev": "vite",
         "build": "vite build",
-        "configure-husky": "husky install"
+        "configure-husky": "npx husky-init"
     },
     "devDependencies": {
         "husky": "^8.0.0",
+        "lint-staged": "^15.2.10",
         "vite": "^5.0"
+    },
+    "lint-staged": {
+        "*.php": "php ./vendor/bin/pint"
     }
 }

@@ -1,17 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# Format all PHP files
-php ./vendor/bin/pint
-
-# Check for any changes after formatting
-if ! git diff --quiet; then
-    # Stash the current changes to allow for clean working directory
-    git stash -q --keep-index
-
-    # Reapply the changes, excluding formatting
-    git stash pop -q
-
-    # Stage only the modified files
-    git add -u
-fi
+npx lint-staged
