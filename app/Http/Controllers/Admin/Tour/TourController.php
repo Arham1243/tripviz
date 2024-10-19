@@ -37,7 +37,7 @@ class TourController extends Controller
     public function create()
     {
 
-        $categories = TourCategory::where('status', 'publish')->get();
+        $categories = TourCategory::where('status', 'publish')->latest()->get();
         // $tours = Tour::where('status', 'publish')->get();
         $tours = Tour::all();
         $users = User::where('is_active', 1)->get();
