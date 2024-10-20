@@ -54,6 +54,11 @@ class Tour extends Model
         return $this->hasMany(TourPricing::class)->where('price_type', 'normal');
     }
 
+    public function pricing()
+    {
+        return $this->hasMany(TourPricing::class);
+    }
+
     public function privatePrices()
     {
         return $this->hasOne(TourPricing::class)->where('price_type', 'private');

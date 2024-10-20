@@ -43,7 +43,7 @@ trait UploadImageTrait
             return $file->storeAs($folderPath, $filename, 'public');
         }
 
-        return 'Provided file is not a valid UploadedFile instance.';
+        return null;
     }
 
     public function uploadMultipleImages(

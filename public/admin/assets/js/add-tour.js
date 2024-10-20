@@ -3,7 +3,7 @@ if (sortableTableBody) {
     const sortable = new Sortable(sortableTableBody, {
         animation: 300,
         handle: ".order-menu",
-        onEnd: function (/**Event*/ evt) {
+        onEnd: function (evt) {
             console.log(
                 "Dragged item index: ",
                 evt.oldIndex,
@@ -14,6 +14,7 @@ if (sortableTableBody) {
         },
     });
 }
+
 function toggleAddStopButton() {
     const stops = itineraryTableBody.querySelectorAll(
         'tr[data-item-type="stop"]',
@@ -21,10 +22,9 @@ function toggleAddStopButton() {
     const addStopBtn = document.getElementById("add-stop-btn");
     const hasValue = Array.from(
         itineraryTableBody.querySelectorAll(
-            'input[name="itinerary[stops][title][]"]',
+            'input[name^="itinerary_experience[stops]"][name$="[title]"]',
         ),
     ).some((input) => input.value.trim() !== "");
-
     if (stops.length > 0 && hasValue) {
         addStopBtn.classList.remove("d-none");
     } else {
@@ -33,12 +33,9 @@ function toggleAddStopButton() {
 }
 
 function updateOrderFields() {
-    // Update order for all rows (vehicles and stops) in unified order
     const rows = document.querySelectorAll("#itinerary-table-body tr");
     rows.forEach((row, index) => {
-        const orderField = row.querySelector(
-            "input[name='itinerary[order][]']",
-        );
+        const orderField = row.querySelector("input[name$='[order]']");
         if (orderField) {
             orderField.value = index + 1; // Update the order number
         }
@@ -47,19 +44,14 @@ function updateOrderFields() {
 }
 
 const itineraryTableBody = document.getElementById("itinerary-table-body");
-const subStopsSection = document.getElementById(
-    "itinerary_experience_sub_stops",
-);
-const subStopsCheckbox = document.getElementById(
-    "itinerary_experience_enabled_sub_stops",
-);
+const subStopsSection = document.getElementById("itinerary_experience_sub_stops");
+const subStopsCheckbox = document.getElementById("itinerary_experience_enabled_sub_stops");
 
 if (itineraryTableBody && subStopsSection && subStopsCheckbox) {
-    // Toggle Sub Stops visibility on checkbox change
     subStopsCheckbox.addEventListener("change", function () {
         if (this.checked) {
             subStopsSection.classList.remove("d-none");
-            populateMainStopDropdown(); // Repopulate when checkbox is checked
+            populateMainStopDropdown();
         } else {
             subStopsSection.classList.add("d-none");
         }
@@ -67,29 +59,29 @@ if (itineraryTableBody && subStopsSection && subStopsCheckbox) {
 
     function createRow(type) {
         let row = null;
-        const order = itineraryTableBody.children.length + 1; // Calculate current order
+        const order = itineraryTableBody.children.length; // Calculate current order
         if (type === "vehicle") {
             row = `
-        <tr data-item-type="vehicle" draggable="true">
-            <td><div class="order-menu"><i class='bx-sm bx bx-menu'></i></div>
-            <input type="hidden" name="itinerary[order][]["type]" value="vehicle">
-            <input type="hidden" name="itinerary[order][][index]" value="${order}"></td>
-            <td><div class="d-flex align-items-center gap-1"><i class='bx bxs-car'></i>Vehicle</div></td>
-            <td><input name="itinerary[vehicles][name][]" type="text" class="field" placeholder="Name"></td>
-            <td><input name="itinerary[vehicles][time][]" type="number" class="field" placeholder="Time (mins)"></td>
-            <td><button type="button" class="delete-btn ms-auto delete-btn--static"><i class='bx bxs-trash-alt'></i></button></td>
-        </tr>`;
+            <tr data-item-type="vehicle" draggable="true">
+                <td><div class="order-menu"><i class='bx-sm bx bx-menu'></i></div>
+                <input type="hidden" name="itinerary_experience[vehicles][${order}][order]" value="${order}">
+                <input type="hidden" name="itinerary_experience[vehicles][${order}][type]" value="vehicle"></td>
+                <td><div class="d-flex align-items-center gap-1"><i class='bx bxs-car'></i>Vehicle</div></td>
+                <td><input name="itinerary_experience[vehicles][${order}][name]" type="text" class="field" placeholder="Name"></td>
+                <td><input name="itinerary_experience[vehicles][${order}][time]" type="number" class="field" placeholder="Time (mins)"></td>
+                <td><button type="button" class="delete-btn ms-auto delete-btn--static"><i class='bx bxs-trash-alt'></i></button></td>
+            </tr>`;
         } else if (type === "stop") {
             row = `
-        <tr data-item-type="stop" draggable="true">
-            <td><div class="order-menu"><i class='bx-sm bx bx-menu'></i></div>
-            <input type="hidden" name="itinerary[order][][type]" value="stop">
-            <input type="hidden" name="itinerary[order][][index]" value="${order}"></td>
-            <td><div class="d-flex align-items-center gap-1"><i class="bx bx-star"></i>Stop</div></td>
-            <td><input name="itinerary[stops][title][]" type="text" class="field" placeholder="Title"></td>
-            <td><input name="itinerary[stops][activities][]" type="text" class="field" placeholder="Activities"></td>
-            <td><button type="button" class="delete-btn ms-auto delete-btn--static"><i class='bx bxs-trash-alt'></i></button></td>
-        </tr>`;
+            <tr data-item-type="stop" draggable="true">
+                <td><div class="order-menu"><i class='bx-sm bx bx-menu'></i></div>
+                <input type="hidden" name="itinerary_experience[stops][${order}][order]" value="${order}">
+                <input type="hidden" name="itinerary_experience[stops][${order}][type]" value="stop"></td>
+                <td><div class="d-flex align-items-center gap-1"><i class="bx bx-star"></i>Stop</div></td>
+                <td><input name="itinerary_experience[stops][${order}][title]" type="text" class="field" placeholder="Title"></td>
+                <td><input name="itinerary_experience[stops][${order}][activities]" type="text" class="field" placeholder="Activities"></td>
+                <td><button type="button" class="delete-btn ms-auto delete-btn--static"><i class='bx bxs-trash-alt'></i></button></td>
+            </tr>`;
         }
         return row;
     }
@@ -108,62 +100,65 @@ if (itineraryTableBody && subStopsSection && subStopsCheckbox) {
                     createRow("stop"),
                 );
             }
-            updateOrderFields(); // Ensure order is updated after adding rows
-            closeSubStopsSection(); // Close sub stops section after adding new rows
+            updateOrderFields();
+            closeSubStopsSection();
         });
     });
 
-    // Update the order whenever a row is removed
     itineraryTableBody.addEventListener("click", function (e) {
         if (e.target.closest(".delete-btn")) {
             const row = e.target.closest("tr");
             row.remove();
-            updateOrderFields(); // Update order after row removal
-            populateMainStopDropdown(); // Repopulate dropdown when stops are removed
-            closeSubStopsSection(); // Close sub stops section after row removal
+            updateOrderFields();
+            populateMainStopDropdown();
+            closeSubStopsSection();
         }
     });
 
-    // Close sub stops section
     function closeSubStopsSection() {
         subStopsCheckbox.checked = false;
         subStopsSection.classList.add("d-none");
     }
-    // Handle input field changes for dynamic updates
+
     itineraryTableBody.addEventListener("input", function (e) {
-        if (e.target.name === "itinerary[stops][title][]") {
-            closeSubStopsSection(); // Close sub stops section if stop name changes
+        if (e.target.name.includes("itinerary_experience[stops][") && e.target.name.endsWith("[title]")) {
+            closeSubStopsSection();
             toggleAddStopButton();
         }
     });
 
-    // Populate the main stop dropdown with the latest stop names
     function populateMainStopDropdown() {
-        const stopNames = document.querySelectorAll(
-            "input[name='itinerary[stops][title][]']",
-        );
-        const mainStopDropdowns = document.querySelectorAll(
-            "select[name='itinerary[stops][sub_stops][main_stop][]']",
-        );
-
-        mainStopDropdowns.forEach((dropdown) => {
-            dropdown.innerHTML =
-                '<option value="" selected disabled>Select</option>';
-        });
-
-        stopNames.forEach((stopInput) => {
+        const stopNames = document.querySelectorAll("input[name^='itinerary_experience[stops]'][name$='[title]']");
+        const mainStopDropdowns = document.querySelectorAll(".main-stop-dropdown");
+    
+        // Store currently selected values for each dropdown
+        const selectedValues = Array.from(mainStopDropdowns).map(dropdown => dropdown.value);
+    
+        // Add options from stop title inputs
+        stopNames.forEach(stopInput => {
             const stopTitle = stopInput.value.trim();
             if (stopTitle) {
-                mainStopDropdowns.forEach((dropdown) => {
-                    const option = document.createElement("option");
-                    option.value = stopTitle;
-                    option.textContent = stopTitle;
-                    dropdown.appendChild(option);
+                mainStopDropdowns.forEach(dropdown => {
+                    // Check if the option already exists
+                    if (![...dropdown.options].some(option => option.value === stopTitle)) {
+                        const option = document.createElement("option");
+                        option.value = stopTitle;
+                        option.textContent = stopTitle;
+                        dropdown.appendChild(option);
+                    }
                 });
             }
         });
-    }
+    
+        // Restore previously selected values in the dropdowns
+        mainStopDropdowns.forEach(dropdown => {
+            const currentValue = selectedValues.find(value => value === dropdown.value);
+            if (currentValue) {
+                dropdown.value = currentValue;
+            }
+        });
+    }    
+    
 
-    // Initialize default order on page load
     updateOrderFields();
 }

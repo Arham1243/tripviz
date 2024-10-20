@@ -734,7 +734,7 @@
 
                                             <div class="form-check d-none" id="add-stop-btn">
                                                 <input class="form-check-input" type="checkbox"
-                                                    name="itinerary[enable_sub_stops]"
+                                                    name="itinerary_experience[enable_sub_stops]"
                                                     id="itinerary_experience_enabled_sub_stops" value="1">
                                                 <label class="form-check-label"
                                                     for="itinerary_experience_enabled_sub_stops">Add
@@ -755,20 +755,21 @@
                                                         <tbody data-repeater-list>
                                                             <tr data-repeater-item>
                                                                 <td>
-                                                                    <select name="itinerary[stops][sub_stops][main_stop][]"
-                                                                        class="field">
-                                                                        <option value="" selected disabled>Select
-                                                                        </option>
+                                                                    <select
+                                                                        name="itinerary_experience[stops][sub_stops][main_stop][]"
+                                                                        class="field main-stop-dropdown">
+                                                                        <option value="" selected>Select</option>
                                                                     </select>
                                                                 </td>
                                                                 <td>
-                                                                    <input name="itinerary[stops][sub_stops][title][]"
+                                                                    <input
+                                                                        name="itinerary_experience[stops][sub_stops][title][]"
                                                                         type="text" class="field"
                                                                         placeholder="Title">
                                                                     <br>
                                                                     <div class="mt-3">
                                                                         <input
-                                                                            name="itinerary[stops][sub_stops][activities][]"
+                                                                            name="itinerary_experience[stops][sub_stops][activities][]"
                                                                             type="text" class="field"
                                                                             placeholder="Activities">
                                                                     </div>
@@ -788,6 +789,7 @@
                                                         <i class="bx bx-plus"></i></button>
                                                 </div>
                                             </div>
+
 
                                         </div>
                                     </div>
@@ -1335,7 +1337,9 @@
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox"
                                                                 id="enebled_service_fee" value="1"
-                                                                x-model="serviceFee">
+                                                                name="tour[pricing][enabled_custom_service_fee]"
+                                                                x-model="serviceFee"
+                                                                @change="serviceFee = serviceFee ? 1 : 0">
                                                             <label class="form-check-label" for="enebled_service_fee">
                                                                 Enable service fee
                                                             </label>

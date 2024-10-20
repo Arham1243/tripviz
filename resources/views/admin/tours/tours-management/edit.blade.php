@@ -3,8 +3,10 @@
     <div class="col-md-12">
         <div class="dashboard-content">
             {{ Breadcrumbs::render('admin.tours.edit', $tour) }}
-            <form action="javascript:void(0)" method="POST" enctype="multipart/form-data" id="validation-form">
+            <form action="{{ route('admin.tours.update', $tour->id) }}" method="POST" enctype="multipart/form-data"
+                id="validation-form">
                 @method('PATCH')
+
                 @csrf
                 <div class="custom-sec custom-sec--form">
                     <div class="custom-sec__header">
@@ -16,7 +18,7 @@
                                     <div class="full-url">{{ buildUrl(url('/'), 'tours/') }}</div>
                                     <input value="{{ $tour->slug ?? 'edit-slug' }}" type="button"
                                         class="link permalink-input" data-field-id="slug">
-                                    <input type="hidden" id="slug" value="{{ $tour->slug }}"
+                                    <input type="hidden" id="slug" value="{{ $tour->slug ?? 'edit-slug' }}"
                                         name="tour[general][slug]">
                                 </div>
                             </div>
@@ -92,7 +94,7 @@
                                             <div class="form-fields">
                                                 <label class="title">Title <span class="text-danger">*</span> :</label>
                                                 <input type="text" name="tour[general][title]" class="field"
-                                                    value="{{ old('tour[general][title]', $tour->slug) }}" placeholder=""
+                                                    value="{{ old('tour[general][title]', $tour->title) }}" placeholder=""
                                                     data-error="Title">
                                                 @error('tour[general][title]')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -139,7 +141,7 @@
 
                                                     <input type="text" name="tour[general][badge_icon_class]"
                                                         class="field"
-                                                        value="{{ old('tour[general][badge_icon_class]', 'bx bx-badge-check', $tour->badge_icon_class) }}"
+                                                        value="{{ $tour->badge_icon_class ?? 'bx bx-badge-check' }}"
                                                         placeholder="" oninput="showIcon(this)">
                                                     <i class="bx {{ $tour->badge_icon_class ?? 'bx bx-badge-check' }} bx-md"
                                                         data-preview-icon></i>
@@ -476,9 +478,9 @@
                                                             data-upload-img>
                                                             <button type="button" class="delete-btn" data-delete-btn><i
                                                                     class='bx bxs-trash-alt'></i></button>
-                                                            <a href="{{ asset($tour->banner_image ?? 'admin/assets/images/loading.webp') }}"
+                                                            <a href="{{ asset($tour->banner_image ?? 'admin/assets/images/placeholder.png') }}"
                                                                 class="mask" data-fancybox="gallery">
-                                                                <img src="{{ asset($tour->banner_image) }}"
+                                                                <img src="{{ asset($tour->banner_image ?? 'admin/assets/images/placeholder.png') }}"
                                                                     alt="{{ $tour->banner_image_alt_text }}"
                                                                     class="imgFluid" data-upload-preview>
                                                             </a>
@@ -565,43 +567,47 @@
                             </div>
                         </div>
                         <div x-show="optionTab === 'location'" class="location-options">
-                            <div class="form-box" x-data="{ locationType: 'normalLocation' }">
+                            <div class="form-box" x-data="{ locationType: '{{ $tour->location_type != null ? $tour->location_type : 'normal_location' }}' }">
                                 <div class="form-box__header d-flex align-items-center justify-content-between">
                                     <div class="title">Tour Locations</div>
                                     <div class="d-flex align-items-center gap-5">
                                         <div class="form-check p-0">
-                                            <input class="form-check-input" type="radio" name="location_type"
-                                                id="normalLocation" x-model="locationType" value="normalLocation"
-                                                checked="">
-                                            <label class="form-check-label" for="normalLocation">Location</label>
+                                            <input class="form-check-input" type="radio"
+                                                name="tour[location][location_type]" id="normal_location"
+                                                x-model="locationType" value="normal_location" checked>
+                                            <label class="form-check-label" for="normal_location">Location</label>
                                         </div>
                                         <div class="form-check p-0">
-                                            <input class="form-check-input" type="radio" name="location_type"
-                                                id="normalItinerary" x-model="locationType" value="normalItinerary">
-                                            <label class="form-check-label" for="normalItinerary">Normal Itinerary</label>
+                                            <input class="form-check-input" type="radio"
+                                                name="tour[location][location_type]" id="normal_itinerary"
+                                                x-model="locationType" value="normal_itinerary">
+                                            <label class="form-check-label" for="normal_itinerary">Normal
+                                                Itinerary</label>
                                         </div>
                                         <div class="form-check p-0">
-                                            <input class="form-check-input" type="radio" name="location_type"
-                                                id="itineraryExperience" x-model="locationType"
-                                                value="itineraryExperience">
-                                            <label class="form-check-label" for="itineraryExperience">Plan Itinerary
+                                            <input class="form-check-input" type="radio"
+                                                name="tour[location][location_type]" id="itinerary_experience"
+                                                x-model="locationType" value="itinerary_experience">
+                                            <label class="form-check-label" for="itinerary_experience">Plan Itinerary
                                                 Experience</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-box__body">
-                                    <div x-show="locationType === 'normalLocation'">
+                                    <div x-show="locationType === 'normal_location'">
                                         <div class="form-fields">
                                             <label class="title">Location <span class="text-danger">*</span> :</label>
-                                            <select name="location[city_ids[]]" class="choice-select"
-                                                data-error="Location" multiple placeholder="Select Locations">
+                                            <select name="tour[location][normal_location][city_ids][]"
+                                                class="choice-select" data-error="Location" multiple
+                                                placeholder="Select Locations" autocomplete="new-password">
                                                 @foreach ($cities as $city)
                                                     <option value="{{ $city->id }}"
-                                                        {{ old('city_ids') == $city->id ? 'selected' : '' }}>
+                                                        {{ $tour->cities->contains('id', $city->id) ? 'selected' : '' }}>
                                                         {{ $city->name }}
                                                     </option>
                                                 @endforeach
                                             </select>
+
                                             @error('city_ids')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -609,14 +615,15 @@
                                         <div class="form-fields">
                                             <label class="title">Real Tour address <span class="text-danger">*</span>
                                                 :</label>
-                                            <input type="text" name="location[address]" class="field"
-                                                value="{{ old('location[address]') }}" data-error="Real Tour address">
-                                            @error('location[address]')
+                                            <input type="text" name="tour[location][normal_location][address]"
+                                                class="field" value="{{ $tour->address }}"
+                                                data-error="Real Tour address">
+                                            @error('tour[location][normal_location][address]')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
-                                    <div x-show="locationType === 'normalItinerary'">
+                                    <div x-show="locationType === 'normal_itinerary'">
                                         <div class="form-fields">
                                             <label class=" d-flex align-items-center mb-3 justify-content-between"><span
                                                     class="title title--sm mb-0">Itinerary:</span>
@@ -637,73 +644,98 @@
                                                             <th class="text-end" scope="col">Remove</th>
                                                         </tr>
                                                     </thead>
+
+                                                    @php
+                                                        $normalItineraries = !$tour->normalItineraries->isEmpty()
+                                                            ? $tour->normalItineraries
+                                                            : [
+                                                                [
+                                                                    'id' => null,
+                                                                    'day' => null,
+                                                                    'title' => null,
+                                                                    'description' => null,
+                                                                    'featured_image' => null,
+                                                                    'featured_image_alt_text' => 'Feature Image',
+                                                                ],
+                                                            ];
+                                                    @endphp
                                                     <tbody data-repeater-list>
-                                                        <tr data-repeater-item>
-
-                                                            <td class="w-25">
-                                                                <input name="itinerary_days[]" type="text"
-                                                                    class="field" placeholder="Day">
-                                                                <br>
-                                                                <input name="itinerary_title[]" type="text"
-                                                                    class="field mt-3" placeholder="Title">
-                                                            </td>
-                                                            <td>
-                                                                <textarea name="itinerary_content[]" class="field"rows="2"></textarea>
-                                                            </td>
-                                                            <td class="w-25">
-                                                                <div class="upload upload--sm" data-upload>
-                                                                    <div class="upload-box-wrapper">
-                                                                        <div class="upload-box show" data-upload-box>
-
-                                                                            <div class="upload-box__placeholder"><i
-                                                                                    class='bx bxs-image'></i>
+                                                        @foreach ($normalItineraries as $i => $itinerary)
+                                                            <tr data-repeater-item>
+                                                                <td class="w-25">
+                                                                    <input name="tour[location][normal_itinerary][ids][]"
+                                                                        type="hidden" value="{{ $itinerary['id'] }}">
+                                                                    <input name="tour[location][normal_itinerary][days][]"
+                                                                        type="text" class="field" placeholder="Day"
+                                                                        value="{{ $itinerary['day'] }}">
+                                                                    <br>
+                                                                    <input name="tour[location][normal_itinerary][title][]"
+                                                                        type="text" class="field mt-3"
+                                                                        value="{{ $itinerary['title'] }}"
+                                                                        placeholder="Title">
+                                                                </td>
+                                                                <td>
+                                                                    <textarea name="tour[location][normal_itinerary][description][]" class="field"rows="2">{{ $itinerary['description'] }}</textarea>
+                                                                </td>
+                                                                <td class="w-25">
+                                                                    <div class="upload upload--sm" data-upload>
+                                                                        <div class="upload-box-wrapper">
+                                                                            <div class="upload-box {{ empty($itinerary['featured_image']) ? 'show' : '' }}"
+                                                                                data-upload-box>
+                                                                                <input type="file"
+                                                                                    name="tour[location][normal_itinerary][featured_image][]"
+                                                                                    data-error="Feature Image"
+                                                                                    id="itinerary_featured_image_{{ $i }}"
+                                                                                    class="upload-box__file d-none"
+                                                                                    accept="image/*" data-file-input>
+                                                                                <div class="upload-box__placeholder"><i
+                                                                                        class='bx bxs-image'></i>
+                                                                                </div>
+                                                                                <label
+                                                                                    for="itinerary_featured_image_{{ $i }}"
+                                                                                    class="upload-box__btn themeBtn">Upload
+                                                                                    Image</label>
                                                                             </div>
-                                                                            <label for="itinerary_featured_image"
-                                                                                class="upload-box__btn themeBtn">Upload
-                                                                                Image</label>
-                                                                            <input type="file"
-                                                                                name="itinerary_featured_images[]"
-                                                                                id="itinerary_featured_image"
-                                                                                class="upload-box__file d-none"
-                                                                                accept="image/*" data-file-input>
+                                                                            <div class="upload-box__img {{ !empty($itinerary['featured_image']) ? 'show' : '' }}"
+                                                                                data-upload-img>
+                                                                                <button type="button" class="delete-btn"
+                                                                                    data-delete-btn><i
+                                                                                        class='bx bxs-trash-alt'></i></button>
+                                                                                <a href="{{ asset($itinerary['featured_image'] ?? 'admin/assets/images/placeholder.png') }}"
+                                                                                    class="mask"
+                                                                                    data-fancybox="gallery">
+                                                                                    <img src="{{ asset($itinerary['featured_image'] ?? 'admin/assets/images/placeholder.png') }}"
+                                                                                        alt="{{ $itinerary['featured_image_alt_text'] }}"
+                                                                                        class="imgFluid"
+                                                                                        data-upload-preview>
+                                                                                </a>
+                                                                                <input type="text"
+                                                                                    name="tour[location][normal_itinerary][featured_image_alt_text][]"
+                                                                                    class="field"
+                                                                                    placeholder="Enter alt text"
+                                                                                    value="{{ $itinerary['featured_image_alt_text'] }}">
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="upload-box__img" data-upload-img>
-                                                                            <button type="button" class="delete-btn"
-                                                                                data-delete-btn><i
-                                                                                    class='bx bxs-trash-alt'></i></button>
-                                                                            <a href="#" class="mask"
-                                                                                data-fancybox="gallery">
-                                                                                <img src="{{ asset('admin/assets/images/loading.webp') }}"
-                                                                                    alt="Uploaded Image" class="imgFluid"
-                                                                                    data-placeholder="{{ asset('admin/assets/images/loading.webp') }}"
-                                                                                    data-upload-preview>
-                                                                            </a>
-                                                                            <input type="text"
-                                                                                name="itinerary_featured_image_alt_texts[]"
-                                                                                class="field"
-                                                                                placeholder="Enter alt text"
-                                                                                value="Feature Image">
+                                                                        <div data-error-message
+                                                                            class="text-danger mt-2 d-none text-center">
+                                                                            Please
+                                                                            upload a
+                                                                            valid image file
                                                                         </div>
                                                                     </div>
-                                                                    <div data-error-message
-                                                                        class="text-danger mt-2 d-none text-center">
-                                                                        Please
-                                                                        upload a
-                                                                        valid image file
+                                                                    <div class="dimensions text-center mt-3">
+                                                                        <strong>Dimensions:</strong> 600 &times; 400
                                                                     </div>
-                                                                </div>
-                                                                <div class="dimensions text-center mt-3">
-                                                                    <strong>Dimensions:</strong> 600 &times; 400
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <button type="button"
-                                                                    class="delete-btn ms-auto delete-btn--static"
-                                                                    data-repeater-remove disabled>
-                                                                    <i class='bx bxs-trash-alt'></i>
-                                                                </button>
-                                                            </td>
-                                                        </tr>
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button"
+                                                                        class="delete-btn ms-auto delete-btn--static"
+                                                                        data-repeater-remove disabled>
+                                                                        <i class='bx bxs-trash-alt'></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                                 <button type="button" class="themeBtn ms-auto" data-repeater-create>Add
@@ -711,7 +743,76 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div x-show="locationType === 'itineraryExperience'">
+                                    <div x-show="locationType === 'itinerary_experience'">
+                                        @php
+                                            $itineraryExperience = json_decode($tour->itinerary_experience, true);
+                                            $mergedPlan = [];
+                                            $mainStopTitles = [];
+                                            $hasSubStops = false;
+
+                                            // Merging vehicles
+                                            if (isset($itineraryExperience['vehicles'])) {
+                                                foreach ($itineraryExperience['vehicles'] as $vehicle) {
+                                                    if (isset($vehicle['order'])) {
+                                                        $mergedPlan[] = $vehicle;
+                                                    }
+                                                }
+                                            }
+
+                                            // Merging stops and their sub-stops
+                                            foreach ($itineraryExperience['stops'] as $stop) {
+                                                if (isset($stop['order'], $stop['title'], $stop['activities'])) {
+                                                    $stopData = [
+                                                        'order' => $stop['order'],
+                                                        'type' => 'stop',
+                                                        'title' => $stop['title'],
+                                                        'activities' => $stop['activities'],
+                                                        'sub_stops' => [], // Initialize sub_stops as an empty array
+                                                    ];
+
+                                                    // Check if sub_stops are enabled
+                                                    if (
+                                                        isset($itineraryExperience['enable_sub_stops']) &&
+                                                        $itineraryExperience['enable_sub_stops'] == '1'
+                                                    ) {
+                                                        if (isset($itineraryExperience['stops']['sub_stops'])) {
+                                                            // Access sub_stops
+                                                            $subStops = $itineraryExperience['stops']['sub_stops'];
+                                                            $subStopsMainStops = $subStops['main_stop'];
+                                                            $subStopsTitles = $subStops['title'];
+                                                            $subStopsActivities = $subStops['activities'];
+                                                            // Check for matching main_stop titles
+                                                            foreach ($subStopsMainStops as $key => $subMainStop) {
+                                                                $subStopsTitle = $subStopsTitles[$key];
+                                                                $subStopsActivity = $subStopsActivities[$key];
+                                                                if (isset($subMainStop)) {
+                                                                    if ($subMainStop === $stop['title']) {
+                                                                        $stopData['sub_stops'][] = [
+                                                                            'title' => $subStopsTitle ?? null,
+                                                                            'activities' => $subStopsActivity ?? null,
+                                                                        ];
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+
+                                                    $mergedPlan[] = $stopData; // Add stop data with sub-stops to the merged plan
+                                                    $mainStopTitles[] = $stop['title'];
+                                                }
+                                            }
+
+                                            // Sort merged plan by order
+                                            usort($mergedPlan, function ($a, $b) {
+                                                $orderA = isset($a['order']) ? (int) $a['order'] : PHP_INT_MAX;
+                                                $orderB = isset($b['order']) ? (int) $b['order'] : PHP_INT_MAX;
+                                                return $orderA <=> $orderB;
+                                            });
+
+                                        @endphp
+
+
+
                                         <div class="plan-itenirary">
                                             <div class="form-fields">
                                                 <label class="d-flex align-items-center mb-3 justify-content-between">
@@ -732,9 +833,10 @@
                                                     <a class="p-0 nav-link" href="https://www.google.com/maps/d/"
                                                         target="_blank">Google Map Generator</a>
                                                 </div>
-                                                <input type="url" name="itinerary_experience_iframe" class="field"
-                                                    value="{{ old('itinerary_experience_iframe') }}">
-                                                @error('itinerary_experience_iframe')
+                                                <input type="url" name="itinerary_experience[map_iframe]"
+                                                    class="field"
+                                                    value="{{ $itineraryExperience['map_iframe'] ?? '' }}">
+                                                @error('itinerary_experience[map_iframe]')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -743,9 +845,11 @@
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-fields">
                                                         <label class="title">Pickup locations:</label>
-                                                        <input class="choice-select" name="itinerary[pickup_location]"
+                                                        <input class="choice-select"
+                                                            name="itinerary_experience[pickup_locations]"
+                                                            value="{{ $itineraryExperience['pickup_locations'] ?? '' }}"
                                                             placeholder="Pickup Location Title">
-                                                        @error('itinerary_experience_pickups')
+                                                        @error('itinerary_experience[pickup_locations]')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
                                                     </div>
@@ -753,9 +857,12 @@
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-fields">
                                                         <label class="title">Dropoff locations:</label>
-                                                        <input class="choice-select" name="itinerary[dropoff_location]"
+
+                                                        <input class="choice-select"
+                                                            name="itinerary_experience[dropoff_locations]"
+                                                            value="{{ $itineraryExperience['dropoff_locations'] ?? '' }}"
                                                             placeholder="Dropoff Location Title">
-                                                        @error('itinerary_experience_dropoff')
+                                                        @error('itinerary_experience[dropoff_locations]')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
                                                     </div>
@@ -775,7 +882,68 @@
                                                             <th class="text-end" scope="col">Remove</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody id="itinerary-table-body" data-sortable-body></tbody>
+                                                    <tbody id="itinerary-table-body" data-sortable-body>
+                                                        @foreach ($mergedPlan as $i => $plan)
+                                                            @if ($plan['type'] == 'vehicle')
+                                                                <tr data-item-type="vehicle" draggable="true">
+                                                                    <td>
+                                                                        <div class="order-menu"><i
+                                                                                class='bx-sm bx bx-menu'></i></div>
+                                                                        <input type="hidden"
+                                                                            name="itinerary_experience[vehicles][{{ $i }}][order]"
+                                                                            value="{{ $plan['order'] }}">
+                                                                        <input type="hidden"
+                                                                            name="itinerary_experience[vehicles][{{ $i }}][type]"
+                                                                            value="vehicle">
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="d-flex align-items-center gap-1"><i
+                                                                                class='bx bxs-car'></i>Vehicle</div>
+                                                                    </td>
+                                                                    <td><input
+                                                                            name="itinerary_experience[vehicles][{{ $i }}][name]"
+                                                                            value="{{ $plan['name'] }}" type="text"
+                                                                            class="field" placeholder="Name"></td>
+                                                                    <td><input
+                                                                            name="itinerary_experience[vehicles][{{ $i }}][time]"
+                                                                            value="{{ $plan['time'] }}" type="number"
+                                                                            class="field" placeholder="Time (mins)"></td>
+                                                                    <td><button type="button"
+                                                                            class="delete-btn ms-auto delete-btn--static"><i
+                                                                                class='bx bxs-trash-alt'></i></button></td>
+                                                                </tr>
+                                                            @elseif($plan['type'] == 'stop')
+                                                                <tr data-item-type="stop" draggable="true">
+                                                                    <td>
+                                                                        <div class="order-menu"><i
+                                                                                class='bx-sm bx bx-menu'></i></div>
+                                                                        <input type="hidden"
+                                                                            name="itinerary_experience[stops][{{ $i }}][order]"
+                                                                            value="{{ $plan['order'] }}">
+                                                                        <input type="hidden"
+                                                                            name="itinerary_experience[stops][{{ $i }}][type]"
+                                                                            value="stop">
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="d-flex align-items-center gap-1"><i
+                                                                                class="bx bx-star"></i>Stop</div>
+                                                                    </td>
+                                                                    <td><input
+                                                                            name="itinerary_experience[stops][{{ $i }}][title]"
+                                                                            value="{{ $plan['title'] }}" type="text"
+                                                                            class="field" placeholder="Title"></td>
+                                                                    <td><input
+                                                                            name="itinerary_experience[stops][{{ $i }}][activities]"
+                                                                            value="{{ $plan['activities'] }}"
+                                                                            type="text" class="field"
+                                                                            placeholder="Activities"></td>
+                                                                    <td><button type="button"
+                                                                            class="delete-btn ms-auto delete-btn--static"><i
+                                                                                class='bx bxs-trash-alt'></i></button></td>
+                                                                </tr>
+                                                            @endif
+                                                        @endforeach
+                                                    </tbody>
                                                 </table>
                                                 <div class="dropdown bootsrap-dropdown mt-4 d-flex justify-content-end">
                                                     <button type="button" class="themeBtn dropdown-toggle"
@@ -799,16 +967,18 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-check d-none" id="add-stop-btn">
+                                            <div class="form-check {{ isset($itineraryExperience['enable_sub_stops']) ? '' : 'd-none' }}"
+                                                id="add-stop-btn">
                                                 <input class="form-check-input" type="checkbox"
-                                                    name="itinerary[enable_sub_stops]"
-                                                    id="itinerary_experience_enabled_sub_stops" value="1">
+                                                    name="itinerary_experience[enable_sub_stops]"
+                                                    id="itinerary_experience_enabled_sub_stops" value="1"
+                                                    {{ isset($itineraryExperience['enable_sub_stops']) ? 'checked' : '' }}>
                                                 <label class="form-check-label"
                                                     for="itinerary_experience_enabled_sub_stops">Add
                                                     Sub Stops</label>
                                             </div>
-
-                                            <div class="form-fields mt-4 d-none" id="itinerary_experience_sub_stops">
+                                            <div class="form-fields mt-4 {{ isset($itineraryExperience['enable_sub_stops']) ? '' : 'd-none' }}"
+                                                id="itinerary_experience_sub_stops">
                                                 <label class="title title--sm">Sub Stops:</label>
                                                 <div class="repeater-table" data-repeater>
                                                     <table class="table table-bordered">
@@ -820,34 +990,87 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody data-repeater-list>
-                                                            <tr data-repeater-item>
-                                                                <td>
-                                                                    <select name="itinerary[stops][sub_stops][main_stop][]"
-                                                                        class="field">
-                                                                        <option value="" selected disabled>Select
-                                                                        </option>
-                                                                    </select>
-                                                                </td>
-                                                                <td>
-                                                                    <input name="itinerary[stops][sub_stops][title][]"
-                                                                        type="text" class="field"
-                                                                        placeholder="Title">
-                                                                    <br>
-                                                                    <div class="mt-3">
+                                                            @foreach ($mergedPlan as $i => $plan)
+                                                                @if ($plan['type'] == 'stop' && isset($plan['sub_stops']) && count($plan['sub_stops']) > 0)
+                                                                    @php $hasSubStops = true; @endphp
+                                                                    @foreach ($plan['sub_stops'] as $j => $subStop)
+                                                                        <tr data-repeater-item>
+                                                                            <td>
+                                                                                <select
+                                                                                    name="itinerary_experience[stops][sub_stops][main_stop][]"
+                                                                                    class="field main-stop-dropdown">
+                                                                                    <option value="" selected>Select
+                                                                                    </option>
+                                                                                    @foreach ($mainStopTitles as $mainStop)
+                                                                                        <option
+                                                                                            value="{{ $mainStop }}"
+                                                                                            {{ $mainStop === $plan['title'] ? 'selected' : '' }}>
+                                                                                            {{ $mainStop }}</option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                            </td>
+                                                                            <td>
+                                                                                <input
+                                                                                    name="itinerary_experience[stops][sub_stops][title][]"
+                                                                                    type="text" class="field"
+                                                                                    value="{{ $subStop['title'] }}"
+                                                                                    placeholder="Title">
+                                                                                <br>
+                                                                                <div class="mt-3">
+                                                                                    <input
+                                                                                        name="itinerary_experience[stops][sub_stops][activities][]"
+                                                                                        type="text" class="field"
+                                                                                        value="{{ $subStop['activities'] }}"
+                                                                                        placeholder="Activities">
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <button type="button"
+                                                                                    class="delete-btn ms-auto delete-btn--static"
+                                                                                    data-repeater-remove>
+                                                                                    <i class='bx bxs-trash-alt'></i>
+                                                                                </button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                @endif
+                                                            @endforeach
+
+                                                            @if (!$hasSubStops)
+                                                                <tr data-repeater-item>
+                                                                    <td>
+                                                                        <select
+                                                                            name="itinerary_experience[stops][sub_stops][main_stop][]"
+                                                                            class="field main-stop-dropdown">
+                                                                            <option value="" selected>Select</option>
+                                                                            @foreach ($mainStopTitles as $mainStop)
+                                                                                <option value="{{ $mainStop }}">
+                                                                                    {{ $mainStop }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </td>
+                                                                    <td>
                                                                         <input
-                                                                            name="itinerary[stops][sub_stops][activities][]"
+                                                                            name="itinerary_experience[stops][sub_stops][title][]"
                                                                             type="text" class="field"
-                                                                            placeholder="Activities">
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <button type="button"
-                                                                        class="delete-btn ms-auto delete-btn--static"
-                                                                        data-repeater-remove>
-                                                                        <i class='bx bxs-trash-alt'></i>
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
+                                                                            placeholder="Title">
+                                                                        <br>
+                                                                        <div class="mt-3">
+                                                                            <input
+                                                                                name="itinerary_experience[stops][sub_stops][activities][]"
+                                                                                type="text" class="field"
+                                                                                placeholder="Activities">
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <button type="button"
+                                                                            class="delete-btn ms-auto delete-btn--static"
+                                                                            data-repeater-remove>
+                                                                            <i class='bx bxs-trash-alt'></i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
                                                         </tbody>
                                                     </table>
                                                     <button type="button" class="themeBtn ms-auto"
@@ -855,6 +1078,9 @@
                                                         <i class="bx bx-plus"></i></button>
                                                 </div>
                                             </div>
+
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -1529,7 +1755,7 @@
                                         <div class="col-12 my-2">
                                             <hr>
                                         </div>
-                                        <div class="col-12 my-2" x-data="{ serviceFee: {{ $tour->service_fee_price != null ? '1' : '0' }} }">
+                                        <div class="col-12 my-2" x-data="{ serviceFee: {{ $tour->enabled_custom_service_fee == '1' ? '1' : '0' }} }">
                                             <div class="row">
                                                 <div class="col-12 mb-2">
                                                     <div class="form-fields">
@@ -1539,9 +1765,11 @@
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox"
                                                                 id="enebled_service_fee"
-                                                                {{ $tour->service_fee_price != null ? 'checked' : '' }}
-                                                                value="{{ $tour->service_fee_price != null ? '1' : '0' }}"
-                                                                x-model="serviceFee">
+                                                                {{ $tour->enabled_custom_service_fee == '1' ? 'checked' : '' }}
+                                                                name="tour[pricing][enabled_custom_service_fee]"
+                                                                value="{{ $tour->enabled_custom_service_fee }}"
+                                                                x-model="serviceFee"
+                                                                @change="serviceFee = serviceFee ? 1 : 0">
                                                             <label class="form-check-label" for="enebled_service_fee">
                                                                 Enable service fee
                                                             </label>
@@ -1567,8 +1795,8 @@
                                                     <span class="title mb-0">Whatsapp Number:</span>
                                                     <div class="form-check form-switch" data-enabled-text="Enabled"
                                                         data-disabled-text="Disabled">
-                                                        <input class="form-check-input" data-toggle-switch type="checkbox"
-                                                            id="enable-section"
+                                                        <input class="form-check-input" data-toggle-switch
+                                                            type="checkbox" id="enable-section"
                                                             {{ $tour->show_phone == '1' ? 'checked' : '' }}
                                                             value="1" name="tour[pricing][show_phone]">
                                                         <label class="form-check-label"
@@ -1611,10 +1839,11 @@
                                                 <div class="form-fields">
                                                     <div class="title">Fixed dates:</div>
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="fixed_date"
-                                                            {{ $tour->is_fixed_date ? 'checked' : '' }} id="fixed_date"
+                                                        <input class="form-check-input" type="checkbox"
+                                                            {{ $tour->is_fixed_date ? 'checked' : '' }}
+                                                            name="tour[availability][is_fixed_date]" id="fixed_date"
                                                             value="{{ $tour->is_fixed_date ? '1' : '0' }}"
-                                                            x-model="fixedDate">
+                                                            x-model="fixedDate" @change="fixedDate = fixedDate ? 1 : 0">
                                                         <label class="form-check-label" for="fixed_date">
                                                             Enable Fixed Date
                                                         </label>
@@ -1628,9 +1857,10 @@
                                                             <label class="title">Start Date <span
                                                                     class="text-danger">*</span>:</label>
                                                             <input readonly type="text" class="field date-picker"
-                                                                placeholder="Select a date" name="start_date"
-                                                                autocomplete="off" value="{{ $tour->start_date }}">
-                                                            @error('start_date')
+                                                                placeholder="Select a date"
+                                                                name="tour[availability][start_date]" autocomplete="off"
+                                                                value="{{ $tour->start_date }}">
+                                                            @error('tour[availability][start_date]')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
                                                         </div>
@@ -1640,9 +1870,10 @@
                                                             <label class="title">End Date <span
                                                                     class="text-danger">*</span>:</label>
                                                             <input readonly type="text" class="field date-picker"
-                                                                placeholder="Select a date" name="end_date"
-                                                                autocomplete="off" value="{{ $tour->end_date }}">
-                                                            @error('end_date')
+                                                                placeholder="Select a date"
+                                                                name="tour[availability][end_date]" autocomplete="off"
+                                                                value="{{ $tour->end_date }}">
+                                                            @error('tour[availability][end_date]')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
                                                         </div>
@@ -1652,7 +1883,8 @@
                                                             <label class="title">Last Booking Date <span
                                                                     class="text-danger">*</span>:</label>
                                                             <input readonly type="text" class="field date-picker"
-                                                                placeholder="Select a date" name="last_booking_date"
+                                                                placeholder="Select a date"
+                                                                name="tour[availability][last_booking_date]"
                                                                 value="{{ $tour->last_booking_date }}">
                                                             @error('last_booking_date')
                                                                 <div class="text-danger">{{ $message }}</div>
@@ -1671,10 +1903,10 @@
                                                     <div class="title">Open Hours:</div>
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox"
-                                                            name="openHours" {{ $tour->is_open_hours ? 'checked' : '' }}
-                                                            id="openHours"
+                                                            name="tour[availability][is_open_hours]"
+                                                            {{ $tour->is_open_hours ? 'checked' : '' }} id="openHours"
                                                             value="{{ $tour->is_open_hours ? '1' : '0' }}"
-                                                            x-model="openHours">
+                                                            x-model="openHours" @change="openHours = openHours ? 1 : 0">
                                                         <label class="form-check-label" for="openHours">
                                                             Enable Open Hours
                                                         </label>
@@ -1741,7 +1973,7 @@
                                                                             <div class="form-check">
                                                                                 <input class="form-check-input"
                                                                                     type="checkbox"
-                                                                                    name="open_hours[day][]"
+                                                                                    name="tour[availability][open_hours][{{ $i }}][enabled]"
                                                                                     id="{{ $day }}"
                                                                                     value="1"
                                                                                     {{ $openHour && $openHour->enabled ? 'checked' : '' }}>
@@ -1752,14 +1984,15 @@
                                                                             </div>
                                                                         </td>
                                                                         <td>
-                                                                            <input name="open_hours[day][]"
+                                                                            <input
+                                                                                name="tour[availability][open_hours][{{ $i }}][day]"
                                                                                 type="text"
                                                                                 value="{{ $day }}"
                                                                                 class="field" readonly>
                                                                         </td>
                                                                         <td>
                                                                             <select class="field"
-                                                                                name="open_hours[open][]">
+                                                                                name="tour[availability][open_hours][{{ $i }}][open_time]">
                                                                                 <option value="">Select Time
                                                                                 </option>
                                                                                 @foreach ($timeSlots as $slot)
@@ -1772,7 +2005,7 @@
                                                                         </td>
                                                                         <td>
                                                                             <select class="field"
-                                                                                name="open_hours[close][]">
+                                                                                name="tour[availability][open_hours][{{ $i }}][close_time]">
                                                                                 <option value="">Select Time
                                                                                 </option>
                                                                                 @foreach ($timeSlots as $slot)
@@ -1811,10 +2044,10 @@
                                         <select name="related_tour_ids[]" multiple class="choice-select"
                                             data-max-items="4" placeholder="Select Tours"
                                             {{ !$tours->isEmpty() ? '' : '' }} data-error="Top 4 featured tours">
-                                            @foreach ($tours as $tour)
-                                                <option value="{{ $tour->id }}"
-                                                    {{ in_array($tour->id, $selectedRelatedTourIds) ? 'selected' : '' }}>
-                                                    {{ $tour->title }}
+                                            @foreach ($tours as $t)
+                                                <option value="{{ $t->id }}"
+                                                    {{ in_array($t->id, $selectedRelatedTourIds) ? 'selected' : '' }}>
+                                                    {{ $t->title }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -1832,20 +2065,21 @@
                                 </div>
                                 <div class="form-box__body">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="status" id="publish"
-                                            value="publish" {{ $tour->status == 'publish' ? 'checked' : '' }}>
+                                        <input class="form-check-input" type="radio" name="tour[status][status]"
+                                            id="publish" value="publish"
+                                            {{ $tour->status == 'publish' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="publish">
                                             Publish
                                         </label>
                                     </div>
                                     <div class="form-check mt-2">
-                                        <input class="form-check-input" type="radio" name="status" id="draft"
-                                            value="draft" {{ $tour->status == 'draft' ? 'checked' : '' }}>
+                                        <input class="form-check-input" type="radio" name="tour[status][status]"
+                                            id="draft" value="draft"
+                                            {{ $tour->status == 'draft' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="draft">
                                             Draft
                                         </label>
                                     </div>
-                                    <button class="themeBtn ms-auto mt-4">Save Changes</button>
                                 </div>
                             </div>
                             <div class="form-box">
@@ -1876,9 +2110,9 @@
                                                             data-upload-img>
                                                             <button type="button" class="delete-btn" data-delete-btn><i
                                                                     class='bx bxs-trash-alt'></i></button>
-                                                            <a href="{{ asset($tour->featured_image ?? 'admin/assets/images/loading.webp') }}"
+                                                            <a href="{{ asset($tour->featured_image ?? 'admin/assets/images/placeholder.png') }}"
                                                                 class="mask" data-fancybox="gallery">
-                                                                <img src="{{ asset($tour->featured_image) }}"
+                                                                <img src="{{ asset($tour->featured_image ?? 'admin/assets/images/placeholder.png') }}"
                                                                     alt="{{ $tour->featured_image_alt_text }}"
                                                                     class="imgFluid" data-upload-preview>
                                                             </a>
@@ -1963,36 +2197,34 @@
                             </div>
 
 
-                            @if (!$tour->attributes || $tour->attributes->isEmpty())
-                            @else
-                                @foreach ($attributes as $attribute)
-                                    @if (!$attribute->attributeItems->isEmpty())
-                                        <div class="form-box">
-                                            <div class="form-box__header">
-                                                <div class="title">Attribute: {{ $attribute->name }}</div>
-                                            </div>
-                                            <div class="form-box__body">
-                                                @foreach ($attribute->attributeItems as $index => $item)
-                                                    <div class="form-check mb-1">
-                                                        <input class="form-check-input" type="checkbox"
-                                                            name="tour[status][attributes][{{ $attribute->id }}][]"
-                                                            id="attribute-{{ $item->id }}-{{ $index }}"
-                                                            value="{{ $item->id }}"
-                                                            @if (
-                                                                $tour->attributes->contains($attribute->id) &&
-                                                                    $item->tourAttributes &&
-                                                                    $item->tourAttributes->contains($attribute->id)) checked @endif>
-                                                        <label class="form-check-label"
-                                                            for="attribute-{{ $item->id }}-{{ $index }}">
-                                                            {{ $item->item }}
-                                                        </label>
-                                                    </div>
-                                                @endforeach
-                                            </div>
+
+                            @foreach ($attributes as $attribute)
+                                @if (!$attribute->attributeItems->isEmpty())
+                                    <div class="form-box">
+                                        <div class="form-box__header">
+                                            <div class="title">Attribute: {{ $attribute->name }}</div>
                                         </div>
-                                    @endif
-                                @endforeach
-                            @endif
+                                        <div class="form-box__body">
+                                            @foreach ($attribute->attributeItems as $index => $item)
+                                                <div class="form-check mb-1">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        name="tour[status][attributes][{{ $attribute->id }}][]"
+                                                        id="attribute-{{ $item->id }}-{{ $index }}"
+                                                        value="{{ $item->id }}"
+                                                        @if (
+                                                            $tour->attributes->contains($attribute->id) &&
+                                                                $item->tourAttributes &&
+                                                                $item->tourAttributes->contains($attribute->id)) checked @endif>
+                                                    <label class="form-check-label"
+                                                        for="attribute-{{ $item->id }}-{{ $index }}">
+                                                        {{ $item->item }}
+                                                    </label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
                             <div class="form-box">
                                 <div class="form-box__header">
                                     <div class="title">Ical</div>
