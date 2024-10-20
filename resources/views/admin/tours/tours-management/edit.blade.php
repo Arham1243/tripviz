@@ -11,6 +11,7 @@
                 <div class="custom-sec custom-sec--form">
                     <div class="custom-sec__header">
                         <div class="section-content">
+
                             <h3 class="heading">Edit Tour: {{ isset($title) ? $title : '' }}</h3>
                             <div class="permalink">
                                 <div class="title">Permalink:</div>
@@ -23,6 +24,8 @@
                                 </div>
                             </div>
                         </div>
+                        <a href="{{ buildUrl(url('/'), 'tours', $tour->slug) }}" target="_blank" class="themeBtn">View
+                            Tour</a>
                     </div>
                 </div>
                 <div class="row" x-data="{ optionTab: 'general' }">
