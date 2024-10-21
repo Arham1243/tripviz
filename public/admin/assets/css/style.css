@@ -1844,6 +1844,18 @@ button.settings-item__link i {
 .fc .fc-toolbar-title {
     font-size: 1.15rem;
 }
+.fc-scroller.fc-scroller-liquid-absolute {
+    overflow: inherit !important;
+}
+.not-available {
+    text-align: center;
+    display: block;
+    font-size: 0.75rem;
+}
+a.fc-event.fc-event-start.fc-event-end.fc-event-past.fc-daygrid-event.fc-daygrid-block-event.fc-h-event {
+    padding: 0.25rem;
+    font-size: 0.7rem;
+}
 .form-box.form-box--calendar {
     padding: 1.25rem;
 }

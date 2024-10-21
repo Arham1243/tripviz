@@ -58,7 +58,7 @@
                     text: '{{ session('notify_error') }}',
                     loaderBg: '#ff6849',
                     icon: 'error',
-                    hideAfter: 2000,
+                    hideAfter: 5000,
                     stack: 6
                 });
             @endif

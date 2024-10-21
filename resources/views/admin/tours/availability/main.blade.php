@@ -20,19 +20,19 @@
                         <div class="form-box__body p-0">
                             <ul class="settings">
                                 @php
-                                    $selected_tour_id = null;
+                                    $selectedTourId = null;
                                 @endphp
                                 @foreach ($tours as $tour)
                                     @php
                                         if (request('tour_id') == $tour->id || (!request('tour_id') && $loop->first)) {
-                                            $selected_tour_id = $tour->id;
+                                            $selectedTourId = $tour->id;
                                         }
                                     @endphp
                                     <li class="settings-item">
                                         <a href="{{ Request::url() . '?tour_id=' . $tour->id }}"
                                             data-tour-id="{{ $tour->id }}"
                                             class="settings-item__link 
-                                               @if ($selected_tour_id == $tour->id) ) 
+                                               @if ($selectedTourId == $tour->id) ) 
                                                    active @endif">
                                             {{ $tour->title }}
                                         </a>
@@ -62,11 +62,11 @@
                 <form action="{{ route('admin.tour-availability.store') }}" method="POST">
                     <div class="modal-body">
                         @csrf
-                        <input type="hidden" name="tour_id" id="tourId" value="{{ $selected_tour_id }}">
+                        <input type="hidden" name="tour_id" id="tourId" value="{{ $selectedTourId }}">
                         <input type="hidden" name="start_date" id="startDate">
                         <input type="hidden" name="end_date" id="endDate">
                         <div class="row align-items-center mt-3">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-fields">
                                     <label class="title">Date Range:</label>
                                     <input type="text" name="dates" class="field date-range-picker" readonly>
@@ -149,6 +149,12 @@
             </div>
         </div>
     </div>
+    @php
+        $selectedTour = \App\Models\Tour::where('id', $selectedTourId)->first();
+        if ($selectedTour) {
+            $availabilitiesJson = $selectedTour->availabilities->toJson();
+        }
+    @endphp
 @endsection
 
 @push('css')
@@ -162,6 +168,8 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script>
+        const availabilities = {!! $availabilitiesJson !!};
+
         function formatDate(date) {
             let dateClass = new Date(date);
             let formattedDate = dateClass.toLocaleDateString('en-US', {
@@ -172,21 +180,56 @@
             return formattedDate;
         }
 
+        function getDateRange(startDate, endDate) {
+            const dates = [];
+            const currentDate = new Date(startDate);
+            const endDateObj = new Date(endDate);
+
+            while (currentDate <= endDateObj) {
+                dates.push(new Date(currentDate)); // Push a copy of the current date
+                currentDate.setDate(currentDate.getDate() + 1); // Increment the date
+            }
+
+            return dates;
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             let calendarEl = document.getElementById('calendar');
+            const events = availabilities.flatMap(av => {
+                const dateRange = getDateRange(av.start_date, av.end_date);
+                return dateRange.map(date => ({
+                    title: `Adult: ${av.adult_price}<br>Child: ${av.child_price}<br>Max Guests: ${av.max_guest}`,
+                    date: date.toISOString().split('T')[0], // Format date as YYYY-MM-DD
+                    extendedProps: {
+                        max_guest: av.max_guest,
+                        min_adult: av.min_adult,
+                        max_adult: av.max_adult,
+                        adult_price: av.adult_price,
+                        min_child: av.min_child,
+                        max_child: av.max_child,
+                        child_price: av.child_price,
+                        available_for_booking: av.available_for_booking,
+                        start_date: av.start_date,
+                        end_date: av.end_date,
+                    }
+                }));
+            });
+
             let calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
-                events: [{
-                        title: 'Max Guests: 15',
-                        date: '2024-10-10',
-                        max_guest: 15
-                    },
-                    {
-                        title: 'Max Guests: 20',
-                        date: '2024-10-15',
-                        max_guest: 20
+                events: events,
+                eventContent: function(arg) {
+                    let contentHtml = '';
+                    if (arg.event.extendedProps.available_for_booking === 0) {
+                        contentHtml = '<span class="not-available">Not Available</span>';
+                    } else {
+                        contentHtml = `<span>${arg.event.title}</span>`;
                     }
-                ],
+
+                    return {
+                        html: contentHtml
+                    };
+                },
                 dateClick: function(info) {
                     let selectedDate = info.dateStr;
 
@@ -201,6 +244,11 @@
                             format: 'YYYY-MM-DD'
                         },
                         opens: 'left'
+                    });
+
+                    $('.date-range-picker').on('apply.daterangepicker', function(ev, picker) {
+                        $('#startDate').val(picker.startDate.format('YYYY-MM-DD'));
+                        $('#endDate').val(picker.endDate.format('YYYY-MM-DD'));
                     });
                 },
                 eventClick: function(info) {
@@ -219,22 +267,14 @@
                         },
                         opens: 'left'
                     });
+
+                    $('.date-range-picker').on('apply.daterangepicker', function(ev, picker) {
+                        $('#startDate').val(picker.startDate.format('YYYY-MM-DD'));
+                        $('#endDate').val(picker.endDate.format('YYYY-MM-DD'));
+                    });
                 }
             });
             calendar.render();
-        });
-
-        $(document).ready(function() {
-            $('.date-range-picker').daterangepicker({
-                locale: {
-                    format: 'YYYY-MM-DD'
-                },
-                opens: 'left',
-            });
-        });
-        $('.date-range-picker').on('apply.daterangepicker', function(ev, picker) {
-            console.log(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format(
-                'MM/DD/YYYY'))
         });
     </script>
 @endpush
