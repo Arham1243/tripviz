@@ -19,10 +19,23 @@
                         </div>
                         <div class="form-box__body p-0">
                             <ul class="settings">
+                                @php
+                                    $selected_tour_id = null;
+                                @endphp
                                 @foreach ($tours as $tour)
+                                    @php
+                                        if (request('tour_id') == $tour->id || (!request('tour_id') && $loop->first)) {
+                                            $selected_tour_id = $tour->id;
+                                        }
+                                    @endphp
                                     <li class="settings-item">
-                                        <button type="button" data-tour-id="{{ $tour->id }}"
-                                            class="settings-item__link {{ $loop->first ? 'active' : '' }}">{{ $tour->title }}</button>
+                                        <a href="{{ Request::url() . '?tour_id=' . $tour->id }}"
+                                            data-tour-id="{{ $tour->id }}"
+                                            class="settings-item__link 
+                                               @if ($selected_tour_id == $tour->id) ) 
+                                                   active @endif">
+                                            {{ $tour->title }}
+                                        </a>
                                     </li>
                                 @endforeach
                             </ul>
@@ -37,8 +50,7 @@
             </div>
         </div>
     </div>
-
-    <div class="modal " tabindex="-1" id="eventModal">
+    <div class="modal" tabindex="-1" id="eventModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -47,23 +59,24 @@
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form action="">
+                <form action="{{ route('admin.tour-availability.store') }}" method="POST">
+                    <div class="modal-body">
                         @csrf
-                        <input type="hidden" name="date" id="tourDate">
-                        <input type="hidden" name="tour_id" id="tourId" value="1">
+                        <input type="hidden" name="tour_id" id="tourId" value="{{ $selected_tour_id }}">
+                        <input type="hidden" name="start_date" id="startDate">
+                        <input type="hidden" name="end_date" id="endDate">
                         <div class="row align-items-center mt-3">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-fields">
-                                    <label class="title">Date Ranges:</label>
-                                    <input type="text" name="dates" class="field" id="dateRange" readonly>
+                                    <label class="title">Date Range:</label>
+                                    <input type="text" name="dates" class="field date-range-picker" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6 mt-4">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="status" id="publish" checked
-                                        value="publish">
-                                    <label class="form-check-label" for="publish">
+                                    <input class="form-check-input" type="checkbox" name="available_for_booking"
+                                        id="available_for_booking" checked value="1">
+                                    <label class="form-check-label" for="available_for_booking">
                                         Available for booking?
                                     </label>
                                 </div>
@@ -73,7 +86,7 @@
                             <div class="col-md-12">
                                 <div class="form-fields">
                                     <label class="title">Max Guest <span class="text-danger">*</span>:</label>
-                                    <input type="number" name="max_guest" class="field" placeholder="" required="">
+                                    <input type="number" min="0" name="max_guest" class="field" required="">
                                 </div>
                             </div>
                             <div class="col-md-12 mt-4">
@@ -90,7 +103,7 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <input type="text" name="adult[name]" class="field" value="Adult"
+                                                    <input type="text" name="adult[name]" class="field" value="adult"
                                                         readonly>
                                                 </td>
                                                 <td>
@@ -106,11 +119,12 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <input type="text" name="child[name]" class="field" value="Child"
+                                                    <input type="text" name="child[name]" class="field" value="child"
                                                         readonly>
                                                 </td>
                                                 <td>
-                                                    <input type="number" min="0" name="child[min]" class="field">
+                                                    <input type="number" min="0" name="child[min]"
+                                                        class="field">
                                                 </td>
                                                 <td>
                                                     <input type="number" min="0" name="child[max]"
@@ -124,15 +138,14 @@
                                         </tbody>
                                     </table>
                                 </div>
-
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="themeBtn bg-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="button" id="saveEvent" class="themeBtn">Save changes</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="themeBtn bg-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="themeBtn">Save changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -175,27 +188,53 @@
                     }
                 ],
                 dateClick: function(info) {
-                    let event = calendar.getEvents().find(e => e.startStr === info.dateStr);
-                    $('#tourDate').val(info.dateStr);
-                    $('#selectedDateInfo').text(`${formatDate(info.dateStr)}`);
+                    let selectedDate = info.dateStr;
+
+                    $('#startDate').val(selectedDate);
+                    $('#endDate').val(selectedDate);
                     $('#eventModal').modal('show');
+
+                    $('.date-range-picker').daterangepicker({
+                        startDate: selectedDate,
+                        endDate: selectedDate,
+                        locale: {
+                            format: 'YYYY-MM-DD'
+                        },
+                        opens: 'left'
+                    });
                 },
                 eventClick: function(info) {
-                    $('#selectedDateInfo').text(`${formatDate(info.event.start)}`);
-                    $('#tourDate').val(info.event.start);
+                    let selectedDate = info.event.start;
+                    let formattedSelectedDate = selectedDate.toISOString().split('T')[0];
+
+                    $('#startDate').val(formattedSelectedDate);
+                    $('#endDate').val(formattedSelectedDate);
                     $('#eventModal').modal('show');
+
+                    $('.date-range-picker').daterangepicker({
+                        startDate: formattedSelectedDate,
+                        endDate: formattedSelectedDate,
+                        locale: {
+                            format: 'YYYY-MM-DD'
+                        },
+                        opens: 'left'
+                    });
                 }
             });
             calendar.render();
-            $('#saveEvent').on('click', function() {
-                const date = $('#tourDate').val();
-                const maxGuest = $('input[name="max_guest"]').val();
-                const tourId = $('#tourId').val();
-                $('#eventModal').modal('hide');
-            });
         });
 
-
-        $('input[name="dates"]').daterangepicker();
+        $(document).ready(function() {
+            $('.date-range-picker').daterangepicker({
+                locale: {
+                    format: 'YYYY-MM-DD'
+                },
+                opens: 'left',
+            });
+        });
+        $('.date-range-picker').on('apply.daterangepicker', function(ev, picker) {
+            console.log(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format(
+                'MM/DD/YYYY'))
+        });
     </script>
 @endpush

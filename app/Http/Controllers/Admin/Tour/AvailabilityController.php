@@ -24,31 +24,41 @@ class AvailabilityController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'tour_id' => 'required|exists:tours,id',
-            'date_range' => 'required|string',
-            'max_guest' => 'required|integer|min:1',
-            'adult.min' => 'required|integer|min:0',
-            'adult.max' => 'required|integer|min:0',
-            'adult.price' => 'required|numeric|min:0',
-            'child.min' => 'required|integer|min:0',
-            'child.max' => 'required|integer|min:0',
-            'child.price' => 'required|numeric|min:0',
-        ]);
+        try {
+            $validatedData = $request->validate([
+                'tour_id' => 'required|exists:tours,id',
+                'start_date' => 'required|date',
+                'end_date' => 'required|date|after_or_equal:start_date',
+                'available_for_booking' => 'boolean',
+                'max_guest' => 'required|integer|min:0',
+                'adult' => 'required|array',
+                'adult.min' => 'required|integer|min:0',
+                'adult.max' => 'required|integer|min:0',
+                'adult.price' => 'required|numeric|min:0',
+                'child' => 'required|array',
+                'child.min' => 'required|integer|min:0',
+                'child.max' => 'required|integer|min:0',
+                'child.price' => 'required|numeric|min:0',
+            ]);
 
-        $availability = new TourAvailability;
-        $availability->tour_id = $request->tour_id;
-        $availability->date_range = $request->date_range;
-        $availability->max_guest = $request->max_guest;
-        $availability->adult_min = $request->adult['min'];
-        $availability->adult_max = $request->adult['max'];
-        $availability->adult_price = $request->adult['price'];
-        $availability->child_min = $request->child['min'];
-        $availability->child_max = $request->child['max'];
-        $availability->child_price = $request->child['price'];
-        $availability->available_for_booking = $request->available_for_booking ? 1 : 0;
-        $availability->save();
+            $tourAvailability = new TourAvailability;
+            $tourAvailability->tour_id = $validatedData['tour_id'];
+            $tourAvailability->start_date = $validatedData['start_date'];
+            $tourAvailability->end_date = $validatedData['end_date'];
+            $tourAvailability->available_for_booking = $validatedData['available_for_booking'];
+            $tourAvailability->max_guest = $validatedData['max_guest'];
+            $tourAvailability->min_adult = $validatedData['adult']['min'];
+            $tourAvailability->max_adult = $validatedData['adult']['max'];
+            $tourAvailability->adult_price = $validatedData['adult']['price'];
+            $tourAvailability->min_child = $validatedData['child']['min'];
+            $tourAvailability->max_child = $validatedData['child']['max'];
+            $tourAvailability->child_price = $validatedData['child']['price'];
 
-        return response()->json(['success' => true, 'message' => 'Tour availability saved successfully.']);
+            $tourAvailability->save();
+
+            return redirect()->route('admin.tour-availability.index')->with('notify_success', 'Availability added successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('admin.tour-availability.index')->with('notify_error', 'Error adding availability: '.$e->getMessage());
+        }
     }
 }

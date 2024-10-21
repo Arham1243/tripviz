@@ -3,7 +3,7 @@
     <div class="col-md-12">
         <div class="dashboard-content">
             {{ Breadcrumbs::render('admin.tours.create') }}
-            <form action="{{ route('admin.tours.store') }}" method="POST" enctype="multipart/form-data" id="validation-form">
+            <form action="{{ route('admin.tours.store') }}" method="POST" enctype="multipart/form-data" id="validation-forms">
                 @csrf
                 <div class="custom-sec custom-sec--form">
                     <div class="custom-sec__header">
