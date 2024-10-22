@@ -76,9 +76,8 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="available_for_booking"
                                         id="available_for_booking" checked value="1">
-                                    <label class="form-check-label" for="available_for_booking">
-                                        Available for booking?
-                                    </label>
+                                    <label class="form-check-label" for="available_for_booking">Available for
+                                        booking?</label>
                                 </div>
                             </div>
                         </div>
@@ -86,7 +85,8 @@
                             <div class="col-md-12">
                                 <div class="form-fields">
                                     <label class="title">Max Guest <span class="text-danger">*</span>:</label>
-                                    <input type="number" min="0" name="max_guest" class="field" required="">
+                                    <input type="number" min="0" name="max_guest" class="field" id="maxGuest"
+                                        required="">
                                 </div>
                             </div>
                             <div class="col-md-12 mt-4">
@@ -107,32 +107,34 @@
                                                         readonly>
                                                 </td>
                                                 <td>
-                                                    <input type="number" min="0" name="adult[min]" class="field">
+                                                    <input type="number" min="0" name="adult[min]" class="field"
+                                                        id="adultMin">
                                                 </td>
                                                 <td>
-                                                    <input type="number" min="0" name="adult[max]" class="field">
+                                                    <input type="number" min="0" name="adult[max]" class="field"
+                                                        id="adultMax">
                                                 </td>
                                                 <td>
                                                     <input type="number" step="0.01" min="0" name="adult[price]"
-                                                        class="field">
+                                                        class="field" id="adultPrice">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <input type="text" name="child[name]" class="field" value="child"
-                                                        readonly>
+                                                    <input type="text" name="child[name]" class="field"
+                                                        value="child" readonly>
                                                 </td>
                                                 <td>
                                                     <input type="number" min="0" name="child[min]"
-                                                        class="field">
+                                                        class="field" id="childMin">
                                                 </td>
                                                 <td>
                                                     <input type="number" min="0" name="child[max]"
-                                                        class="field">
+                                                        class="field" id="childMax">
                                                 </td>
                                                 <td>
                                                     <input type="number" step="0.01" min="0"
-                                                        name="child[price]" class="field">
+                                                        name="child[price]" class="field" id="childPrice">
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -231,10 +233,34 @@
                     };
                 },
                 dateClick: function(info) {
+
                     let selectedDate = info.dateStr;
+                    let clickedEvent = events.find(event => event.date === selectedDate);
 
                     $('#startDate').val(selectedDate);
                     $('#endDate').val(selectedDate);
+                    if (clickedEvent) {
+                        $('#maxGuest').val(clickedEvent.extendedProps.max_guest);
+                        $('#adultMin').val(clickedEvent.extendedProps.min_adult);
+                        $('#adultMax').val(clickedEvent.extendedProps.max_adult);
+                        $('#adultPrice').val(clickedEvent.extendedProps.adult_price);
+                        $('#childMin').val(clickedEvent.extendedProps.min_child);
+                        $('#childMax').val(clickedEvent.extendedProps.max_child);
+                        $('#childPrice').val(clickedEvent.extendedProps.child_price);
+                        $('#available_for_booking').prop('checked', clickedEvent.extendedProps
+                            .available_for_booking == 1);
+                    } else {
+                        // If there is no event, clear the fields or set default values
+                        $('#maxGuest').val('');
+                        $('#adultMin').val('');
+                        $('#adultMax').val('');
+                        $('#adultPrice').val('');
+                        $('#childMin').val('');
+                        $('#childMax').val('');
+                        $('#childPrice').val('');
+                        $('#available_for_booking').prop('checked', false);
+                    }
+
                     $('#eventModal').modal('show');
 
                     $('.date-range-picker').daterangepicker({
@@ -251,12 +277,26 @@
                         $('#endDate').val(picker.endDate.format('YYYY-MM-DD'));
                     });
                 },
-                eventClick: function(info) {
-                    let selectedDate = info.event.start;
-                    let formattedSelectedDate = selectedDate.toISOString().split('T')[0];
 
+                eventClick: function(info) {
+                    let selectedDate = new Date(info.event.start);
+                    let year = selectedDate.getFullYear();
+                    let month = (selectedDate.getMonth() + 1).toString().padStart(2, '0');
+                    let day = selectedDate.getDate().toString().padStart(2, '0');
+
+                    // Format the date in YYYY-MM-DD format
+                    let formattedSelectedDate = `${year}-${month}-${day}`;
                     $('#startDate').val(formattedSelectedDate);
                     $('#endDate').val(formattedSelectedDate);
+                    $('#maxGuest').val(info.event.extendedProps.max_guest);
+                    $('#adultMin').val(info.event.extendedProps.min_adult);
+                    $('#adultMax').val(info.event.extendedProps.max_adult);
+                    $('#adultPrice').val(info.event.extendedProps.adult_price);
+                    $('#childMin').val(info.event.extendedProps.min_child);
+                    $('#childMax').val(info.event.extendedProps.max_child);
+                    $('#childPrice').val(info.event.extendedProps.child_price);
+                    $('#available_for_booking').prop('checked', info.event.extendedProps
+                        .available_for_booking == 1);
                     $('#eventModal').modal('show');
 
                     $('.date-range-picker').daterangepicker({
@@ -275,6 +315,21 @@
                 }
             });
             calendar.render();
+        });
+        $(document).ready(function() {
+            // Clear all fields when the modal is closed
+            $('#eventModal').on('hidden.bs.modal', function() {
+                $('#available_for_booking').prop('checked', false);
+                $('#max_guest').val('');
+                $('input[name="adult[min]"]').val('');
+                $('input[name="adult[max]"]').val('');
+                $('input[name="adult[price]"]').val('');
+                $('input[name="child[min]"]').val('');
+                $('input[name="child[max]"]').val('');
+                $('input[name="child[price]"]').val('');
+                $('#startDate').val('');
+                $('#endDate').val('');
+            });
         });
     </script>
 @endpush
