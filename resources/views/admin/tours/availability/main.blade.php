@@ -54,8 +54,9 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title d-flex align-items-center gap-2">Date Information: <div id="selectedDateInfo">
-                        </div>
+                    <h5 class="modal-title d-flex align-items-center gap-2">
+                        Date Information:
+                        <div id="selectedDateInfo"></div>
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -151,11 +152,10 @@
             </div>
         </div>
     </div>
+
     @php
         $selectedTour = \App\Models\Tour::where('id', $selectedTourId)->first();
-        if ($selectedTour) {
-            $availabilitiesJson = $selectedTour->availabilities->toJson();
-        }
+        $availabilitiesJson = $selectedTour ? $selectedTour->availabilities->toJson() : '[]';
     @endphp
 @endsection
 
@@ -173,35 +173,66 @@
         const availabilities = {!! $availabilitiesJson !!};
 
         function formatDate(date) {
-            let dateClass = new Date(date);
-            let formattedDate = dateClass.toLocaleDateString('en-US', {
+            return new Date(date).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric'
             });
-            return formattedDate;
         }
 
         function getDateRange(startDate, endDate) {
             const dates = [];
-            const currentDate = new Date(startDate);
+            let currentDate = new Date(startDate);
             const endDateObj = new Date(endDate);
 
             while (currentDate <= endDateObj) {
-                dates.push(new Date(currentDate)); // Push a copy of the current date
-                currentDate.setDate(currentDate.getDate() + 1); // Increment the date
+                dates.push(new Date(currentDate));
+                currentDate.setDate(currentDate.getDate() + 1);
             }
 
             return dates;
         }
 
+        function setModalData(date, event) {
+            $('#selectedDateInfo').html(formatDate(date));
+            $('#startDate').val(date);
+            $('#endDate').val(date);
+
+            if (event) {
+                $('#maxGuest').val(event.extendedProps.max_guest);
+                $('#adultMin').val(event.extendedProps.min_adult);
+                $('#adultMax').val(event.extendedProps.max_adult);
+                $('#adultPrice').val(event.extendedProps.adult_price);
+                $('#childMin').val(event.extendedProps.min_child);
+                $('#childMax').val(event.extendedProps.max_child);
+                $('#childPrice').val(event.extendedProps.child_price);
+                $('#available_for_booking').prop('checked', event.extendedProps.available_for_booking == 1);
+            } else {
+                $('#maxGuest, #adultMin, #adultMax, #adultPrice, #childMin, #childMax, #childPrice').val('');
+                $('#available_for_booking').prop('checked', false);
+            }
+        }
+
+        function initializeDateRangePicker(selectedDate) {
+            $('.date-range-picker').daterangepicker({
+                startDate: selectedDate,
+                endDate: selectedDate,
+                locale: {
+                    format: 'YYYY-MM-DD'
+                },
+                opens: 'left'
+            }).on('apply.daterangepicker', function(ev, picker) {
+                $('#startDate').val(picker.startDate.format('YYYY-MM-DD'));
+                $('#endDate').val(picker.endDate.format('YYYY-MM-DD'));
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
-            let calendarEl = document.getElementById('calendar');
+            const calendarEl = document.getElementById('calendar');
             const events = availabilities.flatMap(av => {
-                const dateRange = getDateRange(av.start_date, av.end_date);
-                return dateRange.map(date => ({
+                return getDateRange(av.start_date, av.end_date).map(date => ({
                     title: `Adult: ${av.adult_price}<br>Child: ${av.child_price}<br>Max Guests: ${av.max_guest}`,
-                    date: date.toISOString().split('T')[0], // Format date as YYYY-MM-DD
+                    date: date.toISOString().split('T')[0],
                     extendedProps: {
                         max_guest: av.max_guest,
                         min_adult: av.min_adult,
@@ -217,118 +248,39 @@
                 }));
             });
 
-            let calendar = new FullCalendar.Calendar(calendarEl, {
+            const calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 events: events,
                 eventContent: function(arg) {
-                    let contentHtml = '';
-                    if (arg.event.extendedProps.available_for_booking === 0) {
-                        contentHtml = '<span class="not-available">Not Available</span>';
-                    } else {
-                        contentHtml = `<span>${arg.event.title}</span>`;
-                    }
-
                     return {
-                        html: contentHtml
+                        html: arg.event.extendedProps.available_for_booking === 0 ?
+                            '<span class="not-available">Not Available</span>' :
+                            `<span>${arg.event.title}</span>`
                     };
                 },
                 dateClick: function(info) {
-
-                    let selectedDate = info.dateStr;
-                    let clickedEvent = events.find(event => event.date === selectedDate);
-
-                    $('#startDate').val(selectedDate);
-                    $('#endDate').val(selectedDate);
-                    if (clickedEvent) {
-                        $('#maxGuest').val(clickedEvent.extendedProps.max_guest);
-                        $('#adultMin').val(clickedEvent.extendedProps.min_adult);
-                        $('#adultMax').val(clickedEvent.extendedProps.max_adult);
-                        $('#adultPrice').val(clickedEvent.extendedProps.adult_price);
-                        $('#childMin').val(clickedEvent.extendedProps.min_child);
-                        $('#childMax').val(clickedEvent.extendedProps.max_child);
-                        $('#childPrice').val(clickedEvent.extendedProps.child_price);
-                        $('#available_for_booking').prop('checked', clickedEvent.extendedProps
-                            .available_for_booking == 1);
-                    } else {
-                        // If there is no event, clear the fields or set default values
-                        $('#maxGuest').val('');
-                        $('#adultMin').val('');
-                        $('#adultMax').val('');
-                        $('#adultPrice').val('');
-                        $('#childMin').val('');
-                        $('#childMax').val('');
-                        $('#childPrice').val('');
-                        $('#available_for_booking').prop('checked', false);
-                    }
-
+                    const selectedDate = info.dateStr;
+                    const clickedEvent = events.find(event => event.date === selectedDate);
+                    setModalData(selectedDate, clickedEvent);
                     $('#eventModal').modal('show');
-
-                    $('.date-range-picker').daterangepicker({
-                        startDate: selectedDate,
-                        endDate: selectedDate,
-                        locale: {
-                            format: 'YYYY-MM-DD'
-                        },
-                        opens: 'left'
-                    });
-
-                    $('.date-range-picker').on('apply.daterangepicker', function(ev, picker) {
-                        $('#startDate').val(picker.startDate.format('YYYY-MM-DD'));
-                        $('#endDate').val(picker.endDate.format('YYYY-MM-DD'));
-                    });
+                    initializeDateRangePicker(selectedDate);
                 },
-
                 eventClick: function(info) {
-                    let selectedDate = new Date(info.event.start);
-                    let year = selectedDate.getFullYear();
-                    let month = (selectedDate.getMonth() + 1).toString().padStart(2, '0');
-                    let day = selectedDate.getDate().toString().padStart(2, '0');
-
-                    // Format the date in YYYY-MM-DD format
-                    let formattedSelectedDate = `${year}-${month}-${day}`;
-                    $('#startDate').val(formattedSelectedDate);
-                    $('#endDate').val(formattedSelectedDate);
-                    $('#maxGuest').val(info.event.extendedProps.max_guest);
-                    $('#adultMin').val(info.event.extendedProps.min_adult);
-                    $('#adultMax').val(info.event.extendedProps.max_adult);
-                    $('#adultPrice').val(info.event.extendedProps.adult_price);
-                    $('#childMin').val(info.event.extendedProps.min_child);
-                    $('#childMax').val(info.event.extendedProps.max_child);
-                    $('#childPrice').val(info.event.extendedProps.child_price);
-                    $('#available_for_booking').prop('checked', info.event.extendedProps
-                        .available_for_booking == 1);
+                    const selectedDate = new Date(info.event.startStr).toISOString().split('T')[0];
+                    setModalData(selectedDate, info.event);
                     $('#eventModal').modal('show');
-
-                    $('.date-range-picker').daterangepicker({
-                        startDate: formattedSelectedDate,
-                        endDate: formattedSelectedDate,
-                        locale: {
-                            format: 'YYYY-MM-DD'
-                        },
-                        opens: 'left'
-                    });
-
-                    $('.date-range-picker').on('apply.daterangepicker', function(ev, picker) {
-                        $('#startDate').val(picker.startDate.format('YYYY-MM-DD'));
-                        $('#endDate').val(picker.endDate.format('YYYY-MM-DD'));
-                    });
+                    initializeDateRangePicker(selectedDate);
                 }
             });
+
             calendar.render();
         });
+
         $(document).ready(function() {
-            // Clear all fields when the modal is closed
             $('#eventModal').on('hidden.bs.modal', function() {
                 $('#available_for_booking').prop('checked', false);
-                $('#max_guest').val('');
-                $('input[name="adult[min]"]').val('');
-                $('input[name="adult[max]"]').val('');
-                $('input[name="adult[price]"]').val('');
-                $('input[name="child[min]"]').val('');
-                $('input[name="child[max]"]').val('');
-                $('input[name="child[price]"]').val('');
-                $('#startDate').val('');
-                $('#endDate').val('');
+                $('#maxGuest, #adultMin, #adultMax, #adultPrice, #childMin, #childMax, #childPrice, #startDate, #endDate')
+                    .val('');
             });
         });
     </script>
