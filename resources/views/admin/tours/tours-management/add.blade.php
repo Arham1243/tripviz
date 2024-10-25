@@ -1818,5 +1818,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput-jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <script src="{{ asset('admin/assets/js/add-tour.js') }}"></script>
+    <script src="{{ asset('admin/assets/js/tour-settings.js') }}"></script>
 @endpush
