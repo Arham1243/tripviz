@@ -9,10 +9,10 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    @include('admin.blogs-tags.add')
+                    @include('admin.blogs.tags.add')
                 </div>
                 <div class="col-md-8">
-                    @include('admin.blogs-tags.list')
+                    @include('admin.blogs.tags.list')
                 </div>
             </div>
         </div>

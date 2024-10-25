@@ -21,7 +21,7 @@ class TagsController extends Controller
         $tags = NewsTag::latest()->get();
         $data = compact('tags');
 
-        return view('admin.news-tags.main')->with('title', 'News Tags')->with($data);
+        return view('admin.news.tags.main')->with('title', 'News Tags')->with($data);
     }
 
     /**
@@ -47,7 +47,7 @@ class TagsController extends Controller
 
         NewsTag::create($data);
 
-        return redirect()->route('admin.news-tags.index')->with('notify_success', 'Tag Added successfully.');
+        return redirect()->route('admin.news.tags.index')->with('notify_success', 'Tag Added successfully.');
     }
 
     /**
@@ -68,7 +68,7 @@ class TagsController extends Controller
         $seo = $tag->seo()->first();
         $data = compact('tag', 'tags', 'seo');
 
-        return view('admin.news-tags.edit')->with('title', ucfirst(strtolower($tag->name)))->with($data);
+        return view('admin.news.tags.edit')->with('title', ucfirst(strtolower($tag->name)))->with($data);
     }
 
     /**
@@ -88,7 +88,7 @@ class TagsController extends Controller
 
         handleSeoData($request, $tag, 'News-Tags');
 
-        return redirect()->route('admin.news-tags.index')->with('notify_success', 'Tag updated successfully.');
+        return redirect()->route('admin.news.tags.index')->with('notify_success', 'Tag updated successfully.');
     }
 
     /**

@@ -27,7 +27,7 @@ class NewsController extends Controller
         $news = News::latest()->get();
         $data = compact('news');
 
-        return view('admin.news-management.list')->with('title', 'All News')->with($data);
+        return view('admin.news.news-management.list')->with('title', 'All News')->with($data);
     }
 
     public function create()
@@ -38,7 +38,7 @@ class NewsController extends Controller
         $users = User::where('is_active', 1)->get();
         $data = compact('tours', 'categories', 'users', 'tags');
 
-        return view('admin.news-management.add')->with('title', 'Add News')->with($data);
+        return view('admin.news.news-management.add')->with('title', 'Add News')->with($data);
     }
 
     public function store(Request $request)
@@ -83,7 +83,7 @@ class NewsController extends Controller
         $seo = $news->seo()->first();
         $data = compact('tours', 'categories', 'users', 'tags', 'news', 'seo');
 
-        return view('admin.news-management.edit')->with('title', ucfirst(strtolower($news->title)))->with($data);
+        return view('admin.news.news-management.edit')->with('title', ucfirst(strtolower($news->title)))->with($data);
     }
 
     public function update(Request $request, News $news)

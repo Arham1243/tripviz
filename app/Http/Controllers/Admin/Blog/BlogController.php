@@ -28,7 +28,7 @@ class BlogController extends Controller
         $blogs = Blog::latest()->get();
         $data = compact('blogs');
 
-        return view('admin.blogs-management.list')->with('title', 'All Blogs')->with($data);
+        return view('admin.blogs.blogs-management.list')->with('title', 'All Blogs')->with($data);
     }
 
     public function create()
@@ -39,7 +39,7 @@ class BlogController extends Controller
         $users = User::where('is_active', 1)->get();
         $data = compact('tours', 'categories', 'users', 'tags');
 
-        return view('admin.blogs-management.add')->with('title', 'Add New Blog')->with($data);
+        return view('admin.blogs.blogs-management.add')->with('title', 'Add New Blog')->with($data);
     }
 
     public function store(Request $request)
@@ -119,7 +119,7 @@ class BlogController extends Controller
         $seo = $blog->seo()->first();
         $data = compact('tours', 'categories', 'users', 'tags', 'blog', 'seo');
 
-        return view('admin.blogs-management.edit')->with('title', ucfirst(strtolower($blog->title)))->with($data);
+        return view('admin.blogs.blogs-management.edit')->with('title', ucfirst(strtolower($blog->title)))->with($data);
     }
 
     public function deleteMedia(BlogMedia $media)

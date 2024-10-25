@@ -21,7 +21,7 @@ class CategoriesController extends Controller
         $categories = NewsCategory::latest()->get();
         $data = compact('categories');
 
-        return view('admin.news-categories.main')->with('title', 'News Categories')->with($data);
+        return view('admin.news.categories.main')->with('title', 'News Categories')->with($data);
     }
 
     /**
@@ -49,7 +49,7 @@ class CategoriesController extends Controller
 
         NewsCategory::create($data);
 
-        return redirect()->route('admin.news-categories.index')->with('notify_success', 'Category Added successfully.');
+        return redirect()->route('admin.news.categories.index')->with('notify_success', 'Category Added successfully.');
     }
 
     /**
@@ -70,7 +70,7 @@ class CategoriesController extends Controller
         $seo = $category->seo()->first();
         $data = compact('category', 'categories', 'seo');
 
-        return view('admin.news-categories.edit')->with('title', ucfirst(strtolower($category->name)))->with($data);
+        return view('admin.news.categories.edit')->with('title', ucfirst(strtolower($category->name)))->with($data);
     }
 
     /**
@@ -92,7 +92,7 @@ class CategoriesController extends Controller
 
         handleSeoData($request, $category, 'News-Categories');
 
-        return redirect()->route('admin.news-categories.index')->with('notify_success', 'Category updated successfully.');
+        return redirect()->route('admin.news.categories.index')->with('notify_success', 'Category updated successfully.');
     }
 
     /**

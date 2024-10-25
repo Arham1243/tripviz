@@ -18,14 +18,14 @@ class CityController extends Controller
     {
         $items = City::get();
 
-        return view('admin.cities-management.list', compact('items'))->with('title', 'Cities');
+        return view('admin.locations.cities-management.list', compact('items'))->with('title', 'Cities');
     }
 
     public function create()
     {
         $countries = Country::where('status', 'publish')->get();
 
-        return view('admin.cities-management.add', compact('countries'))->with('title', 'Add New City');
+        return view('admin.locations.cities-management.add', compact('countries'))->with('title', 'Add New City');
     }
 
     public function store(Request $request)
@@ -56,7 +56,7 @@ class CityController extends Controller
         $countries = Country::where('status', 'publish')->get();
         $seo = $item->seo()->first();
 
-        return view('admin.cities-management.edit', compact('item', 'seo', 'countries'))->with('title', ucfirst(strtolower($item->name)));
+        return view('admin.locations.cities-management.edit', compact('item', 'seo', 'countries'))->with('title', ucfirst(strtolower($item->name)));
     }
 
     public function update(Request $request, $id)

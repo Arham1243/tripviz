@@ -21,7 +21,7 @@ class CategoriesController extends Controller
         $categories = BlogCategory::latest()->get();
         $data = compact('categories');
 
-        return view('admin.blogs-categories.main')->with('title', 'Blogs Categories')->with($data);
+        return view('admin.blogs.categories.main')->with('title', 'Blogs Categories')->with($data);
     }
 
     /**
@@ -46,7 +46,7 @@ class CategoriesController extends Controller
 
         BlogCategory::create($data);
 
-        return redirect()->route('admin.blogs-categories.index')->with('notify_success', 'Category Added successfully.');
+        return redirect()->route('admin.blogs.categories.index')->with('notify_success', 'Category Added successfully.');
     }
 
     /**
@@ -67,7 +67,7 @@ class CategoriesController extends Controller
         $seo = $category->seo()->first();
         $data = compact('category', 'categories', 'seo');
 
-        return view('admin.blogs-categories.edit')->with('title', ucfirst(strtolower($category->name)))->with($data);
+        return view('admin.blogs.categories.edit')->with('title', ucfirst(strtolower($category->name)))->with($data);
     }
 
     /**
@@ -90,7 +90,7 @@ class CategoriesController extends Controller
 
         handleSeoData($request, $category, 'Blog-Categories');
 
-        return redirect()->route('admin.blogs-categories.index')->with('notify_success', 'Category updated successfully.');
+        return redirect()->route('admin.blogs.categories.index')->with('notify_success', 'Category updated successfully.');
     }
 
     /**

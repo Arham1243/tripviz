@@ -17,12 +17,12 @@ class CountryController extends Controller
     {
         $items = Country::get();
 
-        return view('admin.countries-management.list', compact('items'))->with('title', 'Countries');
+        return view('admin.locations.countries-management.list', compact('items'))->with('title', 'Countries');
     }
 
     public function create()
     {
-        return view('admin.countries-management.add')->with('title', 'Add New Country');
+        return view('admin.locations.countries-management.add')->with('title', 'Add New Country');
     }
 
     public function store(Request $request)
@@ -51,7 +51,7 @@ class CountryController extends Controller
         $item = Country::find($id);
         $seo = $item->seo()->first();
 
-        return view('admin.countries-management.edit', compact('item', 'seo'))->with('title', ucfirst(strtolower($item->name)));
+        return view('admin.locations.countries-management.edit', compact('item', 'seo'))->with('title', ucfirst(strtolower($item->name)));
     }
 
     public function update(Request $request, $id)
