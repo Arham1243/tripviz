@@ -345,18 +345,14 @@
                                                                             <table class="table table-bordered">
                                                                                 <tbody data-sub-repeater-list>
                                                                                     @php
-                                                                                        $items = !empty($detail->items)
-                                                                                            ? json_decode(
-                                                                                                $detail->items,
-                                                                                                true,
-                                                                                            )
-                                                                                            : [];
-                                                                                        $urls = !empty($detail->urls)
-                                                                                            ? json_decode(
-                                                                                                $detail->urls,
-                                                                                                true,
-                                                                                            )
-                                                                                            : [];
+                                                                                        $items = json_decode(
+                                                                                            $detail->items,
+                                                                                            true,
+                                                                                        );
+                                                                                        $urls = json_decode(
+                                                                                            $detail->urls,
+                                                                                            true,
+                                                                                        );
                                                                                     @endphp
                                                                                     @foreach ($items as $subIndex => $item)
                                                                                         <tr data-sub-repeater-item>
@@ -371,7 +367,7 @@
                                                                                                     name="tour[general][details][{{ $index }}][urls][]"
                                                                                                     type="url"
                                                                                                     placeholder="Url"
-                                                                                                    value="{{ $urls[$subIndex] }}"
+                                                                                                    value="{{ isset($urls[$subIndex]) ? $urls[$subIndex] : '' }}"
                                                                                                     class="field mt-3">
                                                                                             </td>
                                                                                             <td>
