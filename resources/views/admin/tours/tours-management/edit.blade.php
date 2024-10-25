@@ -338,6 +338,7 @@
                                                                             type="text"
                                                                             placeholder="e.g., Timings, What to Bring"
                                                                             class="field" value="{{ $detail->name }}">
+
                                                                     </td>
                                                                     <td>
                                                                         <div class="repeater-table" data-sub-repeater>
@@ -346,6 +347,10 @@
                                                                                     @php
                                                                                         $items = json_decode(
                                                                                             $detail->items,
+                                                                                            true,
+                                                                                        );
+                                                                                        $urls = json_decode(
+                                                                                            $detail->urls,
                                                                                             true,
                                                                                         );
                                                                                     @endphp
@@ -358,6 +363,12 @@
                                                                                                     placeholder=""
                                                                                                     class="field"
                                                                                                     value="{{ $item }}">
+                                                                                                <input
+                                                                                                    name="tour[general][details][{{ $index }}][urls][]"
+                                                                                                    type="url"
+                                                                                                    placeholder="Url"
+                                                                                                    value="{{ $urls[$subIndex] }}"
+                                                                                                    class="field mt-3">
                                                                                             </td>
                                                                                             <td>
                                                                                                 <button type="button"

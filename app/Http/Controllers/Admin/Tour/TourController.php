@@ -155,6 +155,7 @@ class TourController extends Controller
                         'tour_id' => $tour->id,
                         'name' => $detail['name'],
                         'items' => json_encode($detail['items']),
+                        'urls' => json_encode($detail['urls']),
                     ]);
                 }
             }
@@ -438,6 +439,7 @@ class TourController extends Controller
                         'tour_id' => $tour->id,
                         'name' => $detail['name'],
                         'items' => json_encode($detail['items']),
+                        'urls' => json_encode($detail['urls']),
                     ]);
                 }
             }

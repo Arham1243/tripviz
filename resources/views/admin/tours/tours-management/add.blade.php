@@ -319,8 +319,14 @@
                                                                                     <td>
                                                                                         <input
                                                                                             name="tour[general][details][0][items][]"
-                                                                                            type="text" placeholder=""
+                                                                                            type="text"
+                                                                                            placeholder="Item"
                                                                                             class="field">
+                                                                                        <input
+                                                                                            name="tour[general][details][0][urls][]"
+                                                                                            type="url"
+                                                                                            placeholder="Url"
+                                                                                            class="field mt-3">
                                                                                     </td>
                                                                                     <td>
                                                                                         <button type="button"

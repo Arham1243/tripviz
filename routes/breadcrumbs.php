@@ -154,4 +154,8 @@ Breadcrumbs::for('admin.tour-availability.index', function (BreadcrumbTrail $tra
     $trail->parent('admin.tours.index');
     $trail->push('Availability', route('admin.tour-availability.index'));
 });
+Breadcrumbs::for('admin.tour-bookings.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.tours.index');
+    $trail->push('Booking', route('admin.tour-bookings.index'));
+});
 // ---------------Tours---------------

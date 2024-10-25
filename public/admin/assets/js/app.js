@@ -632,6 +632,12 @@ document.addEventListener("DOMContentLoaded", function () {
             itemInputs.forEach((input) => {
                 input.name = input.name.replace(/\[\d+\]/, `[${index}]`);
             });
+            const urlsInputs = item.querySelectorAll(
+                "input[name*='[urls][]']",
+            );
+            urlsInputs.forEach((input) => {
+                input.name = input.name.replace(/\[\d+\]/, `[${index}]`);
+            });
         });
     }
 

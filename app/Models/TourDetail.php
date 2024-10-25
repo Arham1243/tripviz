@@ -9,7 +9,7 @@ class TourDetail extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['tour_id', 'name', 'items'];
+    protected $fillable = ['tour_id', 'name', 'items', 'urls'];
 
     protected $casts = [
         'items' => 'array',

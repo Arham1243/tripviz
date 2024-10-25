@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\News\TagsController as NewsTagsController;
 use App\Http\Controllers\Admin\RecoveryController;
 use App\Http\Controllers\Admin\Tour\AttributesController;
 use App\Http\Controllers\Admin\Tour\AvailabilityController as TourAvailabilityController;
+use App\Http\Controllers\Admin\Tour\BookingController as TourBookingController;
 use App\Http\Controllers\Admin\Tour\CategoriesController as TourCategoriesController;
 use App\Http\Controllers\Admin\Tour\ReviewController as TourReviewController;
 use App\Http\Controllers\Admin\Tour\TourController;
@@ -52,6 +53,7 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('tour-categories', TourCategoriesController::class);
     Route::resource('tour-reviews', TourReviewController::class);
     Route::resource('tour-availability', TourAvailabilityController::class);
+    Route::resource('tour-bookings', TourBookingController::class);
     Route::get('export-ical', IcalController::class)->name('ical.export');
 
     Route::resource('countries', CountryController::class);

@@ -213,7 +213,7 @@
                 [
                     'title' => 'Booking Calendar',
                     'icon' => 'bx bx-calendar-check',
-                    'route' => 'javascript:void(0)',
+                    'route' => route('admin.tour-bookings.index'),
                 ],
             ],
         ],
