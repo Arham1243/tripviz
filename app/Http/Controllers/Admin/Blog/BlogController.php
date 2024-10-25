@@ -47,9 +47,9 @@ class BlogController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required',
-            'top_highlighted_tour_id' => 'required|integer|exists:tours,id',
+            'top_highlighted_tour_id' => 'nullable|integer|exists:tours,id',
             'featured_tours_ids' => 'array|max:4',
-            'featured_tours_ids.*' => 'required|integer|exists:tours,id',
+            'featured_tours_ids.*' => 'nullable|integer|exists:tours,id',
             'status' => 'required|in:publish,draft',
             'user_id' => 'required|integer|exists:users,id',
             'category_id' => 'required|integer|exists:blog_categories,id',
@@ -65,7 +65,7 @@ class BlogController extends Controller
 
         $slug = $this->createSlug($validatedData['title'], 'blogs');
 
-        $featuredToursIds = json_encode($validatedData['featured_tours_ids']);
+        $featuredToursIds = json_encode($validatedData['featured_tours_ids'] ?? null);
 
         $data = array_merge($validatedData, [
             'slug' => $slug,
@@ -140,9 +140,9 @@ class BlogController extends Controller
             'title' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255',
             'content' => 'required',
-            'top_highlighted_tour_id' => 'required|integer|exists:tours,id',
+            'top_highlighted_tour_id' => 'nullable|integer|exists:tours,id',
             'featured_tours_ids' => 'array|max:4',
-            'featured_tours_ids.*' => 'required|integer|exists:tours,id',
+            'featured_tours_ids.*' => 'nullable|integer|exists:tours,id',
             'status' => 'required|in:publish,draft',
             'user_id' => 'required|integer|exists:users,id',
             'category_id' => 'required|integer|exists:blog_categories,id',
@@ -161,7 +161,7 @@ class BlogController extends Controller
         $slugText = $validatedData['slug'] != '' ? $validatedData['slug'] : $validatedData['title'];
         $slug = $this->createSlug($slugText, 'blogs', $blog->slug);
 
-        $featuredToursIds = json_encode($validatedData['featured_tours_ids']);
+        $featuredToursIds = json_encode($validatedData['featured_tours_ids'] ?? null);
 
         $data = array_merge($validatedData, [
             'slug' => $slug,

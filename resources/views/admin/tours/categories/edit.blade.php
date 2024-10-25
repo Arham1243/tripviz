@@ -3,19 +3,31 @@
     <div class="col-md-12">
         <div class="dashboard-content">
             {{ Breadcrumbs::render('admin.tour-categories.edit', $category) }}
-            <div class="custom-sec custom-sec--form">
-                <div class="custom-sec__header">
-                    <div class="section-content">
-                        <h3 class="heading">Edit Category: {{ isset($title) ? $title : '' }}</h3>
-                    </div>
-                    <a href="{{ buildUrl(url('/'), 'tours/category', $category->slug) }}" target="_blank"
-                        class="themeBtn">View</a>
-                </div>
-            </div>
             <form action="{{ route('admin.tour-categories.update', $category->id) }}" method="POST"
                 enctype="multipart/form-data" id="validation-form">
                 @csrf
                 @method('PATCH')
+                <div class="custom-sec custom-sec--form">
+                    <div class="custom-sec__header">
+                        <div class="section-content">
+                            <h3 class="heading">Edit Category: {{ isset($title) ? $title : '' }}</h3>
+
+                            <div class="permalink">
+                                <div class="title">Permalink:</div>
+                                <div class="title">
+                                    <div class="full-url">{{ buildUrl(url('/'), 'tours/category/') }}</div>
+                                    <input value="{{ $category->slug ?? 'edit-slug' }}" type="button"
+                                        class="link permalink-input" data-field-id="slug">
+                                    <input type="hidden" id="slug" value="{{ $category->slug ?? 'edit-slug' }}"
+                                        name="slug">
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{{ buildUrl(url('/'), 'tours/category', $category->slug) }}" target="_blank"
+                            class="themeBtn">View</a>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-md-9">
                         <div class="form-wrapper">
@@ -30,14 +42,6 @@
                                             value="{{ old('name', $category->name) }}" placeholder="Name" data-required
                                             data-error="Name">
                                         @error('name')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-fields">
-                                        <label class="title">Slug:</label>
-                                        <input type="text" name="slug" class="field"
-                                            value="{{ old('title', $category->slug) }}" placeholder="Slug">
-                                        @error('slug')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>

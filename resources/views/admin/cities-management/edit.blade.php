@@ -3,18 +3,30 @@
     <div class="col-md-12">
         <div class="dashboard-content">
             {{ Breadcrumbs::render('admin.cities.edit', $item) }}
-            <div class="custom-sec custom-sec--form">
-                <div class="custom-sec__header">
-                    <div class="section-content">
-                        <h3 class="heading">Edit city: {{ isset($title) ? $title : '' }}</h3>
-                    </div>
-                    <a href="{{ buildUrl(url('/'), 'city', $item->slug) }}" target="_blank" class="themeBtn">View City</a>
-                </div>
-            </div>
             <form action="{{ route('admin.cities.update', $item->id) }}" method="POST" enctype="multipart/form-data"
                 id="validation-form">
                 @csrf
                 @method('PATCH')
+                <div class="custom-sec custom-sec--form">
+                    <div class="custom-sec__header">
+                        <div class="section-content">
+                            <h3 class="heading">Edit city: {{ isset($title) ? $title : '' }}</h3>
+                            <div class="permalink">
+                                <div class="title">Permalink:</div>
+                                <div class="title">
+                                    <div class="full-url">{{ buildUrl(url('/'), 'city/') }}</div>
+                                    <input value="{{ $item->slug ?? 'edit-slug' }}" type="button"
+                                        class="link permalink-input" data-field-id="slug">
+                                    <input type="hidden" id="slug" value="{{ $item->slug ?? 'edit-slug' }}"
+                                        name="slug">
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{{ buildUrl(url('/'), 'city', $item->slug) }}" target="_blank" class="themeBtn">View
+                            City</a>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-md-9">
                         <div class="form-wrapper">
@@ -29,14 +41,6 @@
                                             value="{{ old('name', $item->name) }}" placeholder="Name" data-required
                                             data-error="Name">
                                         @error('name')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-fields">
-                                        <label class="title">Slug:</label>
-                                        <input type="text" name="slug" class="field"
-                                            value="{{ old('title', $item->slug) }}" placeholder="Slug">
-                                        @error('slug')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>

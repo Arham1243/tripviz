@@ -40,7 +40,7 @@ function updateLabel(container) {
 const switches = document.querySelectorAll("input[data-toggle-switch]");
 switches?.forEach((switchElement) => {
     const container = switchElement.closest(
-        "[data-enabled-text], [data-disabled-text]",
+        "[data-enabled-text], [data-disabled-text]"
     );
 
     if (container) {
@@ -64,9 +64,17 @@ document
     ?.addEventListener("blur", function () {
         const hiddenField = document.getElementById(this.dataset.fieldId);
         if (this.type === "text") {
-            // Update the hidden input field with the value from the permalink input
             hiddenField.value = this.value;
             this.type = "button";
+        }
+    });
+        
+document
+    .querySelector(".permalink-input")
+    ?.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            this.blur();
         }
     });
 
@@ -103,7 +111,7 @@ function showImage(input, previewImgId, filenamePreviewId) {
         reader.readAsDataURL(file);
     } else if (file) {
         alert(
-            "Please select a valid image file. Supported formats: JPEG, PNG, GIF, WEBP, SVG, BMP, TIFF.",
+            "Please select a valid image file. Supported formats: JPEG, PNG, GIF, WEBP, SVG, BMP, TIFF."
         );
         input.value = "";
     }
@@ -133,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // If it has sub-dropdowns, toggle its children as well
             const subDropdown = parentDropdown.querySelector(
-                ".custom-dropdown__values",
+                ".custom-dropdown__values"
             );
             if (subDropdown) {
                 subDropdown.classList.toggle("open");
@@ -167,18 +175,18 @@ document.addEventListener("DOMContentLoaded", function () {
 // Multple File Upload
 document.addEventListener("DOMContentLoaded", () => {
     const uploadComponents = document.querySelectorAll(
-        "[data-upload-multiple]",
+        "[data-upload-multiple]"
     );
 
     uploadComponents.forEach((uploadComponent) => {
         const fileInput = uploadComponent.querySelector(
-            "[data-upload-multiple-input]",
+            "[data-upload-multiple-input]"
         );
         const imageContainer = uploadComponent.querySelector(
-            "[data-upload-multiple-images]",
+            "[data-upload-multiple-images]"
         );
         const errorMessage = uploadComponent.querySelector(
-            "[data-upload-multiple-error]",
+            "[data-upload-multiple-error]"
         );
 
         fileInput.addEventListener("change", (event) => {
@@ -227,7 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         "click",
                         () => {
                             imageContainer.removeChild(li);
-                        },
+                        }
                     );
                 };
 
@@ -351,7 +359,7 @@ function initializeEditors(form) {
             .catch((error) => {
                 console.error(
                     "There was a problem initializing the editor:",
-                    error,
+                    error
                 );
             });
     });
@@ -400,7 +408,7 @@ function validateEditor(editorInstance) {
 
     if (!editorData.trim()) {
         showErrorToast(
-            `${editorElement.dataset.error || editorElement.name} is Required!`,
+            `${editorElement.dataset.error || editorElement.name} is Required!`
         );
         return false;
     }
@@ -414,7 +422,7 @@ function validateEditor(editorInstance) {
 
     if (!editorData.trim()) {
         showErrorToast(
-            `${editorElement.dataset.error || editorElement.name} is Required!`,
+            `${editorElement.dataset.error || editorElement.name} is Required!`
         );
         return false;
     }
@@ -461,7 +469,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             function handleItemCheckboxChange() {
                 const allChecked = Array.from(itemCheckboxes).every(
-                    (checkbox) => checkbox.checked,
+                    (checkbox) => checkbox.checked
                 );
                 selectAllCheckbox.checked = allChecked;
             }
@@ -488,7 +496,7 @@ function confirmBulkAction(event) {
 
     if (selectedAction === "delete") {
         const confirmation = confirm(
-            "Are you sure you want to delete the selected items?",
+            "Are you sure you want to delete the selected items?"
         );
         if (!confirmation) {
             event.preventDefault();
@@ -510,7 +518,7 @@ function initializeUploadComponent(uploadComponent) {
     const uploadBox = uploadComponent.querySelector("[data-upload-box]");
     const uploadImgBox = uploadComponent.querySelector("[data-upload-img]");
     const uploadPreview = uploadComponent.querySelector(
-        "[data-upload-preview]",
+        "[data-upload-preview]"
     );
     const deleteBtn = uploadComponent.querySelector("[data-delete-btn]");
     const errorMessage = uploadComponent.querySelector("[data-error-message]");
@@ -619,7 +627,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             pricingFields.forEach((field) => {
                 const input = item.querySelector(
-                    `input[name*='[${field}]'], select[name*='[${field}]']`,
+                    `input[name*='[${field}]'], select[name*='[${field}]']`
                 );
                 if (input) {
                     input.name = input.name.replace(/\[\d+\]/, `[${index}]`);
@@ -627,14 +635,12 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             const itemInputs = item.querySelectorAll(
-                "input[name*='[items][]']",
+                "input[name*='[items][]']"
             );
             itemInputs.forEach((input) => {
                 input.name = input.name.replace(/\[\d+\]/, `[${index}]`);
             });
-            const urlsInputs = item.querySelectorAll(
-                "input[name*='[urls][]']",
-            );
+            const urlsInputs = item.querySelectorAll("input[name*='[urls][]']");
             urlsInputs.forEach((input) => {
                 input.name = input.name.replace(/\[\d+\]/, `[${index}]`);
             });
@@ -658,8 +664,7 @@ document.addEventListener("DOMContentLoaded", function () {
         inputs.forEach((input) => {
             if (input.type !== "checkbox") {
                 input.value = "";
-            }
-            else if (input.type == "checkbox") {
+            } else if (input.type == "checkbox") {
                 input.checked = false;
             }
         });
@@ -688,7 +693,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const subContainer = parentItem.querySelector("[data-sub-repeater]");
         if (subContainer) {
             const addBtn = subContainer.querySelector(
-                "[data-sub-repeater-create]",
+                "[data-sub-repeater-create]"
             );
             addBtn.addEventListener("click", function () {
                 addSubItem(subContainer);
@@ -697,7 +702,7 @@ document.addEventListener("DOMContentLoaded", function () {
             subContainer.addEventListener("click", function (e) {
                 if (e.target.closest("[data-sub-repeater-remove]")) {
                     removeSubItem(
-                        e.target.closest("[data-sub-repeater-remove]"),
+                        e.target.closest("[data-sub-repeater-remove]")
                     );
                 }
             });
@@ -750,9 +755,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 $(document).ready(function () {
-    $('[data-flag-input-wrapper]').each(function () {
+    $("[data-flag-input-wrapper]").each(function () {
         var $wrapper = $(this);
-        var input = $wrapper.find('[data-flag-input]');
+        var input = $wrapper.find("[data-flag-input]");
 
         if (input.length > 0) {
             input.intlTelInput({
@@ -763,8 +768,12 @@ $(document).ready(function () {
             function updateCountryCode() {
                 var countryData = input.intlTelInput("getSelectedCountryData");
                 if (countryData && countryData.dialCode) {
-                    $wrapper.find('[data-flag-input-country-code]').val(countryData.iso2);
-                    $wrapper.find('[data-flag-input-dial-code]').val(countryData.dialCode);
+                    $wrapper
+                        .find("[data-flag-input-country-code]")
+                        .val(countryData.iso2);
+                    $wrapper
+                        .find("[data-flag-input-dial-code]")
+                        .val(countryData.dialCode);
                 }
             }
 
@@ -772,8 +781,9 @@ $(document).ready(function () {
                 updateCountryCode();
             });
 
-
-            var countryCode = $wrapper.find('[data-flag-input-country-code]').val();
+            var countryCode = $wrapper
+                .find("[data-flag-input-country-code]")
+                .val();
             if (countryCode) {
                 input.intlTelInput("setCountry", countryCode);
             }

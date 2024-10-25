@@ -3,18 +3,29 @@
     <div class="col-md-12">
         <div class="dashboard-content">
             {{ Breadcrumbs::render('admin.news.edit', $news) }}
-            <div class="custom-sec custom-sec--form">
-                <div class="custom-sec__header">
-                    <div class="section-content">
-                        <h3 class="heading">Edit News: {{ isset($title) ? $title : '' }}</h3>
-                    </div>
-                    <a href="{{ buildUrl(url('/'), 'news', $news->slug) }}" target="_blank" class="themeBtn">View News</a>
-                </div>
-            </div>
             <form action="{{ route('admin.news.update', $news->id) }}" method="POST" enctype="multipart/form-data"
                 id="validation-form">
                 @csrf
                 @method('PATCH')
+                <div class="custom-sec custom-sec--form">
+                    <div class="custom-sec__header">
+                        <div class="section-content">
+                            <h3 class="heading">Edit News: {{ isset($title) ? $title : '' }}</h3>
+                            <div class="permalink">
+                                <div class="title">Permalink:</div>
+                                <div class="title">
+                                    <div class="full-url">{{ buildUrl(url('/'), 'news/') }}</div>
+                                    <input value="{{ $news->slug ?? 'edit-slug' }}" type="button"
+                                        class="link permalink-input" data-field-id="slug">
+                                    <input type="hidden" id="slug" value="{{ $news->slug ?? 'edit-slug' }}"
+                                        name="slug">
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{{ buildUrl(url('/'), 'news', $news->slug) }}" target="_blank" class="themeBtn">View
+                            News</a>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-9">
                         <div class="form-wrapper">
@@ -23,14 +34,6 @@
                                     <div class="title">News Content</div>
                                 </div>
                                 <div class="form-box__body">
-                                    <div class="form-fields">
-                                        <label class="title">Slug:</label>
-                                        <input type="text" name="slug" class="field"
-                                            value="{{ old('title', $news->slug) }}" placeholder="Slug">
-                                        @error('slug')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
                                     <div class="form-fields">
                                         <label class="title">Title <span class="text-danger">*</span> :</label>
                                         <input type="text" name="title" class="field"
@@ -128,7 +131,8 @@
                                     <div class="form-fields">
                                         <label class="title">Tags <span class="text-danger">*</span> :</label>
 
-                                        <select name="tags_ids[]" class="choice-select" multiple placeholder="Select tags">
+                                        <select name="tags_ids[]" class="choice-select" multiple
+                                            placeholder="Select tags">
                                             @foreach ($tags as $tag)
                                                 <option value="{{ $tag->id }}"
                                                     {{ in_array($tag->id, old('tags_ids', $news->tags->pluck('id')->toArray()) ?? []) ? 'selected' : '' }}>

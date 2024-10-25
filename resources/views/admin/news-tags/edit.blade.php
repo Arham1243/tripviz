@@ -3,18 +3,29 @@
     <div class="col-md-12">
         <div class="dashboard-content">
             {{ Breadcrumbs::render('admin.news-tags.edit', $tag) }}
-            <div class="custom-sec custom-sec--form">
-                <div class="custom-sec__header">
-                    <div class="section-content">
-                        <h3 class="heading">Edit Tag: {{ isset($title) ? $title : '' }}</h3>
-                    </div>
-                    <a href="{{ buildUrl(url('/'), 'news/tag', $tag->slug) }}" target="_blank" class="themeBtn">View</a>
-                </div>
-            </div>
             <form action="{{ route('admin.news-tags.update', $tag->id) }}" method="POST" enctype="multipart/form-data"
                 id="validation-form">
                 @csrf
                 @method('PATCH')
+                <div class="custom-sec custom-sec--form">
+                    <div class="custom-sec__header">
+                        <div class="section-content">
+                            <h3 class="heading">Edit Tag: {{ isset($title) ? $title : '' }}</h3>
+                            <div class="permalink">
+                                <div class="title">Permalink:</div>
+                                <div class="title">
+                                    <div class="full-url">{{ buildUrl(url('/'), 'news/tag/') }}</div>
+                                    <input value="{{ $tag->slug ?? 'edit-slug' }}" type="button"
+                                        class="link permalink-input" data-field-id="slug">
+                                    <input type="hidden" id="slug" value="{{ $tag->slug ?? 'edit-slug' }}"
+                                        name="slug">
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{{ buildUrl(url('/'), 'news/tag', $tag->slug) }}" target="_blank" class="themeBtn">View</a>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-md-9">
                         <div class="form-wrapper">
@@ -29,14 +40,6 @@
                                             value="{{ old('name', $tag->name) }}" placeholder="Name" data-required
                                             data-error="Name">
                                         @error('name')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-fields">
-                                        <label class="title">Slug:</label>
-                                        <input type="text" name="slug" class="field"
-                                            value="{{ old('title', $tag->slug) }}" placeholder="Slug">
-                                        @error('slug')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -68,9 +71,4 @@
             </form>
         </div>
     </div>
-@endsection
-@section('css')
-    <style type="text/css">
-
-    </style>
 @endsection
