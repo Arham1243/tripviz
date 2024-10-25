@@ -274,12 +274,12 @@
                     'submenu' => [
                         [
                             'title' => 'Used',
-                            'icon' => 'bx bx-image',
+                            'icon' => 'bx bxs-image',
                             'route' => 'javascript:void(0)',
                         ],
                         [
                             'title' => 'Un-Used',
-                            'icon' => 'bx bx-image-off',
+                            'icon' => 'bx bx-image',
                             'route' => 'javascript:void(0)',
                         ],
                     ],

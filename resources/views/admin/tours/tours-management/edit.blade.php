@@ -345,14 +345,18 @@
                                                                             <table class="table table-bordered">
                                                                                 <tbody data-sub-repeater-list>
                                                                                     @php
-                                                                                        $items = json_decode(
-                                                                                            $detail->items,
-                                                                                            true,
-                                                                                        );
-                                                                                        $urls = json_decode(
-                                                                                            $detail->urls,
-                                                                                            true,
-                                                                                        );
+                                                                                        $items = !empty($detail->items)
+                                                                                            ? json_decode(
+                                                                                                $detail->items,
+                                                                                                true,
+                                                                                            )
+                                                                                            : [];
+                                                                                        $urls = !empty($detail->urls)
+                                                                                            ? json_decode(
+                                                                                                $detail->urls,
+                                                                                                true,
+                                                                                            )
+                                                                                            : [];
                                                                                     @endphp
                                                                                     @foreach ($items as $subIndex => $item)
                                                                                         <tr data-sub-repeater-item>
