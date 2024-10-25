@@ -80,17 +80,17 @@
                 [
                     'title' => 'All Page',
                     'icon' => 'bx bx-list-ul',
-                    'route' => 'javascript:void(0)',
+                    'route' => route('admin.pages.index'),
                 ],
                 [
                     'title' => 'Add Page',
                     'icon' => 'bx bx-plus',
-                    'route' => 'javascript:void(0)',
+                    'route' => route('admin.pages.create'),
                 ],
                 [
                     'title' => 'Recovery',
                     'icon' => 'bx bx-refresh',
-                    'route' => 'javascript:void(0)',
+                    'route' => route('admin.recovery.index', ['resource' => 'pages']),
                 ],
             ],
         ],

@@ -11,6 +11,7 @@ use App\Models\Country;
 use App\Models\News;
 use App\Models\NewsCategory;
 use App\Models\NewsTag;
+use App\Models\Page;
 use App\Models\Tour;
 use App\Models\TourAttribute;
 use App\Models\TourCategory;
@@ -87,6 +88,11 @@ class BulkActionController extends Controller
                 $modelClass = TourReview::class;
                 $column = 'id';
                 $redirectRoute = 'admin.tour-reviews.index';
+                break;
+            case 'pages':
+                $modelClass = Page::class;
+                $column = 'id';
+                $redirectRoute = 'admin.pages.index';
                 break;
             default:
                 return Redirect::back()->with('notify_error', 'Resource not found.');

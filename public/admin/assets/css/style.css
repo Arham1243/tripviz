@@ -1084,7 +1084,7 @@ form .text-danger {
     width: 100%;
     border-radius: 5px;
     overflow: hidden;
-    box-shadow: 0 0 11px 3px #0000000d;
+    box-shadow: 0 0 15px 5px #0000000d;
 }
 .upload-box {
     background: #00000008;

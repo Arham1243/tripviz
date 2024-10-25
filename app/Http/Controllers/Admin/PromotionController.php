@@ -24,21 +24,11 @@ class PromotionController extends Controller
         return view('admin.promotions-management.list', compact('promotions'))->with('title', 'Promotions');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('admin.promotions-management.add')->with('title', 'Add New Promotion');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([

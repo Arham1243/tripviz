@@ -7,6 +7,7 @@ use App\Models\Blog;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\News;
+use App\Models\Page;
 use App\Models\Tour;
 use App\Models\TourAttribute;
 use App\Models\TourCategory;
@@ -50,6 +51,10 @@ class RecoveryController extends Controller
             'name' => 'Name',
             'deleted_at' => 'Deleted On',
         ],
+        'pages' => [
+            'title' => 'Title',
+            'deleted_at' => 'Deleted On',
+        ],
     ];
 
     public function index($resource)
@@ -76,6 +81,10 @@ class RecoveryController extends Controller
                 break;
             case 'tour-attributes':
                 $items = TourAttribute::onlyTrashed()->get();
+                $primaryColumn = 'id';
+                break;
+            case 'pages':
+                $items = Page::onlyTrashed()->get();
                 $primaryColumn = 'id';
                 break;
             default:

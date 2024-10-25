@@ -290,8 +290,8 @@
                                                     <span class="title d-flex align-items-center gap-1">Section
                                                         Preview:
                                                         <a href="{{ asset('admin/assets/images/tour-infomation.png') }}"
-                                                            data-fancybox="gallery" class="themeBtn p-1"><i
-                                                                class='bx  bxs-show'></i></a>
+                                                            data-fancybox="gallery" class="themeBtn p-1"
+                                                            title="Section Preivew"><i class='bx  bxs-show'></i></a>
                                                     </span>
                                                 </label>
                                                 <div class="repeater-table" data-repeater>
@@ -407,8 +407,8 @@
                                                     <span class="title d-flex align-items-center gap-1">Selected
                                                         Banner:
                                                         <a href="{{ asset('admin/assets/images/banner-styles/1.png') }}"
-                                                            data-fancybox="gallery" class="themeBtn p-1"><i
-                                                                class='bx  bxs-show'></i></a>
+                                                            data-fancybox="gallery" class="themeBtn p-1"
+                                                            title="Section Preivew"><i class='bx  bxs-show'></i></a>
                                                     </span>
                                                 </label>
                                             </div>
@@ -559,8 +559,8 @@
                                                 <span class="title d-flex align-items-center gap-1">Section
                                                     Preview:
                                                     <a href="{{ asset('admin/assets/images/itinerary.png') }}"
-                                                        data-fancybox="gallery" class="themeBtn p-1"><i
-                                                            class='bx  bxs-show'></i></a>
+                                                        data-fancybox="gallery" class="themeBtn p-1"
+                                                        title="Section Preivew"><i class='bx  bxs-show'></i></a>
                                                 </span>
                                             </label>
                                             <div class="repeater-table" data-repeater>
@@ -657,8 +657,8 @@
                                                     <span class="title d-flex align-items-center gap-1">
                                                         Section Preview:
                                                         <a href="{{ asset('admin/assets/images/itinerary-exp.png') }}"
-                                                            data-fancybox="gallery" class="themeBtn p-1"><i
-                                                                class='bx  bxs-show'></i></a>
+                                                            data-fancybox="gallery" class="themeBtn p-1"
+                                                            title="Section Preivew"><i class='bx  bxs-show'></i></a>
                                                     </span>
                                                 </label>
 

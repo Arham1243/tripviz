@@ -12,12 +12,13 @@ use App\Http\Controllers\Admin\Locations\CountryController;
 use App\Http\Controllers\Admin\News\CategoriesController as NewsCategoriesController;
 use App\Http\Controllers\Admin\News\NewsController;
 use App\Http\Controllers\Admin\News\TagsController as NewsTagsController;
+use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\RecoveryController;
 use App\Http\Controllers\Admin\Tour\AttributesController;
-use App\Http\Controllers\Admin\Tour\AvailabilityController as TourAvailabilityController;
-use App\Http\Controllers\Admin\Tour\BookingController as TourBookingController;
+use App\Http\Controllers\Admin\Tour\AvailabilityController;
+use App\Http\Controllers\Admin\Tour\BookingController;
 use App\Http\Controllers\Admin\Tour\CategoriesController as TourCategoriesController;
-use App\Http\Controllers\Admin\Tour\ReviewController as TourReviewController;
+use App\Http\Controllers\Admin\Tour\ReviewController;
 use App\Http\Controllers\Admin\Tour\TourController;
 use Illuminate\Support\Facades\Route;
 
@@ -51,9 +52,10 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('tour-attributes', AttributesController::class);
     Route::get('delete/attribute-item/{id}', [AttributesController::class, 'deleteItem'])->name('tour-attribute-item.delete');
     Route::resource('tour-categories', TourCategoriesController::class);
-    Route::resource('tour-reviews', TourReviewController::class);
-    Route::resource('tour-availability', TourAvailabilityController::class);
-    Route::resource('tour-bookings', TourBookingController::class);
+    Route::resource('tour-reviews', ReviewController::class);
+    Route::resource('tour-availability', AvailabilityController::class);
+    Route::resource('tour-bookings', BookingController::class);
+    Route::resource('pages', PageController::class);
     Route::get('export-ical', IcalController::class)->name('ical.export');
 
     Route::resource('countries', CountryController::class);

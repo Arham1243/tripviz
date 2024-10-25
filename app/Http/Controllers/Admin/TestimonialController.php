@@ -25,21 +25,11 @@ class TestimonialController extends Controller
         return view('admin.testimonials-management.list', compact('testimonials'))->with('title', 'Testimonials');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('admin.testimonials-management.add')->with('title', 'Add New Testimonial');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
 

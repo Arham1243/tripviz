@@ -20,21 +20,11 @@ class ContinentController extends Controller
         return view('admin.continents-management.list', compact('continents'))->with('title', 'Continents');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('admin.continents-management.add')->with('title', 'Add New Continent');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -67,11 +57,6 @@ class ContinentController extends Controller
         return view('admin.continents-management.edit', compact('continent'))->with('title', 'Edit Continent');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Continent $continent)
     {
         $request->validate([

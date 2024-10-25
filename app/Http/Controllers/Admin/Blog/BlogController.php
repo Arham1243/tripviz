@@ -31,11 +31,6 @@ class BlogController extends Controller
         return view('admin.blogs-management.list')->with('title', 'All Blogs')->with($data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $tours = Tour::where('status', 'publish')->get();
@@ -47,11 +42,6 @@ class BlogController extends Controller
         return view('admin.blogs-management.add')->with('title', 'Add New Blog')->with($data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -143,11 +133,6 @@ class BlogController extends Controller
         return redirect()->back()->with('notify_success', 'Media deleted successfully');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Blog $blog)
     {
 
@@ -212,13 +197,4 @@ class BlogController extends Controller
 
         return redirect()->route('admin.blogs.index')->with('notify_success', 'Blog updated successfully!');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Blog $blog) {}
-
-    public function suspend(Blog $blog) {}
 }

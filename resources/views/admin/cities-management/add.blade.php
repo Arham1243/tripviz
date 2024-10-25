@@ -133,25 +133,3 @@
         </div>
     </div>
 @endsection
-@section('css')
-    <style type="text/css">
-
-    </style>
-@endsection
-@section('js')
-    <script>
-        function updateText(currentInput, ElementId) {
-            let textPreview = document.getElementById(ElementId)
-            textPreview.textContent = currentInput.value
-        }
-
-        function toggleElement(select, toggleOffValue, elementId) {
-            const element = document.getElementById(elementId);
-            if (select.value === toggleOffValue) {
-                element.classList.add('d-none');
-            } else {
-                element.classList.remove('d-none');
-            }
-        }
-    </script>
-@endsection

@@ -138,11 +138,3 @@
         </div>
     </div>
 @endsection
-@section('css')
-    <style type="text/css">
-
-    </style>
-@endsection
-@section('js')
-    <script></script>
-@endsection

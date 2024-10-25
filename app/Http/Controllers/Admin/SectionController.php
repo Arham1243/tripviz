@@ -24,11 +24,6 @@ class SectionController extends Controller
         return view('admin.sections-management.list', compact('sections'))->with('title', 'Sections');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('admin.sections-management.add')->with('title', 'Add New Section');

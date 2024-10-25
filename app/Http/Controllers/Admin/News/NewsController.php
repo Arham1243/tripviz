@@ -30,11 +30,6 @@ class NewsController extends Controller
         return view('admin.news-management.list')->with('title', 'All News')->with($data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $tours = Tour::where('status', 'publish')->get();
@@ -46,11 +41,6 @@ class NewsController extends Controller
         return view('admin.news-management.add')->with('title', 'Add News')->with($data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
 

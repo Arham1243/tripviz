@@ -27,11 +27,6 @@ class TourStoryController extends Controller
         return view('admin.tour-stories-management.list', compact('stories'))->with('title', 'Tour Stories and News');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $cities = City::where('is_active', 1)->get();
@@ -40,11 +35,6 @@ class TourStoryController extends Controller
         return view('admin.tour-stories-management.add', $data)->with('title', 'Add New Story');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
