@@ -56,6 +56,8 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('tour-availability', AvailabilityController::class);
     Route::resource('tour-bookings', BookingController::class);
     Route::resource('pages', PageController::class);
+    Route::get('pages/{page}/template-builder', [PageController::class, 'editTemplate'])
+        ->name('pages.template-builder');
     Route::get('export-ical', IcalController::class)->name('ical.export');
 
     Route::resource('countries', CountryController::class);

@@ -16,12 +16,12 @@ class PageController extends Controller
         $pages = Page::latest()->get();
         $data = compact('pages');
 
-        return view('admin.pages-management.list')->with('title', 'All Pages')->with($data);
+        return view('admin.pages.pages-management.list')->with('title', 'All Pages')->with($data);
     }
 
     public function create()
     {
-        return view('admin.pages-management.add')->with('title', 'Add New Page');
+        return view('admin.pages.pages-management.add')->with('title', 'Add New Page');
     }
 
     public function store(Request $request)
@@ -53,7 +53,7 @@ class PageController extends Controller
         $seo = $page->seo()->first();
         $data = compact('page', 'seo');
 
-        return view('admin.pages-management.edit')->with('title', ucfirst(strtolower($page->title)))->with($data);
+        return view('admin.pages.pages-management.edit')->with('title', ucfirst(strtolower($page->title)))->with($data);
     }
 
     public function update(Request $request, $id)
@@ -81,5 +81,10 @@ class PageController extends Controller
         handleSeoData($request, $page, 'Page/'.$page->title);
 
         return redirect()->route('admin.pages.index')->with('notify_success', 'Page updated successfully.');
+    }
+
+    public function editTemplate(Page $page)
+    {
+        return view('admin.pages.template-builder.main', compact('page'))->with('title', ucfirst(strtolower($page->title)));
     }
 }

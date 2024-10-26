@@ -165,12 +165,19 @@ Breadcrumbs::for('admin.pages.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
     $trail->push('Pages', route('admin.pages.index'));
 });
+
 Breadcrumbs::for('admin.pages.create', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.pages.index');
     $trail->push('Add Page', route('admin.pages.create'));
 });
+
 Breadcrumbs::for('admin.pages.edit', function (BreadcrumbTrail $trail, $item) {
     $trail->parent('admin.pages.index');
     $trail->push($item->title ?? 'N/A', route('admin.pages.edit', $item->id));
+});
+
+Breadcrumbs::for('admin.pages.template-builder', function (BreadcrumbTrail $trail, $item) {
+    $trail->parent('admin.pages.edit', $item);
+    $trail->push('Edit Template', route('admin.pages.template-builder', $item->id));
 });
 // ---------------Pages---------------

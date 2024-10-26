@@ -23,7 +23,8 @@
                             </div>
                         </div>
                         <div class="d-flex align-items-center gap-3">
-                            <a href="javascript:void(0)" class="themeBtn">Template Builder</a>
+                            <a href="{{ route('admin.pages.template-builder', $page->id) }}" class="themeBtn">Template
+                                Builder</a>
                             <a href="{{ buildUrl(url('/'), 'page', $page->slug) }}" target="_blank" class="themeBtn">View
                                 Page</a>
                         </div>
