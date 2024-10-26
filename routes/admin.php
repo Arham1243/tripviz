@@ -58,6 +58,8 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('pages', PageController::class);
     Route::get('pages/{page}/template-builder', [PageController::class, 'editTemplate'])
         ->name('pages.template-builder');
+    Route::post('pages/{page}/template-builder', [PageController::class, 'storeTemplate'])
+        ->name('pages.template-builder.store');
     Route::get('export-ical', IcalController::class)->name('ical.export');
 
     Route::resource('countries', CountryController::class);

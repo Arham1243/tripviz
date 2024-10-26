@@ -87,4 +87,9 @@ class PageController extends Controller
     {
         return view('admin.pages.template-builder.main', compact('page'))->with('title', ucfirst(strtolower($page->title)));
     }
+
+    public function storeTemplate(Request $request)
+    {
+        dd($request->all());
+    }
 }

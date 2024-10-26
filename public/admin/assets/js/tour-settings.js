@@ -4,12 +4,12 @@ if (sortableTableBody) {
         animation: 300,
         handle: ".order-menu",
         onEnd: function (evt) {
-            console.log(
-                "Dragged item index: ",
-                evt.oldIndex,
-                " -> ",
-                evt.newIndex,
-            );
+            // console.log(
+            //     "Dragged item index: ",
+            //     evt.oldIndex,
+            //     " -> ",
+            //     evt.newIndex,
+            // );
             updateOrderFields();
         },
     });
