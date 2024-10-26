@@ -174,8 +174,7 @@
                                                             <input type="hidden" class="order" :name="`sections[order][]`"
                                                                 :value="index + 1">
                                                             <div class="d-flex align-items-center gap-2">
-                                                                <div class="order-menu mt-1"><i
-                                                                        class='bx-sm bx bx-menu'></i>
+                                                                <div class="order-menu"><i class='bx-sm bx bx-menu'></i>
                                                                 </div>
                                                                 <div class="name" x-text="item.name"></div>
                                                             </div>

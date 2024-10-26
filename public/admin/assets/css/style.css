@@ -2098,7 +2098,7 @@ body.modal-open {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5rem 0.85rem;
+    padding: 0.75rem 0.85rem;
     border: 1px solid #ddd;
 }
 
