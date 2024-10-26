@@ -83,7 +83,8 @@
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <a class="dropdown-item" href="javascript:void(0)">
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('admin.pages.template-builder', $page->id) }}">
                                                                 <i class='bx bxs-paint'></i>
                                                                 Template Builder
                                                             </a>
