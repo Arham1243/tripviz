@@ -1812,7 +1812,7 @@ body.responsive.fancybox-active.compensate-for-scrollbar {
 }
 
 .order-menu {
-    cursor: grab;
+    cursor: move;
 }
 
 input[readonly]:not(.date-picker, .date-picker-time) {
