@@ -10,44 +10,50 @@
 
             <div class="row" x-data="templateManager()">
                 <div class="col-md-4">
-                    <ul class="template-blocks">
-                        @foreach ($sectionsGroups as $category => $sectionsGroup)
-                            <li class="template-block {{ $loop->first ? 'open' : '' }}" custom-accordion>
-                                <div class="template-block__header" custom-accordion-header>
-                                    <div class="title">{{ $category }}</div>
-                                    <div class="icon"><i class='bx bx-chevron-down'></i></div>
-                                </div>
-                                <div class="template-block__body" custom-accordion-body>
-                                    <div class="overflow-hidden">
-                                        <div class="body-wrapper">
-                                            <ul class="chip-list">
-                                                @foreach ($sectionsGroup as $section)
-                                                    <li class="chip-list__item" x-data="{
-                                                        item: {
-                                                            id: '{{ $section['id'] }}',
-                                                            name: '{{ $section['name'] }}',
-                                                            previewImage: '{{ asset($section['preview_image']) }}'
-                                                        }
-                                                    }">
-                                                        <div class="name" x-text="item.name"></div>
-                                                        <div class="actions">
-                                                            <a :href="item.previewImage" data-fancybox="gallery"
-                                                                title="Section preview" class="icon" type="button">
-                                                                <i class='bx bxs-show'></i>
-                                                            </a>
-                                                            <button title="Add Section" @click="addItem(item)"
-                                                                class="icon" type="button"><i
-                                                                    class='bx bx-plus'></i></button>
-                                                        </div>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
+                    @if (!$sectionsGroups->isEmpty())
+                        <ul class="template-blocks">
+                            @foreach ($sectionsGroups as $category => $sectionsGroup)
+                                <li class="template-block {{ $loop->first ? 'open' : '' }}" custom-accordion>
+                                    <div class="template-block__header" custom-accordion-header>
+                                        <div class="title">{{ $category }}</div>
+                                        <div class="icon"><i class='bx bx-chevron-down'></i></div>
+                                    </div>
+                                    <div class="template-block__body" custom-accordion-body>
+                                        <div class="overflow-hidden">
+                                            <div class="body-wrapper">
+                                                <ul class="chip-list">
+                                                    @foreach ($sectionsGroup as $section)
+                                                        <li class="chip-list__item" x-data="{
+                                                            item: {
+                                                                id: '{{ $section['id'] }}',
+                                                                name: '{{ $section['name'] }}',
+                                                                previewImage: '{{ asset($section['preview_image']) }}'
+                                                            }
+                                                        }">
+                                                            <div class="name" x-text="item.name"></div>
+                                                            <div class="actions">
+                                                                <a :href="item.previewImage" data-fancybox="gallery"
+                                                                    title="Section preview" class="icon" type="button">
+                                                                    <i class='bx bxs-show'></i>
+                                                                </a>
+                                                                <button title="Add Section" @click="addItem(item)"
+                                                                    class="icon" type="button"><i
+                                                                        class='bx bx-plus'></i></button>
+                                                            </div>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <div class="section-content mt-5 mb-4">
+                            <h3 class="heading">No sections available.</h3>
+                        </div>
+                    @endif
                 </div>
                 <div class="col-md-8">
                     <div class="template-blocks template-blocks--sticky">
@@ -88,7 +94,8 @@
                                                 </ul>
                                             </div>
                                             <div x-show="selectedItems.length === 0">
-                                                <p class="text-center mb-0"><strong>Empty layout. Add sections.</strong></p>
+                                                <p class="text-center mb-0"><strong>Empty layout. Add sections.</strong>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -99,6 +106,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 @endsection
