@@ -3,6 +3,7 @@
     <div class="col-md-12">
         <div class="dashboard-content">
             {{ Breadcrumbs::render('admin.sections.edit', $section) }}
+            {{-- test --}}
             <div class="custom-sec custom-sec--form">
                 <div class="custom-sec__header">
                     <div class="section-content">
