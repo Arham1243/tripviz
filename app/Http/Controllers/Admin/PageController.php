@@ -87,12 +87,43 @@ class PageController extends Controller
     public function editTemplate(Page $page)
     {
         $sectionsGroups = Section::where('status', 'active')->get()->groupBy('category');
+        $selectedSections = $page->sections->map(function ($section) {
+            return [
+                'id' => $section->id,
+                'name' => $section->name,
+                'preview_image' => $section->preview_image,
+                'template_path' => $section->template_path,
+                'order' => $section->pivot->order,
+            ];
+        })->sortBy('order')
+            ->values()
+            ->toJson();
 
-        return view('admin.pages.template-builder.main', compact('page', 'sectionsGroups'))->with('title', ucfirst(strtolower($page->title)));
+        return view('admin.pages.template-builder.main', compact('page', 'sectionsGroups', 'selectedSections'))->with('title', ucfirst(strtolower($page->title)));
     }
 
-    public function storeTemplate(Request $request)
+    public function storeTemplate(Request $request, $id)
     {
-        dd($request->all());
+        $request->validate([
+            'sections.section_id' => 'required|array',
+            'sections.order' => 'required|array',
+        ]);
+
+        $sectionIds = $request->input('sections.section_id');
+        $orders = $request->input('sections.order');
+
+        if (count($sectionIds) !== count($orders)) {
+            return redirect()->route('admin.pages.index')->with('notify_error', 'Section IDs and order values do not match.');
+        }
+
+        $syncData = [];
+        foreach ($sectionIds as $index => $sectionId) {
+            $syncData[$sectionId] = ['order' => $orders[$index]];
+        }
+
+        $page = Page::findOrFail($id);
+        $page->sections()->sync($syncData);
+
+        return redirect()->back()->with('notify_success', 'Layout Saved Successfully!');
     }
 }

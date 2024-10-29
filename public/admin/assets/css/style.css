@@ -2118,7 +2118,7 @@ body.modal-open {
     align-items: center;
     gap: 0.65rem;
 }
-
+.chip-list__item .icon .text-danger {!i;!;color: red !important;!i;!;}
 .chip-list__item .icon {
     font-size: 1.1rem;
     border: 1px solid #ccc;

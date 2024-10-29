@@ -17,6 +17,13 @@ class Page extends Model
         return $this->morphOne(Seo::class, 'seoable');
     }
 
+    public function sections()
+    {
+        return $this->belongsToMany(Section::class, 'page_section')
+            ->withPivot('order')
+            ->withTimestamps();
+    }
+
     protected static function boot()
     {
         parent::boot();

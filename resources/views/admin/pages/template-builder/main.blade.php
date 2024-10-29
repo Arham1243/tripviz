@@ -71,7 +71,7 @@
                                                     <template x-for="(item, index) in selectedItems" :key="index">
                                                         <li class="chip-list__item">
                                                             <input type="hidden" :name="`sections[section_id][]`"
-                                                                :value="item.name">
+                                                                :value="item.id">
                                                             <input type="hidden" class="order" :name="`sections[order][]`"
                                                                 :value="index + 1">
                                                             <div class="d-flex align-items-center gap-2">
@@ -101,7 +101,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="javascript:void(0)" class="themeBtn mt-4 ms-auto" type="submit">Save Template</a>
+                            <button :disabled="selectedItems.length === 0" class="themeBtn mt-4 ms-auto" type="submit">Save
+                                Template</button>
                         </form>
                     </div>
                 </div>
@@ -120,7 +121,7 @@
     <script type="text/javascript">
         function templateManager() {
             return {
-                selectedItems: [],
+                selectedItems: {!! $selectedSections !!},
                 addItem(item) {
                     this.selectedItems.push({
                         ...item
