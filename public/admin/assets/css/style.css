@@ -2142,3 +2142,17 @@ body.modal-open {
     top: 1rem;
 }
 /* template */  
+
+.list-img {
+    width: 130px;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    object-position: top;
+}
+
+.list-img > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}

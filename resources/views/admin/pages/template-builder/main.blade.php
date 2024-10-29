@@ -7,112 +7,7 @@
             <div class="section-content mt-5 mb-4">
                 <h3 class="heading">Edit Template: {{ isset($title) ? $title : '' }}</h3>
             </div>
-            @php
-                $sectionsGroups = [
-                    'Banner Sections' => [
-                        [
-                            'id' => 1,
-                            'name' => 'Banner: Search Bar',
-                            'preview_image' => asset('admin/assets/images/sections/banner.png'),
-                        ],
-                    ],
-                    'Location Sections' => [
-                        [
-                            'id' => 2,
-                            'name' => 'Location Slider: Cities with Tour Count',
-                            'preview_image' => asset('admin/assets/images/sections/cities-slider.png'),
-                        ],
-                        [
-                            'id' => 3,
-                            'name' => 'Location List: Cities with Tour Count',
-                            'preview_image' => asset('admin/assets/images/sections/cities-list.png'),
-                        ],
-                        [
-                            'id' => 19,
-                            'name' => 'Location Slider: Popular Cities',
-                            'preview_image' => asset('admin/assets/images/sections/cities-popular.png'),
-                        ],
-                    ],
-                    'Tour Sections' => [
-                        [
-                            'id' => 4,
-                            'name' => 'Tour Section: 5-Item Grid',
-                            'preview_image' => asset('admin/assets/images/sections/tour-5-box.png'),
-                        ],
-                        [
-                            'id' => 5,
-                            'name' => 'Tour Section: 4-Item Grid',
-                            'preview_image' => asset('admin/assets/images/sections/tour-4-box.png'),
-                        ],
-                        [
-                            'id' => 6,
-                            'name' => 'Tour Section: 3-Item Grid',
-                            'preview_image' => asset('admin/assets/images/sections/tour-3-box.png'),
-                        ],
-                        [
-                            'id' => 7,
-                            'name' => 'Tour Section: Trending Tours Slider',
-                            'preview_image' => asset('admin/assets/images/sections/trending-4-tour.png'),
-                        ],
-                    ],
-                    'Activities Sections' => [
-                        [
-                            'id' => 8,
-                            'name' => 'Water Activities: 3-Box Layout',
-                            'preview_image' => asset('admin/assets/images/sections/act-3.png'),
-                        ],
-                        [
-                            'id' => 9,
-                            'name' => 'Water Activities: 4-Item Grid',
-                            'preview_image' => asset('admin/assets/images/sections/act-4.png'),
-                        ],
-                    ],
-                    'Call-to-Action' => [
-                        [
-                            'id' => 10,
-                            'name' => 'Call-to-Action: Standard',
-                            'preview_image' => asset('admin/assets/images/sections/cta-1.png'),
-                        ],
-                        [
-                            'id' => 11,
-                            'name' => 'Call-to-Action: Counter Style',
-                            'preview_image' => asset('admin/assets/images/sections/cta-2.png'),
-                        ],
-                    ],
-                    'Other Content' => [
-                        [
-                            'id' => 12,
-                            'name' => 'News Section: Standard',
-                            'preview_image' => asset('admin/assets/images/sections/news.png'),
-                        ],
-                        [
-                            'id' => 13,
-                            'name' => 'Testimonials Section',
-                            'preview_image' => asset('admin/assets/images/sections/testimonials.png'),
-                        ],
-                        [
-                            'id' => 14,
-                            'name' => 'Newsletter Signup',
-                            'preview_image' => asset('admin/assets/images/sections/newsletter.png'),
-                        ],
-                        [
-                            'id' => 15,
-                            'name' => 'Contact Section: Standard',
-                            'preview_image' => asset('admin/assets/images/sections/contact.png'),
-                        ],
-                        [
-                            'id' => 16,
-                            'name' => 'Travel Promotions Section',
-                            'preview_image' => asset('admin/assets/images/sections/promotion.png'),
-                        ],
-                        [
-                            'id' => 17,
-                            'name' => 'App Download Section',
-                            'preview_image' => asset('admin/assets/images/sections/download.png'),
-                        ],
-                    ],
-                ];
-            @endphp
+
             <div class="row" x-data="templateManager()">
                 <div class="col-md-4">
                     <ul class="template-blocks">
@@ -131,7 +26,7 @@
                                                         item: {
                                                             id: '{{ $section['id'] }}',
                                                             name: '{{ $section['name'] }}',
-                                                            previewImage: '{{ $section['preview_image'] }}'
+                                                            previewImage: '{{ asset($section['preview_image']) }}'
                                                         }
                                                     }">
                                                         <div class="name" x-text="item.name"></div>

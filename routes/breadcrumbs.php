@@ -181,3 +181,20 @@ Breadcrumbs::for('admin.pages.template-builder', function (BreadcrumbTrail $trai
     $trail->push('Edit Template', route('admin.pages.template-builder', $item->id));
 });
 // ---------------Pages---------------
+
+// ---------------Sections---------------
+Breadcrumbs::for('admin.sections.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Sections', route('admin.sections.index'));
+});
+
+Breadcrumbs::for('admin.sections.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.sections.index');
+    $trail->push('Add Section', route('admin.sections.create'));
+});
+
+Breadcrumbs::for('admin.sections.edit', function (BreadcrumbTrail $trail, $item) {
+    $trail->parent('admin.sections.index');
+    $trail->push($item->name ?? 'N/A', route('admin.sections.edit', $item->id));
+});
+// ---------------Sections---------------

@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\News\NewsController;
 use App\Http\Controllers\Admin\News\TagsController as NewsTagsController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\RecoveryController;
+use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\Admin\Tour\AttributesController;
 use App\Http\Controllers\Admin\Tour\AvailabilityController;
 use App\Http\Controllers\Admin\Tour\BookingController;
@@ -55,6 +56,7 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('tour-reviews', ReviewController::class);
     Route::resource('tour-availability', AvailabilityController::class);
     Route::resource('tour-bookings', BookingController::class);
+    Route::resource('sections', SectionController::class);
     Route::resource('pages', PageController::class);
     Route::get('pages/{page}/template-builder', [PageController::class, 'editTemplate'])
         ->name('pages.template-builder');

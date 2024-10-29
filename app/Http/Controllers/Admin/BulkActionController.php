@@ -12,6 +12,7 @@ use App\Models\News;
 use App\Models\NewsCategory;
 use App\Models\NewsTag;
 use App\Models\Page;
+use App\Models\Section;
 use App\Models\Tour;
 use App\Models\TourAttribute;
 use App\Models\TourCategory;
@@ -93,6 +94,11 @@ class BulkActionController extends Controller
                 $modelClass = Page::class;
                 $column = 'id';
                 $redirectRoute = 'admin.pages.index';
+                break;
+            case 'sections':
+                $modelClass = Section::class;
+                $column = 'id';
+                $redirectRoute = 'admin.sections.index';
                 break;
             default:
                 return Redirect::back()->with('notify_error', 'Resource not found.');

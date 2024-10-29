@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Page;
+use App\Models\Section;
 use App\Traits\Sluggable;
 use Illuminate\Http\Request;
 
@@ -85,7 +86,9 @@ class PageController extends Controller
 
     public function editTemplate(Page $page)
     {
-        return view('admin.pages.template-builder.main', compact('page'))->with('title', ucfirst(strtolower($page->title)));
+        $sectionsGroups = Section::where('status', 'active')->get()->groupBy('category');
+
+        return view('admin.pages.template-builder.main', compact('page', 'sectionsGroups'))->with('title', ucfirst(strtolower($page->title)));
     }
 
     public function storeTemplate(Request $request)
