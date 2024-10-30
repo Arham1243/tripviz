@@ -10,8 +10,8 @@
                 </div>
                 <div class=fi4>
                     <div class=fi4-1>Social Media<div class=temiz></div><span class=thin>Follow Me <img alt=""
-                                class=darrow2 data-src={{ asset('assets/images/darrow.webp') }} width=37.19
-                                height=7.56></span></div>
+                                class="darrow2 imgFluid lazy" data-src={{ asset('assets/images/darrow.webp') }}
+                                width=37.19 height=7.56></span></div>
                     <div class=fi4-2>
                         <ul>
                             <li><a target=_blank aria-label="facebook" href=javascript:void(0)><i
