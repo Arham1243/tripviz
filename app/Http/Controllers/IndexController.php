@@ -7,6 +7,7 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\ImageTable;
 use App\Models\Newsletter;
+use App\Models\Page;
 use App\Models\Promotion;
 use App\Models\Section;
 use App\Models\Testimonial;
@@ -45,6 +46,19 @@ class IndexController extends Controller
     public function blog()
     {
         return view('blog')->with('title', 'Blog');
+    }
+
+    public function showPage($slug)
+    {
+        $query = Page::where('slug', $slug);
+
+        if (request()->query('viewer') !== 'admin') {
+            $query->where('status', 'publish');
+        }
+        $page = $query->firstOrFail();
+        $sections = $page->sections()->orderBy('pivot_order')->get();
+
+        return view('page-builder', compact('page', 'sections'));
     }
 
     public function index()

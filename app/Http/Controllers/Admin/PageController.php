@@ -99,7 +99,7 @@ class PageController extends Controller
             ->values()
             ->toJson();
 
-        return view('admin.pages.template-builder.main', compact('page', 'sectionsGroups', 'selectedSections'))->with('title', ucfirst(strtolower($page->title)));
+        return view('admin.pages.page-builder.main', compact('page', 'sectionsGroups', 'selectedSections'))->with('title', ucfirst(strtolower($page->title)));
     }
 
     public function storeTemplate(Request $request, $id)

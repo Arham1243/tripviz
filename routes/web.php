@@ -21,6 +21,9 @@ Route::post('/newsletter-save', [IndexController::class, 'newsletter_save'])->na
 Route::get('/city/{slug}/details', [IndexController::class, 'city_details'])->name('city.details');
 Route::get('/country/{slug}/details', [IndexController::class, 'country_details'])->name('country.details');
 Route::get('/make-slug', [IndexController::class, 'make_slug']);
+
+Route::get('/page/{slug}', [IndexController::class, 'showPage'])->name('page.show');
+
 // ---------------------------------------All Pages---------------------------------------
 // web.php
 Route::get('/dump-intended-urls', function (Illuminate\Http\Request $request) {

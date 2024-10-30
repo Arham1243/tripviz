@@ -53,13 +53,8 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <a target="_blank" href="{{ buildUrl(url('/'), 'page', $item->slug) }}"
-                                                        title="View Page" class="themeBtn p-1"><i
-                                                            class='bx  bxs-show'></i></a>
-                                                    <a href="{{ route('admin.pages.edit', $item->id) }}"
-                                                        class="link">{{ $item->title }}</a>
-                                                </div>
+                                                <a href="{{ route('admin.pages.edit', $item->id) }}"
+                                                    class="link">{{ $item->title }}</a>
                                             </td>
                                             <td>{{ formatDateTime($item->created_at) }}</td>
                                             <td>
@@ -75,6 +70,14 @@
                                                         <i class='bx bx-dots-horizontal-rounded'></i>
                                                     </button>
                                                     <ul class="dropdown-menu">
+                                                        <li>
+                                                            <a class="dropdown-item" target="_blank"
+                                                                href="{{ buildUrl(url('/'), 'page', $item->slug) }}?viewer=admin"
+                                                                title="View Page">
+                                                                <i class='bx bxs-show'></i>
+                                                                View
+                                                            </a>
+                                                        </li>
                                                         <li>
                                                             <a class="dropdown-item"
                                                                 href="{{ route('admin.pages.edit', $item->id) }}">
