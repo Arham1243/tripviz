@@ -33,6 +33,17 @@
                                         @enderror
                                     </div>
                                     <div class="form-fields">
+                                        <label class="title">Section key<span class="text-danger">*</span> :</label>
+                                        <input type="text" readonly name="section_key" class="field"
+                                            value="{{ old('section_key', $section->section_key) }}" placeholder=""
+                                            data-required data-error="Section Key">
+                                        <p><em>This field specifies which section fields will be displayed on the <mark>Page
+                                                    Builder</mark> page</em></p>
+                                        @error('section_key')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-fields">
                                         <label class="title">Template Path <span class="text-danger">*</span> :</label>
                                         <input type="text" name="template_path" class="field"
                                             value="{{ old('template_path', $section->template_path) }}" placeholder=""

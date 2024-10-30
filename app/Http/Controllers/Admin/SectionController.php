@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Section;
 use App\Traits\UploadImageTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class SectionController extends Controller
 {
@@ -29,10 +30,16 @@ class SectionController extends Controller
         $validatedData = $request->validate([
             'category' => 'required',
             'name' => 'required',
+            'section_key' => 'required',
             'template_path' => 'required',
             'preview_image' => 'required',
             'status' => 'required|in:active,inactive',
         ]);
+
+        $sectionKey = Str::slug($validatedData['section_key']);
+        $sectionKey = str_replace('-', '_', $sectionKey);
+
+        $validatedData['section_key'] = $sectionKey;
 
         $section = Section::create($validatedData);
         $this->uploadImg('preview_image', 'Sections/preview-images', $section, 'preview_image');
@@ -53,10 +60,16 @@ class SectionController extends Controller
         $validatedData = $request->validate([
             'category' => 'required',
             'name' => 'required',
+            'section_key' => 'required',
             'template_path' => 'required',
             'preview_image' => 'nullable',
             'status' => 'required|in:active,inactive',
         ]);
+
+        $sectionKey = Str::slug($validatedData['section_key']);
+        $sectionKey = str_replace('-', '_', $sectionKey);
+
+        $validatedData['section_key'] = $sectionKey;
 
         $section->update($validatedData);
 

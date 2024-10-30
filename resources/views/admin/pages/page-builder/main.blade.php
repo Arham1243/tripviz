@@ -92,8 +92,8 @@
                                                                         type="button">
                                                                         <i class='bx bxs-show'></i>
                                                                     </a>
-                                                                    <button title="edit details" class="icon"
-                                                                        type="button">
+                                                                    <button @click="editItem(item)" title="edit details"
+                                                                        class="icon" type="button">
                                                                         <i class='bx bxs-edit'></i>
                                                                     </button>
                                                                     <button @click="removeItem(index)" title="Remove"
@@ -124,6 +124,28 @@
             </div>
         </div>
     </div>
+
+    <div class="modal" tabindex="-1" id="editSection">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title d-flex align-items-center gap-2"> Edit Section: <span
+                            class="section-name"></span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="#" method="POST">
+                    <div class="modal-body">
+                        @csrf
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="themeBtn bg-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="themeBtn">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('css')
     <style type="text/css">
@@ -146,6 +168,11 @@
                     this.selectedItems.splice(index, 1);
                     this.updateOrder();
                 },
+                editItem(item) {
+                    $('.section-name').text(item.name);
+                    $('#editSection').modal('show');
+                },
+
                 updateOrder() {
                     this.selectedItems.forEach((item, index) => {
                         item.order = index + 1;
