@@ -87,11 +87,15 @@
                                                                     <div class="name" x-text="item.name"></div>
                                                                 </div>
                                                                 <div class="actions">
-                                                                    <a :href="item.previewImage" data-fancybox="gallery"
+                                                                    <a :href="item.preview_image" data-fancybox="gallery"
                                                                         title="Section preview" class="icon"
                                                                         type="button">
                                                                         <i class='bx bxs-show'></i>
                                                                     </a>
+                                                                    <button title="edit details" class="icon"
+                                                                        type="button">
+                                                                        <i class='bx bxs-edit'></i>
+                                                                    </button>
                                                                     <button @click="removeItem(index)" title="Remove"
                                                                         class="icon" type="button">
                                                                         <i class='text-danger bx bxs-trash-alt'></i>
@@ -119,52 +123,53 @@
 
             </div>
         </div>
-    @endsection
-    @section('css')
-        <style type="text/css">
-        </style>
-    @endsection
+    </div>
+@endsection
+@section('css')
+    <style type="text/css">
+    </style>
+@endsection
 
-    @section('js')
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
-        <script type="text/javascript">
-            function templateManager() {
-                return {
-                    selectedItems: {!! $selectedSections !!},
-                    addItem(item) {
-                        this.selectedItems.push({
-                            ...item
-                        });
-                        this.updateOrder();
-                    },
-                    removeItem(index) {
-                        this.selectedItems.splice(index, 1);
-                        this.updateOrder();
-                    },
-                    updateOrder() {
-                        this.selectedItems.forEach((item, index) => {
-                            item.order = index + 1;
-                        });
-                    }
-                };
-            }
-
-            document.addEventListener('alpine:init', () => {
-                const sortableTableBody = document.querySelector("[data-sortable-body]");
-                if (sortableTableBody) {
-                    const sortable = new Sortable(sortableTableBody, {
-                        animation: 300,
-                        onEnd: function(evt) {
-                            const chipItems = sortableTableBody.querySelectorAll('.chip-list__item');
-                            chipItems?.forEach((item, index) => {
-                                const orderInput = item.querySelector('.order');
-                                if (orderInput) {
-                                    orderInput.value = index + 1;
-                                }
-                            });
-                        },
+@section('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+    <script type="text/javascript">
+        function templateManager() {
+            return {
+                selectedItems: {!! $selectedSections !!},
+                addItem(item) {
+                    this.selectedItems.push({
+                        ...item
+                    });
+                    this.updateOrder();
+                },
+                removeItem(index) {
+                    this.selectedItems.splice(index, 1);
+                    this.updateOrder();
+                },
+                updateOrder() {
+                    this.selectedItems.forEach((item, index) => {
+                        item.order = index + 1;
                     });
                 }
-            });
-        </script>
-    @endsection
+            };
+        }
+
+        document.addEventListener('alpine:init', () => {
+            const sortableTableBody = document.querySelector("[data-sortable-body]");
+            if (sortableTableBody) {
+                const sortable = new Sortable(sortableTableBody, {
+                    animation: 300,
+                    onEnd: function(evt) {
+                        const chipItems = sortableTableBody.querySelectorAll('.chip-list__item');
+                        chipItems?.forEach((item, index) => {
+                            const orderInput = item.querySelector('.order');
+                            if (orderInput) {
+                                orderInput.value = index + 1;
+                            }
+                        });
+                    },
+                });
+            }
+        });
+    </script>
+@endsection

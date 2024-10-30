@@ -91,7 +91,7 @@ class PageController extends Controller
             return [
                 'id' => $section->id,
                 'name' => $section->name,
-                'preview_image' => $section->preview_image,
+                'preview_image' => asset($section->preview_image),
                 'template_path' => $section->template_path,
                 'order' => $section->pivot->order,
             ];
