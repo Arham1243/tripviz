@@ -32,12 +32,13 @@
                                                                 item: {
                                                                     id: '{{ $section['id'] }}',
                                                                     name: '{{ $section['name'] }}',
-                                                                    previewImage: '{{ asset($section['preview_image']) }}'
+                                                                    section_key: '{{ $section['section_key'] }}',
+                                                                    preview_image: '{{ asset($section['preview_image']) }}'
                                                                 }
                                                             }">
                                                                 <div class="name" x-text="item.name"></div>
                                                                 <div class="actions">
-                                                                    <a :href="item.previewImage" data-fancybox="gallery"
+                                                                    <a :href="item.preview_image" data-fancybox="gallery"
                                                                         title="Section preview" class="icon"
                                                                         type="button">
                                                                         <i class='bx bxs-show'></i>
@@ -130,12 +131,17 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title d-flex align-items-center gap-2"> Edit Section: <span
-                            class="section-name"></span></h5>
+                            class="section-name"></span>
+                        <a href="{{ asset('admin/assets/images/placeholder.png') }}" data-fancybox="gallery"
+                            title="section preview" class="themeBtn section-preview-image p-1"><i
+                                class='bx bxs-show'></i></a>
+                    </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="#" method="POST">
+                <form action="#" method="POST" id="validation-form">
                     <div class="modal-body">
                         @csrf
+                        <div id="renderFields"></div>
 
                     </div>
                     <div class="modal-footer">
@@ -152,11 +158,17 @@
     </style>
 @endsection
 
-@section('js')
+@push('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+    {{-- <script type="module">
+        import {
+            sections
+        } from '{{ asset('admin/assets/js/sections-fields.js') }}';
+    </script> --}}
     <script type="text/javascript">
         function templateManager() {
             return {
+                // sections: sections,
                 selectedItems: {!! $selectedSections !!},
                 addItem(item) {
                     this.selectedItems.push({
@@ -170,6 +182,8 @@
                 },
                 editItem(item) {
                     $('.section-name').text(item.name);
+                    // $('#renderFields').html(this.sections[item.section_key]);
+                    $('.section-preview-image').attr('href', item.preview_image);
                     $('#editSection').modal('show');
                 },
 
@@ -198,5 +212,13 @@
                 });
             }
         });
+        $(document).ready(function() {
+            $('#editSection').on('hidden.bs.modal', function() {
+                $('.section-name').text('');
+                $('#renderFields').html('');;
+                $('.section-preview-image').attr('href',
+                    `${$('#web_base_url').val()}/public/admin/assets/images/placeholder.png`);
+            });
+        });
     </script>
-@endsection
+@endpush

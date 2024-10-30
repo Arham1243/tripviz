@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Page;
 use App\Models\Section;
+use App\Models\Tour;
 use App\Traits\Sluggable;
 use Illuminate\Http\Request;
 
@@ -86,11 +87,13 @@ class PageController extends Controller
 
     public function editTemplate(Page $page)
     {
+        $tours = Tour::where('status', 'publish')->get();
         $sectionsGroups = Section::where('status', 'active')->get()->groupBy('category');
         $selectedSections = $page->sections->map(function ($section) {
             return [
                 'id' => $section->id,
                 'name' => $section->name,
+                'section_key' => $section->section_key,
                 'preview_image' => asset($section->preview_image),
                 'template_path' => $section->template_path,
                 'order' => $section->pivot->order,
@@ -99,7 +102,7 @@ class PageController extends Controller
             ->values()
             ->toJson();
 
-        return view('admin.pages.page-builder.main', compact('page', 'sectionsGroups', 'selectedSections'))->with('title', ucfirst(strtolower($page->title)));
+        return view('admin.pages.page-builder.main', compact('tours', 'page', 'sectionsGroups', 'selectedSections'))->with('title', ucfirst(strtolower($page->title)));
     }
 
     public function storeTemplate(Request $request, $id)

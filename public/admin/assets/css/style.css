@@ -2011,10 +2011,11 @@ a.fc-event.fc-event-start.fc-event-end.fc-event-past.fc-daygrid-event.fc-daygrid
     font-size: 0.95rem;
     font-weight: 700;
     text-transform: capitalize;
+    line-height: 0;
 }
 
 .modal-header {
-    padding: 0.85rem;
+    padding: 1.25rem;
 }
 
 :is(.modal-header, .modal-body, .modal-footer) {
@@ -2118,7 +2119,7 @@ body.modal-open {
     align-items: center;
     gap: 0.65rem;
 }
-.chip-list__item .icon .text-danger {!i;!;color: red !important;!i;!;}
+.chip-list__item .icon .text-danger {color: red !important;}
 .chip-list__item .icon {
     font-size: 1.1rem;
     border: 1px solid #ccc;
