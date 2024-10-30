@@ -87,9 +87,9 @@
                                                         </li>
                                                         <li>
                                                             <a class="dropdown-item"
-                                                                href="{{ route('admin.pages.template-builder', $item->id) }}">
+                                                                href="{{ route('admin.pages.page-builder', $item->id) }}">
                                                                 <i class='bx bxs-paint'></i>
-                                                                Template Builder
+                                                                Page Builder
                                                             </a>
                                                         </li>
                                                     </ul>

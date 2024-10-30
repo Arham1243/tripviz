@@ -58,10 +58,10 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('tour-bookings', BookingController::class);
     Route::resource('sections', SectionController::class);
     Route::resource('pages', PageController::class);
-    Route::get('pages/{page}/template-builder', [PageController::class, 'editTemplate'])
-        ->name('pages.template-builder');
-    Route::post('pages/{page}/template-builder', [PageController::class, 'storeTemplate'])
-        ->name('pages.template-builder.store');
+    Route::get('pages/{page}/page-builder', [PageController::class, 'editTemplate'])
+        ->name('pages.page-builder');
+    Route::post('pages/{page}/page-builder', [PageController::class, 'storeTemplate'])
+        ->name('pages.page-builder.store');
     Route::get('export-ical', IcalController::class)->name('ical.export');
 
     Route::resource('countries', CountryController::class);

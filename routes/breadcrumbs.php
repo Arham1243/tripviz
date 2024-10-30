@@ -176,9 +176,9 @@ Breadcrumbs::for('admin.pages.edit', function (BreadcrumbTrail $trail, $item) {
     $trail->push($item->title ?? 'N/A', route('admin.pages.edit', $item->id));
 });
 
-Breadcrumbs::for('admin.pages.template-builder', function (BreadcrumbTrail $trail, $item) {
+Breadcrumbs::for('admin.pages.page-builder', function (BreadcrumbTrail $trail, $item) {
     $trail->parent('admin.pages.edit', $item);
-    $trail->push('Edit Template', route('admin.pages.template-builder', $item->id));
+    $trail->push('Edit Template', route('admin.pages.page-builder', $item->id));
 });
 // ---------------Pages---------------
 

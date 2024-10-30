@@ -3,7 +3,7 @@
 @section('content')
     <div class="col-md-12">
         <div class="dashboard-content">
-            {{ Breadcrumbs::render('admin.pages.template-builder', $page) }}
+            {{ Breadcrumbs::render('admin.pages.page-builder', $page) }}
             <div class="custom-sec custom-sec--form">
                 <div class="custom-sec__header">
                     <div class="section-content">
@@ -63,7 +63,7 @@
                     </div>
                     <div class="col-md-8">
                         <div class="template-blocks template-blocks--sticky">
-                            <form action="{{ route('admin.pages.template-builder.store', $page->id) }}" method="POST">
+                            <form action="{{ route('admin.pages.page-builder.store', $page->id) }}" method="POST">
                                 @csrf
                                 <div class="template-block">
                                     <div class="template-block__header">
