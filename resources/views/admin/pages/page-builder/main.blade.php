@@ -1,7 +1,7 @@
 @extends('admin.dash_layouts.main')
 
 @section('content')
-    <div class="col-md-12">
+    <div class="col-md-12" x-data="templateManager()">
         <div class="dashboard-content">
             {{ Breadcrumbs::render('admin.pages.page-builder', $page) }}
             <div class="custom-sec custom-sec--form">
@@ -13,7 +13,7 @@
                         Page</a>
                 </div>
 
-                <div class="row" x-data="templateManager()">
+                <div class="row">
                     <div class="col-md-4">
                         @if (!$sectionsGroups->isEmpty())
                             <ul class="template-blocks">
@@ -33,6 +33,7 @@
                                                                     id: '{{ $section['id'] }}',
                                                                     name: '{{ $section['name'] }}',
                                                                     section_key: '{{ $section['section_key'] }}',
+                                                                    template_path: '{{ $section['template_path'] }}',
                                                                     preview_image: '{{ asset($section['preview_image']) }}'
                                                                 }
                                                             }">
@@ -121,37 +122,41 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-    </div>
 
-    <div class="modal" tabindex="-1" id="editSection">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title d-flex align-items-center gap-2"> Edit Section: <span
-                            class="section-name"></span>
-                        <a href="{{ asset('admin/assets/images/placeholder.png') }}" data-fancybox="gallery"
-                            title="section preview" class="themeBtn section-preview-image p-1"><i
-                                class='bx bxs-show'></i></a>
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal" tabindex="-1" id="editSection">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title d-flex align-items-center gap-2"> Edit Section: <span
+                                class="section-name"></span>
+                            <a href="{{ asset('admin/assets/images/placeholder.png') }}" data-fancybox="gallery"
+                                title="section preview" class="themeBtn section-preview-image p-1"><i
+                                    class='bx bxs-show'></i></a>
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="#" method="POST" id="validation-form">
+                        <div class="modal-body">
+                            @csrf
+                            <div class="text-center mt-4"><i class="bx-lg  bx bx-loader-alt bx-flip-vertical bx-spin"
+                                    style="color: rgb(28, 77, 153); " x-show="isLoading">
+                                </i>
+                            </div>
+                            <div id="renderFields" x-html="sectionContent"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="themeBtn bg-danger" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="themeBtn">Save changes</button>
+                        </div>
+                    </form>
                 </div>
-                <form action="#" method="POST" id="validation-form">
-                    <div class="modal-body">
-                        @csrf
-                        <div id="renderFields"></div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="themeBtn bg-danger" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="themeBtn">Save changes</button>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
+
+
 @endsection
 @section('css')
     <style type="text/css">
@@ -160,15 +165,12 @@
 
 @push('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
-    {{-- <script type="module">
-        import {
-            sections
-        } from '{{ asset('admin/assets/js/sections-fields.js') }}';
-    </script> --}}
     <script type="text/javascript">
         function templateManager() {
             return {
-                // sections: sections,
+                selectedItem: null,
+                sectionContent: '',
+                isLoading: false,
                 selectedItems: {!! $selectedSections !!},
                 addItem(item) {
                     this.selectedItems.push({
@@ -180,13 +182,29 @@
                     this.selectedItems.splice(index, 1);
                     this.updateOrder();
                 },
-                editItem(item) {
-                    $('.section-name').text(item.name);
-                    // $('#renderFields').html(this.sections[item.section_key]);
-                    $('.section-preview-image').attr('href', item.preview_image);
+                async editItem(item) {
                     $('#editSection').modal('show');
-                },
+                    $('.section-name').text(item.name);
+                    this.selectedItem = item;
+                    $('.section-preview-image').attr('href', item.preview_image);
 
+                    this.isLoading = true;
+                    try {
+                        const response = await fetch(
+                            `{{ route('admin.page-builder.section-template') }}?template_path=${item.template_path}`
+                        );
+                        if (response.ok) {
+                            document.getElementById('renderFields').innerHTML = await response.text();
+                        } else {
+                            document.getElementById('renderFields').innerHTML = "<p>Template not found.</p>";
+                        }
+                    } catch (error) {
+                        document.getElementById('renderFields').innerHTML = "<p>Error loading template.</p>";
+                    } finally {
+                        this.isLoading = false;
+                    }
+
+                },
                 updateOrder() {
                     this.selectedItems.forEach((item, index) => {
                         item.order = index + 1;
@@ -194,6 +212,7 @@
                 }
             };
         }
+
 
         document.addEventListener('alpine:init', () => {
             const sortableTableBody = document.querySelector("[data-sortable-body]");

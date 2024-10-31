@@ -129,4 +129,17 @@ class PageController extends Controller
 
         return redirect()->back()->with('notify_success', 'Layout Saved Successfully!');
     }
+
+    public function getSectionTemplate(Request $request)
+    {
+        $templatePath = $request->input('template_path');
+
+        if (view()->exists("admin.pages.page-builder.sections.{$templatePath}")) {
+            $tours = Tour::all();
+
+            return view("admin.pages.page-builder.sections.{$templatePath}", compact('tours'));
+        }
+
+        return response()->json(['error' => 'Template not found'], 404);
+    }
 }
