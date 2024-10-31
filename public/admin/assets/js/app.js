@@ -68,7 +68,7 @@ document
             this.type = "button";
         }
     });
-        
+
 document
     .querySelector(".permalink-input")
     ?.addEventListener("keydown", function (event) {
@@ -549,6 +549,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+const observer = new MutationObserver(() => {
+    document.querySelectorAll("[data-upload]").forEach(initializeUploadComponent);
+});
+observer.observe(document.getElementById('renderFields'), { childList: true, subtree: true });
 
 $(document).ready(function () {
     $("[data-flag-input-wrapper]").each(function () {

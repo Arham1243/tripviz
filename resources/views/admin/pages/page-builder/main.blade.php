@@ -137,10 +137,12 @@
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="#" method="POST" id="validation-form">
+                    <form action="{{ route('admin.pages.page-builder.sections.save', $page->id) }}" method="POST"
+                        id="validation-form" enctype="multipart/form-data">
                         <div class="modal-body">
                             @csrf
-                            <div class="text-center mt-4"><i class="bx-lg  bx bx-loader-alt bx-flip-vertical bx-spin"
+                            <input type="hidden" name="section_id" id="section_id">
+                            <div class="text-center"><i class="bx-lg  bx bx-loader-alt bx-flip-vertical bx-spin"
                                     style="color: rgb(28, 77, 153); " x-show="isLoading">
                                 </i>
                             </div>
@@ -185,6 +187,7 @@
                 async editItem(item) {
                     $('#editSection').modal('show');
                     $('.section-name').text(item.name);
+                    $('#section_id').val(item.id);
                     this.selectedItem = item;
                     $('.section-preview-image').attr('href', item.preview_image);
 

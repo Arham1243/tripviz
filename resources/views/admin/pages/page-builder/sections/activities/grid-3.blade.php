@@ -37,9 +37,8 @@
                                     </div>
                                     <label for="activities_bg_img_0" class="upload-box__btn themeBtn">Upload
                                         Image</label>
-                                    <input type="file" name="activities[content][backgournd_image][]"
-                                        id="activities_bg_img_0" class="upload-box__file d-none" accept="image/*"
-                                        data-file-input="">
+                                    <input type="file" name="activities[backgournd_image][]" id="activities_bg_img_0"
+                                        class="upload-box__file d-none" accept="image/*" data-file-input="">
                                 </div>
                                 <div class="upload-box__img" data-upload-img="">
                                     <button type="button" class="delete-btn" data-delete-btn=""><i
@@ -86,9 +85,8 @@
                                     </div>
                                     <label for="activities_bg_img_1" class="upload-box__btn themeBtn">Upload
                                         Image</label>
-                                    <input type="file" name="activities[content][backgournd_image][]"
-                                        id="activities_bg_img_1" class="upload-box__file d-none" accept="image/*"
-                                        data-file-input="">
+                                    <input type="file" name="activities[backgournd_image][]" id="activities_bg_img_1"
+                                        class="upload-box__file d-none" accept="image/*" data-file-input="">
                                 </div>
                                 <div class="upload-box__img" data-upload-img="">
                                     <button type="button" class="delete-btn" data-delete-btn=""><i
@@ -136,7 +134,7 @@
                                     </div>
                                     <label for="activities_bg_img_2" class="upload-box__btn themeBtn">Upload
                                         Image</label>
-                                    <input type="file" name="activities[content][backgournd_image][]"
+                                    <input type="file" name="activities[backgournd_image][]"
                                         id="activities_bg_img_2" class="upload-box__file d-none" accept="image/*"
                                         data-file-input="">
                                 </div>

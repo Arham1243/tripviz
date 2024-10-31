@@ -7,11 +7,13 @@ use App\Models\Page;
 use App\Models\Section;
 use App\Models\Tour;
 use App\Traits\Sluggable;
+use App\Traits\UploadImageTrait;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
     use Sluggable;
+    use UploadImageTrait;
 
     public function index()
     {
@@ -133,13 +135,22 @@ class PageController extends Controller
     public function getSectionTemplate(Request $request)
     {
         $templatePath = $request->input('template_path');
+        $componentView = "admin.pages.page-builder.sections.{$templatePath}";
 
-        if (view()->exists("admin.pages.page-builder.sections.{$templatePath}")) {
+        if (view()->exists($componentView)) {
             $tours = Tour::all();
+            $html = view($componentView, compact('tours'));
 
-            return view("admin.pages.page-builder.sections.{$templatePath}", compact('tours'));
+            return $html;
         }
 
         return response()->json(['error' => 'Template not found'], 404);
+    }
+
+    public function saveSectionDetails(Request $request, $id)
+    {
+        dd($request->all(), $id);
+
+        return redirect()->back()->with('notify_success', 'Section Details Successfully!');
     }
 }
