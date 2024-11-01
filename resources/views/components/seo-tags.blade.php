@@ -1,6 +1,6 @@
 <title>{{ $seo->seo_title ?? (isset($title) ? $title . ' | ' . env('APP_NAME') : env('APP_NAME')) }}</title>
 @if ($seo)
-    @if ($seo->seo_description)
+    {{-- @if ($seo->seo_description)
         <meta name="description" content="{{ $seo->seo_description }}">
     @endif
     <meta name="robots" content="{{ $seo->is_seo_index ? 'index, follow' : 'noindex, nofollow' }}">
@@ -15,7 +15,7 @@
     @endif
     @if ($seo->fb_featured_image)
         <meta property="og:image" content="{{ asset($seo->fb_featured_image) }}">
-    @endif
+    @endif --}}
     @if ($seo->tw_title)
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:title" content="{{ $seo->tw_title }}">
