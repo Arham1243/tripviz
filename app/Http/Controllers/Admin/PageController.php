@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Page;
 use App\Models\Section;
 use App\Models\Tour;
+use App\Services\SaveSectionDetailsService;
 use App\Traits\Sluggable;
 use App\Traits\UploadImageTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PageController extends Controller
 {
@@ -147,9 +149,24 @@ class PageController extends Controller
         return response()->json(['error' => 'Template not found'], 404);
     }
 
-    public function saveSectionDetails(Request $request, $id)
+    public function saveSectionDetails(Request $request, $pageId)
     {
-        dd($request->all(), $id);
+        $sectionKey = Section::where('id', $request->section_id)->first();
+        dd($request->section_id, $sectionKey);
+
+        $sectionService = new SaveSectionDetailsService;
+
+        try {
+            $sectionData = $sectionService->processSection($request, $sectionKey);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
+
+        DB::table('page_section')
+            ->updateOrInsert(
+                ['page_id' => $pageId, 'section_id' => $request->input('section_id')],
+                ['content' => json_encode($sectionData)]
+            );
 
         return redirect()->back()->with('notify_success', 'Section Details Successfully!');
     }

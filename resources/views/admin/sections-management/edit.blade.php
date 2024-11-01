@@ -34,7 +34,7 @@
                                     </div>
                                     <div class="form-fields">
                                         <label class="title">Section key<span class="text-danger">*</span> :</label>
-                                        <input type="text" readonly name="section_key" class="field"
+                                        <input type="text" name="section_key" class="field"
                                             value="{{ old('section_key', $section->section_key) }}" placeholder=""
                                             data-required data-error="Section Key">
                                         <p><em>This field specifies which section fields will be displayed on the <mark>Page

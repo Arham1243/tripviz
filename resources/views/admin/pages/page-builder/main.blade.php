@@ -130,7 +130,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title d-flex align-items-center gap-2"> Edit Section: <span
-                                class="section-name"></span>
+                                id="section-name"></span>
                             <a href="{{ asset('admin/assets/images/placeholder.png') }}" data-fancybox="gallery"
                                 title="section preview" class="themeBtn section-preview-image p-1"><i
                                     class='bx bxs-show'></i></a>
@@ -141,7 +141,7 @@
                         id="validation-form" enctype="multipart/form-data">
                         <div class="modal-body">
                             @csrf
-                            <input type="hidden" name="section_id" id="section_id">
+                            <input type="hidden" name="section_id" id="section-id">
                             <div class="text-center"><i class="bx-lg  bx bx-loader-alt bx-flip-vertical bx-spin"
                                     style="color: rgb(28, 77, 153); " x-show="isLoading">
                                 </i>
@@ -168,6 +168,25 @@
 @push('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
     <script type="text/javascript">
+        document.addEventListener('alpine:init', () => {
+            const sortableTableBody = document.querySelector("[data-sortable-body]");
+            if (sortableTableBody) {
+                const sortable = new Sortable(sortableTableBody, {
+                    animation: 300,
+                    onEnd: function(evt) {
+                        const chipItems = sortableTableBody.querySelectorAll('.chip-list__item');
+                        chipItems?.forEach((item, index) => {
+                            const orderInput = item.querySelector('.order');
+                            if (orderInput) {
+                                orderInput.value = index + 1;
+                            }
+                        });
+                    },
+                });
+            }
+        });
+
+
         function templateManager() {
             return {
                 selectedItem: null,
@@ -186,8 +205,8 @@
                 },
                 async editItem(item) {
                     $('#editSection').modal('show');
-                    $('.section-name').text(item.name);
-                    $('#section_id').val(item.id);
+                    $('#section-name').text(item.name);
+                    $('#section-id').val(item.id);
                     this.selectedItem = item;
                     $('.section-preview-image').attr('href', item.preview_image);
 
@@ -215,31 +234,13 @@
                 }
             };
         }
-
-
-        document.addEventListener('alpine:init', () => {
-            const sortableTableBody = document.querySelector("[data-sortable-body]");
-            if (sortableTableBody) {
-                const sortable = new Sortable(sortableTableBody, {
-                    animation: 300,
-                    onEnd: function(evt) {
-                        const chipItems = sortableTableBody.querySelectorAll('.chip-list__item');
-                        chipItems?.forEach((item, index) => {
-                            const orderInput = item.querySelector('.order');
-                            if (orderInput) {
-                                orderInput.value = index + 1;
-                            }
-                        });
-                    },
-                });
-            }
-        });
         $(document).ready(function() {
             $('#editSection').on('hidden.bs.modal', function() {
-                $('.section-name').text('');
+                $('#section-name').text('');
+                $('#section-id').val('');
                 $('#renderFields').html('');;
                 $('.section-preview-image').attr('href',
-                    `${$('#web_base_url').val()}/public/admin/assets/images/placeholder.png`);
+                    `${$('#web_base_url').val()}/public/admin/assets/images/placeholder. png`);
             });
         });
     </script>
