@@ -1,9 +1,10 @@
-@extends('admin.dash_layouts.main')
-@section('content')
+<x-admin.layout>
+
     <div class="col-md-12">
         <div class="dashboard-content">
             {{ Breadcrumbs::render('admin.tours.create') }}
-            <form action="{{ route('admin.tours.store') }}" method="POST" enctype="multipart/form-data" id="validation-form">
+            <form action="{{ route('admin.tours.store') }}" method="POST" enctype="multipart/form-data"
+                id="validation-form">
                 @csrf
                 <div class="custom-sec custom-sec--form">
                     <div class="custom-sec__header">
@@ -32,19 +33,22 @@
                                 <ul class="settings">
                                     <li class="settings-item">
                                         <button type="button" class="settings-item__link"
-                                            :class="{ 'active': optionTab === 'general' }" @click="optionTab = 'general'">
+                                            :class="{ 'active': optionTab === 'general' }"
+                                            @click="optionTab = 'general'">
                                             <i class="bx bx-cog"></i> General
                                         </button>
                                     </li>
                                     <li class="settings-item">
                                         <button type="button" class="settings-item__link"
-                                            :class="{ 'active': optionTab === 'pricing' }" @click="optionTab = 'pricing'">
+                                            :class="{ 'active': optionTab === 'pricing' }"
+                                            @click="optionTab = 'pricing'">
                                             <i class="bx bx-dollar"></i> Pricing
                                         </button>
                                     </li>
                                     <li class="settings-item">
                                         <button type="button" class="settings-item__link"
-                                            :class="{ 'active': optionTab === 'location' }" @click="optionTab = 'location'">
+                                            :class="{ 'active': optionTab === 'location' }"
+                                            @click="optionTab = 'location'">
                                             <i class="bx bx-map"></i> Location
                                         </button>
                                     </li>
@@ -57,13 +61,15 @@
                                     </li>
                                     <li class="settings-item">
                                         <button type="button" class="settings-item__link"
-                                            :class="{ 'active': optionTab === 'addOn' }" @click="optionTab = 'addOn'">
+                                            :class="{ 'active': optionTab === 'addOn' }"
+                                            @click="optionTab = 'addOn'">
                                             <i class="bx bx-plus-circle"></i> Add On
                                         </button>
                                     </li>
                                     <li class="settings-item">
                                         <button type="button" class="settings-item__link"
-                                            :class="{ 'active': optionTab === 'status' }" @click="optionTab = 'status'">
+                                            :class="{ 'active': optionTab === 'status' }"
+                                            @click="optionTab = 'status'">
                                             <i class="bx bx-check-circle"></i> Status
                                         </button>
                                     </li>
@@ -339,7 +345,8 @@
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
-                                                                        <button type="button" class="themeBtn ms-auto"
+                                                                        <button type="button"
+                                                                            class="themeBtn ms-auto"
                                                                             data-sub-repeater-create>
                                                                             Add <i class="bx bx-plus"></i>
                                                                         </button>
@@ -355,7 +362,8 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <button type="button" class="themeBtn ms-auto" data-repeater-create>
+                                                    <button type="button" class="themeBtn ms-auto"
+                                                        data-repeater-create>
                                                         Add <i class="bx bx-plus"></i>
                                                     </button>
                                                 </div>
@@ -414,7 +422,8 @@
                                             </div>
 
                                             <div class="form-fields">
-                                                <input type="hidden" name="tour[general][banner_type]" value="1">
+                                                <input type="hidden" name="tour[general][banner_type]"
+                                                    value="1">
                                                 <div class="title">
                                                     <div>Banner Image <span class="text-danger">*</span>:</div>
                                                 </div>
@@ -434,7 +443,8 @@
                                                                 Image</label>
                                                         </div>
                                                         <div class="upload-box__img" data-upload-img>
-                                                            <button type="button" class="delete-btn" data-delete-btn><i
+                                                            <button type="button" class="delete-btn"
+                                                                data-delete-btn><i
                                                                     class='bx bxs-trash-alt'></i></button>
                                                             <a href="#" class="mask" data-fancybox="gallery">
                                                                 <img src="{{ asset('admin/assets/images/loading.webp') }}"
@@ -446,7 +456,8 @@
                                                                 value="Feature Image">
                                                         </div>
                                                     </div>
-                                                    <div data-error-message class="text-danger mt-2 d-none text-center">
+                                                    <div data-error-message
+                                                        class="text-danger mt-2 d-none text-center">
                                                         Please
                                                         upload a
                                                         valid image file
@@ -525,7 +536,8 @@
                                 <div class="form-box__body">
                                     <div x-show="locationType === 'normal_location'">
                                         <div class="form-fields">
-                                            <label class="title">Location <span class="text-danger">*</span> :</label>
+                                            <label class="title">Location <span class="text-danger">*</span>
+                                                :</label>
                                             <select name="tour[location][normal_location][city_ids][]"
                                                 class="choice-select" data-error="Location" multiple
                                                 placeholder="Select Locations" autocomplete="new-password">
@@ -554,7 +566,8 @@
                                     </div>
                                     <div x-show="locationType === 'normal_itinerary'">
                                         <div class="form-fields">
-                                            <label class=" d-flex align-items-center mb-3 justify-content-between"><span
+                                            <label
+                                                class=" d-flex align-items-center mb-3 justify-content-between"><span
                                                     class="title title--sm mb-0">Itinerary:</span>
                                                 <span class="title d-flex align-items-center gap-1">Section
                                                     Preview:
@@ -611,7 +624,8 @@
                                                                             <a href="#" class="mask"
                                                                                 data-fancybox="gallery">
                                                                                 <img src="{{ asset('admin/assets/images/loading.webp') }}"
-                                                                                    alt="Uploaded Image" class="imgFluid"
+                                                                                    alt="Uploaded Image"
+                                                                                    class="imgFluid"
                                                                                     data-placeholder="{{ asset('admin/assets/images/loading.webp') }}"
                                                                                     data-upload-preview>
                                                                             </a>
@@ -643,7 +657,8 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
-                                                <button type="button" class="themeBtn ms-auto" data-repeater-create>Add
+                                                <button type="button" class="themeBtn ms-auto"
+                                                    data-repeater-create>Add
                                                     <i class="bx bx-plus"></i></button>
                                             </div>
                                         </div>
@@ -670,7 +685,8 @@
                                                         target="_blank">Google Map Generator</a>
                                                 </div>
                                                 <input type="url" name="itinerary_experience[map_iframe]"
-                                                    class="field" value="{{ old('itinerary_experience[map_iframe]') }}">
+                                                    class="field"
+                                                    value="{{ old('itinerary_experience[map_iframe]') }}">
                                                 @error('itinerary_experience[map_iframe]')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -716,7 +732,8 @@
                                                     </thead>
                                                     <tbody id="itinerary-table-body" data-sortable-body></tbody>
                                                 </table>
-                                                <div class="dropdown bootsrap-dropdown mt-4 d-flex justify-content-end">
+                                                <div
+                                                    class="dropdown bootsrap-dropdown mt-4 d-flex justify-content-end">
                                                     <button type="button" class="themeBtn dropdown-toggle"
                                                         data-bs-toggle="dropdown" aria-expanded="false">
                                                         Add <i class="bx bx-chevron-down"></i>
@@ -816,10 +833,12 @@
                                         </div>
                                         <div class="col-md-6 col-12 mb-3">
                                             <div class="form-fields">
-                                                <label class="title">Price <span class="text-danger">*</span>:</label>
+                                                <label class="title">Price <span
+                                                        class="text-danger">*</span>:</label>
                                                 <input step="0.01" min="0" type="number"
                                                     name="tour[pricing][regular_price]" class="field"
-                                                    value="{{ old('tour[pricing][regular_price]') }}" data-error="Price">
+                                                    value="{{ old('tour[pricing][regular_price]') }}"
+                                                    data-error="Price">
                                                 @error('tour[pricing][regular_price]')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -854,7 +873,8 @@
                                                                 id="enebled_person_types" value="1"
                                                                 x-model="personType"
                                                                 @change="personType = personType ? 1 : 0">
-                                                            <label class="form-check-label" for="enebled_person_types">
+                                                            <label class="form-check-label"
+                                                                for="enebled_person_types">
                                                                 Enable Person Types
                                                             </label>
                                                         </div>
@@ -866,31 +886,38 @@
                                                             class="d-flex align-items-center justify-content-center gap-5 mt-3 mb-4">
                                                             <div class="form-check p-0">
                                                                 <input class="form-check-input" type="radio"
-                                                                    name="tour[pricing][price_type]" x-model="tourType"
-                                                                    value="normal" id="normalPrice" checked>
-                                                                <label class="form-check-label" for="normalPrice">Normal
+                                                                    name="tour[pricing][price_type]"
+                                                                    x-model="tourType" value="normal"
+                                                                    id="normalPrice" checked>
+                                                                <label class="form-check-label"
+                                                                    for="normalPrice">Normal
                                                                     Tour
                                                                     Price</label>
                                                             </div>
                                                             <div class="form-check p-0">
                                                                 <input class="form-check-input" type="radio"
-                                                                    name="tour[pricing][price_type]" x-model="tourType"
-                                                                    value="private" id="privatePrice">
-                                                                <label class="form-check-label" for="privatePrice">Private
+                                                                    name="tour[pricing][price_type]"
+                                                                    x-model="tourType" value="private"
+                                                                    id="privatePrice">
+                                                                <label class="form-check-label"
+                                                                    for="privatePrice">Private
                                                                     Tour Price</label>
                                                             </div>
                                                             <div class="form-check p-0">
                                                                 <input class="form-check-input" type="radio"
-                                                                    name="tour[pricing][price_type]" x-model="tourType"
-                                                                    value="water" id="waterPrice">
-                                                                <label class="form-check-label" for="waterPrice">Water /
+                                                                    name="tour[pricing][price_type]"
+                                                                    x-model="tourType" value="water"
+                                                                    id="waterPrice">
+                                                                <label class="form-check-label" for="waterPrice">Water
+                                                                    /
                                                                     Desert
                                                                     Activities</label>
                                                             </div>
                                                             <div class="form-check p-0">
                                                                 <input class="form-check-input" type="radio"
-                                                                    name="tour[pricing][price_type]" x-model="tourType"
-                                                                    value="promo" id="promoPrice">
+                                                                    name="tour[pricing][price_type]"
+                                                                    x-model="tourType" value="promo"
+                                                                    id="promoPrice">
                                                                 <label class="form-check-label"
                                                                     for="promoPrice">Promo</label>
                                                             </div>
@@ -928,18 +955,20 @@
                                                                                     </div>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <input type="number" min="0"
+                                                                                    <input type="number"
+                                                                                        min="0"
                                                                                         name="tour[pricing][normal][min_person][]"
                                                                                         class="field">
                                                                                 </td>
                                                                                 <td>
-                                                                                    <input type="number" min="0"
+                                                                                    <input type="number"
+                                                                                        min="0"
                                                                                         name="tour[pricing][normal][max_person][]"
                                                                                         class="field">
                                                                                 </td>
                                                                                 <td>
-                                                                                    <input type="number" step="0.01"
-                                                                                        min="0"
+                                                                                    <input type="number"
+                                                                                        step="0.01" min="0"
                                                                                         name="tour[pricing][normal][price][]"
                                                                                         class="field">
                                                                                 </td>
@@ -947,7 +976,8 @@
                                                                                     <button type="button"
                                                                                         class="delete-btn ms-auto delete-btn--static"
                                                                                         data-repeater-remove disabled>
-                                                                                        <i class='bx bxs-trash-alt'></i>
+                                                                                        <i
+                                                                                            class='bx bxs-trash-alt'></i>
                                                                                     </button>
                                                                                 </td>
                                                                             </tr>
@@ -976,18 +1006,20 @@
                                                                         <tbody>
                                                                             <tr>
                                                                                 <td>
-                                                                                    <input type="number" step="0.01"
-                                                                                        min="0"
+                                                                                    <input type="number"
+                                                                                        step="0.01" min="0"
                                                                                         name="tour[pricing][private][car_price]"
                                                                                         class="field">
                                                                                 </td>
                                                                                 <td>
-                                                                                    <input type="number" min="0"
+                                                                                    <input type="number"
+                                                                                        min="0"
                                                                                         name="tour[pricing][private][min_person]"
                                                                                         class="field">
                                                                                 </td>
                                                                                 <td>
-                                                                                    <input type="number" min="0"
+                                                                                    <input type="number"
+                                                                                        min="0"
                                                                                         name="tour[pricing][private][max_person]"
                                                                                         class="field">
                                                                                 </td>
@@ -1009,7 +1041,8 @@
                                                                             <tr>
                                                                                 <th scope="col">Time</th>
                                                                                 <th scope="col">Price</th>
-                                                                                <th class="text-end" scope="col">Remove
+                                                                                <th class="text-end" scope="col">
+                                                                                    Remove
                                                                                 </th>
                                                                             </tr>
                                                                         </thead>
@@ -1040,7 +1073,8 @@
                                                                                         name="tour[pricing][water][time][]"
                                                                                         class="field"
                                                                                         data-error="Desert Activities Time">
-                                                                                        <option value="">Select Time
+                                                                                        <option value="">Select
+                                                                                            Time
                                                                                         </option>
                                                                                         @foreach ($waterMints as $waterMint)
                                                                                             <option
@@ -1057,15 +1091,16 @@
                                                                                     <input
                                                                                         name="tour[pricing][water][water_price][]"
                                                                                         type="number" class="field"
-                                                                                        placeholder="Price" step="0.01"
-                                                                                        min="0"
+                                                                                        placeholder="Price"
+                                                                                        step="0.01" min="0"
                                                                                         data-error="Desert Activities Price">
                                                                                 </td>
                                                                                 <td>
                                                                                     <button type="button"
                                                                                         class="delete-btn ms-auto delete-btn--static"
                                                                                         data-repeater-remove disabled>
-                                                                                        <i class='bx bxs-trash-alt'></i>
+                                                                                        <i
+                                                                                            class='bx bxs-trash-alt'></i>
                                                                                     </button>
                                                                                 </td>
                                                                             </tr>
@@ -1086,8 +1121,10 @@
                                                                             <tr>
                                                                                 <th scope="col">Package Title</th>
                                                                                 <th scope="col">Pricing Details</th>
-                                                                                <th scope="col">Offer Expires At</th>
-                                                                                <th class="text-end" scope="col">Remove
+                                                                                <th scope="col">Offer Expires At
+                                                                                </th>
+                                                                                <th class="text-end" scope="col">
+                                                                                    Remove
                                                                                 </th>
                                                                             </tr>
                                                                         </thead>
@@ -1104,25 +1141,31 @@
                                                                                     <div>
                                                                                         <input
                                                                                             name="tour[pricing][promo][original_price][]"
-                                                                                            type="number" class="field"
+                                                                                            type="number"
+                                                                                            class="field"
                                                                                             placeholder="Original Price"
-                                                                                            step="0.01" min="0"
+                                                                                            step="0.01"
+                                                                                            min="0"
                                                                                             data-error="Original Price">
                                                                                     </div>
                                                                                     <div class="mt-2">
                                                                                         <input
                                                                                             name="tour[pricing][promo][discount_price][]"
-                                                                                            type="number" class="field"
+                                                                                            type="number"
+                                                                                            class="field"
                                                                                             placeholder="Discounted Price"
-                                                                                            step="0.01" min="0"
+                                                                                            step="0.01"
+                                                                                            min="0"
                                                                                             data-error="Discount Price">
                                                                                     </div>
                                                                                     <div class="mt-2">
                                                                                         <input
                                                                                             name="tour[pricing][promo][promo_price][]"
-                                                                                            type="number" class="field"
+                                                                                            type="number"
+                                                                                            class="field"
                                                                                             placeholder="Promo Price"
-                                                                                            step="0.01" min="0"
+                                                                                            step="0.01"
+                                                                                            min="0"
                                                                                             data-error="Promo Price">
                                                                                     </div>
                                                                                 </td>
@@ -1137,7 +1180,8 @@
                                                                                     <button type="button"
                                                                                         class="delete-btn ms-auto delete-btn--static"
                                                                                         data-repeater-remove disabled>
-                                                                                        <i class='bx bxs-trash-alt'></i>
+                                                                                        <i
+                                                                                            class='bx bxs-trash-alt'></i>
                                                                                     </button>
                                                                                 </td>
                                                                             </tr>
@@ -1169,8 +1213,8 @@
                                                             <input class="form-check-input" type="checkbox"
                                                                 name="tour[pricing][is_extra_price_enabled]"
                                                                 id="enebled_extra_price"
-                                                                @change="extraPrice = extraPrice ? 1 : 0" value="1"
-                                                                x-model="extraPrice">
+                                                                @change="extraPrice = extraPrice ? 1 : 0"
+                                                                value="1" x-model="extraPrice">
                                                             <label class="form-check-label" for="enebled_extra_price">
                                                                 Enable extra price
                                                             </label>
@@ -1201,19 +1245,22 @@
                                                                                         placeholder="Extra Price Name">
                                                                                 </td>
                                                                                 <td>
-                                                                                    <input type="number" step="0.01"
-                                                                                        min="0"
+                                                                                    <input type="number"
+                                                                                        step="0.01" min="0"
                                                                                         name="tour[pricing][extra_price][0][price]"
                                                                                         class="field">
                                                                                 </td>
                                                                                 <td>
                                                                                     <select class="field"
                                                                                         name="tour[pricing][extra_price][0][type]">
-                                                                                        <option value="" selected>
+                                                                                        <option value=""
+                                                                                            selected>
                                                                                             Select</option>
-                                                                                        <option value="one-time">One-time
+                                                                                        <option value="one-time">
+                                                                                            One-time
                                                                                         </option>
-                                                                                        <option value="per-hour">Per Hour
+                                                                                        <option value="per-hour">Per
+                                                                                            Hour
                                                                                         </option>
                                                                                         <option value="per-day">Per Day
                                                                                         </option>
@@ -1234,7 +1281,8 @@
                                                                                     <button type="button"
                                                                                         class="delete-btn ms-auto delete-btn--static"
                                                                                         data-repeater-remove disabled>
-                                                                                        <i class='bx bxs-trash-alt'></i>
+                                                                                        <i
+                                                                                            class='bx bxs-trash-alt'></i>
                                                                                     </button>
                                                                                 </td>
                                                                             </tr>
@@ -1295,14 +1343,16 @@
                                                                                     </div>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <input type="number" min="0"
+                                                                                    <input type="number"
+                                                                                        min="0"
                                                                                         name="tour[pricing][discount][discount][]"
                                                                                         class="field" placeholder="">
                                                                                 </td>
                                                                                 <td>
                                                                                     <select class="field"
                                                                                         name="tour[pricing][discount][type][]">
-                                                                                        <option value="" selected>
+                                                                                        <option value=""
+                                                                                            selected>
                                                                                             Select</option>
                                                                                         <option value="fixed">Fixed
                                                                                         </option>
@@ -1314,7 +1364,8 @@
                                                                                     <button type="button"
                                                                                         class="delete-btn ms-auto delete-btn--static"
                                                                                         data-repeater-remove disabled>
-                                                                                        <i class='bx bxs-trash-alt'></i>
+                                                                                        <i
+                                                                                            class='bx bxs-trash-alt'></i>
                                                                                     </button>
                                                                                 </td>
                                                                             </tr>
@@ -1372,8 +1423,8 @@
                                                     <div class="form-check form-switch" data-enabled-text="Enabled"
                                                         data-disabled-text="Disabled">
                                                         <input class="form-check-input" data-toggle-switch checked
-                                                            type="checkbox" id="enable-section" checked value="1"
-                                                            name="tour[pricing][show_phone]">
+                                                            type="checkbox" id="enable-section" checked
+                                                            value="1" name="tour[pricing][show_phone]">
                                                         <label class="form-check-label"
                                                             for="enable-section">Enabled</label>
                                                     </div>
@@ -1431,7 +1482,8 @@
                                                                 :</label>
                                                             <input readonly type="text" class="field date-picker"
                                                                 placeholder="Select a date"
-                                                                name="tour[availability][start_date]" autocomplete="off">
+                                                                name="tour[availability][start_date]"
+                                                                autocomplete="off">
                                                             @error('availability[start_date]')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
@@ -1444,7 +1496,8 @@
                                                                 :</label>
                                                             <input readonly type="text" class="field date-picker"
                                                                 placeholder="Select a date"
-                                                                name="tour[availability][end_date]" autocomplete="off">
+                                                                name="tour[availability][end_date]"
+                                                                autocomplete="off">
                                                             @error('availability[end_date]')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
@@ -1563,7 +1616,8 @@
                                                                                 <option value="">Select Time
                                                                                 </option>
                                                                                 @foreach ($timeSlots as $slot)
-                                                                                    <option value="{{ $slot }}">
+                                                                                    <option
+                                                                                        value="{{ $slot }}">
                                                                                         {{ date('H:i', strtotime($slot)) }}
                                                                                     </option>
                                                                                 @endforeach
@@ -1576,7 +1630,8 @@
                                                                                 <option value="">Select Time
                                                                                 </option>
                                                                                 @foreach ($timeSlots as $slot)
-                                                                                    <option value="{{ $slot }}">
+                                                                                    <option
+                                                                                        value="{{ $slot }}">
                                                                                         {{ date('H:i', strtotime($slot)) }}
                                                                                     </option>
                                                                                 @endforeach
@@ -1665,9 +1720,11 @@
                                                                 Image</label>
                                                         </div>
                                                         <div class="upload-box__img" data-upload-img>
-                                                            <button type="button" class="delete-btn" data-delete-btn><i
+                                                            <button type="button" class="delete-btn"
+                                                                data-delete-btn><i
                                                                     class='bx bxs-trash-alt'></i></button>
-                                                            <a href="#" class="mask" data-fancybox="gallery">
+                                                            <a href="#" class="mask"
+                                                                data-fancybox="gallery">
                                                                 <img src="{{ asset('admin/assets/images/loading.webp') }}"
                                                                     alt="Uploaded Image" class="imgFluid"
                                                                     data-upload-preview>
@@ -1677,7 +1734,8 @@
                                                                 value="Feature Image">
                                                         </div>
                                                     </div>
-                                                    <div data-error-message class="text-danger mt-2 d-none text-center">
+                                                    <div data-error-message
+                                                        class="text-danger mt-2 d-none text-center">
                                                         Please
                                                         upload a
                                                         valid image file
@@ -1733,7 +1791,8 @@
                                         </div>
                                     </div>
                                     <div class="form-fields mt-3">
-                                        <label class="title">Default State <span class="text-danger">*</span> :</label>
+                                        <label class="title">Default State <span class="text-danger">*</span>
+                                            :</label>
                                         <select name="tour[status][featured_state]" class="field">
 
                                             <option value="" selected disabled>Select</option>
@@ -1778,7 +1837,8 @@
                                 </div>
                                 <div class="form-box__body">
                                     <div class="form-fields">
-                                        <label class="title">Import url <span class="text-danger">*</span> :</label>
+                                        <label class="title">Import url <span class="text-danger">*</span>
+                                            :</label>
                                         <input type="url" name="tour[status][ical_import_url]" class="field"
                                             placeholder="">
                                         @error('tour[status][ical_import_url]')
@@ -1786,7 +1846,8 @@
                                         @enderror
                                     </div>
                                     <div class="form-fields">
-                                        <label class="title">Export url <span class="text-danger">*</span> :</label>
+                                        <label class="title">Export url <span class="text-danger">*</span>
+                                            :</label>
                                         <input type="url" name="tour[status][ical_export_url]" class="field"
                                             placeholder="">
                                         @error('tour[status][ical_export_url]')
@@ -1807,16 +1868,20 @@
             </form>
         </div>
     </div>
-@endsection
 
-@push('css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-@endpush
-@push('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput-jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <script src="{{ asset('admin/assets/js/tour-settings.js') }}"></script>
-@endpush
+    <x-slot name="css">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css">
+        <link rel="stylesheet" type="text/css"
+            href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    </x-slot>
+
+    <x-slot name="js">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput-jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <script src="{{ asset('admin/assets/js/tour-settings.js') }}"></script>
+    </x-slot>
+
+</x-admin.layout>
