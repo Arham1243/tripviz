@@ -1,6 +1,7 @@
 <x-admin.layout :title="$title">
     <div class="col-md-9">
         <div class="dashboard-content">
+            restructuring branch
             <div class="revenue">
                 <div class="row">
                     <div class="col-md-4">
