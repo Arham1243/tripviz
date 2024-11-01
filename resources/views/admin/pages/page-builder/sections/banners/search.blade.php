@@ -1,5 +1,5 @@
 @php
-    $sectionContent = $pageSection->content
+    $sectionContent = $pageSection
         ? json_decode($pageSection->content)
         : (object) [
             'heading' => null,

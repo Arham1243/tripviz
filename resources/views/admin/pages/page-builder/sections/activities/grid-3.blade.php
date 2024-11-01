@@ -1,5 +1,5 @@
 @php
-    $sectionContent = json_decode($pageSection->content);
+    $sectionContent = $pageSection ? json_decode($pageSection->content) : null;
 
 @endphp
 <div class="form-fields">
@@ -51,7 +51,7 @@
                                         <label for="activities_bg_img_{{ $i }}"
                                             class="upload-box__btn themeBtn">Upload
                                             Image</label>
-                                        <input type="file" data-error="Background Image"
+                                        <input type="file" data-error="Image {{ $i + 1 }}"
                                             {{ empty($activity->image) ? 'data-required' : '' }}
                                             name="content[activities][{{ $i }}][image]"
                                             id="activities_bg_img_{{ $i }}" class="upload-box__file d-none"
