@@ -17,6 +17,7 @@
         <meta property="og:image" content="{{ asset($seo->fb_featured_image) }}">
     @endif
     @if ($seo->tw_title)
+        <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:title" content="{{ $seo->tw_title }}">
     @endif
     @if ($seo->tw_description)
