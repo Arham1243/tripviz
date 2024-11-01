@@ -213,7 +213,7 @@
                     this.isLoading = true;
                     try {
                         const response = await fetch(
-                            `{{ route('admin.page-builder.section-template') }}?template_path=${item.template_path}`
+                            `{{ route('admin.pages.page-builder.section-template', $page->id) }}?template_path=${item.template_path}&section_id=${item.id}`
                         );
                         if (response.ok) {
                             document.getElementById('renderFields').innerHTML = await response.text();

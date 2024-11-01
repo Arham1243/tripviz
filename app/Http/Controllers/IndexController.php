@@ -56,7 +56,7 @@ class IndexController extends Controller
             $query->where('status', 'publish');
         }
         $page = $query->firstOrFail();
-        $sections = $page->sections()->orderBy('pivot_order')->get();
+        $sections = $page->sections()->withPivot('content')->orderBy('pivot_order')->get();
 
         return view('page-builder', compact('page', 'sections'));
     }

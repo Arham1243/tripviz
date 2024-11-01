@@ -62,7 +62,7 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('pages/{page}/page-builder', [PageController::class, 'editTemplate'])->name('pages.page-builder');
     Route::post('pages/{page}/page-builder', [PageController::class, 'storeTemplate'])->name('pages.page-builder.store');
     Route::post('pages/{page}/page-builder/sections/{section?}', [PageController::class, 'saveSectionDetails'])->name('pages.page-builder.sections.save');
-    Route::get('/page-builder/section-template', [PageController::class, 'getSectionTemplate'])->name('page-builder.section-template');
+    Route::get('pages/{page}/page-builder/section-template', [PageController::class, 'getSectionTemplate'])->name('pages.page-builder.section-template');
 
     Route::get('export-ical', IcalController::class)->name('ical.export');
 

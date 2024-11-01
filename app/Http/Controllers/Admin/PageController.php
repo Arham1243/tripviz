@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Page;
 use App\Models\Section;
 use App\Models\Tour;
-use App\Services\SaveSectionDetailsService;
 use App\Traits\Sluggable;
 use App\Traits\UploadImageTrait;
 use Illuminate\Http\Request;
@@ -134,14 +133,16 @@ class PageController extends Controller
         return redirect()->back()->with('notify_success', 'Layout Saved Successfully!');
     }
 
-    public function getSectionTemplate(Request $request)
+    public function getSectionTemplate(Request $request, $pageId)
     {
         $templatePath = $request->input('template_path');
+        $sectionId = $request->input('section_id');
+        $pageSection = DB::table('page_section')->where('page_id', $pageId)->where('section_id', $sectionId)->first();
         $componentView = "admin.pages.page-builder.sections.{$templatePath}";
 
         if (view()->exists($componentView)) {
             $tours = Tour::all();
-            $html = view($componentView, compact('tours'));
+            $html = view($componentView, compact('tours', 'pageSection'));
 
             return $html;
         }
@@ -151,23 +152,68 @@ class PageController extends Controller
 
     public function saveSectionDetails(Request $request, $pageId)
     {
-        $sectionKey = Section::where('id', $request->section_id)->first();
-        dd($request->section_id, $sectionKey);
+        $sectionKey = Section::where('id', $request->section_id)->first()->section_key;
+        $pageSlug = Page::where('id', $pageId)->first()->slug;
 
-        $sectionService = new SaveSectionDetailsService;
+        $existingSection = DB::table('page_section')
+            ->where('page_id', $pageId)
+            ->where('section_id', $request->input('section_id'))
+            ->first();
 
-        try {
-            $sectionData = $sectionService->processSection($request, $sectionKey);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 400);
-        }
+        // Ensure existingContent is an array, even if the section doesn't exist
+        $existingContent = $existingSection ? json_decode($existingSection->content, true) : [];
+
+        $sectionData = $request->all()['content'];
+        $updatedContent = $this->handleSectionData($sectionData, $existingContent, $pageSlug, $sectionKey);
 
         DB::table('page_section')
             ->updateOrInsert(
                 ['page_id' => $pageId, 'section_id' => $request->input('section_id')],
-                ['content' => json_encode($sectionData)]
+                ['content' => json_encode($updatedContent)]
             );
 
-        return redirect()->back()->with('notify_success', 'Section Details Successfully!');
+        return redirect()->back()->with('notify_success', 'Section Updated Successfully!');
+    }
+
+    public function handleSectionData(array $newData, ?array $existingData, string $pageSlug, string $sectionKey)
+    {
+
+        switch ($sectionKey) {
+            case 'water_activities_3_box_layout':
+
+                return $this->handleActivities($newData, $existingData, $pageSlug, $sectionKey);
+            case 'banner_search_bar':
+                if (isset($newData['right_image'])) {
+                    $newData['right_image'] = $this->simpleUploadImg($newData['right_image'], "Pages/{$pageSlug}/{$sectionKey}");
+                } else {
+                    $newData['right_image'] = $existingData['right_image'] ?? null;
+                }
+
+                return $newData;
+            default:
+                return $newData;
+        }
+    }
+
+    private function handleActivities(array $newData, ?array $existingData, string $pageSlug, string $sectionKey)
+    {
+
+        $updatedActivities = [];
+        foreach ($newData['activities'] as $i => $section) {
+            $newSection = $section;
+
+            if (isset($section['image'])) {
+                $image = $section['image'];
+                $newSection['image'] = $this->simpleUploadImg($image, "Pages/{$pageSlug}/{$sectionKey}");
+            } else {
+                $newSection['image'] = $existingData['activities'][$i]['image'] ?? null;
+            }
+
+            $updatedActivities[] = $newSection;
+        }
+
+        $newData['activities'] = $updatedActivities;
+
+        return $newData;
     }
 }
