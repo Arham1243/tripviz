@@ -1,116 +1,40 @@
-<div class=tour-activity__cards2>
-    <div class=container>
-        <div class=tours-content>
-            <div class=section-content>
-                <div class=heading>Top Tours</div>
-            </div>
-            <div class=more-link>
-                <a href=#>More<i class="bx bx-right-arrow-alt"></i></a>
-            </div>
+@php
+    $sectionContent = $pageSection ? json_decode($pageSection->content) : null;
+    $tourIds = $sectionContent ? $sectionContent->tour_ids : [];
+@endphp
+<div class="row">
+    <div class="col-lg-12 mb-3">
+        <div class="form-fields">
+            <label class="title">Section Heading <span class="text-danger">*</span> :</label>
+            <input type="text" name="content[heading]" class="field" placeholder="" data-required data-error="Heading"
+                value="{{ $sectionContent->heading ?? '' }}">
         </div>
-        <div class="row pt-3">
-            <div class=col-md-4>
-                <div class=card-content>
-                    <a href=# class=card_img>
-                        <img data-src="{{ asset('assets/images/8c (1).webp') }}" alt=image class="imgFluid lazy"
-                            loading="lazy">
-                        <div class=price-details>
-                            <div class=heart-icon>
-                                <div class=service-wishlis>
-                                    <i class="bx bx-heart"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <div class=tour-activity-card__details>
-                        <div class=vertical-activity-card__header>
-                            <div><span> From $159
-                                </span></div>
-                            <div class="tour-activity-card__details--title">
-                                Karachi Sightseeing Private Tour: Explore the Captivating City of Lights
-                            </div>
-                        </div>
-                        <div class=tour-activity__RL>
-                            <div class=card-rating>
-                                <i class="bx bxs-star"></i>
-                                <span>5.0 1 Rating</span>
-                            </div>
-                            <div class=card-location>
-                                <i class="bx bx-location-plus"></i>
-                                Dubai
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class=col-md-4>
-                <div class=card-content>
-                    <a href=# class=card_img>
-                        <img data-src={{ asset('assets/images/1b.webp') }} alt=image class="imgFluid lazy"
-                            loading="lazy">
-                        <div class=price-details>
-                            <div class=heart-icon>
-                                <div class=service-wishlis>
-                                    <i class="bx bx-heart"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <div class=tour-activity-card__details>
-                        <div class=vertical-activity-card__header>
-                            <div><span> From $159
-                                </span></div>
-                            <div class="tour-activity-card__details--title">
-                                Karachi Sightseeing Private Tour: Explore the Captivating City of Lights
-                            </div>
-                        </div>
-                        <div class=tour-activity__RL>
-                            <div class=card-rating>
-                                <i class="bx bxs-star"></i>
-                                <span>5.0 1 Rating</span>
-                            </div>
-                            <div class=card-location>
-                                <i class="bx bx-location-plus"></i>
-                                Dubai
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class=col-md-4>
-                <div class=card-content>
-                    <a href=# class=card_img>
-                        <img data-src={{ asset('assets/images/8c.webp') }} alt=image class="imgFluid lazy"
-                            loading="lazy">
-                        <div class=price-details>
-                            <div class=heart-icon>
-                                <div class=service-wishlis>
-                                    <i class="bx bx-heart"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <div class=tour-activity-card__details>
-                        <div class=vertical-activity-card__header>
-                            <div><span> From $159
-                                </span></div>
-                            <div class="tour-activity-card__details--title">
-                                Karachi Sightseeing Private Tour: Explore the Captivating City of Lights
-                            </div>
-                        </div>
-                        <div class=tour-activity__RL>
-                            <div class=card-rating>
-                                <i class="bx bxs-star"></i>
-                                <span>5.0 1 Rating</span>
-                            </div>
-                            <div class=card-location>
-                                <i class="bx bx-location-plus"></i>
-                                Dubai
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    </div>
+    <div class="col-lg-6 mb-3">
+        <div class="form-fields">
+            <label class="title">View More Text <span class="text-danger">*</span> :</label>
+            <input type="text" value="{{ $sectionContent->see_more_text ?? '' }}" name="content[see_more_text]"
+                class="field" placeholder="" data-required data-error="View More Text">
+        </div>
+    </div>
+    <div class="col-lg-6 mb-3">
+        <div class="form-fields">
+            <label class="title">View More Link <span class="text-danger">*</span> :</label>
+            <input type="text" value="{{ $sectionContent->see_more_link ?? '' }}" name="content[see_more_link]"
+                class="field" placeholder="" data-required data-error="View More Link">
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="form-fields">
+            <label class="title">Select 3 Tours <span class="text-danger">*</span> :</label>
+            <select name="content[tour_ids][]" multiple class="field choice-select" data-max-items="3"
+                placeholder="Select Tours" data-required data-error="Tours">
+                @foreach ($tours as $item)
+                    <option value="{{ $item->id }}" {{ in_array($item->id, $tourIds) ? 'selected' : '' }}>
+                        {{ $item->title }}
+                    </option>
+                @endforeach
+            </select>
         </div>
     </div>
 </div>

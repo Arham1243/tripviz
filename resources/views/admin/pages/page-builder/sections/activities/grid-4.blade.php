@@ -1,175 +1,26 @@
-<div class="water-list-tour normal-card">
-    <div class=container>
-        <div class=section-content>
-            <h2 class=heading>
-                Top Water Activities in Dubai
-            </h2>
+@php
+    $sectionContent = $pageSection ? json_decode($pageSection->content) : null;
+    $tourIds = $sectionContent ? $sectionContent->tour_ids : [];
+@endphp
+<div class="row">
+    <div class="col-lg-12 mb-3">
+        <div class="form-fields">
+            <label class="title">Section Heading <span class="text-danger">*</span> :</label>
+            <input type="text" name="content[heading]" class="field" placeholder="" data-required data-error="Heading"
+                value="{{ $sectionContent->heading ?? '' }}">
         </div>
-        <div class="row pt-3">
-            <div class=col-md-3>
-                <div class="card-content normal-card__content">
-                    <a href=# class="card_img normal-card__img">
-                        <img data-src="{{ asset('assets/images/132 (3).webp') }}" alt=image class="imgFluid lazy"
-                            loading="lazy">
-                        <div class=price-details>
-                            <div class=heart-icon>
-                                <div class=service-wishlis>
-                                    <i class="bx bx-heart"></i>
-                                </div>
-                            </div>
-                            <div class=sale_info>
-                                38%
-                            </div>
-                        </div>
-                    </a>
-                    <div class="tour-activity-card__details normal-card__details">
-                        <div class=vertical-activity-card__header>
-                            <div class=normal-card__location>
-                                <i class="bx bxs-paper-plane"></i>Sharjah
-                            </div>
-                            <div class="tour-activity-card__details--title"> Sharjah Experience Jet Ski Thrill with
-                                aesthetic view - Morning Time</div>
-                        </div>
-                        <div class="tour-listing__info normal-card__info">
-                            <div class=duration>
-                                <i class="bx bx-stopwatch"></i>
-                                5H
-                            </div>
-                            <div class="baseline-pricing__value baseline-pricing__value--high">
-                                <p class=baseline-pricing__from>
-                                    <span class=baseline-pricing__from--value>130.00د.إ</span>
-                                </p>
-                                <div class="baseline-pricing__value baseline-pricing__value--low">
-                                    <p class=baseline-pricing__from>80.00د.إ</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class=col-md-3>
-                <div class="card-content normal-card__content">
-                    <a href=# class="card_img normal-card__img">
-                        <img data-src="{{ asset('assets/images/132 (3).webp') }}" alt=image class="imgFluid lazy"
-                            loading="lazy">
-                        <div class=price-details>
-                            <div class=heart-icon>
-                                <div class=service-wishlis>
-                                    <i class="bx bx-heart"></i>
-                                </div>
-                            </div>
-                            <div class=sale_info>
-                                38%
-                            </div>
-                        </div>
-                    </a>
-                    <div class="tour-activity-card__details normal-card__details">
-                        <div class=vertical-activity-card__header>
-                            <div class=normal-card__location>
-                                <i class="bx bxs-paper-plane"></i>Sharjah
-                            </div>
-                            <div class="tour-activity-card__details--title"> Sharjah Experience Jet Ski Thrill with
-                                aesthetic view - Morning Time</div>
-                        </div>
-                        <div class="tour-listing__info normal-card__info">
-                            <div class=duration>
-                                <i class="bx bx-stopwatch"></i>
-                                5H
-                            </div>
-                            <div class="baseline-pricing__value baseline-pricing__value--high">
-                                <p class=baseline-pricing__from>
-                                    <span class=baseline-pricing__from--value>130.00د.إ</span>
-                                </p>
-                                <div class="baseline-pricing__value baseline-pricing__value--low">
-                                    <p class=baseline-pricing__from>80.00د.إ</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class=col-md-3>
-                <div class="card-content normal-card__content">
-                    <a href=# class="card_img normal-card__img">
-                        <img data-src="{{ asset('assets/images/132 (3).webp') }}" alt=image class="imgFluid lazy"
-                            loading="lazy">
-                        <div class=price-details>
-                            <div class=heart-icon>
-                                <div class=service-wishlis>
-                                    <i class="bx bx-heart"></i>
-                                </div>
-                            </div>
-                            <div class=sale_info>
-                                38%
-                            </div>
-                        </div>
-                    </a>
-                    <div class="tour-activity-card__details normal-card__details">
-                        <div class=vertical-activity-card__header>
-                            <div class=normal-card__location>
-                                <i class="bx bxs-paper-plane"></i>Sharjah
-                            </div>
-                            <div class="tour-activity-card__details--title"> Sharjah Experience Jet Ski Thrill with
-                                aesthetic view - Morning Time</div>
-                        </div>
-                        <div class="tour-listing__info normal-card__info">
-                            <div class=duration>
-                                <i class="bx bx-stopwatch"></i>
-                                5H
-                            </div>
-                            <div class="baseline-pricing__value baseline-pricing__value--high">
-                                <p class=baseline-pricing__from>
-                                    <span class=baseline-pricing__from--value>130.00د.إ</span>
-                                </p>
-                                <div class="baseline-pricing__value baseline-pricing__value--low">
-                                    <p class=baseline-pricing__from>80.00د.إ</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class=col-md-3>
-                <div class="card-content normal-card__content">
-                    <a href=# class="card_img normal-card__img">
-                        <img data-src="{{ asset('assets/images/132 (3).webp') }}" alt=image class="imgFluid lazy"
-                            loading="lazy">
-                        <div class=price-details>
-                            <div class=heart-icon>
-                                <div class=service-wishlis>
-                                    <i class="bx bx-heart"></i>
-                                </div>
-                            </div>
-                            <div class=sale_info>
-                                38%
-                            </div>
-                        </div>
-                    </a>
-                    <div class="tour-activity-card__details normal-card__details">
-                        <div class=vertical-activity-card__header>
-                            <div class=normal-card__location>
-                                <i class="bx bxs-paper-plane"></i>Sharjah
-                            </div>
-                            <div class="tour-activity-card__details--title"> Sharjah Experience Jet Ski Thrill with
-                                aesthetic view - Morning Time</div>
-                        </div>
-                        <div class="tour-listing__info normal-card__info">
-                            <div class=duration>
-                                <i class="bx bx-stopwatch"></i>
-                                5H
-                            </div>
-                            <div class="baseline-pricing__value baseline-pricing__value--high">
-                                <p class=baseline-pricing__from>
-                                    <span class=baseline-pricing__from--value>130.00د.إ</span>
-                                </p>
-                                <div class="baseline-pricing__value baseline-pricing__value--low">
-                                    <p class=baseline-pricing__from>80.00د.إ</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="form-fields">
+            <label class="title">Select 4 Activities <span class="text-danger">*</span> :</label>
+            <select name="content[tour_ids][]" data-max-items="4" multiple class="field choice-select"
+                placeholder="Select Tours" data-required data-error="Tours">
+                @foreach ($tours as $item)
+                    <option value="{{ $item->id }}" {{ in_array($item->id, $tourIds) ? 'selected' : '' }}>
+                        {{ $item->title }}
+                    </option>
+                @endforeach
+            </select>
         </div>
     </div>
 </div>

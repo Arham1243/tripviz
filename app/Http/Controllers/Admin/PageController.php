@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\Page;
 use App\Models\Section;
 use App\Models\Tour;
@@ -141,8 +142,12 @@ class PageController extends Controller
         $componentView = "admin.pages.page-builder.sections.{$templatePath}";
 
         if (view()->exists($componentView)) {
-            $tours = Tour::all();
-            $html = view($componentView, compact('tours', 'pageSection'));
+            $tours = Tour::where('status', 'publish')->latest()->orderBy('title')->get();
+            $cities = City::withCount('tours')
+                ->where('status', 'publish')
+                ->get();
+
+            $html = view($componentView, compact('tours', 'cities', 'pageSection'));
 
             return $html;
         }
@@ -160,7 +165,6 @@ class PageController extends Controller
             ->where('section_id', $request->input('section_id'))
             ->first();
 
-        // Ensure existingContent is an array, even if the section doesn't exist
         $existingContent = $existingSection ? json_decode($existingSection->content, true) : [];
 
         $sectionData = $request->all()['content'];

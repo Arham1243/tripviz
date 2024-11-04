@@ -1590,7 +1590,7 @@ span.GroupTourCard_subtitle {
   bottom: 0;
   z-index: 2;
   padding: 15px;
-  color: #fff;
+  color: #fff !important;
 }
 
 .popular-related-destinations__content:before {

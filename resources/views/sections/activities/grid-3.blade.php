@@ -1,10 +1,13 @@
 @if (!$content)
     <div class="more-offers my-5">
         <div class=container>
-            <div class=section-content>
+            <div class="section-content d-flex align-items-center justify-content-between">
                 <h2 class=heading>
                     Top Water Activities in Dubai
                 </h2>
+                <div class=more-link>
+                    <a href=#>More<i class="bx bx-right-arrow-alt"></i></a>
+                </div>
             </div>
             <div class="row pt-3">
                 <div class=col-lg-6>
@@ -54,10 +57,14 @@
 @else
     <div class="more-offers my-5">
         <div class=container>
-            <div class=section-content>
+            <div class="section-content d-flex align-items-center justify-content-between">
                 <h2 class=heading>
                     {{ $content->heading }}
                 </h2>
+                <div class=more-link>
+                    <a href="{{ $content->see_more_link }}" target="_blank"> {{ $content->see_more_text }}<i
+                            class="bx bx-right-arrow-alt"></i></a>
+                </div>
             </div>
             <div class="row pt-3">
                 @foreach ($content->activities as $activity)

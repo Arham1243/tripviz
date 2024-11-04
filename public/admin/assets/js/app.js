@@ -151,13 +151,15 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Choices Select
-document.addEventListener("DOMContentLoaded", function () {
+const initializeChoiceSelects = () => {
     const choiceSelects = document.querySelectorAll(".choice-select");
     choiceSelects.forEach((select) => {
         const maxItems = select.hasAttribute("data-max-items")
             ? parseInt(select.getAttribute("data-max-items"))
             : -1;
-
+        const shouldSort = select.hasAttribute("should-sort")
+            ? select.getAttribute("should-sort") === "true" 
+            : true;
         new Choices(select, {
             searchEnabled: true,
             itemSelectText: "",
@@ -167,9 +169,13 @@ document.addEventListener("DOMContentLoaded", function () {
             delimiter: ", ",
             maxItemCount: maxItems,
             removeItemButton: true,
+            shouldSort: shouldSort,
             duplicateItemsAllowed: false,
         });
     });
+};
+document.addEventListener("DOMContentLoaded", function () {
+    initializeChoiceSelects();
 });
 
 // Multple File Upload
@@ -550,9 +556,20 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 const observer = new MutationObserver(() => {
-    document.querySelectorAll("[data-upload]").forEach(initializeUploadComponent);
+    document
+        .querySelectorAll("[data-upload]")
+        .forEach(initializeUploadComponent);
+    document
+        .querySelectorAll(".choice-select")
+        .forEach(initializeChoiceSelects);
 });
-observer.observe(document.getElementById('renderFields'), { childList: true, subtree: true });
+const renderFields = document.getElementById("renderFields");
+if (renderFields) {
+    observer.observe(document.getElementById("renderFields"), {
+        childList: true,
+        subtree: true,
+    });
+}
 
 $(document).ready(function () {
     $("[data-flag-input-wrapper]").each(function () {
@@ -592,9 +609,10 @@ $(document).ready(function () {
 });
 
 // Custom Accordian
-document.querySelectorAll('[custom-accordion]')?.forEach(accordion => {
-    accordion.querySelector('[custom-accordion-header]')?.addEventListener('click', () => {
-        accordion.classList.toggle('open')
-    })
-})
-
+document.querySelectorAll("[custom-accordion]")?.forEach((accordion) => {
+    accordion
+        .querySelector("[custom-accordion-header]")
+        ?.addEventListener("click", () => {
+            accordion.classList.toggle("open");
+        });
+});

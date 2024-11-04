@@ -2,11 +2,30 @@
     $sectionContent = $pageSection ? json_decode($pageSection->content) : null;
 
 @endphp
-<div class="form-fields">
-    <label class="title">Section Heading <span class="text-danger">*</span> :</label>
-    <input type="text" name="content[heading]" class="field" placeholder="" data-required data-error="Heading"
-        value="{{ $sectionContent->heading ?? '' }}">
+<div class="row mb-4">
+    <div class="col-lg-12 mb-3">
+        <div class="form-fields">
+            <label class="title">Section Heading <span class="text-danger">*</span> :</label>
+            <input type="text" name="content[heading]" class="field" placeholder="" data-required data-error="Heading"
+                value="{{ $sectionContent->heading ?? '' }}">
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-fields">
+            <label class="title">See more Text <span class="text-danger">*</span> :</label>
+            <input type="text" name="content[see_more_text]" class="field" placeholder="" data-required
+                data-error="See More Text" value="{{ $sectionContent->see_more_text ?? '' }}">
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-fields">
+            <label class="title">See more Link <span class="text-danger">*</span> :</label>
+            <input type="text" name="content[see_more_link]" class="field" placeholder="" data-required
+                data-error="See More Link" value="{{ $sectionContent->see_more_link ?? '' }}">
+        </div>
+    </div>
 </div>
+
 <div class="form-fields">
     <div class="repeater-table">
         <table class="table table-bordered">

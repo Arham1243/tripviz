@@ -1,90 +1,35 @@
-<div class=destinations>
-    <div class=container>
-        <div class="row justify-content-between">
-            <div class=col-md-4>
-                <div class=destinations-content>
-                    <div class=dst1>TOP DESTINATIONS</div>
-                    <div class=dst2>
-                        Meet With Carefully Selected Destinations!
-                        <div class=darrow>
-                            <img data-src={{ asset('assets/images/darrow.webp') }} alt=image class="imgFluid lazy"
-                                width=100 height=20.36>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class=col-md-8>
-                <div class="row destinations-slider">
-                    <div class=col-md>
-                        <div class=dst-card>
-                            <div class=destinations-img>
-                                <img data-src={{ asset('assets/images/dubai-600.webp') }} alt=image
-                                    class="imgFluid lazy">
-                            </div>
-                            <div class=dst-location>
-                                dubai
-                            </div>
-                            <div class=dst-num>3</div>
-                        </div>
-                    </div>
-                    <div class=col-md>
-                        <div class=dst-card>
-                            <div class=destinations-img>
-                                <img data-src={{ asset('assets/images/belek1.webp') }} alt=image class="imgFluid lazy">
-                            </div>
-                            <div class=dst-location>
-                                belek
-                            </div>
-                            <div class=dst-num>3</div>
-                        </div>
-                    </div>
-                    <div class=col-md>
-                        <div class=dst-card>
-                            <div class=destinations-img>
-                                <img data-src={{ asset('assets/images/antalya-600.webp') }} alt=image
-                                    class="imgFluid lazy">
-                            </div>
-                            <div class=dst-location>
-                                antalya
-                            </div>
-                            <div class=dst-num>3</div>
-                        </div>
-                    </div>
-                    <div class=col-md>
-                        <div class=dst-card>
-                            <div class=destinations-img>
-                                <img data-src={{ asset('assets/images/alanya2.webp') }} alt=image class="imgFluid lazy">
-                            </div>
-                            <div class=dst-location>
-                                alanya
-                            </div>
-                            <div class=dst-num>3</div>
-                        </div>
-                    </div>
-                    <div class=col-md>
-                        <div class=dst-card>
-                            <div class=destinations-img>
-                                <img data-src={{ asset('assets/images/side.webp') }} alt=image class="imgFluid lazy">
-                            </div>
-                            <div class=dst-location>
-                                manavgat
-                            </div>
-                            <div class=dst-num>3</div>
-                        </div>
-                    </div>
-                    <div class=col-md>
-                        <div class=dst-card>
-                            <div class=destinations-img>
-                                <img data-src={{ asset('assets/images/side.webp') }} alt=image class="imgFluid lazy">
-                            </div>
-                            <div class=dst-location>
-                                manavgat
-                            </div>
-                            <div class=dst-num>3</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+@php
+    $sectionContent = $pageSection ? json_decode($pageSection->content) : null;
+    $cityIds = $sectionContent ? $sectionContent->city_ids : [];
+@endphp
+<div class="row">
+    <div class="col-lg-6 mb-4">
+        <div class="form-fields">
+            <label class="title">Sub Heading <span class="text-danger">*</span> :</label>
+            <input type="text" name="content[subHeading]" class="field" placeholder="" data-required
+                data-error="sub Heading" value="{{ $sectionContent->subHeading ?? '' }}">
+        </div>
+    </div>
+    <div class="col-lg-6 mb-4">
+        <div class="form-fields">
+            <label class="title">Heading <span class="text-danger">*</span> :</label>
+            <input type="text" name="content[heading]" class="field" placeholder="" data-required
+                data-error="Heading" value="{{ $sectionContent->heading ?? '' }}">
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="form-fields">
+            <label class="title">Select Cities <span class="text-danger">*</span> :</label>
+            <select name="content[city_ids][]" should-sort="false" multiple class="field choice-select"
+                placeholder="Select Cities" data-required data-error="Cities">
+                @foreach ($cities->sortByDesc('tours_count') as $item)
+                    <option value="{{ $item->id }}" {{ in_array($item->id, $cityIds) ? 'selected' : '' }}>
+                        {{ $item->name }}
+                        ({{ $item->tours_count > 0 ? $item->tours_count . ' ' . ($item->tours_count === 1 ? 'tour' : 'tours') . ' available' : 'No tours available' }})
+                    </option>
+                @endforeach
+            </select>
+
         </div>
     </div>
 </div>
