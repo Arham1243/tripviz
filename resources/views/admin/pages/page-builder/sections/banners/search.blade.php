@@ -11,7 +11,7 @@
 
 <div class="form-fields">
     <label class="title">Section Heading <span class="text-danger">*</span> :</label>
-    <input type="text" name="content[heading]" class="field" value="{{ $sectionContent->heading }}" placeholder=""
+    <input type="text" name="content[heading]" class="field" value="{{ $sectionContent->heading ?? '' }}" placeholder=""
         data-required data-error="Heading">
 </div>
 <div class="form-fields">
@@ -37,9 +37,9 @@
                                 alt="Uploaded Image" class="imgFluid"
                                 data-placeholder="{{ asset('admin/assets/images/loading.webp') }}"
                                 data-upload-preview="">
-                            <input type="text" name="content[alt_text]" class="field" placeholder="Enter alt text"
-                                value="{{ $sectionContent->altText ?? 'Banner Right Image' }}">
                         </a>
+                        <input type="text" name="content[alt_text]" class="field" placeholder="Enter alt text"
+                            value="{{ $sectionContent->alt_text ?? 'Banner Right Image' }}">
                     </div>
                 </div>
                 <div data-error-message class="text-danger mt-2 d-none text-center">Please upload a valid image file

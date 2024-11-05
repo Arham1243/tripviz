@@ -76,7 +76,8 @@
                                 @endif
                                 <h2 class=more-offers-title>{{ $activity->title }}</h2>
                                 <p class=more-offers-sub-title>{{ $activity->content }}</p>
-                                <div class=more-offers__img style="background:url('{{ asset($activity->image) }}')">
+                                <div class=more-offers__img
+                                    style="background:url('{{ asset($activity->image ?? 'admin/assets/images/placeholder.png') }}')">
                                 </div>
                             </div>
                         </div>

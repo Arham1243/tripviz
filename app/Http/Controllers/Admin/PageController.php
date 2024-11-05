@@ -194,6 +194,14 @@ class PageController extends Controller
                 }
 
                 return $newData;
+            case 'call_to_action_standard':
+                if (isset($newData['background_image'])) {
+                    $newData['background_image'] = $this->simpleUploadImg($newData['background_image'], "Pages/{$pageSlug}/{$sectionKey}");
+                } else {
+                    $newData['background_image'] = $existingData['background_image'] ?? null;
+                }
+
+                return $newData;
             default:
                 return $newData;
         }

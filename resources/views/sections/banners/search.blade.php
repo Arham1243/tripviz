@@ -53,8 +53,9 @@
                 </div>
                 <div class="col-md-6">
                     <div class="banner-img">
-                        <img data-src="{{ asset($content->right_image) }}" alt="image" class="imgFluid lazy"
-                            width="345.89" height="186">
+                        <img data-src="{{ asset($content->right_image ?? 'admin/assets/images/placeholder.png') }}"
+                            alt="{{ $content->alt_text ?? 'image' }}" class="imgFluid lazy" width="345.89"
+                            height="186">
                     </div>
                 </div>
                 <form action="" class="banner-form">
