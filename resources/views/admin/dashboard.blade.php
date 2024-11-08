@@ -1,7 +1,7 @@
-@extends('admin.dash_layouts.main')
-@section('content')
+<x-admin.layout :title="$title">
     <div class="col-md-9">
         <div class="dashboard-content">
+            restructuring branch
             <div class="revenue">
                 <div class="row">
                     <div class="col-md-4">
@@ -637,8 +637,8 @@
                             <div class="chip-content__title  line-hide-1">Bali, Indonesia</div>
                             <div class="progress-wrapper">
                                 <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="55" style="width: 55%"
-                                        aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="55"
+                                        style="width: 55%" aria-valuemin="0" aria-valuemax="100">
                                     </div>
                                 </div>
                                 <div class="progress-value">55%</div>
@@ -653,8 +653,8 @@
                             <div class="chip-content__title  line-hide-1">Bali, Indonesia</div>
                             <div class="progress-wrapper">
                                 <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="35" style="width: 35%"
-                                        aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="35"
+                                        style="width: 35%" aria-valuemin="0" aria-valuemax="100">
                                     </div>
                                 </div>
                                 <div class="progress-value">35%</div>
@@ -669,8 +669,8 @@
                             <div class="chip-content__title  line-hide-1">Bali, Indonesia</div>
                             <div class="progress-wrapper">
                                 <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="29" style="width: 29%"
-                                        aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="29"
+                                        style="width: 29%" aria-valuemin="0" aria-valuemax="100">
                                     </div>
                                 </div>
                                 <div class="progress-value">29%</div>
@@ -684,8 +684,12 @@
 
 
     </div>
-@endsection
 
-@section('js')
-    <script type="text/javascript"></script>
-@endsection
+    <x-slot name="css">
+        <style>
+        </style>
+    </x-slot>
+
+    <x-slot name="js">
+    </x-slot>
+</x-admin.layout>
