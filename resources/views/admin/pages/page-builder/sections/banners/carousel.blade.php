@@ -1,4 +1,4 @@
-@php
+{{-- @php
     $sectionContent = $pageSection
         ? json_decode($pageSection->content)
         : (object) [
@@ -47,4 +47,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}

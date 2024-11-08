@@ -50,27 +50,17 @@
                                         @enderror
                                     </div>
                                     <div class="form-fields">
+                                        @php
+                                            $sectionCategories = config('sectionCategories');
+                                        @endphp
                                         <label class="title">Category <span class="text-danger">*</span> :</label>
                                         <select class="field" name="category" data-required data-error="Name">
                                             <option value="">Select</option>
-                                            <option value="Banner Sections"
-                                                {{ old('category') == 'Banner Sections' ? 'selected' : '' }}>Banner Sections
-                                            </option>
-                                            <option value="Location Sections"
-                                                {{ old('category') == 'Location Sections' ? 'selected' : '' }}>Location
-                                                Sections</option>
-                                            <option value="Tour Sections"
-                                                {{ old('category') == 'Tour Sections' ? 'selected' : '' }}>Tour Sections
-                                            </option>
-                                            <option value="Activities Sections"
-                                                {{ old('category') == 'Activities Sections' ? 'selected' : '' }}>Activities
-                                                Sections</option>
-                                            <option value="Call-to-Action"
-                                                {{ old('category') == 'Call-to-Action' ? 'selected' : '' }}>Call-to-Action
-                                            </option>
-                                            <option value="Other Content"
-                                                {{ old('category') == 'Other Content' ? 'selected' : '' }}>Other Content
-                                            </option>
+                                            @foreach ($sectionCategories as $index => $value)
+                                                <option value="{{ $index }}"
+                                                    {{ old('category') == $index ? 'selected' : '' }}>{{ $value }}
+                                                </option>
+                                            @endforeach
                                         </select>
                                         @error('category')
                                             <div class="text-danger">{{ $message }}</div>

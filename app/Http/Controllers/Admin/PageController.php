@@ -92,7 +92,11 @@ class PageController extends Controller
     public function editTemplate(Page $page)
     {
         $tours = Tour::where('status', 'publish')->get();
-        $sectionsGroups = Section::where('status', 'active')->get()->groupBy('category');
+        $categoryOrder = config('sectionCategories');
+        $sectionsByGroup = Section::where('status', 'active')->get()->groupBy('category');
+        $sectionsGroups = collect($categoryOrder)->mapWithKeys(function ($category) use ($sectionsByGroup) {
+            return [$category => $sectionsByGroup->get($category, collect())];
+        });
         $selectedSections = $page->sections->map(function ($section) {
             return [
                 'id' => $section->id,
