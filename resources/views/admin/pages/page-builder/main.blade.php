@@ -167,6 +167,9 @@
 
 @push('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr@1.8.2/dist/pickr.min.js"></script>
+
     <script type="text/javascript">
         document.addEventListener('alpine:init', () => {
             const sortableTableBody = document.querySelector("[data-sortable-body]");
