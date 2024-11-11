@@ -115,22 +115,59 @@ i.bx {
     width: 100%;
 }
 
+/* .primary-btn */
 .primary-btn {
     width: fit-content;
+    display: block;
     color: #fff;
-    font-size: 0.95rem;
+    background: var(--color-primary);
+    font-size: 0.85rem;
+    outline: none;
+    border-radius: 0.4rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 0.85rem 1.75rem;
+    border: none;
+    position: relative;
+    z-index: 1;
+    text-transform: capitalize;
+    transition: all 300ms;
+    cursor: pointer;
+}
+
+.primary-btn i {
+    font-size: 1.15rem;
+}
+
+.primary-btn:has(i) {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--color-primary);
-    border-radius: 0.35rem;
-    padding: 0.75rem 2rem;
-    gap: 10px;
+    gap: 0.15rem;
 }
 
-/* .themeBtn:hover {
-  color: #000;
-} */
+.primary-btn--outline {
+    border: 2px solid #000;
+}
+
+.primary-btn--outline-light {
+    color: #fff;
+    background-color: transparent;
+    border: 2px solid #fff;
+}
+
+.primary-btn--center {
+    margin: 1rem auto;
+}
+
+.primary-btn--full {
+    width: 100%;
+}
+
+.primary-btn:hover {
+    background-color: var(--color-primary-dark);
+    color: #fff;
+}
 
 .themeBtn-white {
     background-color: #fff;
@@ -526,7 +563,7 @@ a#loginBtn {
     color: #ffff !important;
 }
 .banner--overlay .banner-rating__platform {
-    filter: brightness(100);
+    filter: brightness(0) invert(1);
 }
 /* banner */
 
@@ -5592,3 +5629,4 @@ a.country-card__details {
     color: #fff;
     background-color: var(--color-primary);
 }
+    
