@@ -186,6 +186,26 @@
             }
         });
 
+        function repeater(maxItems) {
+            return {
+                items: [{
+                    subTitle: ''
+                }],
+                maxItems: maxItems,
+                addItem() {
+                    if (this.items.length < this.maxItems) {
+                        this.items.push({
+                            subTitle: ''
+                        });
+                    }
+                },
+                remove(index) {
+                    if (index !== 0) {
+                        this.items.splice(index, 1);
+                    }
+                }
+            };
+        }
 
         function templateManager() {
             return {
