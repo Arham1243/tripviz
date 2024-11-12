@@ -150,7 +150,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="themeBtn bg-danger" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="themeBtn">Save changes</button>
+                            <a href="javascript:void(0)" class="themeBtn">Save changes</a>
                         </div>
                     </form>
                 </div>

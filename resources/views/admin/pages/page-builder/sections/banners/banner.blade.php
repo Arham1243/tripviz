@@ -216,6 +216,9 @@
                                                     data-placeholder="{{ asset('admin/assets/images/loading.webp') }}"
                                                     data-upload-preview="">
                                             </a>
+                                            <input type="text" name="content[custom_review_logo_alt_text]"
+                                                class="field" placeholder="Enter alt text"
+                                                value="{{ $sectionContent->alt_text ?? 'Review Logo' }}">
                                         </div>
                                     </div>
                                     <div data-error-message="" class="text-danger mt-2 d-none text-center">
@@ -345,52 +348,27 @@
                                             placeholder="" data-required data-error="Destination Sub Title">
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
-                                    <label class="title title--sm mb-2">Background Style:</label>
-                                    <div x-data="{ destination_background_type: 'layout_normal_background_color' }">
-                                        <div class="d-flex align-items-center gap-5 px-4 mb-1">
-                                            <div class="form-check p-0">
-                                                <input class="form-check-input" type="radio"
-                                                    name="content[destination_background_type]"
-                                                    id="destination_layout_normal_background_color"
-                                                    x-model="destination_background_type"
-                                                    name="content[destination_background_type]"
-                                                    value="layout_normal_background_color" />
-                                                <label class="form-check-label"
-                                                    for="destination_layout_normal_background_color">Background
-                                                    Color</label>
-                                            </div>
+                                <div class="col-md-12 mb-4">
+                                    <div class="form-fields">
+                                        <div class="title d-flex align-items-center gap-2">
+                                            <div>Select Background Color <span class="text-danger">*</span>:</div>
+                                            <a class="p-0 nav-link" href="//html-color-codes.info"
+                                                target="_blank">Get
+                                                Color
+                                                Codes</a>
                                         </div>
-                                        <div class="py-3"
-                                            x-show="destination_background_type === 'layout_normal_background_color'">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-fields">
-                                                        <div class="title d-flex align-items-center gap-2">
-                                                            <div>Select Background Color <span
-                                                                    class="text-danger">*</span>:</div>
-                                                            <a class="p-0 nav-link" href="//html-color-codes.info"
-                                                                target="_blank">Get
-                                                                Color
-                                                                Codes</a>
-                                                        </div>
 
-                                                        <div class="field color-picker" data-color-picker-container>
-                                                            <label for="color-picker" data-color-picker></label>
-                                                            <input id="color-picker" type="text"
-                                                                name="content[background_color]"
-                                                                data-color-picker-input
-                                                                value="{{ $sectionContent->background_color ?? '#C4D6E7' }}"
-                                                                placeholder="#ffffff" data-required
-                                                                data-error="background Color" inputmode="text">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="field color-picker" data-color-picker-container>
+                                            <label for="color-picker" data-color-picker></label>
+                                            <input id="color-picker" type="text" name="content[background_color]"
+                                                data-color-picker-input
+                                                value="{{ $sectionContent->background_color ?? '#C4D6E7' }}"
+                                                placeholder="#ffffff" data-required data-error="background Color"
+                                                inputmode="text">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12">
                                     <label class="title title--sm mb-2">Items Style:</label>
                                     <div x-data="{ destination_style_type: 'normal' }">
                                         <div class="d-flex align-items-center gap-5 px-4">
@@ -411,7 +389,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="py-3" x-show="destination_style_type === 'normal'">
+                                        <div class="py-3 mt-2" x-show="destination_style_type === 'normal'">
                                             <div class="form-fields">
                                                 <label class="title title--sm mb-2">Content Type:</label>
                                                 <div x-data="{ destination_content_type: 'city' }">
@@ -515,7 +493,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="py-3" x-show="destination_style_type === 'carousel'">
+                                        <div class="py-3 mt-2" x-show="destination_style_type === 'carousel'">
                                             <label class="title title--sm mb-2">Content Type:</label>
                                             <div x-data="{ destination_content_type_carousel: 'city' }">
                                                 <div class="d-flex align-items-center gap-5 px-4 mb-1">
