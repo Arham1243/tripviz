@@ -88,7 +88,35 @@
     <div class="col-12">
         <hr>
     </div>
-    <div class="col-lg-12 pt-4 pb-3">
+    <div class="col-lg-12 pt-3 pb-2">
+        <div class="form-fields">
+            <div class="d-flex align-items-center gap-3 mb-3">
+                <label class="title title--sm mb-0">Form Search Service:</label>
+                <div class="form-check form-switch" data-enabled-text="Enabled" data-disabled-text="Disabled">
+                    <input class="form-check-input" data-toggle-switch="" checked="" type="checkbox"
+                        id="enable-section-form" value="1" name="content[is_form_enabled]">
+                    <label class="form-check-label" for="enable-section-form">Enabled</label>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-5 px-4 mb-1">
+                <div class="form-check p-0">
+                    <input class="form-check-input" type="radio" name="content[form_type]" id="normal-form"
+                        name="content[form_type]" value="normal" checked />
+                    <label class="form-check-label" for="normal-form">Normal Search bar</label>
+                </div>
+                <div class="form-check p-0">
+                    <input class="form-check-input" type="radio" name="content[form_type]" id="date_selection"
+                        name="content[form_type]" value="date_selection" />
+                    <label class="form-check-label" for="date_selection">Search Bar with Tour Date Selection</label>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-12">
+        <hr>
+    </div>
+    <div class="col-lg-12 pt-3 pb-2">
         <div class="form-fields">
             <div class="d-flex align-items-center gap-3 mb-3">
                 <label class="title title--sm mb-0">Review:</label>
@@ -207,7 +235,7 @@
     <div class="col-12">
         <hr>
     </div>
-    <div class="col-lg-12 pt-4 pb-3">
+    <div class="col-lg-12 pt-3 pb-2">
         <div class="form-fields">
             <label class="title title--sm mb-3">Background Style:</label>
             <div x-data="{ background_type: 'normal_v1_right_side_image' }">
@@ -242,7 +270,7 @@
                 </div>
                 <div class="py-3" x-show="background_type === 'normal_v1_right_side_image'">
                     <div class="row">
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-4 mb-3 pb-2">
                             <div class="form-fields">
                                 <label class="title">Right Side Image <span class="text-danger">*</span>
                                     :</label>
@@ -282,13 +310,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 mb-3">
+                        <div class="col-12">
+                            <hr>
+                        </div>
+                        <div class="col-md-12 mb-3 my-3">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-fields">
                                         <div class="d-flex align-items-center gap-3 mb-3">
-                                            <label class="title title--sm mb-0">Destinations / Tour Location
-                                                (Setting):</label>
+                                            <label class="title title--sm mb-0">Destinations / Tour Location:</label>
                                             <div class="form-check form-switch" data-enabled-text="Enabled"
                                                 data-disabled-text="Disabled">
                                                 <input class="form-check-input" data-toggle-switch="" checked=""
@@ -363,13 +393,14 @@
                                 <div class="col-md-12 mb-3">
                                     <label class="title title--sm mb-2">Items Style:</label>
                                     <div x-data="{ destination_style_type: 'normal' }">
-                                        <div class="d-flex align-items-center gap-5 px-4 mb-2">
+                                        <div class="d-flex align-items-center gap-5 px-4">
                                             <div class="form-check p-0">
                                                 <input class="form-check-input" type="radio"
                                                     name="content[destination_style_type]" id="normal"
                                                     x-model="destination_style_type"
                                                     name="content[destination_style_type]" value="normal" checked />
-                                                <label class="form-check-label" for="normal">Normal</label>
+                                                <label class="form-check-label" for="normal">Normal (up to
+                                                    5)</label>
                                             </div>
                                             <div class="form-check p-0">
                                                 <input class="form-check-input" type="radio"
@@ -381,97 +412,103 @@
                                             </div>
                                         </div>
                                         <div class="py-3" x-show="destination_style_type === 'normal'">
-                                            <label class="title title--sm mb-2">Content Type:</label>
-                                            <div x-data="{ destination_content_type: 'city' }">
-                                                <div class="d-flex align-items-center gap-5 px-4 mb-1">
-                                                    <div class="form-check p-0">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="content[destination_content_type]"
-                                                            id="destination_content_type_2"
-                                                            x-model="destination_content_type"
-                                                            name="content[destination_content_type]" value="city" />
-                                                        <label class="form-check-label"
-                                                            for="destination_content_type_2">Cities</label>
+                                            <div class="form-fields">
+                                                <label class="title title--sm mb-2">Content Type:</label>
+                                                <div x-data="{ destination_content_type: 'city' }">
+                                                    <div class="d-flex align-items-center gap-5 px-4 mb-1">
+                                                        <div class="form-check p-0">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="content[destination_content_type]"
+                                                                id="destination_content_type_2"
+                                                                x-model="destination_content_type"
+                                                                name="content[destination_content_type]"
+                                                                value="city" />
+                                                            <label class="form-check-label"
+                                                                for="destination_content_type_2">Cities</label>
+                                                        </div>
+                                                        <div class="form-check p-0">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="content[destination_content_type]"
+                                                                id="destination_content_type_3"
+                                                                x-model="destination_content_type"
+                                                                name="content[destination_content_type]"
+                                                                value="country" />
+                                                            <label class="form-check-label"
+                                                                for="destination_content_type_3">Countries</label>
+                                                        </div>
+                                                        <div class="form-check p-0">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="content[destination_content_type]"
+                                                                id="destination_content_type_1"
+                                                                x-model="destination_content_type"
+                                                                name="content[destination_content_type]"
+                                                                value="tour" />
+                                                            <label class="form-check-label"
+                                                                for="destination_content_type_1">Tours</label>
+                                                        </div>
                                                     </div>
-                                                    <div class="form-check p-0">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="content[destination_content_type]"
-                                                            id="destination_content_type_3"
-                                                            x-model="destination_content_type"
-                                                            name="content[destination_content_type]"
-                                                            value="country" />
-                                                        <label class="form-check-label"
-                                                            for="destination_content_type_3">Countries</label>
-                                                    </div>
-                                                    <div class="form-check p-0">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="content[destination_content_type]"
-                                                            id="destination_content_type_1"
-                                                            x-model="destination_content_type"
-                                                            name="content[destination_content_type]" value="tour" />
-                                                        <label class="form-check-label"
-                                                            for="destination_content_type_1">Tours</label>
-                                                    </div>
-                                                </div>
-                                                <div class="py-3" x-show="destination_content_type === 'tour'">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="form-fields">
-                                                                <label class="title">Select 5 Tours <span
-                                                                        class="text-danger">*</span> :</label>
-                                                                <select name="content[destination_tour_ids][]" multiple
-                                                                    class="field choice-select" data-max-items="5"
-                                                                    placeholder="Select Tours" data-required
-                                                                    data-error="Tours">
-                                                                    @foreach ($tours as $item)
-                                                                        <option value="{{ $item->id }}">
-                                                                            {{ $item->title }}
-                                                                        </option>
-                                                                    @endforeach
-                                                                </select>
+                                                    <div class="py-3" x-show="destination_content_type === 'tour'">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-fields">
+                                                                    <label class="title">Select 5 Tours <span
+                                                                            class="text-danger">*</span> :</label>
+                                                                    <select name="content[destination_tour_ids][]"
+                                                                        multiple class="field choice-select"
+                                                                        data-max-items="5" placeholder="Select Tours"
+                                                                        data-required data-error="Tours">
+                                                                        @foreach ($tours as $item)
+                                                                            <option value="{{ $item->id }}">
+                                                                                {{ $item->title }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="py-3" x-show="destination_content_type === 'city'">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="form-fields">
-                                                                <label class="title">Select 5 Cities <span
-                                                                        class="text-danger">*</span> :</label>
-                                                                <select name="content[destination_city_ids][]" multiple
-                                                                    class="field choice-select" data-max-items="5"
-                                                                    placeholder="Select Cities" data-required
-                                                                    data-error="Cities">
-                                                                    @foreach ($cities->sortByDesc('tours_count') as $item)
-                                                                        <option data-choice
-                                                                            value="{{ $item->id }}">
-                                                                            {{ $item->name }}
-                                                                            ({{ $item->tours_count > 0 ? $item->tours_count . ' ' . ($item->tours_count === 1 ? 'tour' : 'tours') . ' available' : 'No tours available' }})
-                                                                        </option>
-                                                                    @endforeach
-                                                                </select>
+                                                    <div class="py-3" x-show="destination_content_type === 'city'">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-fields">
+                                                                    <label class="title">Select 5 Cities <span
+                                                                            class="text-danger">*</span> :</label>
+                                                                    <select name="content[destination_city_ids][]"
+                                                                        multiple class="field choice-select"
+                                                                        data-max-items="5" placeholder="Select Cities"
+                                                                        data-required data-error="Cities">
+                                                                        @foreach ($cities->sortByDesc('tours_count') as $item)
+                                                                            <option data-choice
+                                                                                value="{{ $item->id }}">
+                                                                                {{ $item->name }}
+                                                                                ({{ $item->tours_count > 0 ? $item->tours_count . ' ' . ($item->tours_count === 1 ? 'tour' : 'tours') . ' available' : 'No tours available' }})
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="py-3" x-show="destination_content_type === 'country'">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="form-fields">
-                                                                <label class="title">Select 5 Countries <span
-                                                                        class="text-danger">*</span> :</label>
-                                                                <select name="content[destination_country_ids][]"
-                                                                    multiple class="field choice-select"
-                                                                    data-max-items="5" placeholder="Select Countries"
-                                                                    data-required data-error="Countries">
-                                                                    @foreach ($countries as $item)
-                                                                        <option value="{{ $item->id }}">
-                                                                            {{ $item->name }}
-                                                                            ({{ $item->toursCount() > 0 ? $item->toursCount() . ' ' . ($item->toursCount() === 1 ? 'tour' : 'tours') . ' available' : 'No tours available' }})
-                                                                        </option>
-                                                                    @endforeach
-                                                                </select>
+                                                    <div class="py-3"
+                                                        x-show="destination_content_type === 'country'">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-fields">
+                                                                    <label class="title">Select 5 Countries <span
+                                                                            class="text-danger">*</span> :</label>
+                                                                    <select name="content[destination_country_ids][]"
+                                                                        multiple class="field choice-select"
+                                                                        data-max-items="5"
+                                                                        placeholder="Select Countries" data-required
+                                                                        data-error="Countries">
+                                                                        @foreach ($countries as $item)
+                                                                            <option value="{{ $item->id }}">
+                                                                                {{ $item->name }}
+                                                                                ({{ $item->toursCount() > 0 ? $item->toursCount() . ' ' . ($item->toursCount() === 1 ? 'tour' : 'tours') . ' available' : 'No tours available' }})
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
