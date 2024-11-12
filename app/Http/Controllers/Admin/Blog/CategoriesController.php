@@ -46,7 +46,7 @@ class CategoriesController extends Controller
 
         BlogCategory::create($data);
 
-        return redirect()->route('admin.blogs.categories.index')->with('notify_success', 'Category Added successfully.');
+        return redirect()->route('admin.blogs-categories.index')->with('notify_success', 'Category Added successfully.');
     }
 
     /**
@@ -90,7 +90,7 @@ class CategoriesController extends Controller
 
         handleSeoData($request, $category, 'Blog-Categories');
 
-        return redirect()->route('admin.blogs.categories.index')->with('notify_success', 'Category updated successfully.');
+        return redirect()->route('admin.blogs-categories.index')->with('notify_success', 'Category updated successfully.');
     }
 
     /**

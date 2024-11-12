@@ -19,9 +19,17 @@ class Country extends Model
 
     public function tours()
     {
-        return Tour::whereHas('cities', function ($query) {
-            $query->where('country_id', $this->id);
-        })->where('tours.status', 'publish');
+        return $this->hasManyThrough(Tour::class, City::class)
+            ->where('tours.status', 'publish');
+    }
+
+    public function toursCount()
+    {
+        $cities = $this->cities()
+            ->withCount('tours')
+            ->get();
+
+        return $cities->sum('tours_count');
     }
 
     public function seo()

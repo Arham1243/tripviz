@@ -146,19 +146,17 @@
                                     style="color: rgb(28, 77, 153); " x-show="isLoading">
                                 </i>
                             </div>
-                            <div id="renderFields" x-html="sectionContent"></div>
+                            <div id="renderFields"></div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="themeBtn bg-danger" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="themeBtn">Save changes</button>
+                            <a href="javascript:void(0)" class="themeBtn">Save changes</a>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-
 @endsection
 @section('css')
     <style type="text/css">
@@ -189,6 +187,26 @@
             }
         });
 
+        function repeater(maxItems) {
+            return {
+                items: [{
+                    subTitle: ''
+                }],
+                maxItems: maxItems,
+                addItem() {
+                    if (this.items.length < this.maxItems) {
+                        this.items.push({
+                            subTitle: ''
+                        });
+                    }
+                },
+                remove(index) {
+                    if (index !== 0) {
+                        this.items.splice(index, 1);
+                    }
+                }
+            };
+        }
 
         function templateManager() {
             return {
@@ -219,7 +237,10 @@
                             `{{ route('admin.pages.page-builder.section-template', $page->id) }}?template_path=${item.template_path}&section_id=${item.id}`
                         );
                         if (response.ok) {
-                            document.getElementById('renderFields').innerHTML = await response.text();
+                            const html = await response.text();
+                            if (html) {
+                                document.getElementById('renderFields').innerHTML = html;
+                            }
                         } else {
                             document.getElementById('renderFields').innerHTML = "<p>Template not found.</p>";
                         }
@@ -243,7 +264,7 @@
                 $('#section-id').val('');
                 $('#renderFields').html('');;
                 $('.section-preview-image').attr('href',
-                    `${$('#web_base_url').val()}/public/admin/assets/images/placeholder. png`);
+                    `${$('#web_base_url').val()}/public/admin/assets/images/placeholder.png`);
             });
         });
     </script>
