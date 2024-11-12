@@ -47,7 +47,7 @@ class TagsController extends Controller
 
         BlogTag::create($data);
 
-        return redirect()->route('admin.blogs.tags.index')->with('notify_success', 'Tag Added successfully.');
+        return redirect()->route('admin.blogs-tags.index')->with('notify_success', 'Tag Added successfully.');
     }
 
     /**
@@ -88,7 +88,7 @@ class TagsController extends Controller
 
         handleSeoData($request, $tag, 'Blog-Tags');
 
-        return redirect()->route('admin.blogs.tags.index')->with('notify_success', 'Tag updated successfully.');
+        return redirect()->route('admin.blogs-tags.index')->with('notify_success', 'Tag updated successfully.');
     }
 
     /**

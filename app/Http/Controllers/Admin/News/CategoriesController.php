@@ -49,7 +49,7 @@ class CategoriesController extends Controller
 
         NewsCategory::create($data);
 
-        return redirect()->route('admin.news.categories.index')->with('notify_success', 'Category Added successfully.');
+        return redirect()->route('admin.news-categories.index')->with('notify_success', 'Category Added successfully.');
     }
 
     /**
@@ -92,7 +92,7 @@ class CategoriesController extends Controller
 
         handleSeoData($request, $category, 'News-Categories');
 
-        return redirect()->route('admin.news.categories.index')->with('notify_success', 'Category updated successfully.');
+        return redirect()->route('admin.news-categories.index')->with('notify_success', 'Category updated successfully.');
     }
 
     /**

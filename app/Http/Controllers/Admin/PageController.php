@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\City;
+use App\Models\Country;
 use App\Models\Page;
 use App\Models\Section;
 use App\Models\Tour;
@@ -91,6 +92,9 @@ class PageController extends Controller
 
     public function editTemplate(Page $page)
     {
+        $cities = City::withCount('tours')
+            ->where('status', 'publish')
+            ->get();
         $tours = Tour::where('status', 'publish')->get();
         $categoryOrder = config('sectionCategories');
         $sectionsByGroup = Section::where('status', 'active')->get()->groupBy('category');
@@ -110,7 +114,7 @@ class PageController extends Controller
             ->values()
             ->toJson();
 
-        return view('admin.pages.page-builder.main', compact('tours', 'page', 'sectionsGroups', 'selectedSections'))->with('title', ucfirst(strtolower($page->title)));
+        return view('admin.pages.page-builder.main', compact('tours', 'cities', 'page', 'sectionsGroups', 'selectedSections'))->with('title', ucfirst(strtolower($page->title)));
     }
 
     public function storeTemplate(Request $request, $id)
@@ -150,8 +154,10 @@ class PageController extends Controller
             $cities = City::withCount('tours')
                 ->where('status', 'publish')
                 ->get();
+            $countries = Country::where('status', 'publish')
+                ->get();
 
-            $html = view($componentView, compact('tours', 'cities', 'pageSection'));
+            $html = view($componentView, compact('tours', 'cities', 'countries', 'pageSection'));
 
             return $html;
         }
