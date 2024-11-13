@@ -1089,7 +1089,12 @@ form .text-danger {
     flex-direction: column-reverse;
 }
 
-.form-fields .field, .choices__list--single, .choices__input, .select2-selection--single, .select2-selection--multiple, .select2-search--dropdown .select2-search__field {
+.form-fields .field,
+.choices__list--single,
+.choices__input,
+.select2-selection--single,
+.select2-selection--multiple,
+.select2-search--dropdown .select2-search__field {
     width: 100% !important;
     padding: 0.7rem 1rem;
     border-radius: 0.25rem;
@@ -2187,7 +2192,9 @@ body.modal-open {
 }
 
 /* select2 */
-.select2-selection--single, .select2-selection--multiple, .select2-search--dropdown .select2-search__field {
+.select2-selection--single,
+.select2-selection--multiple,
+.select2-search--dropdown .select2-search__field {
     height: auto !important;
     padding: 0.45rem 1rem !important;
     border: 1px solid #dee2e6 !important;
@@ -2235,7 +2242,7 @@ body.modal-open {
 }
 
 .select2-container--default .select2-results__option[aria-selected="true"] {
-    background: var(--color-primary-light);
+    background: #cccccc75;
     color: #000;
 }
 .select2-container--default
