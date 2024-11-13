@@ -103,6 +103,7 @@
                                         <select name="top_highlighted_tour_id" class="select2-select"
                                             {{ !$tours->isEmpty() ? 'data-required' : '' }}
                                             data-error="Right Side Top Highlighted Tour Card">
+                                            <option value="" selected disabled>Select</option>
                                             @foreach ($tours as $tour)
                                                 <option value="{{ $tour->id }}"
                                                     {{ old('top_highlighted_tour_id', $blog->top_highlighted_tour_id) == $tour->id ? 'selected' : '' }}>
@@ -179,6 +180,7 @@
                                     <div class="form-fields">
                                         <label class="title">Author <span class="text-danger">*</span> :</label>
                                         <select class="select2-select" name="user_id" data-required data-error="Author">
+                                            <option value="" selected disabled>Select</option>
                                             @foreach ($users as $users)
                                                 <option value="{{ $users->id }}"
                                                     {{ old('user_id', $blog->user_id) == $users->id ? 'selected' : '' }}>
@@ -201,6 +203,7 @@
                                         <label class="title">Categories <span class="text-danger">*</span> :</label>
                                         <select name="category_id" class="select2-select" data-required
                                             data-error="Category">
+                                            <option value="" selected disabled>Select</option>
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}"
                                                     {{ old('category_id', $blog->category_id ?? '') == $category->id ? 'selected' : '' }}>
