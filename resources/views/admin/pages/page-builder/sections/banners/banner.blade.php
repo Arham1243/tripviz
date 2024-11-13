@@ -544,7 +544,7 @@
                                                 <label class="title">Select 5 Tours <span
                                                         class="text-danger">*</span> :</label>
                                                 <select name="content[destination_tour_ids][]" multiple
-                                                    class="field choice-select" data-max-items="5"
+                                                    class="field select2-select" data-max-items="5"
                                                     placeholder="Select Tours" data-required data-error="Tours">
                                                     @foreach ($tours as $item)
                                                         <option value="{{ $item->id }}">
@@ -563,7 +563,7 @@
                                                 <label class="title">Select 5 Cities <span
                                                         class="text-danger">*</span> :</label>
                                                 <select name="content[destination_city_ids][]" multiple
-                                                    class="field choice-select" data-max-items="5"
+                                                    class="field select2-select" data-max-items="5"
                                                     placeholder="Select Cities" data-required data-error="Cities">
                                                     @foreach ($cities->sortByDesc('tours_count') as $item)
                                                         <option data-choice value="{{ $item->id }}">
@@ -583,7 +583,7 @@
                                                 <label class="title">Select 5 Countries <span
                                                         class="text-danger">*</span> :</label>
                                                 <select name="content[destination_country_ids][]" multiple
-                                                    class="field choice-select" data-max-items="5"
+                                                    class="field select2-select" data-max-items="5"
                                                     placeholder="Select Countries" data-required
                                                     data-error="Countries">
                                                     @foreach ($countries as $item)
@@ -640,7 +640,7 @@
                                                 <label class="title">Select Tours <span class="text-danger">*</span>
                                                     :</label>
                                                 <select name="content[destination_tour_ids][]" multiple
-                                                    class="field choice-select" placeholder="Select Tours"
+                                                    class="field select2-select" placeholder="Select Tours"
                                                     data-required data-error="Tours">
                                                     @foreach ($tours as $item)
                                                         <option value="{{ $item->id }}">
@@ -659,7 +659,7 @@
                                                 <label class="title">Select Cities <span class="text-danger">*</span>
                                                     :</label>
                                                 <select name="content[destination_city_ids][]" multiple
-                                                    class="field choice-select" placeholder="Select Cities"
+                                                    class="field select2-select" placeholder="Select Cities"
                                                     data-required data-error="Cities">
                                                     @foreach ($cities->sortByDesc('tours_count') as $item)
                                                         <option value="{{ $item->id }}">
@@ -679,7 +679,7 @@
                                                 <label class="title">Select Countries <span
                                                         class="text-danger">*</span> :</label>
                                                 <select name="content[destination_country_ids][]" multiple
-                                                    class="field choice-select" placeholder="Select Countries"
+                                                    class="field select2-select" placeholder="Select Countries"
                                                     data-required data-error="Countries">
                                                     @foreach ($countries as $item)
                                                         <option value="{{ $item->id }}">

@@ -100,10 +100,9 @@
                                             Right side top highlighted tour card
                                             <span class="text-danger">*</span> :
                                         </label>
-                                        <select name="top_highlighted_tour_id" class="choice-select"
+                                        <select name="top_highlighted_tour_id" class="select2-select"
                                             {{ !$tours->isEmpty() ? 'data-required' : '' }}
                                             data-error="Right Side Top Highlighted Tour Card">
-                                            <option value="" selected>Select Tour</option>
                                             @foreach ($tours as $tour)
                                                 <option value="{{ $tour->id }}"
                                                     {{ old('top_highlighted_tour_id', $blog->top_highlighted_tour_id) == $tour->id ? 'selected' : '' }}>
@@ -123,7 +122,7 @@
                                         @endphp
                                         <label class="title">Below Blog Slider Tour Card <span class="text-danger">*</span>
                                             :</label>
-                                        <select name="featured_tours_ids[]" multiple class="choice-select"
+                                        <select name="featured_tours_ids[]" multiple class="select2-select"
                                             data-max-items="4" placeholder="Select Tours"
                                             {{ !$tours->isEmpty() ? 'data-required' : '' }}
                                             data-error="Below Blog Slider Tour Card">
@@ -179,8 +178,7 @@
                                 <div class="form-box__body">
                                     <div class="form-fields">
                                         <label class="title">Author <span class="text-danger">*</span> :</label>
-                                        <select class="choice-select" name="user_id" data-required data-error="Author">
-                                            <option value="" selected>Select</option>
+                                        <select class="select2-select" name="user_id" data-required data-error="Author">
                                             @foreach ($users as $users)
                                                 <option value="{{ $users->id }}"
                                                     {{ old('user_id', $blog->user_id) == $users->id ? 'selected' : '' }}>
@@ -201,9 +199,8 @@
                                 <div class="form-box__body">
                                     <div class="form-fields">
                                         <label class="title">Categories <span class="text-danger">*</span> :</label>
-                                        <select name="category_id" class="choice-select" data-required
+                                        <select name="category_id" class="select2-select" data-required
                                             data-error="Category">
-                                            <option value="" selected>Select Category</option>
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}"
                                                     {{ old('category_id', $blog->category_id ?? '') == $category->id ? 'selected' : '' }}>
@@ -219,7 +216,7 @@
                                     <div class="form-fields">
                                         <label class="title">Tags <span class="text-danger">*</span> :</label>
 
-                                        <select name="tags_ids[]" class="choice-select" multiple
+                                        <select name="tags_ids[]" class="select2-select" multiple
                                             placeholder="Select tags">
                                             @foreach ($tags as $tag)
                                                 <option value="{{ $tag->id }}"

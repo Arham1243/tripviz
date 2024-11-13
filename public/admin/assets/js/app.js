@@ -185,6 +185,39 @@ document.addEventListener("DOMContentLoaded", function () {
     initializeChoiceSelects();
 });
 
+const initializeSelect2 = () => {
+    const selectElements = document.querySelectorAll(".select2-select");
+    selectElements.forEach((select) => {
+        const maxItems = select.hasAttribute("data-max-items")
+            ? parseInt(select.getAttribute("data-max-items"))
+            : -1;
+        const shouldSort = select.hasAttribute("should-sort")
+            ? select.getAttribute("should-sort") === "true"
+            : true;
+        $(select).select2({
+            placeholder: select.getAttribute("placeholder") || "Select",
+            maximumSelectionLength: maxItems > 0 ? maxItems : undefined,
+            allowClear: true,
+            sorter: shouldSort
+                ? function (data) {
+                      return data.sort(function (a, b) {
+                          return a.text.localeCompare(b.text);
+                      });
+                  }
+                : undefined,
+            language: {
+                noResults: function () {
+                    return "No results found";
+                },
+            },
+        });
+    });
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+    initializeSelect2();
+});
+
 // Multple File Upload
 document.addEventListener("DOMContentLoaded", () => {
     const uploadComponents = document.querySelectorAll(
@@ -620,9 +653,6 @@ const observer = new MutationObserver(() => {
     document
         .querySelectorAll("[data-upload]")
         .forEach(initializeUploadComponent);
-    document
-        .querySelectorAll(".choice-select")
-        .forEach(initializeChoiceSelects);
     document
         .querySelectorAll("[data-color-picker-container]")
         .forEach(InitializeColorPickers);

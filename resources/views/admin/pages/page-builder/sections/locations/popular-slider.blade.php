@@ -13,7 +13,7 @@
     <div class="col-lg-12">
         <div class="form-fields">
             <label class="title">Select Cities <span class="text-danger">*</span> :</label>
-            <select name="content[city_ids][]" should-sort="false" multiple class="field choice-select"
+            <select name="content[city_ids][]" should-sort="false" multiple class="field select2-select"
                 placeholder="Select Cities" data-required data-error="Cities">
                 @foreach ($cities->sortByDesc('tours_count') as $item)
                     <option value="{{ $item->id }}" {{ in_array($item->id, $cityIds) ? 'selected' : '' }}>

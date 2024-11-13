@@ -32,15 +32,13 @@
         </div>
         <div class="form-fields">
             <label class="title">Parent <span class="text-danger">*</span> :</label>
-            <select name="parent_category_id" class="choice-select" {{ !$categories->isEmpty() ? 'data-required' : '' }}
-                data-error="Category">
+            <select name="parent_category_id" class="select2-select"
+                {{ !$categories->isEmpty() ? 'data-required' : '' }} data-error="Category">
                 <option value="" selected>Parent Category</option>
 
-                @foreach ($categories as $cat)
-                    <option value="{{ $cat->id }}" {{ old('parent_category_id') == $cat->id ? 'selected' : '' }}>
-                        {{ $cat->name }}
-                    </option>
-                @endforeach
+                @php
+                    renderCategories($categories);
+                @endphp
             </select>
             @error('parent_category_id')
                 <div class="text-danger">{{ $message }}</div>

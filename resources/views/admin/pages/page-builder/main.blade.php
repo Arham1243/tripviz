@@ -240,6 +240,7 @@
                             const html = await response.text();
                             if (html) {
                                 document.getElementById('renderFields').innerHTML = html;
+                                initializeSelect2()
                             }
                         } else {
                             document.getElementById('renderFields').innerHTML = "<p>Template not found.</p>";

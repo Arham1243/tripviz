@@ -120,7 +120,7 @@
                                             <div class="form-fields">
                                                 <label class="title">Categories <span class="text-danger">*</span>
                                                     :</label>
-                                                <select name="tour[general][category_id]" class="choice-select"
+                                                <select name="tour[general][category_id]" class="select2-select"
                                                     data-error="Category" placeholder="Select Categories">
                                                     @php
                                                         renderCategories($categories, $tour->category->id ?? null);
@@ -612,7 +612,7 @@
                                         <div class="form-fields">
                                             <label class="title">Location <span class="text-danger">*</span> :</label>
                                             <select name="tour[location][normal_location][city_ids][]"
-                                                class="choice-select" data-error="Location" multiple
+                                                class="select2-select" data-error="Location" multiple
                                                 placeholder="Select Locations" autocomplete="new-password">
                                                 @foreach ($cities as $city)
                                                     <option value="{{ $city->id }}"
@@ -2055,7 +2055,7 @@
                                         @endphp
                                         <label class="title">Select 4 tours <span class="text-danger">*</span>
                                             :</label>
-                                        <select name="related_tour_ids[]" multiple class="choice-select"
+                                        <select name="related_tour_ids[]" multiple class="select2-select"
                                             data-max-items="4" placeholder="Select Tours"
                                             {{ !$tours->isEmpty() ? '' : '' }} data-error="Top 4 featured tours">
                                             @foreach ($tours as $t)
@@ -2160,7 +2160,7 @@
                                 <div class="form-box__body">
                                     <div class="form-fields">
                                         <label class="title">Author <span class="text-danger">*</span> :</label>
-                                        <select class="choice-select" name="tour[status][author_id]"
+                                        <select class="select2-select" name="tour[status][author_id]"
                                             data-error="Author">
                                             <option value="" selected>Select</option>
                                             @foreach ($users as $user)
@@ -2279,8 +2279,11 @@
 @push('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="https://choices-js.github.io/Choices/assets/styles/choices.min.css"
+        crossorigin="anonymous" />
 @endpush
 @push('js')
+    <script src="https://choices-js.github.io/Choices/assets/scripts/choices.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput-jquery.min.js"></script>
