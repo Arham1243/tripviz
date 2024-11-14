@@ -73,7 +73,7 @@
                                 <div class="form-box__body">
                                     <div class="form-fields">
                                         <label class="title">Author <span class="text-danger">*</span> :</label>
-                                        <select class="choice-select" name="user_id" data-required data-error="Author">
+                                        <select class="select2-select" name="user_id" data-required data-error="Author">
                                             <option value="" selected>Select</option>
                                             @foreach ($users as $users)
                                                 <option value="{{ $users->id }}"
@@ -95,7 +95,7 @@
                                 <div class="form-box__body">
                                     <div class="form-fields">
                                         <label class="title">Categories <span class="text-danger">*</span> :</label>
-                                        <select name="category_id" class="choice-select" data-required
+                                        <select name="category_id" class="select2-select" data-required
                                             data-error="Category">
                                             <option value="" selected>Select Category</option>
                                             @foreach ($categories as $category)
@@ -112,7 +112,7 @@
                                     <div class="form-fields">
                                         <label class="title">Tags <span class="text-danger">*</span> :</label>
 
-                                        <select name="tags_ids[]" class="choice-select" multiple placeholder="Select tags">
+                                        <select name="tags_ids[]" class="select2-select" multiple placeholder="Select tags">
                                             @foreach ($tags as $tag)
                                                 <option value="{{ $tag->id }}"
                                                     {{ old('tags_ids') == $tag->id ? 'selected' : '' }}>

@@ -30,7 +30,7 @@
                                     </div>
                                     <div class="form-fields">
                                         <label class="title">Country <span class="text-danger">*</span> :</label>
-                                        <select name="country_id" class="choice-select"
+                                        <select name="country_id" class="select2-select"
                                             {{ !$countries->isEmpty() ? 'data-required' : '' }} data-error="Country">
                                             <option value="" selected>Select Country</option>
                                             @foreach ($countries as $country)

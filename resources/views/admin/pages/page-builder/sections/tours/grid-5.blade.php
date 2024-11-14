@@ -27,7 +27,7 @@
     <div class="col-lg-12">
         <div class="form-fields">
             <label class="title">Select 5 Tours <span class="text-danger">*</span> :</label>
-            <select name="content[tour_ids][]" multiple class="field choice-select" data-max-items="5"
+            <select name="content[tour_ids][]" multiple class="field select2-select" data-max-items="5"
                 placeholder="Select Tours" data-required data-error="Tours">
                 @foreach ($tours as $item)
                     <option value="{{ $item->id }}" {{ in_array($item->id, $tourIds) ? 'selected' : '' }}>

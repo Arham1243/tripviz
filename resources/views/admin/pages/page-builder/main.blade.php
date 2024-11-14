@@ -150,7 +150,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="themeBtn bg-danger" data-bs-dismiss="modal">Close</button>
-                            <a href="javascript:void(0)" class="themeBtn">Save changes</a>
+                            <button class="themeBtn">Save changes</button>
                         </div>
                     </form>
                 </div>
@@ -187,9 +187,11 @@
             }
         });
 
-        function repeater(maxItems) {
+        function repeater(initialItems, maxItems) {
             return {
-                items: [{
+                items: initialItems.map(sub => ({
+                    subTitle: sub
+                })) || [{
                     subTitle: ''
                 }],
                 maxItems: maxItems,
@@ -240,6 +242,7 @@
                             const html = await response.text();
                             if (html) {
                                 document.getElementById('renderFields').innerHTML = html;
+                                initializeSelect2()
                             }
                         } else {
                             document.getElementById('renderFields').innerHTML = "<p>Template not found.</p>";

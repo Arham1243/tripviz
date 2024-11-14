@@ -2,7 +2,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <link href="//cdn.datatables.net/2.1.5/css/dataTables.dataTables.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://choices-js.github.io/Choices/assets/styles/choices.min.css" crossorigin="anonymous" />
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 {{-- <script src="https://cdn.tiny.cloud/1/02gbhrppwyip1quopfi405chacfu5fcsrwsp5xp6fahd69xd/tinymce/7/tinymce.min.js"
     referrerpolicy="origin"></script> --}}
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>

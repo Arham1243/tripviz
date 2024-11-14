@@ -47,7 +47,7 @@
                                     </div>
                                     <div class="form-fields">
                                         <label class="title">Parent <span class="text-danger">*</span> :</label>
-                                        <select name="parent_category_id" class="choice-select"
+                                        <select name="parent_category_id" class="select2-select"
                                             {{ !$categories->isEmpty() ? 'data-required' : '' }} data-error="Category">
                                             <option value="" selected>Parent Category</option>
                                             @php
@@ -231,7 +231,7 @@
                                     @endphp
                                     <label class="title">Top 4 featured tours <span class="text-danger">*</span>
                                         :</label>
-                                    <select name="top_featured_tour_ids[]" multiple class="choice-select"
+                                    <select name="top_featured_tour_ids[]" multiple class="select2-select"
                                         data-max-items="4" placeholder="Select Tours"
                                         {{ !$tours->isEmpty() ? 'data-required' : '' }} data-error="Top 4 featured tours">
                                         @foreach ($tours as $tour)
@@ -252,7 +252,7 @@
                                     @endphp
                                     <label class="title">Bottom featured tours <span class="text-danger">*</span>
                                         :</label>
-                                    <select name="bottom_featured_tour_ids[]" multiple class="choice-select"
+                                    <select name="bottom_featured_tour_ids[]" multiple class="select2-select"
                                         placeholder="Select Tours" {{ !$tours->isEmpty() ? 'data-required' : '' }}
                                         data-error="Bottom featured tours">
                                         @foreach ($tours as $tour)
@@ -273,7 +273,7 @@
                                     @endphp
                                     <label class="title">Recommended tours <span class="text-danger">*</span>
                                         :</label>
-                                    <select name="recommended_tour_ids[]" multiple class="choice-select"
+                                    <select name="recommended_tour_ids[]" multiple class="select2-select"
                                         data-max-items="4" placeholder="Select Tours"
                                         {{ !$tours->isEmpty() ? 'data-required' : '' }} data-error="Recommended tours">
                                         @foreach ($tours as $tour)
@@ -300,7 +300,7 @@
                                     @endphp
                                     <label class="title">Featured Reviews<span class="text-danger">*</span>
                                         :</label>
-                                    <select name="tour_reviews_ids[]" multiple class="choice-select" data-max-items="4"
+                                    <select name="tour_reviews_ids[]" multiple class="select2-select" data-max-items="4"
                                         placeholder="Select Reviews"
                                         {{ !$toursReviews->isEmpty() ? 'data-required' : '' }}
                                         data-error="Featured Reviews">
