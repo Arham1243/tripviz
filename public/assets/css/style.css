@@ -565,7 +565,7 @@ a#loginBtn {
     color: #fec10b;
 }
 
-.banner--overlay *:not(.primary-btn, i, input, .date-search *) {
+.banner--overlay *:not(.primary-btn, i, input, .date-search *,.select2-selection__placeholder) {
     color: #ffff !important;
 }
 .banner-slider {
