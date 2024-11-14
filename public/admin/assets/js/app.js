@@ -32,22 +32,24 @@ function updateLabel(container) {
 
     if (checkbox.checked) {
         label.textContent = enabledText;
+
     } else {
         label.textContent = disabledText;
+
     }
 }
 const initializeToggleSwitchLabels = () => {
     const switches = document.querySelectorAll("input[data-toggle-switch]");
     switches?.forEach((switchElement) => {
         const container = switchElement.closest(
-            "[data-enabled-text], [data-disabled-text]"
+            "[data-enabled-text], [data-disabled-text]",
         );
 
         if (container) {
             updateLabel(container);
 
             switchElement.addEventListener("change", () =>
-                updateLabel(container)
+                updateLabel(container),
             );
         }
     });
@@ -118,7 +120,7 @@ function showImage(input, previewImgId, filenamePreviewId) {
         reader.readAsDataURL(file);
     } else if (file) {
         alert(
-            "Please select a valid image file. Supported formats: JPEG, PNG, GIF, WEBP, SVG, BMP, TIFF."
+            "Please select a valid image file. Supported formats: JPEG, PNG, GIF, WEBP, SVG, BMP, TIFF.",
         );
         input.value = "";
     }
@@ -148,7 +150,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // If it has sub-dropdowns, toggle its children as well
             const subDropdown = parentDropdown.querySelector(
-                ".custom-dropdown__values"
+                ".custom-dropdown__values",
             );
             if (subDropdown) {
                 subDropdown.classList.toggle("open");
@@ -221,18 +223,18 @@ document.addEventListener("DOMContentLoaded", function () {
 // Multple File Upload
 document.addEventListener("DOMContentLoaded", () => {
     const uploadComponents = document.querySelectorAll(
-        "[data-upload-multiple]"
+        "[data-upload-multiple]",
     );
 
     uploadComponents.forEach((uploadComponent) => {
         const fileInput = uploadComponent.querySelector(
-            "[data-upload-multiple-input]"
+            "[data-upload-multiple-input]",
         );
         const imageContainer = uploadComponent.querySelector(
-            "[data-upload-multiple-images]"
+            "[data-upload-multiple-images]",
         );
         const errorMessage = uploadComponent.querySelector(
-            "[data-upload-multiple-error]"
+            "[data-upload-multiple-error]",
         );
 
         fileInput.addEventListener("change", (event) => {
@@ -281,7 +283,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         "click",
                         () => {
                             imageContainer.removeChild(li);
-                        }
+                        },
                     );
                 };
 
@@ -405,7 +407,7 @@ function initializeEditors(form) {
             .catch((error) => {
                 console.error(
                     "There was a problem initializing the editor:",
-                    error
+                    error,
                 );
             });
     });
@@ -454,7 +456,7 @@ function validateEditor(editorInstance) {
 
     if (!editorData.trim()) {
         showErrorToast(
-            `${editorElement.dataset.error || editorElement.name} is Required!`
+            `${editorElement.dataset.error || editorElement.name} is Required!`,
         );
         return false;
     }
@@ -468,7 +470,7 @@ function validateEditor(editorInstance) {
 
     if (!editorData.trim()) {
         showErrorToast(
-            `${editorElement.dataset.error || editorElement.name} is Required!`
+            `${editorElement.dataset.error || editorElement.name} is Required!`,
         );
         return false;
     }
@@ -505,7 +507,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             function handleItemCheckboxChange() {
                 const allChecked = Array.from(itemCheckboxes).every(
-                    (checkbox) => checkbox.checked
+                    (checkbox) => checkbox.checked,
                 );
                 selectAllCheckbox.checked = allChecked;
             }
@@ -532,7 +534,7 @@ function confirmBulkAction(event) {
 
     if (selectedAction === "delete") {
         const confirmation = confirm(
-            "Are you sure you want to delete the selected items?"
+            "Are you sure you want to delete the selected items?",
         );
         if (!confirmation) {
             event.preventDefault();
@@ -554,7 +556,7 @@ function initializeUploadComponent(uploadComponent) {
     const uploadBox = uploadComponent.querySelector("[data-upload-box]");
     const uploadImgBox = uploadComponent.querySelector("[data-upload-img]");
     const uploadPreview = uploadComponent.querySelector(
-        "[data-upload-preview]"
+        "[data-upload-preview]",
     );
     const deleteBtn = uploadComponent.querySelector("[data-delete-btn]");
     const errorMessage = uploadComponent.querySelector("[data-error-message]");
@@ -606,14 +608,14 @@ document.addEventListener("DOMContentLoaded", function () {
 const InitializeColorPickers = (pickerContainer) => {
     const colorPicker = pickerContainer.querySelector("[data-color-picker]");
     const colorPickerInput = pickerContainer.querySelector(
-        "[data-color-picker-input]"
+        "[data-color-picker-input]",
     );
 
     const initialColor =
         colorPickerInput.value &&
         /^#([0-9A-F]{3}){1,2}$/i.test(colorPickerInput.value)
             ? colorPickerInput.value
-            : "#ffffff";
+            : colorPickerInput.getAttribute('placeholder');
     if (colorPicker && colorPickerInput) {
         const pickr = Pickr.create({
             el: colorPicker,

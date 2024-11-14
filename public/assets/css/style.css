@@ -563,7 +563,6 @@ a#loginBtn {
     color: #ffff !important;
 }
 .banner--overlay .banner-rating__platform {
-    filter: brightness(0) invert(1);
 }
 /* banner */
 
@@ -609,14 +608,14 @@ a#loginBtn {
     height: 170px;
     width: 100%;
     border-radius: 8px;
-    margin-bottom: 20px;
+    margin-bottom: 13px;
     overflow: hidden;
 }
 
 .dst-location {
     text-align: center;
     font-weight: 700;
-    line-height: 0.5rem;
+    line-height: 1.6;
     text-transform: capitalize;
     margin-bottom: 0.5rem;
 }
