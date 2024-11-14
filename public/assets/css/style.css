@@ -561,10 +561,28 @@ a#loginBtn {
     color: #fec10b;
 }
 
-.banner--overlay *:not(.primary-btn, i, input ,.date-search  *) {
+.banner--overlay *:not(.primary-btn, i, input, .date-search *) {
     color: #ffff !important;
 }
-.banner--overlay .banner-rating__platform {
+.banner-slider {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    z-index: -1;
+}
+
+.banner-slider-wrapper {
+    position: relative;
+    isolation: isolate;
+}
+
+.banner-slider .slick-list.draggable {
+    height: 100%;
+}
+
+.banner-slider .slick-track {
+    height: 100%;
 }
 /* banner */
 
@@ -5652,7 +5670,7 @@ a.country-card__details {
     background: #cccccc40;
     border-radius: 7px;
     line-height: 1.2;
-    padding: 11px 13px;
+    padding: 12px 13px;
     display: flex;
     align-items: center;
     height: 100%;
@@ -5684,7 +5702,7 @@ a.country-card__details {
 }
 .date-search__btn .content {
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 700;
     gap: 0.5rem;
     width: 100%;
     text-align: left;
@@ -5728,7 +5746,7 @@ a.country-card__details {
 }
 
 .date-search__btn .date-wrapper:not(:last-child)::after {
-    content: '-';
+    content: "-";
     width: 2px;
     position: absolute;
     top: 50%;
