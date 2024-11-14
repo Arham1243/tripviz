@@ -403,6 +403,7 @@ a#loginBtn {
     position: relative;
     padding: 4rem 0;
     isolation: isolate;
+    z-index: 1;
 }
 .banner--shape::before {
     background: url("../images/banner-wave.png") no-repeat center;
@@ -512,6 +513,8 @@ a#loginBtn {
     gap: 1rem 1.75rem;
     margin-top: 1.75rem;
     flex-wrap: wrap;
+    position: relative;
+    isolation: isolate;
 }
 
 .banner-rating__avatars > img {
@@ -575,6 +578,7 @@ a#loginBtn {
 .banner-slider-wrapper {
     position: relative;
     isolation: isolate;
+    z-index: 1;
 }
 
 .banner-slider .slick-list.draggable {
@@ -5653,6 +5657,9 @@ a.country-card__details {
 .date-search {
     width: 100%;
     margin: 2.5rem 0 0.5rem;
+    position: relative;
+    isolation: isolate;
+    z-index: 1000000;
 }
 .date-search__btns {
     display: flex;
@@ -5679,7 +5686,6 @@ a.country-card__details {
     outline: none !important;
     margin: 0;
     position: relative;
-    isolation: isolate;
     cursor: pointer;
     gap: 0.75rem;
 }
@@ -5711,6 +5717,7 @@ a.country-card__details {
     font: inherit;
     position: relative;
     left: 0;
+    outline: none !important;
 }
 .date-search__btn .content input {
     border: none;
@@ -5740,6 +5747,7 @@ a.country-card__details {
 }
 .date-search__btn .second-half {
     text-align: left;
+    width: 100%;
 }
 .date-search__btn .date-wrapper:not(:last-child) {
     position: relative;
@@ -5754,4 +5762,79 @@ a.country-card__details {
     right: 0.6rem;
     font-size: 1.1rem;
 }
+/* select2 */
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__rendered {
+    padding: 0 !important;
+    width: 100%;
+    line-height: 1 !important;
+}
+
+.select2-selection--single {
+    border: none !important;
+    background: none !important;
+    width: 100% !important;
+}
+
+.select2-hidden-accessible {
+    width: 100% !important;
+    outline: none !important;
+}
+
+.select2-selection__arrow {
+    display: none;
+}
+
+.select2-selection--single {
+    height: auto !important;
+}
+.select2-container {
+    width: 100% !important;
+    left: 0 !important;
+    top: 111% !important;
+}
+
+.select2-dropdown.select2-dropdown--below {
+    width: 100% !important;
+}
+span.select2-dropdown.select2-dropdown--above {
+    width: 100% !important;
+}
+span.select2-dropdown.select2-dropdown--below {
+    border: 1px solid #dee2e6 !important;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    padding: 0.5rem 1rem;
+    outline: none !important;
+    font-size: 0.84rem;
+}
+
+.select2-results__option {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.84rem;
+    color: #000;
+    font-weight: 500;
+}
+
+.select2-results__option:not(:last-child) {border-bottom: 1px solid #dee2e6;}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background: var(--color-primary) !important;
+}
+
+
+.select2-results__options::-webkit-scrollbar {
+    width: 7px;
+  }
+  .select2-results__options::-webkit-scrollbar-track {
+    background: transparent; 
+  }
+   
+  .select2-results__options::-webkit-scrollbar-thumb {
+    background: #8989899c; 
+      border-radius: 100px;
+  }
+/* select2 */
 /* banner date search */
