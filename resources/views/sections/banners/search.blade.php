@@ -1,9 +1,10 @@
 @if (isset($content->is_form_enabled))
     @if ($content->form_type === 'normal')
         <div class="col-md-12">
-            <form action="" class="banner-search">
+            <form action="" class="banner-search" id="destination-wrapper">
                 <i class="bx bx-search"></i>
-                <input name="location" placeholder="Where are you going?" class="banner-search__input">
+                <select placeholder="Where are you going?" class="banner-search__input" name="destination" id="destination"
+                    style="width: 100%"></select>
             </form>
         </div>
     @elseif($content->form_type === 'date_selection')

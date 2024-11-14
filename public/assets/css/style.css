@@ -515,6 +515,7 @@ a#loginBtn {
     flex-wrap: wrap;
     position: relative;
     isolation: isolate;
+    width: fit-content;
 }
 
 .banner-rating__avatars > img {
