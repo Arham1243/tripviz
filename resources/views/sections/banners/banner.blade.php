@@ -1,5 +1,5 @@
 @if (!$content)
-    <div class="banner banner--shape" style="background-color: #eef1fe">
+    <div class="banner banner--shape" style="background-color: #fff">
         <div class="container">
             <div class="row">
                 <div class="col-md-7">
@@ -150,7 +150,7 @@
     </div>
 @else
     @if ($content->background_type === 'normal_v1_right_side_image')
-        <div class="banner banner--shape" style="background-color: #eef1fe">
+        <div class="banner banner--shape" style="background-color: #fff">
             <div class="container">
                 <div class="row">
                     <div class="col-md-7">
