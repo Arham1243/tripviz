@@ -16,7 +16,7 @@
                             <i class='bx bxs-map'></i>
                         </div>
                         <div class="second-half">
-                            <span class="top-label">Going to ss</span>
+                            <span class="top-label">Going to</span>
                             <div class="content">
                                 <select placeholder="Where are you going?" name="destination" id="destination"
                                     style="width: 100%"></select>
