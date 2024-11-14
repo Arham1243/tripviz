@@ -565,7 +565,7 @@ a#loginBtn {
     color: #fec10b;
 }
 
-.banner--overlay *:not(.primary-btn, i, input, .date-search *,.select2-selection__placeholder) {
+.banner--overlay *:not(.primary-btn, i, input, .date-search *,.select2-selection__placeholder,.select2-selection__rendered) {
     color: #ffff !important;
 }
 .banner-slider {
@@ -5837,5 +5837,8 @@ span.select2-dropdown.select2-dropdown--below {
     background: #8989899c; 
       border-radius: 100px;
   }
+  .select2-selection--single {
+    outline: none !important;
+}
 /* select2 */
 /* banner date search */
