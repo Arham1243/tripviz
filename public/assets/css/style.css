@@ -405,7 +405,7 @@ a#loginBtn {
     isolation: isolate;
 }
 .banner--shape::before {
-    background: url("../images/horta (1).webp") no-repeat center;
+    background: url("../images/banner-wave.png") no-repeat center;
     background-size: cover;
     content: "";
     position: absolute;
@@ -471,7 +471,7 @@ a#loginBtn {
 }
 
 .banner-search {
-    margin: 2.75rem 0 3rem;
+    margin: 2.65rem 0 0.25rem;
 }
 .banner-search {
     position: relative;
@@ -509,7 +509,9 @@ a#loginBtn {
 .banner-rating {
     display: flex;
     align-items: center;
-    gap: 1.75rem;
+    gap: 1rem 1.75rem;
+    margin-top: 1.75rem;
+    flex-wrap: wrap;
 }
 
 .banner-rating__avatars > img {
@@ -559,7 +561,7 @@ a#loginBtn {
     color: #fec10b;
 }
 
-.banner--overlay *:not(.primary-btn, i, input) {
+.banner--overlay *:not(.primary-btn, i, input ,.date-search  *) {
     color: #ffff !important;
 }
 .banner--overlay .banner-rating__platform {
@@ -5628,4 +5630,110 @@ a.country-card__details {
     color: #fff;
     background-color: var(--color-primary);
 }
-    
+
+/* banner date search */
+.date-search {
+    width: 100%;
+    margin: 2.5rem 0 0.5rem;
+}
+.date-search__btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    width: 100%;
+    box-shadow: 0 0 15px 1px #00000020;
+    border-radius: 0 0.4rem 0.4rem 0.4rem;
+    padding: 1rem 0.75rem;
+    gap: 1rem;
+}
+.date-search__btn {
+    width: 100%;
+    background: #cccccc40;
+    border-radius: 7px;
+    line-height: 1.2;
+    padding: 11px 13px;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    transition: none;
+    border: 2px solid transparent;
+    outline: none !important;
+    margin: 0;
+    position: relative;
+    isolation: isolate;
+    cursor: pointer;
+    gap: 0.75rem;
+}
+.date-search-btn-wrapper {
+    width: 100%;
+    flex: 1;
+    position: relative;
+}
+.date-search__btn:focus,
+.date-search__btn:focus-within {
+    border-color: var(--color-primary);
+}
+.date-search__btn .top-label {
+    font-size: 13px;
+    text-transform: capitalize;
+    display: block;
+    margin-bottom: 2px;
+    font-weight: 700;
+    color: #000;
+}
+.date-search__btn .content {
+    font-size: 16px;
+    font-weight: 600;
+    gap: 0.5rem;
+    width: 100%;
+    text-align: left;
+}
+.date-search__btn .content span {
+    font: inherit;
+    position: relative;
+    left: 0;
+}
+.date-search__btn .content input {
+    border: none;
+    background: none;
+    font: inherit;
+    color: inherit;
+    outline: none;
+    width: 100%;
+    color: #000;
+}
+.date-search__btn .content input.date {
+    pointer-events: none;
+    width: 100%;
+}
+.date-search .primary-btn {
+    padding: 15px 25px 15px 18px;
+    font-size: 15px;
+    border: none;
+}
+.date-search .primary-btn i {
+    font-size: 21px;
+    margin-right: 2px;
+}
+.date-search__btn .first-half i {
+    color: var(--color-primary);
+    font-size: 26px;
+}
+.date-search__btn .second-half {
+    text-align: left;
+}
+.date-search__btn .date-wrapper:not(:last-child) {
+    position: relative;
+}
+
+.date-search__btn .date-wrapper:not(:last-child)::after {
+    content: '-';
+    width: 2px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0.6rem;
+    font-size: 1.1rem;
+}
+/* banner date search */
