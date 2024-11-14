@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\SearchSuggestionController;
 use App\Http\Controllers\TourController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,8 +22,8 @@ Route::post('/newsletter-save', [IndexController::class, 'newsletter_save'])->na
 Route::get('/city/{slug}/details', [IndexController::class, 'city_details'])->name('city.details');
 Route::get('/country/{slug}/details', [IndexController::class, 'country_details'])->name('country.details');
 Route::get('/make-slug', [IndexController::class, 'make_slug']);
-
 Route::get('/page/{slug}', [IndexController::class, 'showPage'])->name('page.show');
+Route::get('/search/suggestions', [SearchSuggestionController::class, 'suggest'])->name('search.suggestions');
 
 // ---------------------------------------All Pages---------------------------------------
 // web.php

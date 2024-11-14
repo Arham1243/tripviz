@@ -1,8 +1,11 @@
-@media only screen and (max-width: 1400px) {}
+@media only screen and (max-width: 1400px) {
+}
 
-@media only screen and (max-width: 1200px) {}
+@media only screen and (max-width: 1200px) {
+}
 
-@media only screen and (max-width: 992px) {}
+@media only screen and (max-width: 992px) {
+}
 
 @media only screen and (max-width: 768px) {
     .loginSignup-popup {
@@ -87,9 +90,8 @@
         flex-direction: column;
     }
 
-
     .app-btn {
-        padding: 0.65rem .75rem;
+        padding: 0.65rem 0.75rem;
     }
 
     /*     
@@ -149,7 +151,7 @@
     }
 
     .local-guide__btns .btns {
-        padding: .65rem 1.10rem;
+        padding: 0.65rem 1.1rem;
     }
 
     .local-guide .more-link {
@@ -268,7 +270,7 @@
     }
 
     .communications-subscription__privacy {
-        font-size: .85rem;
+        font-size: 0.85rem;
     }
 
     .input-details input {
@@ -276,7 +278,7 @@
     }
 
     .input-details {
-        padding: .2rem;
+        padding: 0.2rem;
         padding-left: 1rem;
     }
 
@@ -317,7 +319,7 @@
     }
 
     .footer-link a {
-        opacity: .6;
+        opacity: 0.6;
         font-size: 15px;
     }
 
@@ -327,8 +329,8 @@
     }
 
     .goUp {
-        font-size: .85rem;
-        padding: .5rem 0.75rem;
+        font-size: 0.85rem;
+        padding: 0.5rem 0.75rem;
         gap: 6px;
     }
 
@@ -390,7 +392,7 @@
     }
 
     .themeBtn-round {
-        padding: 0.25rem .95rem;
+        padding: 0.25rem 0.95rem;
         font-size: 14px;
     }
 
@@ -483,7 +485,7 @@
         text-align: center;
     }
 
-    .blog-more__destinations>.row {
+    .blog-more__destinations > .row {
         padding-top: 18px !important;
     }
 
@@ -529,14 +531,16 @@
         margin: 20px 0 0;
     }
 
-.top-picks-experts {
-    padding: 1rem 0;
-
-}
-.latest-stories-loc-2 {
-    padding: 1rem 0;
-}
-.country-container {
-    padding: 1rem 0;
-}
+    .top-picks-experts {
+        padding: 1rem 0;
+    }
+    .latest-stories-loc-2 {
+        padding: 1rem 0;
+    }
+    .country-container {
+        padding: 1rem 0;
+    }
+    .date-search__btns{
+        flex-wrap: wrap;
+    }
 }

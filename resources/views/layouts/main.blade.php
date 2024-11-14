@@ -9,6 +9,7 @@
     <x-seo-tags :seo="$seo ?? null" />
     @include('layouts.links')
     @yield('css')
+    @stack('css')
 </head>
 <input type="hidden" name="" id="web_base_url" value="{{ url('/') }}">
 
@@ -19,6 +20,7 @@
     @include('layouts.footer')
     @include('layouts.scripts')
     @yield('js')
+    @stack('js')
 
 
     <script type="text/javascript">
