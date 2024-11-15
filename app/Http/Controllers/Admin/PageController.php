@@ -123,21 +123,20 @@ class PageController extends Controller
         $request->validate([
             'sections.section_id' => 'required|array',
             'sections.order' => 'required|array',
-            'sections.id' => 'nullable|array', // Optional if provided
+            'sections.id' => 'nullable|array',
         ]);
 
         $sectionIds = $request->input('sections.section_id');
         $orders = $request->input('sections.order');
-        $ids = $request->input('sections.id', []); // IDs can be null for new entries
+        $ids = $request->input('sections.id', []);
 
         if (count($sectionIds) !== count($orders)) {
             return redirect()->route('admin.pages.index')->with('notify_error', 'Section IDs and order values do not match.');
         }
 
-        // Remove sections not in the submitted list
         DB::table('page_section')
             ->where('page_id', $pageId)
-            ->whereNotIn('id', array_filter($ids)) // Use only existing IDs to avoid deleting new entries
+            ->whereNotIn('id', array_filter($ids))
             ->delete();
 
         $newData = [];
@@ -148,7 +147,6 @@ class PageController extends Controller
             $id = $ids[$index] ?? null;
 
             if ($id) {
-                // Update existing row by ID
                 $updates[] = [
                     'id' => $id,
                     'order' => $order,
@@ -182,7 +180,8 @@ class PageController extends Controller
     {
         $templatePath = $request->input('template_path');
         $sectionId = $request->input('section_id');
-        $pageSection = DB::table('page_section')->where('page_id', $pageId)->where('section_id', $sectionId)->first();
+        $pivotId = $request->input('pivot_id');
+        $pageSection = DB::table('page_section')->where('id', $pivotId)->where('page_id', $pageId)->where('section_id', $sectionId)->first();
         $componentView = "admin.pages.page-builder.sections.{$templatePath}";
 
         if (view()->exists($componentView)) {
@@ -218,7 +217,7 @@ class PageController extends Controller
 
         DB::table('page_section')
             ->updateOrInsert(
-                ['page_id' => $pageId, 'section_id' => $request->input('section_id')],
+                ['page_id' => $pageId, 'section_id' => $request->input('section_id'), 'id' => $request->input('pivot_id')],
                 ['content' => json_encode($updatedContent)]
             );
 

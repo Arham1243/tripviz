@@ -144,6 +144,7 @@
                         <div class="modal-body">
                             @csrf
                             <input type="hidden" name="section_id" id="section-id">
+                            <input type="hidden" name="pivot_id" id="pivot-id">
                             <div class="text-center"><i class="bx-lg  bx bx-loader-alt bx-flip-vertical bx-spin"
                                     style="color: rgb(28, 77, 153); " x-show="isLoading">
                                 </i>
@@ -231,6 +232,7 @@
                 async editItem(item) {
                     $('#editSection').modal('show');
                     $('#section-name').text(item.name);
+                    $('#pivot-id').val(item.pivot_id);
                     $('#section-id').val(item.section_id);
                     this.selectedItem = item;
                     $('.section-preview-image').attr('href', item.preview_image);
@@ -238,7 +240,7 @@
                     this.isLoading = true;
                     try {
                         const response = await fetch(
-                            `{{ route('admin.pages.page-builder.section-template', $page->id) }}?template_path=${item.template_path}&section_id=${item.section_id}`
+                            `{{ route('admin.pages.page-builder.section-template', $page->id) }}?template_path=${item.template_path}&section_id=${item.section_id}&pivot_id=${item.pivot_id}`
                         );
                         if (response.ok) {
                             const html = await response.text();
@@ -267,6 +269,7 @@
             $('#editSection').on('hidden.bs.modal', function() {
                 $('#section-name').text('');
                 $('#section-id').val('');
+                $('#pivot-id').val('');
                 $('#renderFields').html('');;
                 $('.section-preview-image').attr('href',
                     `${$('#web_base_url').val()}/public/admin/assets/images/placeholder.png`);
