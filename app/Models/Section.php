@@ -13,6 +13,12 @@ class Section extends Model
         'updated_at',
     ];
 
+    public function pages()
+    {
+        return $this->belongsToMany(Page::class, 'page_section')
+            ->withPivot('id', 'order', 'created_at', 'updated_at');
+    }
+
     protected static function boot()
     {
         parent::boot();

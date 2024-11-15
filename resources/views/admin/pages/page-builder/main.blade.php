@@ -30,7 +30,7 @@
                                                         @foreach ($sectionsGroup as $section)
                                                             <li class="chip-list__item" x-data="{
                                                                 item: {
-                                                                    id: '{{ $section['id'] }}',
+                                                                    section_id: '{{ $section['id'] }}',
                                                                     name: '{{ $section['name'] }}',
                                                                     section_key: '{{ $section['section_key'] }}',
                                                                     template_path: '{{ $section['template_path'] }}',
@@ -80,7 +80,9 @@
                                                             :key="index">
                                                             <li class="chip-list__item">
                                                                 <input type="hidden" :name="`sections[section_id][]`"
-                                                                    :value="item.id">
+                                                                    :value="item.section_id">
+                                                                <input type="hidden" :name="`sections[id][]`"
+                                                                    :value="item.pivot_id">
                                                                 <input type="hidden" class="order"
                                                                     :name="`sections[order][]`" :value="index + 1">
                                                                 <div class="d-flex align-items-center gap-2">
@@ -142,6 +144,7 @@
                         <div class="modal-body">
                             @csrf
                             <input type="hidden" name="section_id" id="section-id">
+                            <input type="hidden" name="pivot_id" id="pivot-id">
                             <div class="text-center"><i class="bx-lg  bx bx-loader-alt bx-flip-vertical bx-spin"
                                     style="color: rgb(28, 77, 153); " x-show="isLoading">
                                 </i>
@@ -229,14 +232,15 @@
                 async editItem(item) {
                     $('#editSection').modal('show');
                     $('#section-name').text(item.name);
-                    $('#section-id').val(item.id);
+                    $('#pivot-id').val(item.pivot_id);
+                    $('#section-id').val(item.section_id);
                     this.selectedItem = item;
                     $('.section-preview-image').attr('href', item.preview_image);
 
                     this.isLoading = true;
                     try {
                         const response = await fetch(
-                            `{{ route('admin.pages.page-builder.section-template', $page->id) }}?template_path=${item.template_path}&section_id=${item.id}`
+                            `{{ route('admin.pages.page-builder.section-template', $page->id) }}?template_path=${item.template_path}&section_id=${item.section_id}&pivot_id=${item.pivot_id}`
                         );
                         if (response.ok) {
                             const html = await response.text();
@@ -265,6 +269,7 @@
             $('#editSection').on('hidden.bs.modal', function() {
                 $('#section-name').text('');
                 $('#section-id').val('');
+                $('#pivot-id').val('');
                 $('#renderFields').html('');;
                 $('.section-preview-image').attr('href',
                     `${$('#web_base_url').val()}/public/admin/assets/images/placeholder.png`);
