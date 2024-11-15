@@ -103,7 +103,8 @@ class PageController extends Controller
         });
         $selectedSections = $page->sections->map(function ($section) {
             return [
-                'id' => $section->id,
+                'pivot_id' => $section->pivot->id,
+                'section_id' => $section->id,
                 'name' => $section->name,
                 'section_key' => $section->section_key,
                 'preview_image' => asset($section->preview_image),
@@ -117,27 +118,62 @@ class PageController extends Controller
         return view('admin.pages.page-builder.main', compact('tours', 'cities', 'page', 'sectionsGroups', 'selectedSections'))->with('title', ucfirst(strtolower($page->title)));
     }
 
-    public function storeTemplate(Request $request, $id)
+    public function storeTemplate(Request $request, $pageId)
     {
         $request->validate([
             'sections.section_id' => 'required|array',
             'sections.order' => 'required|array',
+            'sections.id' => 'nullable|array', // Optional if provided
         ]);
 
         $sectionIds = $request->input('sections.section_id');
         $orders = $request->input('sections.order');
+        $ids = $request->input('sections.id', []); // IDs can be null for new entries
 
         if (count($sectionIds) !== count($orders)) {
             return redirect()->route('admin.pages.index')->with('notify_error', 'Section IDs and order values do not match.');
         }
 
-        $syncData = [];
+        // Remove sections not in the submitted list
+        DB::table('page_section')
+            ->where('page_id', $pageId)
+            ->whereNotIn('id', array_filter($ids)) // Use only existing IDs to avoid deleting new entries
+            ->delete();
+
+        $newData = [];
+        $updates = [];
+
         foreach ($sectionIds as $index => $sectionId) {
-            $syncData[$sectionId] = ['order' => $orders[$index]];
+            $order = $orders[$index];
+            $id = $ids[$index] ?? null;
+
+            if ($id) {
+                // Update existing row by ID
+                $updates[] = [
+                    'id' => $id,
+                    'order' => $order,
+                ];
+            } else {
+                // Add new row
+                $newData[] = [
+                    'page_id' => $pageId,
+                    'section_id' => $sectionId,
+                    'order' => $order,
+                ];
+            }
         }
 
-        $page = Page::findOrFail($id);
-        $page->sections()->sync($syncData);
+        // Batch update for existing rows
+        foreach ($updates as $update) {
+            DB::table('page_section')
+                ->where('id', $update['id'])
+                ->update(['order' => $update['order']]);
+        }
+
+        // Insert new rows in bulk
+        if (! empty($newData)) {
+            DB::table('page_section')->insert($newData);
+        }
 
         return redirect()->back()->with('notify_success', 'Layout Saved Successfully!');
     }

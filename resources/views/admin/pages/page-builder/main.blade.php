@@ -30,7 +30,7 @@
                                                         @foreach ($sectionsGroup as $section)
                                                             <li class="chip-list__item" x-data="{
                                                                 item: {
-                                                                    id: '{{ $section['id'] }}',
+                                                                    section_id: '{{ $section['id'] }}',
                                                                     name: '{{ $section['name'] }}',
                                                                     section_key: '{{ $section['section_key'] }}',
                                                                     template_path: '{{ $section['template_path'] }}',
@@ -80,7 +80,9 @@
                                                             :key="index">
                                                             <li class="chip-list__item">
                                                                 <input type="hidden" :name="`sections[section_id][]`"
-                                                                    :value="item.id">
+                                                                    :value="item.section_id">
+                                                                <input type="hidden" :name="`sections[id][]`"
+                                                                    :value="item.pivot_id">
                                                                 <input type="hidden" class="order"
                                                                     :name="`sections[order][]`" :value="index + 1">
                                                                 <div class="d-flex align-items-center gap-2">
@@ -229,14 +231,14 @@
                 async editItem(item) {
                     $('#editSection').modal('show');
                     $('#section-name').text(item.name);
-                    $('#section-id').val(item.id);
+                    $('#section-id').val(item.section_id);
                     this.selectedItem = item;
                     $('.section-preview-image').attr('href', item.preview_image);
 
                     this.isLoading = true;
                     try {
                         const response = await fetch(
-                            `{{ route('admin.pages.page-builder.section-template', $page->id) }}?template_path=${item.template_path}&section_id=${item.id}`
+                            `{{ route('admin.pages.page-builder.section-template', $page->id) }}?template_path=${item.template_path}&section_id=${item.section_id}`
                         );
                         if (response.ok) {
                             const html = await response.text();
