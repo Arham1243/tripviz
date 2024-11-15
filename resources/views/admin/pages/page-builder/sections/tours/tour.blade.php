@@ -1,4 +1,5 @@
-@php
+working on it
+{{-- @php
     $sectionContent = $pageSection ? json_decode($pageSection->content) : null;
     $tourIds = $sectionContent ? $sectionContent->tour_ids : [];
 @endphp
@@ -37,4 +38,4 @@
             </select>
         </div>
     </div>
-</div>
+</div> --}}
