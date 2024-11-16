@@ -8,6 +8,36 @@ $(".banner-slider").slick({
     autoplay: true,
     autoplaySpeed: 2000,
 });
+$(".five-items-slider").slick({
+    dots: false,
+    arrows: true,
+    infinite: false,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    responsive: [
+        {
+            breakpoint: 1024,
+            settings: {
+                slidesToShow: 3,
+            },
+        },
+        {
+            breakpoint: 600,
+            settings: {
+                slidesToShow: 2
+            },
+        },
+        {
+            breakpoint: 400,
+            settings: {
+                slidesToShow: 1,
+            },
+        },
+    ],
+});
+
 $(".destinations-slider").slick({
     dots: false,
     arrows: true,
@@ -102,7 +132,6 @@ $(".trending-products-slider").slick({
         // instead of a settings object
     ],
 });
-
 $(".comment-slider").slick({
     autoplay: true,
     dots: false,

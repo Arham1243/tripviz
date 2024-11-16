@@ -8,11 +8,11 @@
         <div class="form-fields">
             <label class="title">Title <span class="text-danger">*</span> :</label>
             <input type="text" name="content[title]" class="field" placeholder="" data-error="Title"
-                value="{{ $sectionContent->title ?? '' }}" maxlength="25">
+                value="{{ $sectionContent->title ?? '' }}" maxlength="40">
         </div>
         <div class="form-fields">
             <label class="title">Description <span class="text-danger">*</span> :</label>
-            <textarea name="content[description]" class="field" data-error="Description" rows="2">{{ $sectionContent->description ?? '' }}</textarea>
+            <textarea maxlength="80" name="content[description]" class="field" data-error="Description" rows="2">{{ $sectionContent->description ?? '' }}</textarea>
         </div>
         <div class="form-fields">
             <label class="title">No. of items <span class="text-danger">*</span> :</label>
@@ -166,7 +166,7 @@
                                     class="field select2-select" placeholder="Select Location" data-error="Location">
                                     @foreach ($cities as $item)
                                         <option value="{{ $item->id }}"
-                                            {{ $sectionContent && isset($sectionContent->filter_category_id) && $item->id == $sectionContent->filter_city_id ? 'selected' : '' }}>
+                                            {{ $sectionContent && isset($sectionContent->filter_city_id) && $item->id == $sectionContent->filter_city_id ? 'selected' : '' }}>
                                             {{ $item->name }}
                                             ({{ $item->tours_count > 0 ? $item->tours_count . ' ' . ($item->tours_count === 1 ? 'tour' : 'tours') . ' available' : 'No tours available' }})
                                         </option>

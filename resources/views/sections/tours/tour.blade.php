@@ -1,5 +1,5 @@
 @if (!$content)
-    <div class=tours>
+    <div class="tours section-padding">
         <div class=container>
             <div class=tours-content>
                 <div class=section-content>
@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="row pt-3">
-                <div class=col-md>
+                <div class="col">
                     <div class=card-content>
                         <a href=# class=card_img>
                             <img data-src={{ asset('assets/images/alanya-tandem-paragliding-tour.webp') }} alt=image
@@ -39,12 +39,12 @@
                                 <i class="bx bxs-star yellow-star"></i>
                                 <i class="bx bxs-star yellow-star"></i>
                                 <i class="bx bxs-star"></i>
-                                <span>1 Reviews</span>
+                                <span>10 Reviews</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class=col-md>
+                <div class="col">
                     <div class=card-content>
                         <a href=# class=card_img>
                             <img data-src={{ asset('assets/images/rafting.webp') }} alt=image class="imgFluid lazy"
@@ -73,12 +73,12 @@
                                 <i class="bx bxs-star yellow-star"></i>
                                 <i class="bx bxs-star yellow-star"></i>
                                 <i class="bx bxs-star"></i>
-                                <span>1 Reviews</span>
+                                <span>10 Reviews</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class=col-md>
+                <div class="col">
                     <div class=card-content>
                         <a href=# class=card_img>
                             <img data-src={{ asset('assets/images/quad.webp') }} alt=image class="imgFluid lazy"
@@ -107,12 +107,12 @@
                                 <i class="bx bxs-star yellow-star"></i>
                                 <i class="bx bxs-star yellow-star"></i>
                                 <i class="bx bxs-star"></i>
-                                <span>1 Reviews</span>
+                                <span>10 Reviews</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class=col-md>
+                <div class="col">
                     <div class=card-content>
                         <a href=# class=card_img>
                             <img data-src={{ asset('assets/images/buggy.webp') }} alt=image class="imgFluid lazy"
@@ -141,12 +141,12 @@
                                 <i class="bx bxs-star yellow-star"></i>
                                 <i class="bx bxs-star yellow-star"></i>
                                 <i class="bx bxs-star"></i>
-                                <span>1 Reviews</span>
+                                <span>10 Reviews</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class=col-md>
+                <div class="col">
                     <div class=card-content>
                         <a href=# class=card_img>
                             <img data-src={{ asset('assets/images/jeep.webp') }} alt=image class="imgFluid lazy"
@@ -175,7 +175,7 @@
                                 <i class="bx bxs-star yellow-star"></i>
                                 <i class="bx bxs-star yellow-star"></i>
                                 <i class="bx bxs-star"></i>
-                                <span>1 Reviews</span>
+                                <span>10 Reviews</span>
                             </div>
                         </div>
                     </div>
@@ -184,209 +184,66 @@
         </div>
     </div>
 @else
-    <div class=tours>
+    @php
+        $toursQuery = \App\Models\Tour::query();
+
+        // Order conditions (as per your original code)
+        if ($content->order_by === 'latest') {
+            $toursQuery->orderBy('created_at', 'desc');
+        } elseif ($content->order_by === 'title') {
+            $toursQuery->orderBy('title', 'asc');
+        } elseif ($content->order_by === 'price_low_to_high') {
+            $toursQuery->orderBy('regular_price', 'asc');
+        } elseif ($content->order_by === 'price_high_to_low') {
+            $toursQuery->orderBy('regular_price', 'desc');
+        }
+        if (isset($content->show_only_featured_items)) {
+            $toursQuery->where('is_featured', '1');
+        }
+
+        // Additional conditions like 'custom' filters or categories
+        if ($content->filter_type === 'custom') {
+            $toursQuery->whereIn('id', $content->custom_tour_ids);
+        } else {
+            if (isset($content->filter_category_id)) {
+                $toursQuery->where('category_id', $content->filter_category_id);
+            }
+            if (isset($content->filter_city_id)) {
+                $cityIds = (array) $content->filter_city_id;
+                $toursQuery->whereHas('cities', function ($query) use ($cityIds) {
+                    $query->whereIn('cities.id', $cityIds);
+                });
+            }
+        }
+
+        // Limit the number of tours if applicable
+        $toursLimit = $content->no_of_items;
+        $tours = $toursQuery->limit($toursLimit)->get();
+
+    @endphp
+    <div class="section-padding" style="background-color: {{ $backgroundColor ?? 'transparent' }}">
         <div class=container>
             <div class=tours-content>
-                <div class=section-content>
-                    <div class=heading>Top Tours</div>
-                </div>
-                <div class=more-link>
-                    <a href=#>More<i class="bx bx-right-arrow-alt"></i></a>
+                <div class="row w-100 align-items-center">
+                    <div class="col-md-9 mb-4">
+                        <div class=section-content>
+                            <div class=heading>{{ $content->title }}</div>
+                            <div class=desc>{{ $content->description }}</div>
+                        </div>
+                    </div>
+                    @if (isset($content->is_more_btn_enabled))
+                        <div class="col-md-3">
+                            <div class="more-link text-end">
+                                <a href=#>{{ $content->see_more_text }}<i class="bx bx-right-arrow-alt"></i></a>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
-            <div class="row pt-3">
-                <div class=col-md>
-                    <div class=card-content>
-                        <a href=# class=card_img>
-                            <img data-src={{ asset('assets/images/alanya-tandem-paragliding-tour.webp') }} alt=image
-                                class="imgFluid lazy" loading="lazy">
-                            <div class=price-details>
-                                <div class=price>
-                                    <span>
-                                        <b>€30</b>
-                                        From
-                                    </span>
-                                </div>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <div class=card-details>
-                            <a href=# class=card-title>Mezze Grill Restaurant</a>
-                            <div class=location-details><i class="bx bx-location-plus"></i>Alanya<span> $ - $$</span>
-                            </div>
-                            <div class=card-rating>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star"></i>
-                                <span>1 Reviews</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class=col-md>
-                    <div class=card-content>
-                        <a href=# class=card_img>
-                            <img data-src={{ asset('assets/images/rafting.webp') }} alt=image class="imgFluid lazy"
-                                loading="lazy">
-                            <div class=price-details>
-                                <div class=price>
-                                    <span>
-                                        <b>€30</b>
-                                        From
-                                    </span>
-                                </div>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <div class=card-details>
-                            <a href=# class=card-title>Mezze Grill Restaurant</a>
-                            <div class=location-details><i class="bx bx-location-plus"></i>Alanya<span> $ - $$</span>
-                            </div>
-                            <div class=card-rating>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star"></i>
-                                <span>1 Reviews</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class=col-md>
-                    <div class=card-content>
-                        <a href=# class=card_img>
-                            <img data-src={{ asset('assets/images/quad.webp') }} alt=image class="imgFluid lazy"
-                                loading="lazy">
-                            <div class=price-details>
-                                <div class=price>
-                                    <span>
-                                        <b>€30</b>
-                                        From
-                                    </span>
-                                </div>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <div class=card-details>
-                            <a href=# class=card-title>Mezze Grill Restaurant</a>
-                            <div class=location-details><i class="bx bx-location-plus"></i>Alanya<span> $ - $$</span>
-                            </div>
-                            <div class=card-rating>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star"></i>
-                                <span>1 Reviews</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class=col-md>
-                    <div class=card-content>
-                        <a href=# class=card_img>
-                            <img data-src={{ asset('assets/images/buggy.webp') }} alt=image class="imgFluid lazy"
-                                loading="lazy">
-                            <div class=price-details>
-                                <div class=price>
-                                    <span>
-                                        <b>€30</b>
-                                        From
-                                    </span>
-                                </div>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <div class=card-details>
-                            <a href=# class=card-title>Mezze Grill Restaurant</a>
-                            <div class=location-details><i class="bx bx-location-plus"></i>Alanya<span> $ - $$</span>
-                            </div>
-                            <div class=card-rating>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star"></i>
-                                <span>1 Reviews</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class=col-md>
-                    <div class=card-content>
-                        <a href=# class=card_img>
-                            <img data-src={{ asset('assets/images/jeep.webp') }} alt=image class="imgFluid lazy"
-                                loading="lazy">
-                            <div class=price-details>
-                                <div class=price>
-                                    <span>
-                                        <b>€30</b>
-                                        From
-                                    </span>
-                                </div>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <div class=card-details>
-                            <a href=# class=card-title>Mezze Grill Restaurant</a>
-                            <div class=location-details><i class="bx bx-location-plus"></i>Alanya<span> $ - $$</span>
-                            </div>
-                            <div class=card-rating>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star"></i>
-                                <span>1 Reviews</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{-- <div class=tours>
-        <div class=container>
-            <div class=tours-content>
-                <div class=section-content>
-                    <div class=heading>{{ $content->heading }}</div>
-                </div>
-                <div class=more-link>
-                    <a href="{{ $content->see_more_link }}" target="_blank">{{ $content->see_more_text }}<i
-                            class="bx bx-right-arrow-alt"></i></a>
-                </div>
-            </div>
-            <div class="row pt-3">
-                @php
-                    $tours = \App\Models\Tour::whereIn('id', $content->tour_ids)
-                        ->where('status', 'publish')
-                        ->get();
-                @endphp
+            <div
+                class="row {{ in_array($content->box_type, ['slider_carousel', 'slider_carousel_with_background_color']) ? 'five-items-slider' : 'row-cols-1 row-cols-md-3 row-cols-lg-3 row-cols-xl-5' }}">
                 @foreach ($tours as $tour)
-                    <div class=col-md>
+                    <div class="col">
                         <div class=card-content>
                             <a href=# class=card_img>
                                 <img data-src={{ asset($tour->featured_image ?? 'admin/assets/images/placeholder.png') }}
@@ -395,7 +252,7 @@
                                 <div class=price-details>
                                     <div class=price>
                                         <span>
-                                            <b>€30</b>
+                                            <b>{{ $tour->regular_price }}</b>
                                             From
                                         </span>
                                     </div>
@@ -408,23 +265,26 @@
                             </a>
                             <div class=card-details>
                                 <a href=# class=card-title>{{ $tour->title }}</a>
-                                <div class=location-details><i class="bx bx-location-plus"></i>Alanya<span> $ -
-                                        $$</span>
-                                </div>
+                                @if ($tour->cities->isNotEmpty())
+                                    <div data-bs-toggle="tooltip"
+                                        title="{{ $tour->cities->pluck('name')->implode(', ') }}"
+                                        class=location-details><i class="bx bx-location-plus"></i>
+                                        {{ $tour->cities[0]->name }}
+                                    </div>
+                                @endif
                                 <div class=card-rating>
                                     <i class="bx bxs-star yellow-star"></i>
                                     <i class="bx bxs-star yellow-star"></i>
                                     <i class="bx bxs-star yellow-star"></i>
                                     <i class="bx bxs-star yellow-star"></i>
                                     <i class="bx bxs-star"></i>
-                                    <span>1 Reviews</span>
+                                    <span>10 Reviews</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 @endforeach
-
             </div>
         </div>
-    </div> --}}
+    </div>
 @endif

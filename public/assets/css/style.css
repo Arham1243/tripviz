@@ -579,7 +579,8 @@ a#loginBtn {
     color: #fec10b;
 }
 
-.banner--overlay :is(.bannerMain-title *, .banner-rating *:not(i)),.banner-slider-wrapper :is(.bannerMain-title *, .banner-rating *:not(i)) {
+.banner--overlay :is(.bannerMain-title *, .banner-rating *:not(i)),
+.banner-slider-wrapper :is(.bannerMain-title *, .banner-rating *:not(i)) {
     color: #ffff !important;
 }
 .banner-slider {
@@ -693,6 +694,9 @@ a#loginBtn {
     padding: 0.35rem;
     margin: 1rem 0;
     transition: all 300ms;
+    box-shadow: 0 0 10px 1px #00000020;
+    border: 1px solid transparent;
+    background: #fff;
 }
 
 .card_img img {
@@ -724,7 +728,7 @@ a#loginBtn {
 }
 
 .card-details {
-    padding: 0.85rem 0 1rem;
+    padding: 0.5rem 0.25rem 0.5rem;
 }
 
 .card-location a {
@@ -739,8 +743,11 @@ a#loginBtn {
     margin-bottom: 4px;
     font-size: 15px;
     font-weight: 500;
+    margin-bottom: 0.4rem;
 }
-
+a.card-title:hover {
+    color: var(--color-primary-dark);
+}
 .card-review {
     font-size: 13px;
     display: flex;
@@ -764,6 +771,9 @@ a#loginBtn {
     display: flex;
     align-items: center;
     gap: 0.25rem;
+    margin-bottom: 0.25rem;
+    width: fit-content;
+    cursor: pointer;
 }
 
 .location-details span {
@@ -1080,7 +1090,7 @@ a#loginBtn {
     padding: 2rem 0;
     min-height: 40vh;
     border-bottom: 1px solid #f8f8ff;
-    border-top: 1px solid #f8f8ff;
+    box-shadow: 0 0 15px 1px #00000020;
 }
 
 .footer-content {
@@ -1232,12 +1242,8 @@ a.service-wishlis i {
     font-size: 18px;
 }
 
-.card-content {
-    border: 1px solid rgba(211, 211, 211, 0.4) !important;
-}
-
 .card-content:hover {
-    border: 1px solid rgba(33, 109, 244, 0.71) !important;
+    border-color: rgba(33, 109, 244, 0.71);
 }
 
 .heart-icon .service-wishlis {
@@ -2494,7 +2500,7 @@ a.card_img.trending-products__img {
 .card-rating {
     display: flex;
     align-items: center;
-    margin: 0.15rem 0 0.25rem;
+    margin: 0;
 }
 
 .card-rating {
@@ -5885,3 +5891,10 @@ span.select2-dropdown.select2-dropdown--below {
 
 /* select2 */
 /* banner date search */
+
+.section-padding {
+    padding: 4rem 0;
+}
+.five-items-slider .slick-slide {
+    margin: 0 10px;
+}
