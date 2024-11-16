@@ -109,6 +109,18 @@
                     };
                 },
                 cache: true
+            },
+            templateResult: function(data) {
+                if (data.text) {
+                    var query = $('#destination').data('select2').dropdown.$search.val();
+                    var highlightedText = data.text.replace(new RegExp('(' + query + ')', 'gi'),
+                        '<strong class="highlighted">$1</strong>');
+                    return $('<span>').html(highlightedText);
+                }
+                return null;
+            },
+            templateSelection: function(data) {
+                return data.text || data.id;
             }
         });
         $('#destination').on('select2:select', function(e) {

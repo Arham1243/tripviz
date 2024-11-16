@@ -565,7 +565,7 @@ a#loginBtn {
     color: #fec10b;
 }
 
-.banner--overlay *:not( .primary-btn, i, input, .date-search *, .select2-selection__placeholder, .select2-results__option ,.select2-selection__rendered) {
+.banner--overlay :is(.bannerMain-title,.bannerMain-title span,.banner-rating *:not(i)) {
     color: #ffff !important;
 }
 .banner-slider {
@@ -5824,13 +5824,16 @@ span.select2-dropdown.select2-dropdown--below {
     font-size: 0.84rem;
 }
 
-.select2-results__option {
+.select2-results__option{
     padding: 0.5rem 1rem !important;
     font-size: 0.84rem;
     color: #000;
     font-weight: 500;
 }
-
+.select2-results__option.select2-results__option span{
+    color: inherit !important;
+    font: inherit;
+}
 .select2-results__option:not(:last-child) {
     border-bottom: 1px solid #dee2e6;
 }
@@ -5860,5 +5863,11 @@ span.select2-dropdown.select2-dropdown--below {
     left: 50%;
     transform: translateX(-50%);
 }
+.highlighted {
+    background-color: #FF901C;
+    font-weight: 600;
+    color: #000;
+}
+
 /* select2 */
 /* banner date search */
