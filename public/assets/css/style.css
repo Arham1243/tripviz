@@ -434,7 +434,7 @@ a#loginBtn {
     z-index: -1;
 }
 .banner-heading .bannerMain-title .title {
-    font-size: 1.64em;
+    font-size: 1.6em;
     font-weight: 600;
 }
 
@@ -444,16 +444,18 @@ a#loginBtn {
 .banner-heading .bannerMain-title .subTitle--lg {
     font-size: 2.5em;
     font-weight: 700;
-    margin: 0.4rem 0;
+    margin: 0.25rem 0 0.4rem;
+    color: #243064;
 }
 
 .banner-heading .bannerMain-title .subTitle--sm {
     font-size: 1.18em;
+    font-weight: 600;
 }
 
 .banner-heading .bannerMain-title {
     color: #000;
-    font-size: 17px;
+    font-size: 18px;
 }
 
 .header-banner__heading .bannerMain-title {
@@ -577,7 +579,7 @@ a#loginBtn {
     color: #fec10b;
 }
 
-.banner--overlay :is(.bannerMain-title, .banner-rating *:not(i)) {
+.banner--overlay :is(.bannerMain-title *, .banner-rating *:not(i)),.banner-slider-wrapper :is(.bannerMain-title *, .banner-rating *:not(i)) {
     color: #ffff !important;
 }
 .banner-slider {
