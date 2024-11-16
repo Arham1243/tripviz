@@ -19,7 +19,7 @@
         <div class="form-fields">
             <label class="title">Title<span class="text-danger">*</span> :</label>
             <input type="text" name="content[title]" class="field" value="{{ $sectionContent->title ?? '' }}"
-                placeholder="" data-error="Sub Heading" maxlength="55">
+                placeholder="" data-error="Title" maxlength="35">
         </div>
     </div>
     <div class="col-lg-12 mb-3">
@@ -41,7 +41,7 @@
                             <tr>
                                 <td>
                                     <input type="text" class="field" name="content[subtitle][]"
-                                        x-model="item.subTitle" maxlength="55" />
+                                        x-model="item.subTitle" :maxlength="index === 0 ? 24 : 55" />
                                 </td>
                                 <td>
                                     <button :disabled="index === 0" class="delete-btn delete-btn--static ms-auto"
