@@ -10,10 +10,8 @@
                 </div>
             </h1>
             @if (isset($content->is_button_enabled))
-                @php
-                    $sanitizedLink = preg_replace('/^(https?:\/\/)?(www\.)?/', '', $content->btn_link);
-                @endphp
-                <a href="//{{ $sanitizedLink }}" class="primary-btn mt-3" target="_blank">{{ $content->btn_text }}</a>
+                <a href="{{ sanitizedLink($content->btn_link) }}" class="primary-btn mt-3"
+                    target="_blank">{{ $content->btn_text }}</a>
             @endif
         </div>
     </div>

@@ -16,6 +16,12 @@ if (! function_exists('buildUrl')) {
         return $url;
     }
 }
+if (! function_exists('sanitizedLink')) {
+    function sanitizedLink($url)
+    {
+        return '//'.preg_replace('/^(https?:\/\/)?(www\.)?/', '', $url);
+    }
+}
 
 if (! function_exists('handleSeoData')) {
     function handleSeoData($request, $entry, $resource)

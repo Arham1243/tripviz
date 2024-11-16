@@ -43,7 +43,7 @@
             }
         @endphp
         <div class="col-md-12">
-            <a href="{{ $review_link }}" class="banner-rating" target="_blank">
+            <a href="{{ sanitizedLink($review_link) }}" class="banner-rating" target="_blank">
                 <div class="banner-rating__custom">
                     <img src="{{ asset($review_image) }}" alt="{{ $content->review_type }} Logo"
                         class="banner-rating__platform">
