@@ -315,8 +315,8 @@
                                     }
                                 @endphp
                                 <div class=col-md>
-                                    <a href="{{ route($columns['route'], $resource->{$columns['slug']}) }}"
-                                        class=dst-card>
+                                    {{-- {{ route($columns['route'], $resource->{$columns['slug']}) }} --}}
+                                    <a href="javascript:void(0)" class=dst-card>
                                         <div class=destinations-img>
                                             <img data-src={{ asset($resource->{$columns['image']} ?? 'admin/assets/images/placeholder.png') }}
                                                 alt={{ $resource->{$columns['alt_text']} }} class="imgFluid lazy">

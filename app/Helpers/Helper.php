@@ -22,6 +22,14 @@ if (! function_exists('sanitizedLink')) {
         return '//'.preg_replace('/^(https?:\/\/)?(www\.)?/', '', $url);
     }
 }
+if (! function_exists('formatPrice')) {
+    function formatPrice($price)
+    {
+        $formattedPrice = number_format($price, 2, '.', ',');
+
+        return env('APP_CURRENCY').' '.$formattedPrice;
+    }
+}
 
 if (! function_exists('handleSeoData')) {
     function handleSeoData($request, $entry, $resource)

@@ -252,7 +252,7 @@
                                 <div class=price-details>
                                     <div class=price>
                                         <span>
-                                            <b>{{ $tour->regular_price }}</b>
+                                            <b>{{ formatPrice($tour->regular_price) }}</b>
                                             From
                                         </span>
                                     </div>
@@ -264,7 +264,8 @@
                                 </div>
                             </a>
                             <div class=card-details>
-                                <a href=# class=card-title>{{ $tour->title }}</a>
+                                <a href=# data-bs-toggle="tooltip" class=card-title
+                                    title="{{ $tour->title }}">{{ $tour->title }}</a>
                                 @if ($tour->cities->isNotEmpty())
                                     <div data-bs-toggle="tooltip"
                                         title="{{ $tour->cities->pluck('name')->implode(', ') }}"

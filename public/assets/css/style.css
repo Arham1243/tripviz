@@ -744,6 +744,11 @@ a#loginBtn {
     font-size: 15px;
     font-weight: 500;
     margin-bottom: 0.4rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    width: fit-content;
 }
 a.card-title:hover {
     color: var(--color-primary-dark);
