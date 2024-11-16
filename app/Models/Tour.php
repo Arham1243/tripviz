@@ -21,7 +21,7 @@ class Tour extends Model
 
     public function cities()
     {
-        return $this->belongsToMany(City::class);
+        return $this->belongsToMany(City::class, 'city_tour', 'tour_id', 'city_id');
     }
 
     public function availabilities()

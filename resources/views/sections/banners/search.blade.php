@@ -1,16 +1,19 @@
 @if (isset($content->is_form_enabled))
     @if ($content->form_type === 'normal')
         <div class="col-md-12">
-            <form action="" class="banner-search" id="destination-wrapper">
+            <form action="{{ route('tours.search.results') }}" class="banner-search auto-submit-form"
+                id="destination-wrapper">
                 <i class="bx bx-search"></i>
-                <select placeholder="Where are you going?" class="banner-search__input" name="destination" id="destination"
+                <select placeholder="Where are you going?" class="banner-search__input" name="resource_id" id="destination"
                     style="width: 100%"></select>
+                <input type="hidden" name="resource_type" id="resource_type">
             </form>
         </div>
     @elseif($content->form_type === 'date_selection')
         <div class="col-md-9">
             <div class="date-search">
-                <form action="#" class="date-search__btns">
+                <form action="{{ route('tours.search.results') }}" class="date-search__btns">
+                    <input type="hidden" name="resource_type" id="resource_type">
                     <label for="destination" id="destination-wrapper" class="date-search__btn">
                         <div class="first-half">
                             <i class='bx bxs-map'></i>
@@ -18,7 +21,7 @@
                         <div class="second-half">
                             <span class="top-label">Going to</span>
                             <div class="content">
-                                <select placeholder="Where are you going?" name="destination" id="destination"
+                                <select placeholder="Where are you going?" name="resource_id" id="destination"
                                     style="width: 100%"></select>
                             </div>
                         </div>
@@ -87,36 +90,36 @@
         document.addEventListener("DOMContentLoaded", function() {
             initializeDateRangePicker(formattedDate);
         });
-        $(document).ready(function() {
-            $('#destination').select2({
-                placeholder: 'Where are you going?',
-                dropdownParent: $('#destination-wrapper'),
-                ajax: {
-                    url: '{{ route('search.suggestions') }}',
-                    dataType: 'json',
-                    delay: 250,
-                    data: function(params) {
-                        return {
-                            q: params.term
-                        };
-                    },
-                    processResults: function(data) {
-                        return {
-                            results: data.results.map(function(item) {
-                                return {
-                                    id: item.id,
-                                    text: item.text
-                                };
-                            })
-                        };
-                    },
-                    cache: true
-                }
-            });
+        $('#destination').select2({
+            placeholder: 'Where are you going?',
+            dropdownParent: $('#destination-wrapper'),
+            minimumInputLength: 1,
+            ajax: {
+                url: '{{ route('search.suggestions') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: Object.values(data.results)
+                    };
+                },
+                cache: true
+            }
+        });
+        $('#destination').on('select2:select', function(e) {
+            var selectedData = e.params.data;
+            var resourceType = selectedData.type;
+            $('#resource_type').val(resourceType);
+            $('.auto-submit-form').submit();
+        });
 
-            $('#destination-wrapper').on('click focus', function() {
-                $('#destination').select2('open');
-            });
+        $('#destination-wrapper').on('click focus', function() {
+            $('#destination').select2('open');
         });
     </script>
 @endpush
