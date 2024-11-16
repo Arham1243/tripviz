@@ -45,7 +45,7 @@ class SearchSuggestionController extends Controller
                 } elseif ($item instanceof Country) {
                     $type = 'country';
                 } elseif ($item instanceof TourCategory) {
-                    $type = 'tour_category';
+                    $type = 'category';
                 }
 
                 return [

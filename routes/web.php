@@ -34,6 +34,7 @@ Route::get('/dump-intended-urls', function (Illuminate\Http\Request $request) {
 
 // ---------------------------------------Tours---------------------------------------
 Route::prefix('tours')->name('tours.')->group(function () {
+    Route::get('/search/results', [TourController::class, 'showSearchResults'])->name('search.results');
     Route::get('/details/{slug}', [TourController::class, 'details'])->name('details');
     Route::get('/listing', [TourController::class, 'listing'])->name('listing');
     Route::get('/show-more', [TourController::class, 'loadMore'])->name('loadMore');

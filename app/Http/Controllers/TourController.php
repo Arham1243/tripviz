@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdditionalItem;
+use App\Models\City;
+use App\Models\Country;
 use App\Models\Tour;
 use App\Models\TourAttribute;
+use App\Models\TourCategory;
 use App\Models\TourExclusion;
 use App\Models\TourInclusion;
 use App\Models\TourItinerary;
@@ -36,13 +39,46 @@ class TourController extends Controller
         return redirect()->back()->with('notify_error', 'Page Not Available');
     }
 
-    public function listing()
+    public function searchResults()
     {
-        $total_tours = Tour::where('is_active', '1')->with('categories', 'cities')->latest()->get();
-        $tours = Tour::where('is_active', '1')->with('categories', 'cities', 'reviews')->latest()->paginate(8);
-        $data = compact('tours', 'total_tours');
+        return view('tours.search-results')->with('title', 'Search Results');
+    }
 
-        return view('tours.listing')->with('title', 'Tour Listing')->with($data);
+    public function showSearchResults(Request $request)
+    {
+        $resourceId = $request->input('resource_id');
+        $resourceType = $request->input('resource_type');
+        $tours = collect();
+
+        switch ($resourceType) {
+            case 'city':
+                $city = City::find($resourceId);
+                if ($city) {
+                    $tours = $city->tours()->where('status', 'publish')->get();
+                }
+                break;
+            case 'country':
+                $country = Country::find($resourceId);
+                if ($country) {
+                    $tours = Tour::whereHas('cities', function ($query) use ($country) {
+                        $query->where('country_id', $country->id);
+                    })->where('status', 'publish')->get();
+                }
+                break;
+
+            case 'category':
+                $category = TourCategory::find($resourceId);
+                if ($category) {
+                    $tours = $category->tours()->where('status', 'publish')->get();
+                }
+                break;
+
+            default:
+                $tours = collect();
+                break;
+        }
+
+        return view('tours.search-results', compact('tours'))->with('title', 'Tour Search Results');
     }
 
     public function loadMore(Request $request)

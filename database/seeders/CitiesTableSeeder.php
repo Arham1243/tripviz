@@ -48,39 +48,36 @@ class CitiesTableSeeder extends Seeder
             ['name' => 'Izmir', 'status' => 'publish', 'slug' => Str::slug('Izmir'), 'country_id' => 6],
 
             // United Arab Emirates
-            ['name' => 'Dubai', 'status' => 'publish', 'slug' => Str::slug('Dubai'), 'country_id' => 7],
-            ['name' => 'Abu Dhabi', 'status' => 'publish', 'slug' => Str::slug('Abu Dhabi'), 'country_id' => 7],
-            ['name' => 'Sharjah', 'status' => 'publish', 'slug' => Str::slug('Sharjah'), 'country_id' => 7],
-            ['name' => 'Ajman', 'status' => 'publish', 'slug' => Str::slug('Ajman'), 'country_id' => 7],
-            ['name' => 'Ras Al Khaimah', 'status' => 'publish', 'slug' => Str::slug('Ras Al Khaimah'), 'country_id' => 7],
-            ['name' => 'Fujairah', 'status' => 'publish', 'slug' => Str::slug('Fujairah'), 'country_id' => 7],
-            ['name' => 'Al Ain', 'status' => 'publish', 'slug' => Str::slug('Al Ain'), 'country_id' => 7],
-            ['name' => 'Umm Al Quwain', 'status' => 'publish', 'slug' => Str::slug('Umm Al Quwain'), 'country_id' => 7],
-            ['name' => 'Khor Fakkan', 'status' => 'publish', 'slug' => Str::slug('Khor Fakkan'), 'country_id' => 7],
-            ['name' => 'Dibba Al-Fujairah', 'status' => 'publish', 'slug' => Str::slug('Dibba Al-Fujairah'), 'country_id' => 7],
-            ['name' => 'Kalba', 'status' => 'publish', 'slug' => Str::slug('Kalba'), 'country_id' => 7],
-            ['name' => 'Jebel Ali', 'status' => 'publish', 'slug' => Str::slug('Jebel Ali'), 'country_id' => 7],
+            ['name' => 'Dubai', 'status' => 'publish', 'slug' => Str::slug('Dubai'), 'country_id' => 34],
+            ['name' => 'Abu Dhabi', 'status' => 'publish', 'slug' => Str::slug('Abu Dhabi'), 'country_id' => 34],
+            ['name' => 'Sharjah', 'status' => 'publish', 'slug' => Str::slug('Sharjah'), 'country_id' => 34],
+            ['name' => 'Ajman', 'status' => 'publish', 'slug' => Str::slug('Ajman'), 'country_id' => 34],
+            ['name' => 'Ras Al Khaimah', 'status' => 'publish', 'slug' => Str::slug('Ras Al Khaimah'), 'country_id' => 34],
+            ['name' => 'Fujairah', 'status' => 'publish', 'slug' => Str::slug('Fujairah'), 'country_id' => 34],
+            ['name' => 'Al Ain', 'status' => 'publish', 'slug' => Str::slug('Al Ain'), 'country_id' => 34],
+            ['name' => 'Umm Al Quwain', 'status' => 'publish', 'slug' => Str::slug('Umm Al Quwain'), 'country_id' => 34],
+            ['name' => 'Khor Fakkan', 'status' => 'publish', 'slug' => Str::slug('Khor Fakkan'), 'country_id' => 34],
+            ['name' => 'Dibba Al-Fujairah', 'status' => 'publish', 'slug' => Str::slug('Dibba Al-Fujairah'), 'country_id' => 34],
+            ['name' => 'Kalba', 'status' => 'publish', 'slug' => Str::slug('Kalba'), 'country_id' => 34],
+            ['name' => 'Jebel Ali', 'status' => 'publish', 'slug' => Str::slug('Jebel Ali'), 'country_id' => 34],
 
             // Thailand
-            ['name' => 'Bangkok', 'status' => 'publish', 'slug' => Str::slug('Bangkok'), 'country_id' => 8],
-            ['name' => 'Phuket', 'status' => 'publish', 'slug' => Str::slug('Phuket'), 'country_id' => 8],
-            ['name' => 'Chiang Mai', 'status' => 'publish', 'slug' => Str::slug('Chiang Mai'), 'country_id' => 8],
-            ['name' => 'Pattaya', 'status' => 'publish', 'slug' => Str::slug('Pattaya'), 'country_id' => 8],
+            ['name' => 'Bangkok', 'status' => 'publish', 'slug' => Str::slug('Bangkok'), 'country_id' => 19],
+            ['name' => 'Phuket', 'status' => 'publish', 'slug' => Str::slug('Phuket'), 'country_id' => 19],
+            ['name' => 'Chiang Mai', 'status' => 'publish', 'slug' => Str::slug('Chiang Mai'), 'country_id' => 19],
+            ['name' => 'Pattaya', 'status' => 'publish', 'slug' => Str::slug('Pattaya'), 'country_id' => 19],
 
             // Australia
-            ['name' => 'Sydney', 'status' => 'publish', 'slug' => Str::slug('Sydney'), 'country_id' => 9],
-            ['name' => 'Melbourne', 'status' => 'publish', 'slug' => Str::slug('Melbourne'), 'country_id' => 9],
-            ['name' => 'Brisbane', 'status' => 'publish', 'slug' => Str::slug('Brisbane'), 'country_id' => 9],
-            ['name' => 'Perth', 'status' => 'publish', 'slug' => Str::slug('Perth'), 'country_id' => 9],
+            ['name' => 'Sydney', 'status' => 'publish', 'slug' => Str::slug('Sydney'), 'country_id' => 14],
+            ['name' => 'Melbourne', 'status' => 'publish', 'slug' => Str::slug('Melbourne'), 'country_id' => 14],
+            ['name' => 'Brisbane', 'status' => 'publish', 'slug' => Str::slug('Brisbane'), 'country_id' => 14],
+            ['name' => 'Perth', 'status' => 'publish', 'slug' => Str::slug('Perth'), 'country_id' => 14],
 
             // Egypt
-            ['name' => 'Cairo', 'status' => 'publish', 'slug' => Str::slug('Cairo'), 'country_id' => 10],
-            ['name' => 'Luxor', 'status' => 'publish', 'slug' => Str::slug('Luxor'), 'country_id' => 10],
-            ['name' => 'Aswan', 'status' => 'publish', 'slug' => Str::slug('Aswan'), 'country_id' => 10],
-            ['name' => 'Alexandria', 'status' => 'publish', 'slug' => Str::slug('Alexandria'), 'country_id' => 10],
+            ['name' => 'Cairo', 'status' => 'publish', 'slug' => Str::slug('Cairo'), 'country_id' => 27],
+            ['name' => 'Luxor', 'status' => 'publish', 'slug' => Str::slug('Luxor'), 'country_id' => 27],
         ];
 
         DB::table('cities')->insert($cities);
-
     }
 }
