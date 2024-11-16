@@ -1,7 +1,7 @@
 @if (isset($content->is_form_enabled))
     @if ($content->form_type === 'normal')
         <div class="col-md-12">
-            <form action="" class="banner-search" id="destination-wrapper">
+            <form action="" class="banner-search auto-submit-form" id="destination-wrapper">
                 <i class="bx bx-search"></i>
                 <select placeholder="Where are you going?" class="banner-search__input" name="resource_id" id="destination"
                     style="width: 100%"></select>
@@ -109,6 +109,12 @@
                 },
                 cache: true
             }
+        });
+        $('#destination').on('select2:select', function(e) {
+            var selectedData = e.params.data;
+            var resourceType = selectedData.type;
+            $('#resource_type').val(resourceType);
+            $('.auto-submit-form').submit();
         });
 
         $('#destination-wrapper').on('click focus', function() {
