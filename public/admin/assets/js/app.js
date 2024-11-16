@@ -32,10 +32,8 @@ function updateLabel(container) {
 
     if (checkbox.checked) {
         label.textContent = enabledText;
-
     } else {
         label.textContent = disabledText;
-
     }
 }
 const initializeToggleSwitchLabels = () => {
@@ -187,32 +185,47 @@ document.addEventListener("DOMContentLoaded", function () {
     initializeChoiceSelects();
 });
 
+// Configuration function for Select2
+const getSelect2Config = (select, maxItems, shouldSort) => {
+    return {
+        placeholder: select.getAttribute("placeholder") || "Select",
+        maximumSelectionLength: maxItems > 0 ? maxItems : undefined,
+        allowClear: true,
+        sorter: shouldSort
+            ? function (data) {
+                  return data.sort(function (a, b) {
+                      return a.text.localeCompare(b.text);
+                  });
+              }
+            : undefined,
+        language: {
+            noResults: function () {
+                return "No results found";
+            },
+        },
+    };
+};
+
+// Initialize Select2
 const initializeSelect2 = () => {
     const selectElements = document.querySelectorAll(".select2-select");
     selectElements.forEach((select) => {
+        // Destroy any existing Select2 instance
+        if ($(select).data("select2")) {
+            $(select).select2("destroy");
+        }
+
         const maxItems = select.hasAttribute("data-max-items")
             ? parseInt(select.getAttribute("data-max-items"))
             : -1;
+
         const shouldSort = select.hasAttribute("should-sort")
             ? select.getAttribute("should-sort") === "true"
             : true;
-        $(select).select2({
-            placeholder: select.getAttribute("placeholder") || "Select",
-            maximumSelectionLength: maxItems > 0 ? maxItems : undefined,
-            allowClear: true,
-            sorter: shouldSort
-                ? function (data) {
-                      return data.sort(function (a, b) {
-                          return a.text.localeCompare(b.text);
-                      });
-                  }
-                : undefined,
-            language: {
-                noResults: function () {
-                    return "No results found";
-                },
-            },
-        });
+
+        const config = getSelect2Config(select, maxItems, shouldSort);
+        // Initialize Select2
+        $(select).select2(config);
     });
 };
 
@@ -615,7 +628,7 @@ const InitializeColorPickers = (pickerContainer) => {
         colorPickerInput.value &&
         /^#([0-9A-F]{3}){1,2}$/i.test(colorPickerInput.value)
             ? colorPickerInput.value
-            : colorPickerInput.getAttribute('placeholder');
+            : colorPickerInput.getAttribute("placeholder");
     if (colorPicker && colorPickerInput) {
         const pickr = Pickr.create({
             el: colorPicker,

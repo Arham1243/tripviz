@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ isset($title) ? $title . ' | ' . env('APP_NAME') : env('APP_NAME') }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @include('admin.dash_layouts.links')
     @yield('css')
     @stack('css')
-    @include('admin.dash_layouts.links')
 </head>
 
 <body class="responsive">
@@ -40,7 +40,6 @@
     @stack('js')
     <script type="text/javascript">
         (() => {
-
             @if (session('notify_success'))
                 $.toast({
                     heading: 'Success!',
@@ -62,7 +61,6 @@
                     stack: 6
                 });
             @endif
-
         })()
     </script>
 </body>
