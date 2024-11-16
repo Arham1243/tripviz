@@ -3,10 +3,21 @@
     @if (!$tours->isEmpty())
         <div class=tours>
             <div class=container>
-
                 <div class=tours-content>
                     <div class="section-content">
-                        <div class="heading">We found {{ count($tours) }} tour{{ count($tours) > 1 ? 's' : '' }} for you
+                        <div class="heading">
+                            We found {{ count($tours) }} tour{{ count($tours) > 1 ? 's' : '' }} for you
+                            <br>
+                            <small>
+                                Showing results from
+                                @if ($resourceType === 'city')
+                                    City: {{ $resourceName }}
+                                @elseif ($resourceType === 'country')
+                                    Country: {{ $resourceName }}
+                                @elseif ($resourceType === 'category')
+                                    Category: {{ $resourceName }}
+                                @endif
+                            </small>
                         </div>
                     </div>
                 </div>
@@ -59,14 +70,22 @@
             <div class="container">
                 <div class="text-center">
                     <div class="section-content">
-                        <div class="heading">Oops! No tours match your search.</div>
+                        <div class="heading">
+                            Oops! No tours match your search for
+                            @if ($resourceType === 'city')
+                                City: {{ $resourceName }}
+                            @elseif ($resourceType === 'country')
+                                Country: {{ $resourceName }}
+                            @elseif ($resourceType === 'category')
+                                Category: {{ $resourceName }}
+                            @endif
+                        </div>
                     </div>
                     <p>We couldn't find any tours based on your search. You can <strong><a class="link-primary"
-                                href="{{ url()->previous() }}">Try Again</a></strong>
-                        with
-                        different
-                        criteria or explore other options.</p>
+                                href="{{ url()->previous() }}">Try Again</a></strong> with different criteria or explore
+                        other options.</p>
                 </div>
+
             </div>
         </div>
     @endif
