@@ -19,7 +19,7 @@
         <div class="form-fields">
             <label class="title">Title<span class="text-danger">*</span> :</label>
             <input type="text" name="content[title]" class="field" value="{{ $sectionContent->title ?? '' }}"
-                placeholder="" data-error="Sub Heading" maxlength="25">
+                placeholder="" data-error="Sub Heading" maxlength="55">
         </div>
     </div>
     <div class="col-lg-12 mb-3">
@@ -41,7 +41,7 @@
                             <tr>
                                 <td>
                                     <input type="text" class="field" name="content[subtitle][]"
-                                        x-model="item.subTitle" maxlength="25" />
+                                        x-model="item.subTitle" maxlength="55" />
                                 </td>
                                 <td>
                                     <button :disabled="index === 0" class="delete-btn delete-btn--static ms-auto"
@@ -77,7 +77,7 @@
                     <div class="form-fields">
                         <label class="title">Button Text <span class="text-danger">*</span> :</label>
                         <input type="text" value="{{ $sectionContent->btn_text ?? '' }}" name="content[btn_text]"
-                            class="field" placeholder="" data-error="Button Text" maxlength="20">
+                            class="field" placeholder="" data-error="Button Text" maxlength="40">
                     </div>
                 </div>
                 <div class="col-lg-6 mb-3">
