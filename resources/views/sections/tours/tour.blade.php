@@ -185,6 +185,14 @@
     </div>
 @else
     @php
+        $backgroundColor = null;
+        if ($content->box_type === 'normal_with_background_color') {
+            $backgroundColor = isset($content->normal_background_color) ? $content->normal_background_color : null;
+        } elseif ($content->box_type === 'slider_carousel_with_background_color') {
+            $backgroundColor = isset($content->slider_carousel_background_color)
+                ? $content->slider_carousel_background_color
+                : null;
+        }
         $toursQuery = \App\Models\Tour::query();
 
         // Order conditions (as per your original code)
@@ -219,7 +227,6 @@
         // Limit the number of tours if applicable
         $toursLimit = $content->no_of_items;
         $tours = $toursQuery->limit($toursLimit)->get();
-
     @endphp
     <div class="section-padding" style="background-color: {{ $backgroundColor ?? 'transparent' }}">
         <div class=container>
