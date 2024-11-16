@@ -565,7 +565,16 @@ a#loginBtn {
     color: #fec10b;
 }
 
-.banner--overlay *:not( .primary-btn, i, input, .date-search *, .select2-selection__placeholder, .select2-results__option ,.select2-selection__rendered) {
+.banner--overlay
+    *:not(
+        .primary-btn,
+        i,
+        input,
+        .date-search *,
+        .select2-selection__placeholder,
+        .select2-results__option,
+        .select2-selection__rendered
+    ) {
     color: #ffff !important;
 }
 .banner-slider {
@@ -5859,6 +5868,10 @@ span.select2-dropdown.select2-dropdown--below {
     width: 95% !important;
     left: 50%;
     transform: translateX(-50%);
+}
+.highlighted {
+    background-color: #FF901C;
+    font-weight: 600;
 }
 /* select2 */
 /* banner date search */
