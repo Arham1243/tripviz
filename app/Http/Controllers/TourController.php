@@ -49,12 +49,14 @@ class TourController extends Controller
         $resourceId = $request->input('resource_id');
         $resourceType = $request->input('resource_type');
         $tours = collect();
+        $resourceName = '';
 
         switch ($resourceType) {
             case 'city':
                 $city = City::find($resourceId);
                 if ($city) {
                     $tours = $city->tours()->where('status', 'publish')->get();
+                    $resourceName = $city->name;
                 }
                 break;
             case 'country':
@@ -63,6 +65,7 @@ class TourController extends Controller
                     $tours = Tour::whereHas('cities', function ($query) use ($country) {
                         $query->where('country_id', $country->id);
                     })->where('status', 'publish')->get();
+                    $resourceName = $country->name;
                 }
                 break;
 
@@ -70,6 +73,7 @@ class TourController extends Controller
                 $category = TourCategory::find($resourceId);
                 if ($category) {
                     $tours = $category->tours()->where('status', 'publish')->get();
+                    $resourceName = $category->name;
                 }
                 break;
 
@@ -78,7 +82,8 @@ class TourController extends Controller
                 break;
         }
 
-        return view('tours.search-results', compact('tours'))->with('title', 'Tour Search Results');
+        return view('tours.search-results', compact('tours', 'resourceType', 'resourceName'))
+            ->with('title', 'Tour Search Results');
     }
 
     public function loadMore(Request $request)
