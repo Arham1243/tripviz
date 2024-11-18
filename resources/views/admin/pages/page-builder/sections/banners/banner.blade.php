@@ -62,7 +62,6 @@
     </div>
     <div class="col-lg-12 pt-4 pb-3">
         <div class="form-fields">
-
             <div class="d-flex align-items-center gap-3 mb-3">
                 <label class="title title--sm mb-0">Call to Action Button:</label>
                 <div class="form-check form-switch" data-enabled-text="Enabled" data-disabled-text="Disabled">
@@ -85,6 +84,41 @@
                         <label class="title">Button Link <span class="text-danger">*</span> :</label>
                         <input type="text" value="{{ $sectionContent->btn_link ?? '' }}" name="content[btn_link]"
                             class="field" placeholder="" data-error="Button Link">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-fields">
+                        <div class="title d-flex align-items-center gap-2">
+                            <div>
+                                Select Button Background Color <span class="text-danger">*</span>:
+                            </div>
+                            <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get Color
+                                Codes</a>
+                        </div>
+                        <div class="field color-picker" data-color-picker-container>
+                            <label for="color-picker" data-color-picker></label>
+                            <input id="color-picker" type="text" name="content[btn_background_color]"
+                                data-color-picker-input value="{{ $sectionContent->btn_background_color ?? '#ffffff' }}"
+                                placeholder="#000000" data-error="background Color" inputmode="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-fields">
+                        <div class="title d-flex align-items-center gap-2">
+                            <div>
+                                Select Button Text Color <span class="text-danger">*</span>:
+                            </div>
+                            <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get Color
+                                Codes</a>
+                        </div>
+                        <div class="field color-picker" data-color-picker-container>
+                            <label for="color-picker" data-color-picker></label>
+                            <input id="color-picker" type="text" name="content[btn_text_color]"
+                                data-color-picker-input value="{{ $sectionContent->btn_text_color ?? '#1c4d99' }}"
+                                placeholder="#000000" data-error="background Color" inputmode="text" />
+                        </div>
                     </div>
                 </div>
             </div>

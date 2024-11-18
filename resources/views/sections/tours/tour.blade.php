@@ -5,8 +5,9 @@
                 <div class=section-content>
                     <div class=heading>Top Tours</div>
                 </div>
-                <div class=more-link>
-                    <a href=#>More<i class="bx bx-right-arrow-alt"></i></a>
+                <div class="d-flex justify-content-end">
+                    <a href=# class="primary-btn" style="background: transparent;color: var(--color-primary);">More<i
+                            class="bx bx-right-arrow-alt"></i></a>
                 </div>
             </div>
             <div class="row pt-3">
@@ -240,8 +241,10 @@
                     </div>
                     @if (isset($content->is_more_btn_enabled))
                         <div class="col-md-3">
-                            <div class="more-link text-end">
-                                <a href=#>{{ $content->see_more_text }}<i class="bx bx-right-arrow-alt"></i></a>
+                            <div class="d-flex justify-content-end">
+                                <a href=# class="primary-btn"
+                                    style="background: {{ $content->see_more_background_color ?? 'transparent' }};color: {{ $content->see_more_text_color ?? 'var(--color-primary)' }};">{{ $content->see_more_text }}<i
+                                        class="bx bx-right-arrow-alt"></i></a>
                             </div>
                         </div>
                     @endif

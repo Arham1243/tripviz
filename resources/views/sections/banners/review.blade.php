@@ -1,7 +1,7 @@
 @if (isset($content->is_review_enabled))
     @if ($content->review_type === 'custom')
         <div class="col-md-12">
-            <a href="{{ $content->custom_review_link }}" class="banner-rating" target="_blank">
+            <a href="{{ sanitizedLink($content->custom_review_link) }}" class="banner-rating" target="_blank">
                 <div class="banner-rating__custom">
                     <img src="{{ asset($content->custom_review_logo_image ?? 'assets/images/placeholder.png') }}"
                         alt="{{ $content->custom_review_logo_alt_text ?? 'Review Logo' }}"
