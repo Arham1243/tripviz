@@ -235,7 +235,7 @@
                 <div class="row w-100 align-items-center">
                     <div class="col-md-9 mb-4">
                         <div class=section-content>
-                            <div class=heading>{{ $content->title }}</div>
+                            <div class=heading style="color: {{ $content->title_color }};">{{ $content->title }}</div>
                             <div class=desc>{{ $content->description }}</div>
                         </div>
                     </div>
@@ -274,10 +274,10 @@
                                 </div>
                             </a>
                             <div class=card-details>
-                                <a href=# data-bs-toggle="tooltip" class=card-title
+                                <a href=# data-tooltip="tooltip" class=card-title
                                     title="{{ $tour->title }}">{{ $tour->title }}</a>
                                 @if ($tour->cities->isNotEmpty())
-                                    <div data-bs-toggle="tooltip"
+                                    <div data-tooltip="tooltip"
                                         title="{{ $tour->cities->pluck('name')->implode(', ') }}"
                                         class=location-details><i class="bx bx-location-plus"></i>
                                         {{ $tour->cities[0]->name }}

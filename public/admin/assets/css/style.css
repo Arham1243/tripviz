@@ -1106,6 +1106,7 @@ form .text-danger {
     transition: all 300ms;
     box-shadow: none !important;
     background: #fff;
+    height: 45px;
 }
 
 .form-fields .field::placeholder,
@@ -2288,3 +2289,12 @@ body.modal-open {
     z-index: 10000;
 }
 /* select2 */
+/* tooltip */
+[data-tooltip="tooltip"] {
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--color-primary);
+    font-size: 1.25rem;
+}
+/* tooltip */

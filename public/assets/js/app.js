@@ -554,7 +554,7 @@ quantityWrappers.forEach((counter) => {
 // ToolTips
 const showTooltips = () => {
     document
-        .querySelectorAll('[data-bs-toggle="tooltip"]')
+        .querySelectorAll('[data-tooltip="tooltip"]')
         .forEach(function (element) {
             new bootstrap.Tooltip(element, {
                 html: true,

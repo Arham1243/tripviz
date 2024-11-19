@@ -256,7 +256,7 @@
                                                 }
                                             @endphp
                                             <div class="tour-categories"><span>{{ $tour->categories[0]->name }}</span>
-                                                <button type="button" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                <button type="button" data-tooltip="tooltip" data-bs-placement="top"
                                                     title="{!! $categories !!}">
                                                     <i class='bx bxs-info-circle'></i>
                                                 </button>

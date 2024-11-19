@@ -15,11 +15,32 @@
 @endphp
 
 <div class="row">
-    <div class="col-lg-12 mb-3">
-        <div class="form-fields">
-            <label class="title">Title<span class="text-danger">*</span> :</label>
-            <input type="text" name="content[title]" class="field" value="{{ $sectionContent->title ?? '' }}"
-                placeholder="" data-error="Title" maxlength="35">
+    <div class="col-lg-12 mb-4">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-fields">
+                    <label class="title">Title<span class="text-danger">*</span> :</label>
+                    <input type="text" name="content[title]" class="field" value="{{ $sectionContent->title ?? '' }}"
+                        placeholder="" data-error="Title" maxlength="35">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-fields">
+                    <div class="title d-flex align-items-center gap-2">
+                        <div>Title Text Color <span class="text-danger">*</span>:</div>
+                        <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get
+                            Color
+                            Codes</a>
+                    </div>
+                    <div class="field color-picker" data-color-picker-container>
+                        <label for="color-picker" data-color-picker></label>
+                        <input id="color-picker" type="text" name="content[title_color]" data-color-picker-input
+                            value="{{ $sectionContent->title_color ?? '#000000' }}" data-error="background Color"
+                            inputmode="text">
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="col-lg-12 mb-3">
@@ -27,12 +48,21 @@
             <label class="title">Sub Title<span class="text-danger">*</span> :</label>
             @php
                 $subtitles = $sectionContent->subtitle ?? [''];
+                $titles = $subtitles->title ?? [];
+                $text_colors = $subtitles->text_color ?? [];
             @endphp
-            <div x-data="repeater({{ json_encode($subtitles) }}, 2)" class="repeater-table">
+            <div x-data="repeater({{ json_encode($titles) }}, {{ json_encode($text_colors) }}, 2)" class="repeater-table">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th scope="col">Sub Title</th>
+                            <th scope="col">
+                                <div class="d-flex align-items-center gap-2"> Text color
+                                    <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get Color
+                                        Codes</a>
+                                </div>
+
+                            </th>
                             <th class="text-end" scope="col">Remove</th>
                         </tr>
                     </thead>
@@ -40,8 +70,16 @@
                         <template x-for="(item, index) in items" :key="index">
                             <tr>
                                 <td>
-                                    <input type="text" class="field" name="content[subtitle][]"
-                                        x-model="item.subTitle" :maxlength="index === 0 ? 24 : 55" />
+                                    <input type="text" class="field" name="content[subtitle][title][]"
+                                        x-model="item.subTitle.title" :maxlength="index === 0 ? 24 : 55" />
+                                </td>
+                                <td>
+                                    <div class="field color-picker" data-color-picker-container x-init="$nextTick(() => InitializeColorPickers($el))">
+                                        <label :for="'color-picker-' + index" data-color-picker></label>
+                                        <input x-model="item.subTitle.text_color" :id="'color-picker-' + index"
+                                            type="text" name="content[subtitle][text_color][]"
+                                            data-color-picker-input inputmode="text">
+                                    </div>
                                 </td>
                                 <td>
                                     <button :disabled="index === 0" class="delete-btn delete-btn--static ms-auto"
@@ -72,16 +110,26 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6 mb-3">
+                <div class="col-lg-6 mb-4">
                     <div class="form-fields">
                         <label class="title">Button Text <span class="text-danger">*</span> :</label>
                         <input type="text" value="{{ $sectionContent->btn_text ?? '' }}" name="content[btn_text]"
                             class="field" placeholder="" data-error="Button Text" maxlength="40">
                     </div>
                 </div>
-                <div class="col-lg-6 mb-3">
+                <div class="col-lg-6 mb-4">
                     <div class="form-fields">
-                        <label class="title">Button Link <span class="text-danger">*</span> :</label>
+                        <label class="title">
+                            <div class="d-flex align-items-center gap-2 lh-1">
+                                <div class="mt-1">Button Link </div>
+
+                                <button data-bs-placement="top"
+                                    title="<strong>Link:</strong> https://abc.com <br> <strong>Phone:</strong> tel:0325227373"
+                                    type="button" data-tooltip="tooltip">
+                                    <i class='bx bxs-info-circle'></i>
+                                </button>
+                            </div>
+                        </label>
                         <input type="text" value="{{ $sectionContent->btn_link ?? '' }}" name="content[btn_link]"
                             class="field" placeholder="" data-error="Button Link">
                     </div>
@@ -91,7 +139,7 @@
                     <div class="form-fields">
                         <div class="title d-flex align-items-center gap-2">
                             <div>
-                                Select Button Background Color <span class="text-danger">*</span>:
+                                Button Background Color <span class="text-danger">*</span>:
                             </div>
                             <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get Color
                                 Codes</a>
@@ -99,8 +147,9 @@
                         <div class="field color-picker" data-color-picker-container>
                             <label for="color-picker" data-color-picker></label>
                             <input id="color-picker" type="text" name="content[btn_background_color]"
-                                data-color-picker-input value="{{ $sectionContent->btn_background_color ?? '#ffffff' }}"
-                                placeholder="#000000" data-error="background Color" inputmode="text" />
+                                data-color-picker-input
+                                value="{{ $sectionContent->btn_background_color ?? '#1c4d99' }}"
+                                data-error="background Color" inputmode="text" />
                         </div>
                     </div>
                 </div>
@@ -108,7 +157,7 @@
                     <div class="form-fields">
                         <div class="title d-flex align-items-center gap-2">
                             <div>
-                                Select Button Text Color <span class="text-danger">*</span>:
+                                Button Text Color <span class="text-danger">*</span>:
                             </div>
                             <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get Color
                                 Codes</a>
@@ -116,8 +165,8 @@
                         <div class="field color-picker" data-color-picker-container>
                             <label for="color-picker" data-color-picker></label>
                             <input id="color-picker" type="text" name="content[btn_text_color]"
-                                data-color-picker-input value="{{ $sectionContent->btn_text_color ?? '#1c4d99' }}"
-                                placeholder="#000000" data-error="background Color" inputmode="text" />
+                                data-color-picker-input value="{{ $sectionContent->btn_text_color ?? '#000000' }}"
+                                data-error="background Color" inputmode="text" />
                         </div>
                     </div>
                 </div>
@@ -365,6 +414,20 @@
                 </div>
                 <div class="py-3" x-show="background_type === 'normal_v2_full_screen_background'">
                     <div class="row">
+                        <div class="col-md-12 mb-4">
+                            <div class="form-fields">
+                                <div class="title mb-2">Enable Background Overlay:</div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox"
+                                        name="content[background_image_is_banner_overlay_enabled]"
+                                        id="background_image_is_banner_overlay_enabled" value="1"
+                                        {{ isset($sectionContent->background_image_is_banner_overlay_enabled) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="background_image_is_banner_overlay_enabled">
+                                        Show overlay on background
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-4">
                             <div class="form-fields">
                                 <label class="title">Background Image <span class="text-danger">*</span>
@@ -409,6 +472,20 @@
                 </div>
                 <div class="py-3" x-show="background_type === 'slider_carousel'">
                     <div class="row">
+                        <div class="col-md-12 mb-4">
+                            <div class="form-fields">
+                                <div class="title">Enable Background Overlay:</div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox"
+                                        name="content[slider_carousel_is_banner_overlay_enabled]"
+                                        id="slider_carousel_is_banner_overlay_enabled" value="1"
+                                        {{ isset($sectionContent->slider_carousel_is_banner_overlay_enabled) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="slider_carousel_is_banner_overlay_enabled">
+                                        Show overlay on background
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                         @for ($i = 0; $i < 4; $i++)
                             @php
                                 $background_image =
@@ -470,7 +547,7 @@
                         <div class="col-md-12">
                             <div class="form-fields">
                                 <div class="title d-flex align-items-center gap-2">
-                                    <div>Select Background Color <span class="text-danger">*</span>:</div>
+                                    <div>Background Color <span class="text-danger">*</span>:</div>
                                     <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get
                                         Color
                                         Codes</a>
@@ -528,7 +605,7 @@
             <div class="col-md-12 mb-4">
                 <div class="form-fields">
                     <div class="title d-flex align-items-center gap-2">
-                        <div>Select Background Color <span class="text-danger">*</span>:</div>
+                        <div>Background Color <span class="text-danger">*</span>:</div>
                         <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get
                             Color
                             Codes</a>
