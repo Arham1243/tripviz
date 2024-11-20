@@ -202,7 +202,6 @@
                     <label class="form-check-label" for="date_selection">Search Bar with Tour Date Selection</label>
                 </div>
             </div>
-
         </div>
     </div>
     <div class="col-12">
@@ -367,19 +366,24 @@
                         <label class="form-check-label" for="layout_normal_background_color">Background
                             Color</label>
                     </div>
+                    <div class="form-check p-0">
+                        <input class="form-check-input" type="radio" name="content[background_type]"
+                            id="background_color_with_right_image" x-model="background_type"
+                            name="content[background_type]" value="background_color_with_right_image">
+                        <label class="form-check-label" for="background_color_with_right_image">Right side
+                            Image (with Background)</label>
+                    </div>
                 </div>
                 <div class="py-3" x-show="background_type === 'normal_v1_right_side_image'">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4 mb-4">
                             <div class="form-fields">
-                                <label class="title">Right Side Image <span class="text-danger">*</span>
-                                    :</label>
+                                <label class="title">Right Side Image <span class="text-danger">*</span>:</label>
                                 <div class="upload upload--sm mx-0" data-upload>
                                     <div class="upload-box-wrapper">
                                         <div class="upload-box {{ empty($sectionContent->right_image) ? 'show' : '' }}"
                                             data-upload-box>
                                             <input type="file" name="content[right_image]"
-                                                {{ empty($sectionContent->right_image) ? '' : '' }}
                                                 data-error="Feature Image" id="right_image"
                                                 class="upload-box__file d-none" accept="image/*" data-file-input>
                                             <div class="upload-box__placeholder"><i class='bx bxs-image'></i>
@@ -409,6 +413,34 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-fields">
+                                <label class="title">Image Position <span class="text-danger">*</span>:</label>
+                                <div class="d-flex align-items-center gap-5 px-4 mb-1">
+                                    <div class="form-check p-0">
+                                        <input class="form-check-input" type="radio"
+                                            name="content[right_image_position]" id="center-image-1" value="center"
+                                            {{ isset($sectionContent->right_image_position) ? ($sectionContent->right_image_position === 'center' ? 'checked' : '') : '' }} />
+                                        <label class="form-check-label" for="center-image-1">Center</label>
+                                    </div>
+                                    <div class="form-check p-0">
+                                        <input class="form-check-input" type="radio"
+                                            name="content[right_image_position]" id="top-image-1"
+                                            {{ isset($sectionContent->right_image_position) ? ($sectionContent->right_image_position === 'top' ? 'checked' : '') : '' }}
+                                            value="top" />
+                                        <label class="form-check-label" for="top-image-1">Top</label>
+                                    </div>
+                                    <div class="form-check p-0">
+                                        <input class="form-check-input" type="radio"
+                                            name="content[right_image_position]" id="full-image-1"
+                                            {{ isset($sectionContent->right_image_position) ? ($sectionContent->right_image_position === 'full' ? 'checked' : '') : '' }}
+                                            value="full" />
+                                        <label class="form-check-label" for="full-image-1">Full</label>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -501,7 +533,7 @@
                                 <div class="form-fields">
                                     <label class="title">Carousel Image {{ $i + 1 }} <span
                                             class="text-danger">*</span> :</label>
-                                    <div class="upload upload--sm" data-upload>
+                                    <div class="upload upload--sm mx-0" data-upload>
                                         <div class="upload-box-wrapper">
                                             <div class="upload-box {{ empty($sectionContent->carousel_background_images) ? 'show' : '' }}"
                                                 data-upload-box>
@@ -564,6 +596,95 @@
                         </div>
                     </div>
                 </div>
+                <div class="py-3" x-show="background_type === 'background_color_with_right_image'">
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            <div class="form-fields">
+                                <div class="title d-flex align-items-center gap-2">
+                                    <div>Background Color <span class="text-danger">*</span>:</div>
+                                    <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get
+                                        Color
+                                        Codes</a>
+                                </div>
+                                <div class="field color-picker" data-color-picker-container>
+                                    <label for="color-picker" data-color-picker></label>
+                                    <input id="color-picker" type="text"
+                                        name="content[right_image_background_color]" data-color-picker-input
+                                        value="{{ $sectionContent->right_image_background_color ?? '#ffffff' }}"
+                                        data-error="background Color" inputmode="text">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="form-fields">
+                                <label class="title">Right Side Image <span class="text-danger">*</span> :</label>
+                                <div class="upload upload--sm mx-0" data-upload>
+                                    <div class="upload-box-wrapper">
+                                        <div class="upload-box {{ empty($sectionContent->right_image_background) ? 'show' : '' }}"
+                                            data-upload-box>
+                                            <input type="file" name="content[right_image_background]"
+                                                data-error="Feature Image" id="right_image_background"
+                                                class="upload-box__file d-none" accept="image/*" data-file-input>
+                                            <div class="upload-box__placeholder"><i class='bx bxs-image'></i>
+                                            </div>
+                                            <label for="right_image_background"
+                                                class="upload-box__btn themeBtn">Upload
+                                                Image</label>
+                                        </div>
+                                        <div class="upload-box__img {{ !empty($sectionContent->right_image_background) ? 'show' : '' }}"
+                                            data-upload-img>
+                                            <button type="button" class="delete-btn" data-delete-btn=""><i
+                                                    class='bx bxs-edit-alt'></i></button>
+                                            <a href="{{ asset($sectionContent->right_image_background ?? 'admin/assets/images/loading.webp') }}"
+                                                class="mask" data-fancybox="gallery">
+                                                <img src="{{ asset($sectionContent->right_image_background ?? 'admin/assets/images/loading.webp') }}"
+                                                    alt="Uploaded Image" class="imgFluid"
+                                                    data-placeholder="{{ asset('admin/assets/images/loading.webp') }}"
+                                                    data-upload-preview="">
+                                            </a>
+                                            <input type="text" name="content[right_image_background_alt_text]"
+                                                class="field" placeholder="Enter alt text"
+                                                value="{{ $sectionContent->right_image_background_alt_text ?? 'Banner Right Image' }}">
+                                        </div>
+                                    </div>
+                                    <div data-error-message class="text-danger mt-2 d-none text-center">Please
+                                        upload a
+                                        valid image file
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-fields">
+                                <label class="title">Image Position <span class="text-danger">*</span>:</label>
+                                <div class="d-flex align-items-center gap-5 px-4 mb-1">
+                                    <div class="form-check p-0">
+                                        <input class="form-check-input" type="radio"
+                                            name="content[right_image_position_background]" id="center-image-2"
+                                            value="center"
+                                            {{ isset($sectionContent->right_image_position_background) ? ($sectionContent->right_image_position_background === 'center' ? 'checked' : '') : '' }} />
+                                        <label class="form-check-label" for="center-image-2">Center</label>
+                                    </div>
+                                    <div class="form-check p-0">
+                                        <input class="form-check-input" type="radio"
+                                            name="content[right_image_position_background]" id="top-image-2"
+                                            {{ isset($sectionContent->right_image_position_background) ? ($sectionContent->right_image_position_background === 'top' ? 'checked' : '') : '' }}
+                                            value="top" />
+                                        <label class="form-check-label" for="top-image-2">Top</label>
+                                    </div>
+                                    <div class="form-check p-0">
+                                        <input class="form-check-input" type="radio"
+                                            name="content[right_image_position_background]" id="full-image-2"
+                                            {{ isset($sectionContent->right_image_position_background) ? ($sectionContent->right_image_position_background === 'full' ? 'checked' : '') : '' }}
+                                            value="full" />
+                                        <label class="form-check-label" for="full-image-2">Full</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -587,19 +708,55 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 mb-3">
+            <div class="col-lg-6 mb-4">
                 <div class="form-fields">
                     <label class="title">Title<span class="text-danger">*</span> :</label>
                     <input type="text" name="content[destination_title]" class="field" placeholder=""
                         value="{{ $sectionContent->destination_title ?? '' }}" data-error="Destination Title">
                 </div>
             </div>
-            <div class="col-lg-6 mb-3">
+            <div class="col-md-6">
+                <div class="form-fields">
+                    <div class="title d-flex align-items-center gap-2">
+                        <div>
+                            Title Text Color <span class="text-danger">*</span>:
+                        </div>
+                        <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get Color
+                            Codes</a>
+                    </div>
+                    <div class="field color-picker" data-color-picker-container>
+                        <label for="color-picker" data-color-picker></label>
+                        <input id="color-picker" type="text" name="content[destination_title_text_color]"
+                            data-color-picker-input
+                            value="{{ $sectionContent->destination_title_text_color ?? '#000000' }}"
+                            data-error="background Color" inputmode="text" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
                 <div class="form-fields">
                     <label class="title">Sub Title
                         <span class="text-danger">*</span> :</label>
                     <input type="text" name="content[destination_subtitle]" class="field" placeholder=""
                         value="{{ $sectionContent->destination_subtitle ?? '' }}" data-error="Destination Sub Title">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-fields">
+                    <div class="title d-flex align-items-center gap-2">
+                        <div>
+                            Sub Title Text Color <span class="text-danger">*</span>:
+                        </div>
+                        <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get Color
+                            Codes</a>
+                    </div>
+                    <div class="field color-picker" data-color-picker-container>
+                        <label for="color-picker" data-color-picker></label>
+                        <input id="color-picker" type="text" name="content[destination_subtitle_text_color]"
+                            data-color-picker-input
+                            value="{{ $sectionContent->destination_subtitle_text_color ?? '#000000' }}"
+                            data-error="background Color" inputmode="text" />
+                    </div>
                 </div>
             </div>
             <div class="col-md-12 mb-4">
@@ -884,3 +1041,4 @@
             </div>
         </div>
     </div>
+</div>

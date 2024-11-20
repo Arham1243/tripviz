@@ -636,6 +636,7 @@ a#loginBtn {
 
 .dst-card {
     padding: 0 5px;
+    width: 100%;
 }
 
 .destinations-img img {
@@ -650,6 +651,8 @@ a#loginBtn {
     border-radius: 8px;
     margin-bottom: 13px;
     overflow: hidden;
+    background: #fff;
+    box-shadow: 0 0 10px 1px #00000020;
 }
 
 .dst-location {
@@ -1046,25 +1049,34 @@ a.card-title:hover {
     justify-content: flex-end;
 }
 
-.top-location {
-    padding: 2rem;
-    min-height: 40vh;
-}
-
-.top-location__list ul {
-    column-count: 4;
-}
-
-.top-location__list ul li {
+.locations-list__item a {
     width: 100%;
     border-bottom: 1px solid #f1f3f7;
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.locations-list__item .name {
     font-weight: 500;
     font-size: 13px !important;
-    margin: 0 21px 0 0;
-    padding: 0.5rem 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-.top-location__list ul li:hover {
+.locations-list__item .count {
+    background-color: #f0f1ff;
+    color: #243064;
+    border-radius: 100%;
+    font-size: 11px;
+    font-weight: 800 !important;
+    width: 23px;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .heart-icon a.service-wishlis {
@@ -1073,16 +1085,6 @@ a.card-title:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.top-location__list ul li span {
-    float: right;
-    padding: 2px 6px;
-    background-color: #f0f1ff;
-    color: #243064;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: 800 !important;
 }
 
 .top-location__list ul li a {
@@ -1714,7 +1716,6 @@ span.GroupTourCard_subtitle {
 }
 
 .popular-related-destinations {
-    padding: 2rem 0;
 }
 
 .popular-related-destinations__img {
@@ -2370,7 +2371,6 @@ p.baseline-pricing__from {
 /* event-promotions */
 
 .event-promotions {
-    padding: 2rem 0 0;
 }
 
 .event-promotions .slick-slide {
@@ -2384,6 +2384,7 @@ p.baseline-pricing__from {
     transition: transform 0.3s ease-in-out;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
+    margin: 1rem 0;
 }
 
 .card-event-item:hover img {
@@ -2414,7 +2415,9 @@ p.baseline-pricing__from {
     padding: 50px;
     box-sizing: border-box;
     opacity: 0;
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    transition:
+        opacity 0.3s ease-in-out,
+        transform 0.3s ease-in-out;
     transform: translateY(100%);
     font-size: 16px;
     font-weight: 400;
@@ -3087,7 +3090,9 @@ span.timeline-item__icon {
     background-color: #f53;
     border: 2px solid #fff;
     border-radius: 100%;
-    box-shadow: 0 0 32px #0000000f, 0 4px 8px #00000029;
+    box-shadow:
+        0 0 32px #0000000f,
+        0 4px 8px #00000029;
     display: flex;
     height: 35px;
     justify-content: center;
@@ -3106,7 +3111,9 @@ span.timeline-item__icon {
     background-color: #f53;
     border: 2px solid #fff;
     border-radius: 50%;
-    box-shadow: 0 0 32px #0000000f, 0 4px 8px #00000029;
+    box-shadow:
+        0 0 32px #0000000f,
+        0 4px 8px #00000029;
     display: flex;
     height: 35px;
     justify-content: center;
@@ -3154,7 +3161,9 @@ p.timeline-subitems-info--primary {
     border-radius: 100%;
     height: 31px;
     margin-right: 9px;
-    box-shadow: 0 0 32px #0000000f, 0 4px 8px #00000029;
+    box-shadow:
+        0 0 32px #0000000f,
+        0 4px 8px #00000029;
 }
 
 .timeline-item__staricon {
@@ -3592,7 +3601,9 @@ p.main-blog__pra {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 90%;
-    transition: background-color 0.3s, color 0.3s;
+    transition:
+        background-color 0.3s,
+        color 0.3s;
     font-size: 11px;
     font-weight: 600;
 }
@@ -3834,7 +3845,9 @@ a h5.blogDet-card__title:hover {
     background-color: white;
     border-radius: 16px;
     padding: 1.35rem 1.5rem;
-    box-shadow: 0 0 64px #00000014, 0 8px 16px #00000029;
+    box-shadow:
+        0 0 64px #00000014,
+        0 8px 16px #00000029;
     width: 460px;
     /* right: 0; */
     /* top: 105px; */
@@ -5888,6 +5901,6 @@ span.select2-dropdown.select2-dropdown--below {
 .section-padding {
     padding: 4rem 0;
 }
-.five-items-slider .slick-slide {
+:is(.four-items-slider, .five-items-slider) .slick-slide {
     margin: 0 10px;
 }

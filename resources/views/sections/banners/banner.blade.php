@@ -224,8 +224,11 @@
                     <div class=col-md-4>
                         <div class=destinations-content>
                             <h2 class="heading">
-                                <div class=dst1>{{ $content->destination_title ?? '' }}</div>
-                                <div class=dst2>
+                                <div class=dst1
+                                    style="color: {{ isset($content->destination_title_text_color) ? $content->destination_title_text_color : '' }};">
+                                    {{ $content->destination_title ?? '' }}</div>
+                                <div class=dst2
+                                    style="color: {{ isset($content->destination_subtitle_text_color) ? $content->destination_subtitle_text_color : '' }};">
                                     {{ $content->destination_subtitle ?? '' }}
                                     <div class=darrow>
                                         <img data-src={{ asset('assets/images/darrow.webp') }} alt=image
@@ -316,11 +319,11 @@
                                     }
                                 @endphp
                                 <div class=col-md>
-                                    {{-- {{ route($columns['route'], $resource->{$columns['slug']}) }} --}}
-                                    <a href="javascript:void(0)" class=dst-card>
+                                    <a href="{{ route($columns['route'], $resource->{$columns['slug']}) }}"
+                                        class=dst-card>
                                         <div class=destinations-img>
                                             <img data-src={{ asset($resource->{$columns['image']} ?? 'admin/assets/images/placeholder.png') }}
-                                                alt={{ $resource->{$columns['alt_text']} }} class="imgFluid lazy">
+                                                alt="{{ $resource->{$columns['alt_text']} }}" class="imgFluid lazy">
                                         </div>
                                         <div class=dst-location>
                                             {{ $resource->{$columns['name']} }}

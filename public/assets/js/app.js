@@ -37,6 +37,29 @@ $(".five-items-slider").slick({
         },
     ],
 });
+$(".four-items-slider").slick({
+    dots: false,
+    arrows: true,
+    infinite: false,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    responsive: [
+        {
+            breakpoint: 900,
+            settings: {
+                slidesToShow: 2,
+            },
+        },
+        {
+            breakpoint: 400,
+            settings: {
+                slidesToShow: 1
+            },
+        },
+    ],
+});
 
 $(".destinations-slider").slick({
     dots: false,

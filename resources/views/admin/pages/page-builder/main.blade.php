@@ -128,7 +128,7 @@
         </div>
 
         <div class="modal" id="editSection">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title d-flex align-items-center gap-2"> Edit Section: <span

@@ -29,77 +29,9 @@
     </div>
     <div class="col-md-12 mb-3">
         <div class="form-fields">
-            <label class="title">Description <span class="text-danger">*</span> :</label>
-            <textarea maxlength="80" name="content[description]" class="field" data-error="Description" rows="2">{{ $sectionContent->description ?? '' }}</textarea>
-        </div>
-    </div>
-    <div class="col-md-12 mb-3">
-        <div class="form-fields">
             <label class="title">No. of items <span class="text-danger">*</span> :</label>
             <input type="number" min="1" x-model="no_of_items" name="content[no_of_items]" class="field"
                 placeholder="" data-error="Number of Items" oninput="this.value = this.value <= 0 ? 1 : this.value">
-        </div>
-    </div>
-    <div class="col-12">
-        <hr />
-    </div>
-    <div class="col-lg-12 mb-4 pt-3">
-        <div class="row">
-            <div class="col-md-12 mb-4">
-                <div class="form-fields">
-                    <div class="d-flex align-items-center gap-3">
-                        <label class="title title--sm mb-0">More Button:</label>
-                        <div class="form-check form-switch" data-enabled-text="Enabled" data-disabled-text="Disabled">
-                            <input class="form-check-input" data-toggle-switch=""
-                                {{ isset($sectionContent->is_more_btn_enabled) ? 'checked' : '' }} type="checkbox"
-                                id="enable-section-more-btn" value="1" name="content[is_more_btn_enabled]">
-                            <label class="form-check-label" for="enable-section-more-btn">Enabled</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12 mb-4">
-                <div class="form-fields">
-                    <label class="title">button text <span class="text-danger">*</span> :</label>
-                    <input type="text" value="{{ $sectionContent->see_more_text ?? '' }}"
-                        name="content[see_more_text]" class="field" placeholder="" data-error="View More Text">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-fields">
-                    <div class="title d-flex align-items-center gap-2">
-                        <div>
-                            Select Button Background Color <span class="text-danger">*</span>:
-                        </div>
-                        <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get Color
-                            Codes</a>
-                    </div>
-                    <div class="field color-picker" data-color-picker-container>
-                        <label for="color-picker" data-color-picker></label>
-                        <input id="color-picker" type="text" name="content[see_more_background_color]"
-                            data-color-picker-input
-                            value="{{ $sectionContent->see_more_background_color ?? '#ffffff' }}" placeholder="#000000"
-                            data-error="background Color" inputmode="text" />
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-fields">
-                    <div class="title d-flex align-items-center gap-2">
-                        <div>
-                            Select Button Text Color <span class="text-danger">*</span>:
-                        </div>
-                        <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get Color
-                            Codes</a>
-                    </div>
-                    <div class="field color-picker" data-color-picker-container>
-                        <label for="color-picker" data-color-picker></label>
-                        <input id="color-picker" type="text" name="content[see_more_text_color]"
-                            data-color-picker-input value="{{ $sectionContent->see_more_text_color ?? '#1c4d99' }}"
-                            placeholder="#000000" data-error="background Color" inputmode="text" />
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <div class="col-12">
@@ -298,16 +230,21 @@
     </div>
     <div class="col-12  mb-4 pt-3">
         <div class="form-fields">
-            <div class="title title--sm mb-0">Featured Items:</div>
+            <div class="title title--sm mb-0">Featured Image:</div>
         </div>
-        <div class="form-fields">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="content[show_only_featured_items]"
-                    id="show_only_featured_items" value="1"
-                    {{ isset($sectionContent->show_only_featured_items) ? 'checked' : '' }}>
-                <label class="form-check-label" for="show_only_featured_items">
-                    Show only featured items
-                </label>
+        <div class="d-flex align-items-center gap-5 px-4 mb-1">
+            <div class="form-check p-0">
+                <input class="form-check-input" type="radio" name="content[featured_image_type]"
+                    id="image-type-featured" name="content[featured_image_type]" value="featured"
+                    {{ $sectionContent ? ($sectionContent->featured_image_type === 'featured' ? 'checked' : '') : '' }} />
+                <label class="form-check-label" for="image-type-featured">Show tour Featured Image</label>
+            </div>
+            <div class="form-check p-0">
+                <input class="form-check-input" type="radio" name="content[featured_image_type]"
+                    id="image-type-promotional" name="content[featured_image_type]"
+                    {{ $sectionContent ? ($sectionContent->featured_image_type === 'promotional' ? 'checked' : '') : '' }}
+                    value="promotional" />
+                <label class="form-check-label" for="image-type-promotional">Show tour promotional Image</label>
             </div>
         </div>
     </div>

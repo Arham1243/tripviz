@@ -235,7 +235,9 @@
                 <div class="row w-100 align-items-center">
                     <div class="col-md-9 mb-4">
                         <div class=section-content>
-                            <div class=heading style="color: {{ $content->title_color }};">{{ $content->title }}</div>
+                            <div class=heading
+                                style="color: {{ isset($content->title_color) ? $content->title_color : '' }};">
+                                {{ $content->title }}</div>
                             <div class=desc>{{ $content->description }}</div>
                         </div>
                     </div>

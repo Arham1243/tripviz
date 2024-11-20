@@ -2,12 +2,15 @@
     <div class="banner-content">
         <div class="banner-heading">
             <h1 class="bannerMain-title">
-                <div class="title" style="color: {{ $content->title_color }};">{{ $content->title }}</div>
-                <div class="subTitle subTitle--lg" style="color: {{ $content->subtitle->text_color[0] }};">
-                    {{ $content->subtitle->title[0] }}
+                <div class="title" style="color: {{ isset($content->title_color) ? $content->title_color : '' }};">
+                    {{ $content->title }}</div>
+                <div class="subTitle subTitle--lg"
+                    style="color: {{ isset($content->subtitle) ? $content->subtitle->text_color[0] : '' }};">
+                    {{ isset($content->subtitle) ? $content->subtitle->title[0] : '' }}
                 </div>
-                <div class="subTitle subTitle--sm" style="color: {{ $content->subtitle->text_color[1] }};">
-                    {{ $content->subtitle->title[1] ?? '' }}
+                <div class="subTitle subTitle--sm"
+                    style="color: {{ isset($content->subtitle) ? $content->subtitle->text_color[1] : '' }};">
+                    {{ isset($content->subtitle) ? $content->subtitle->title[1] : '' }}
                 </div>
             </h1>
             @if (isset($content->is_button_enabled))
