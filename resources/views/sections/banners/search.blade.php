@@ -4,8 +4,8 @@
             <form action="{{ route('tours.search.results') }}" class="banner-search auto-submit-form"
                 id="destination-wrapper">
                 <i class="bx bx-search"></i>
-                <select placeholder="Where are you going?" class="banner-search__input" name="resource_id" id="destination"
-                    style="width: 100%"></select>
+                <select multiple placeholder="Where are you going?" class="banner-search__input" name="resource_id"
+                    id="destination" style="width: 100%"></select>
                 <input type="hidden" name="resource_type" id="resource_type">
             </form>
         </div>
@@ -21,8 +21,8 @@
                         <div class="second-half">
                             <span class="top-label">Going to</span>
                             <div class="content">
-                                <select placeholder="Where are you going?" name="resource_id" id="destination"
-                                    style="width: 100%"></select>
+                                <select multiple placeholder="Where are you going?" name="resource_id" id="destination"
+                                    style="width: 100%"> </select>
                             </div>
                         </div>
                     </label>
@@ -94,6 +94,7 @@
             placeholder: 'Where are you going?',
             dropdownParent: $('#destination-wrapper'),
             minimumInputLength: 1,
+            maximumSelectionLength: 1,
             ajax: {
                 url: '{{ route('search.suggestions') }}',
                 dataType: 'json',
@@ -103,18 +104,31 @@
                         q: params.term
                     };
                 },
-                processResults: function(data) {
+                processResults: function(data, params) {
+                    // Pass the search term in `params` to use later
                     return {
-                        results: Object.values(data.results)
+                        results: Object.values(data.results).map(item => ({
+                            id: item.id,
+                            type: item.type,
+                            text: item.text,
+                            searchTerm: params.term // Attach the term to the result
+                        }))
                     };
                 },
                 cache: true
             },
             templateResult: function(data) {
                 if (data.text) {
-                    var query = $('#destination').data('select2').dropdown.$search.val();
-                    var highlightedText = data.text.replace(new RegExp('(' + query + ')', 'gi'),
+                    // Use the passed search term
+                    var query = data.searchTerm || '';
+
+                    // Escape special characters in the query
+                    var escapedTerm = query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+
+                    // Highlight matching parts
+                    var highlightedText = data.text.replace(new RegExp('(' + escapedTerm + ')', 'gi'),
                         '<strong class="highlighted">$1</strong>');
+
                     return $('<span>').html(highlightedText);
                 }
                 return null;
@@ -123,6 +137,7 @@
                 return data.text || data.id;
             }
         });
+
         $('#destination').on('select2:select', function(e) {
             var selectedData = e.params.data;
             var resourceType = selectedData.type;
