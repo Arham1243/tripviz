@@ -89,6 +89,7 @@ class TourController extends Controller
             'badge_name' => $general['badge_name'] ?? null,
             'banner_image_alt_text' => $request->input('banner_image_alt_text'),
             'featured_image_alt_text' => $request->input('featured_image_alt_text'),
+            'promotional_image_alt_text' => $request->input('promotional_image_alt_text'),
             'banner_type' => $general['banner_type'] ?? null,
             'video_link' => $general['video_link'] ?? null,
             'inclusions' => $inclusions,
@@ -294,8 +295,9 @@ class TourController extends Controller
         }
 
         // Handle banner and featured images
-        $this->uploadImg('banner_image', 'Tour/Banner/Featured-image', $tour, 'banner_image');
-        $this->uploadImg('featured_image', 'Tour/Featured-image', $tour, 'featured_image');
+        $this->uploadImg('banner_image', 'Tour/Banners/Featured-images', $tour, 'banner_image');
+        $this->uploadImg('featured_image', 'Tour/Featured-images', $tour, 'featured_image');
+        $this->uploadImg('promotional_image', 'Tour/Promotional-images', $tour, 'promotional_image');
 
         // Handle gallery images
         if (! empty($request['gallery'])) {
@@ -370,6 +372,7 @@ class TourController extends Controller
             'badge_name' => $general['badge_name'] ?? null,
             'banner_image_alt_text' => $request->input('banner_image_alt_text'),
             'featured_image_alt_text' => $request->input('featured_image_alt_text'),
+            'promotional_image_alt_text' => $request->input('promotional_image_alt_text'),
             'banner_type' => $general['banner_type'] ?? null,
             'video_link' => $general['video_link'] ?? null,
             'inclusions' => $inclusions,
@@ -620,10 +623,13 @@ class TourController extends Controller
         }
 
         if ($request->hasFile('banner_image')) {
-            $tour->banner_image = $this->simpleUploadImg($request->file('banner_image'), 'Tours/Banners');
+            $tour->banner_image = $this->simpleUploadImg($request->file('banner_image'), 'Tours/Banners/Featured-images');
         }
         if ($request->hasFile('featured_image')) {
             $tour->featured_image = $this->simpleUploadImg($request->file('featured_image'), 'Tours/Featured-images');
+        }
+        if ($request->hasFile('promotional_image')) {
+            $tour->promotional_image = $this->simpleUploadImg($request->file('promotional_image'), 'Tours/Promotional-images');
         }
 
         $tour->save();

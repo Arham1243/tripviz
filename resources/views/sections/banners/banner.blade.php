@@ -155,7 +155,7 @@
                 <div class="row">
                     @include('sections.banners.content')
                     <div class="col-md-5">
-                        <div class="banner-img">
+                        <div class="banner-img {{ $content->right_image_position ?? '' }}">
                             <img data-src="{{ asset($content->right_image ?? 'admin/assets/images/placeholder.png') }}"
                                 alt="{{ $content->right_image_alt_text ?? 'Banner Right image' }}"
                                 class="imgFluid lazy" width="345.89" height="186">
@@ -167,7 +167,7 @@
             </div>
         </div>
     @elseif($content->background_type === 'normal_v2_full_screen_background')
-        <div class="banner banner--overlay">
+        <div class="banner {{ isset($content->background_image_is_banner_overlay_enabled) ? 'banner--overlay' : '' }}">
             <img data-src="{{ asset($content->background_image ?? 'admin/assets/images/placeholder.png') }}"
                 alt="{{ $content->background_alt_text ?? 'Banner image' }}" class="imgFluid lazy banner__bg">
             <div class="container">
@@ -189,7 +189,8 @@
                                 : null;
                         $alt_text = isset($content->carousel_alt_text) ? $content->carousel_alt_text[$i] : null;
                     @endphp
-                    <div class="banner banner--overlay">
+                    <div
+                        class="banner {{ isset($content->slider_carousel_is_banner_overlay_enabled) ? 'banner--overlay' : '' }}">
                         <img data-src="{{ asset($background_image ?? 'admin/assets/images/placeholder.png') }}"
                             alt="{{ $alt_text ?? 'Banner image' }}" class="imgFluid lazy banner__bg">
                     </div>
@@ -215,6 +216,24 @@
                 </div>
             </div>
         </div>
+    @elseif ($content->background_type === 'background_color_with_right_image')
+        <div class="banner banner--shape"
+            style="background-color: {{ $content->right_image_background_color ?? '#fff' }}">
+            <div class="container">
+                <div class="row">
+                    @include('sections.banners.content')
+                    <div class="col-md-5">
+                        <div class="banner-img {{ $content->right_image_position_background ?? '' }}">
+                            <img data-src="{{ asset($content->right_image_background ?? 'admin/assets/images/placeholder.png') }}"
+                                alt="{{ $content->right_image_background_alt_text ?? 'Banner Right image' }}"
+                                class="imgFluid lazy" width="345.89" height="186">
+                        </div>
+                    </div>
+                    @include('sections.banners.search')
+                    @include('sections.banners.review')
+                </div>
+            </div>
+        </div>
     @endif
     @if (isset($content->is_destination_enabled))
         <div class=destinations style="background-color: {{ $content->destination_background_color ?? '' }}">
@@ -223,8 +242,11 @@
                     <div class=col-md-4>
                         <div class=destinations-content>
                             <h2 class="heading">
-                                <div class=dst1>{{ $content->destination_title ?? '' }}</div>
-                                <div class=dst2>
+                                <div class=dst1
+                                    style="color: {{ isset($content->destination_title_text_color) ? $content->destination_title_text_color : '' }};">
+                                    {{ $content->destination_title ?? '' }}</div>
+                                <div class=dst2
+                                    style="color: {{ isset($content->destination_subtitle_text_color) ? $content->destination_subtitle_text_color : '' }};">
                                     {{ $content->destination_subtitle ?? '' }}
                                     <div class=darrow>
                                         <img data-src={{ asset('assets/images/darrow.webp') }} alt=image
@@ -315,11 +337,11 @@
                                     }
                                 @endphp
                                 <div class=col-md>
-                                    {{-- {{ route($columns['route'], $resource->{$columns['slug']}) }} --}}
-                                    <a href="javascript:void(0)" class=dst-card>
+                                    <a href="{{ route($columns['route'], $resource->{$columns['slug']}) }}"
+                                        class=dst-card>
                                         <div class=destinations-img>
                                             <img data-src={{ asset($resource->{$columns['image']} ?? 'admin/assets/images/placeholder.png') }}
-                                                alt={{ $resource->{$columns['alt_text']} }} class="imgFluid lazy">
+                                                alt="{{ $resource->{$columns['alt_text']} }}" class="imgFluid lazy">
                                         </div>
                                         <div class=dst-location>
                                             {{ $resource->{$columns['name']} }}

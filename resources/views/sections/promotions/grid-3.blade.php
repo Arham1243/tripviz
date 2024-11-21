@@ -1,5 +1,5 @@
 @if (!$content)
-    <div class="more-offers my-5">
+    <div class="more-offers section-padding">
         <div class=container>
             <div class="section-content d-flex align-items-center justify-content-between">
                 <h2 class=heading>
@@ -55,18 +55,28 @@
         </div>
     </div>
 @else
-    <div class="more-offers my-5">
+    <div class="more-offers section-padding">
         <div class=container>
-            <div class="section-content d-flex align-items-center justify-content-between">
-                <h2 class=heading>
-                    {{ $content->heading }}
-                </h2>
-                <div class=more-link>
-                    <a href="{{ $content->see_more_link }}" target="_blank"> {{ $content->see_more_text }}<i
-                            class="bx bx-right-arrow-alt"></i></a>
+            <div class="row w-100 align-items-center mb-4">
+                <div class="col-md-9">
+                    <div class="section-content d-flex align-items-center justify-content-between">
+                        <div class=heading
+                            style="color: {{ isset($content->title_color) ? $content->title_color : '' }};">
+                            {{ $content->title }}
+                        </div>
+                    </div>
                 </div>
+                @if (isset($content->is_more_btn_enabled))
+                    <div class="col-md-3">
+                        <div class="d-flex justify-content-end">
+                            <a href=# class="primary-btn"
+                                style="background: {{ $content->see_more_background_color ?? 'transparent' }};color: {{ $content->see_more_text_color ?? 'var(--color-primary)' }};">{{ $content->see_more_text }}<i
+                                    class="bx bx-right-arrow-alt"></i></a>
+                        </div>
+                    </div>
+                @endif
             </div>
-            <div class="row pt-3">
+            <div class="row">
                 @foreach ($content->activities as $activity)
                     <div class="col-lg-{{ $loop->first ? '6' : '3' }}">
                         <div class=more-offers__content>

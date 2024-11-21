@@ -20,6 +20,7 @@ Route::get('/terms-conditions', [IndexController::class, 'terms_conditions'])->n
 Route::get('/privacy-policy', [IndexController::class, 'privacy_policy'])->name('privacy_policy');
 Route::post('/newsletter-save', [IndexController::class, 'newsletter_save'])->name('newsletter-save');
 Route::get('/city/{slug}/details', [IndexController::class, 'city_details'])->name('city.details');
+Route::get('/category/listing', [IndexController::class, 'city_details'])->name('category.listing');
 Route::get('/country/{slug}/details', [IndexController::class, 'country_details'])->name('country.details');
 Route::get('/make-slug', [IndexController::class, 'make_slug']);
 Route::get('/page/{slug}', [IndexController::class, 'showPage'])->name('page.show');

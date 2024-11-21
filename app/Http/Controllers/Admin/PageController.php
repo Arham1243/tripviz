@@ -253,6 +253,11 @@ class PageController extends Controller
                 } else {
                     $newData['custom_review_logo_image'] = $existingData['custom_review_logo_image'] ?? null;
                 }
+                if (isset($newData['right_image_background'])) {
+                    $newData['right_image_background'] = $this->simpleUploadImg($newData['right_image_background'], "Pages/{$pageSlug}/{$sectionKey}");
+                } else {
+                    $newData['right_image_background'] = $existingData['right_image_background'] ?? null;
+                }
                 if (isset($newData['carousel_background_images'])) {
                     $updatedBackgroundImages = $existingData['carousel_background_images'] ?? [];
                     foreach ($newData['carousel_background_images'] as $i => $image) {

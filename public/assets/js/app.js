@@ -8,35 +8,37 @@ $(".banner-slider").slick({
     autoplay: true,
     autoplaySpeed: 2000,
 });
-$(".five-items-slider").slick({
-    dots: false,
-    arrows: true,
-    infinite: false,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    responsive: [
-        {
-            breakpoint: 1024,
-            settings: {
-                slidesToShow: 3,
-            },
-        },
-        {
-            breakpoint: 600,
-            settings: {
-                slidesToShow: 2
-            },
-        },
-        {
-            breakpoint: 400,
-            settings: {
-                slidesToShow: 1,
-            },
-        },
-    ],
-});
+
+function setupRepeaterSlickSlider(selector, slidesToShow, responsiveSettings) {
+    $(selector).slick({
+        dots: false,
+        arrows: true,
+        infinite: false,
+        slidesToShow: slidesToShow,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        responsive: responsiveSettings,
+    });
+}
+
+setupRepeaterSlickSlider(".five-items-slider", 5, [
+    { breakpoint: 1024, settings: { slidesToShow: 3 } },
+    { breakpoint: 600, settings: { slidesToShow: 2 } },
+    { breakpoint: 400, settings: { slidesToShow: 1 } },
+]);
+
+setupRepeaterSlickSlider(".four-items-slider", 4, [
+    { breakpoint: 900, settings: { slidesToShow: 2 } },
+    { breakpoint: 400, settings: { slidesToShow: 1 } },
+]);
+
+setupRepeaterSlickSlider(".three-items-slider", 3, [
+    { breakpoint: 900, settings: { slidesToShow: 2 } },
+    { breakpoint: 400, settings: { slidesToShow: 1 } },
+]);
+
+
 
 $(".destinations-slider").slick({
     dots: false,
@@ -554,7 +556,7 @@ quantityWrappers.forEach((counter) => {
 // ToolTips
 const showTooltips = () => {
     document
-        .querySelectorAll('[data-bs-toggle="tooltip"]')
+        .querySelectorAll('[data-tooltip="tooltip"]')
         .forEach(function (element) {
             new bootstrap.Tooltip(element, {
                 html: true,

@@ -127,8 +127,8 @@
             </div>
         </div>
 
-        <div class="modal" tabindex="-1" id="editSection">
-            <div class="modal-dialog modal-lg">
+        <div class="modal" id="editSection">
+            <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title d-flex align-items-center gap-2"> Edit Section: <span
@@ -173,6 +173,12 @@
 
     <script type="text/javascript">
         document.addEventListener('alpine:init', () => {
+            document
+                .querySelectorAll("[data-color-picker-container]")
+                ?.forEach((element) => {
+                    InitializeColorPickers(element);
+                });
+
             const sortableTableBody = document.querySelector("[data-sortable-body]");
             if (sortableTableBody) {
                 const sortable = new Sortable(sortableTableBody, {
@@ -190,12 +196,18 @@
             }
         });
 
-        function repeater(initialItems, maxItems) {
+        function repeater(titles, colors, maxItems) {
             return {
-                items: initialItems.map(sub => ({
-                    subTitle: sub
+                items: titles.map((title, index) => ({
+                    subTitle: {
+                        title: title,
+                        text_color: colors[index] || '#000000'
+                    }
                 })) || [{
-                    subTitle: ''
+                    subTitle: {
+                        title: '',
+                        text_color: '#000000'
+                    }
                 }],
                 maxItems: maxItems,
                 addItem() {
@@ -246,7 +258,7 @@
                             const html = await response.text();
                             if (html) {
                                 document.getElementById('renderFields').innerHTML = html;
-                                initializeSelect2()
+                                initializeFeatures()
                             }
                         } else {
                             document.getElementById('renderFields').innerHTML = "<p>Template not found.</p>";

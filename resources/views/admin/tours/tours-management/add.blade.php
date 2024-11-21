@@ -1644,12 +1644,14 @@
                             </div>
                             <div class="form-box">
                                 <div class="form-box__header">
-                                    <div class="title">Feature Image</div>
+                                    <div class="title">Images</div>
                                 </div>
                                 <div class="form-box__body">
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-fields">
+                                                <label class="title">Feature Image <span class="text-danger">*</span>
+                                                    :</label>
                                                 <div class="upload" data-upload>
                                                     <div class="upload-box-wrapper">
                                                         <div class="upload-box show" data-upload-box>
@@ -1692,9 +1694,65 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-4">
+                                            <div class="form-fields">
+                                                <label class="title">Promotional Image:</label>
+                                                <div class="upload" data-upload>
+                                                    <div class="upload-box-wrapper">
+                                                        <div class="upload-box show" data-upload-box>
+                                                            <input type="file" name="promotional_image"
+                                                                data-error="Feature Image" id="promotional_image"
+                                                                class="upload-box__file d-none" accept="image/*"
+                                                                data-file-input>
+                                                            <div class="upload-box__placeholder"><i
+                                                                    class='bx bxs-image'></i>
+                                                            </div>
+                                                            <label for="promotional_image"
+                                                                class="upload-box__btn themeBtn">Upload
+                                                                Image</label>
+                                                        </div>
+                                                        <div class="upload-box__img" data-upload-img>
+                                                            <button type="button" class="delete-btn" data-delete-btn><i
+                                                                    class='bx bxs-trash-alt'></i></button>
+                                                            <a href="#" class="mask" data-fancybox="gallery">
+                                                                <img src="{{ asset('admin/assets/images/loading.webp') }}"
+                                                                    alt="Uploaded Image" class="imgFluid"
+                                                                    data-upload-preview>
+                                                            </a>
+                                                            <input type="text" name="promotional_image_alt_text"
+                                                                class="field" placeholder="Enter alt text"
+                                                                value="Promotional Image">
+                                                        </div>
+                                                    </div>
+                                                    <div data-error-message class="text-danger mt-2 d-none text-center">
+                                                        Please
+                                                        upload a
+                                                        valid image file
+                                                    </div>
+                                                    @error('promotional_image')
+                                                        <div class="text-danger mt-2 text-center">{{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="dimensions text-center mt-3">
+                                                    <strong>Dimensions:</strong> 360 &times; 155
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-box">
+                                <div class="form-box__header">
+                                    <div class="title">Promotional Image</div>
+                                </div>
+                                <div class="form-box__body">
+                                    <div class="row">
+
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="form-box">
                                 <div class="form-box__header">
                                     <div class="title">Author Settings</div>
