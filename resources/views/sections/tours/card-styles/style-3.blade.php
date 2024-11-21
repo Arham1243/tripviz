@@ -46,11 +46,6 @@
                             <span class=baseline-pricing__from--value> {{ formatPrice($tour->regular_price) }}</span>
                         </p>
                     </div>
-                    <div class="baseline-pricing__value baseline-pricing__value--low">
-                        <p class=baseline-pricing__from> $33.00</p>
-                        <p class=baseline-pricing__category>per person</p>
-                    </div>
-
                 </div>
             </div>
         </div>
