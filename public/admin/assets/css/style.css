@@ -2290,7 +2290,7 @@ body.modal-open {
 }
 /* select2 */
 /* tooltip */
-[data-tooltip="tooltip"] {
+button[data-tooltip="tooltip"] {
     background: none;
     border: none;
     outline: none;
@@ -2298,3 +2298,12 @@ body.modal-open {
     font-size: 1.25rem;
 }
 /* tooltip */
+
+.section-preview-image--sm i {
+    font-size: 14px;
+}
+
+.section-preview-image--sm {
+    padding: 4px !important;
+    border-radius: 7px;
+}

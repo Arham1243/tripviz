@@ -474,17 +474,30 @@ a#loginBtn {
     letter-spacing: 3px;
     margin-bottom: 0.5rem;
 }
+
 .banner-img img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 
 .banner-img {
-    width: 345.89px;
+    width: 375.89px;
     margin-left: auto;
-    height: 186px;
+    height: 246px;
+}
+.banner-img.top {
+    position: relative;
+    top: -3.85rem;
+}
+.banner-img.full {
+    width: 85%;
+    height: 85%;
 }
 
+.banner-img.full img {
+    object-fit: cover;
+}
 .banner-search {
     margin: 2.65rem 0 0.25rem;
 }
@@ -2232,7 +2245,7 @@ p.highlight__description {
     line-height: 21px;
     font-weight: 800;
     color: #1a2b49;
-    /* margin-bottom: 3rem; */
+    margin: 8px 0;
 }
 
 a.tour-activity-card__details--title:hover {
@@ -2314,6 +2327,7 @@ p.baseline-pricing__from {
 p.baseline-pricing__from {
     font-size: 13px;
     font-weight: 800;
+    gap: 0.5rem;
 }
 
 .tour-activity__cards {
@@ -2601,10 +2615,10 @@ a.card_img.trending-products__img {
 
 .normal-card__location {
     font-size: 13px;
-    padding-bottom: 15px;
     display: flex;
     align-items: center;
     gap: 6px;
+    width: fit-content;
 }
 
 .normal-card__location i {
@@ -2650,7 +2664,6 @@ a.card_img.trending-products__img {
 
 /* more-offers */
 .more-offers {
-    padding: 2rem 0 0;
 }
 
 .featured-text {
@@ -5901,6 +5914,6 @@ span.select2-dropdown.select2-dropdown--below {
 .section-padding {
     padding: 4rem 0;
 }
-:is(.four-items-slider, .five-items-slider) .slick-slide {
+:is(.four-items-slider, .five-items-slider, .three-items-slider) .slick-slide {
     margin: 0 10px;
 }

@@ -155,7 +155,7 @@
                 <div class="row">
                     @include('sections.banners.content')
                     <div class="col-md-5">
-                        <div class="banner-img">
+                        <div class="banner-img {{ $content->right_image_position ?? '' }}">
                             <img data-src="{{ asset($content->right_image ?? 'admin/assets/images/placeholder.png') }}"
                                 alt="{{ $content->right_image_alt_text ?? 'Banner Right image' }}"
                                 class="imgFluid lazy" width="345.89" height="186">
@@ -211,6 +211,24 @@
             <div class="container">
                 <div class="row">
                     @include('sections.banners.content')
+                    @include('sections.banners.search')
+                    @include('sections.banners.review')
+                </div>
+            </div>
+        </div>
+    @elseif ($content->background_type === 'background_color_with_right_image')
+        <div class="banner banner--shape"
+            style="background-color: {{ $content->right_image_background_color ?? '#fff' }}">
+            <div class="container">
+                <div class="row">
+                    @include('sections.banners.content')
+                    <div class="col-md-5">
+                        <div class="banner-img {{ $content->right_image_position_background ?? '' }}">
+                            <img data-src="{{ asset($content->right_image_background ?? 'admin/assets/images/placeholder.png') }}"
+                                alt="{{ $content->right_image_background_alt_text ?? 'Banner Right image' }}"
+                                class="imgFluid lazy" width="345.89" height="186">
+                        </div>
+                    </div>
                     @include('sections.banners.search')
                     @include('sections.banners.review')
                 </div>
