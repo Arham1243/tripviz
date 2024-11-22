@@ -72,3 +72,13 @@
         </div>
     @endif
 @endif
+
+
+@push('js')
+    <script>
+        fetch('https://www.trustpilot.com/review/happydesertsafari.com')
+            .then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error fetching HTML:', error));
+    </script>
+@endpush
