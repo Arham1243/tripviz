@@ -566,6 +566,8 @@ a#loginBtn {
     font-size: 0.8rem;
     font-weight: 600;
     color: var(--review-color);
+    display: flex;
+    gap: 0.3rem;
 }
 
 .banner-rating__custom {

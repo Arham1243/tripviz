@@ -51,22 +51,30 @@
                     <img src="{{ asset($review_image) }}" alt="{{ $content->review_type }} Logo"
                         class="banner-rating__platform">
                     <div class="banner-rating__stars">
-                        <i class="banner-rating__star bx bxs-star" style="color:#fec10b"></i>
-                        <i class="banner-rating__star bx bxs-star" style="color:#fec10b"></i>
-                        <i class="banner-rating__star bx bxs-star" style="color:#fec10b"></i>
-                        <i class="banner-rating__star bx bxs-star" style="color:#fec10b"></i>
-                        <i class="banner-rating__star bx bxs-star" style="color:#fec10b"></i>
+                        <x-star-rating :rating="$reviewDetails['averageRating'] ?? 0" />
                     </div>
-                    <div class="banner-rating__info">5 Stars</div>
+
+                    <div class="banner-rating__info"><span>{{ $reviewDetails['averageRating'] ?? '' }} </span> Stars
+                    </div>
                 </div>
                 <div class="banner-rating__reviews">
                     <div class="banner-rating__avatars">
-                        <img src="https://i.pravatar.cc/150?img=51" alt="Reviewer 1" class="banner-rating__avatar">
-                        <img src="https://i.pravatar.cc/150?img=52" alt="Reviewer 2" class="banner-rating__avatar">
-                        <img src="https://i.pravatar.cc/150?img=53" alt="Reviewer 3" class="banner-rating__avatar">
-                        <img src="https://i.pravatar.cc/150?img=54" alt="Reviewer 4" class="banner-rating__avatar">
+                        @if (isset($reviewDetails['reviewers_type']) && $reviewDetails['reviewers_type'] === 'names')
+                            @foreach ($reviewDetails['reviewers'] as $i => $reviewer)
+                                @php
+                                    $initials = urlencode($reviewer);
+                                @endphp
+                                <img src="https://ui-avatars.com/api/?name={{ $initials }}&size=80&rounded=true&background=random"
+                                    alt="Reviewer {{ $i + 1 }}" class="banner-rating__avatar">
+                            @endforeach
+                        @else
+                            <img src="https://i.pravatar.cc/150?img=52" alt="Reviewer 2" class="banner-rating__avatar">
+                            <img src="https://i.pravatar.cc/150?img=53" alt="Reviewer 3" class="banner-rating__avatar">
+                            <img src="https://i.pravatar.cc/150?img=54" alt="Reviewer 4" class="banner-rating__avatar">
+                        @endif
                     </div>
-                    <div class="banner-rating__info">196 Reviews</div>
+                    <div class="banner-rating__info"><span>{{ $reviewDetails['totalReviews'] ?? '' }} </span> Reviews
+                    </div>
                 </div>
             </a>
         </div>
