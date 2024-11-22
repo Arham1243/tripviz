@@ -161,10 +161,14 @@
         </div>
     </div>
 @endsection
-@section('css')
-    <style type="text/css">
+
+@push('css')
+    <style>
+        .tooltip-inner {
+            max-width: inherit !important;
+        }
     </style>
-@endsection
+@endpush
 
 @push('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>

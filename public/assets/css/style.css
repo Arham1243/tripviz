@@ -565,7 +565,7 @@ a#loginBtn {
 .banner-rating__info {
     font-size: 0.8rem;
     font-weight: 600;
-    color: #333333a1;
+    color: var(--review-color);
 }
 
 .banner-rating__custom {
@@ -5964,4 +5964,8 @@ span.select2-dropdown.select2-dropdown--below {
     outline: none !important;
     padding: 0 !important;
     line-height: 1;
+}
+
+.green {
+    color: green;
 }

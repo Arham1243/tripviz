@@ -1,7 +1,9 @@
 @if (isset($content->is_review_enabled))
     @if ($content->review_type === 'custom')
         <div class="col-md-12">
-            <a href="{{ sanitizedLink($content->custom_review_link) }}" class="banner-rating" target="_blank">
+            <a href="{{ sanitizedLink($content->custom_review_link) }}"
+                style="--review-color: {{ $content->review_text_color ?? '#333333a1' }};" class="banner-rating"
+                target="_blank">
                 <div class="banner-rating__custom">
                     <img src="{{ asset($content->custom_review_logo_image ?? 'assets/images/placeholder.png') }}"
                         alt="{{ $content->custom_review_logo_alt_text ?? 'Review Logo' }}"
@@ -43,7 +45,8 @@
             }
         @endphp
         <div class="col-md-12">
-            <a href="{{ sanitizedLink($review_link) }}" class="banner-rating" target="_blank">
+            <a href="{{ sanitizedLink($review_link) }}" class="banner-rating"
+                style="--review-color: {{ $content->review_text_color ?? '#333333a1' }};" target="_blank">
                 <div class="banner-rating__custom">
                     <img src="{{ asset($review_image) }}" alt="{{ $content->review_type }} Logo"
                         class="banner-rating__platform">

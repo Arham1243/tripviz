@@ -123,9 +123,15 @@
                             <div class="d-flex align-items-center gap-2 lh-1">
                                 <div class="mt-1">Button Link </div>
 
+
                                 <button data-bs-placement="top"
-                                    title="<strong>Link:</strong> https://abc.com <br> <strong>Phone:</strong> tel:0325227373"
-                                    type="button" data-tooltip="tooltip">
+                                    title="<div class='d-flex flex-column'>
+ <div class='d-flex gap-1'> <strong>Link:</strong> https://abc.com</div>
+  <div class='d-flex gap-1'><strong>Phone:</strong> tel:+971xxxxxxxxx</div>
+  <div class='d-flex gap-1'><strong>Whatsapp:</strong> https://wa.me/971xxxxxxxxx</div>
+</div>
+"
+                                    type="button" data-tooltip="tooltip" class="tooltip-lg">
                                     <i class='bx bxs-info-circle'></i>
                                 </button>
                             </div>
@@ -218,6 +224,21 @@
                     <label class="form-check-label" for="enable-section">Enabled</label>
                 </div>
             </div>
+            <div class="form-fields mb-4">
+                <div class="title d-flex align-items-center gap-2">
+                    <div>
+                        Text Color <span class="text-danger">*</span>:
+                    </div>
+                    <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get Color
+                        Codes</a>
+                </div>
+                <div class="field color-picker" data-color-picker-container>
+                    <label for="color-picker" data-color-picker></label>
+                    <input id="color-picker" type="text" name="content[review_text_color]" data-color-picker-input
+                        value="{{ $sectionContent->review_text_color ?? '#000000' }}" data-error="background Color"
+                        inputmode="text" />
+                </div>
+            </div>
             <div x-data="{ review_type: '{{ isset($sectionContent->review_type) ? $sectionContent->review_type : 'google' }}' }">
                 <div class="d-flex align-items-center gap-5 px-4 mb-3">
                     <div class="form-check p-0">
@@ -286,7 +307,7 @@
                         <div class="col-md-3">
                             <div class="form-fields">
                                 <label class="title">Logo<span class="text-danger">*</span> :</label>
-                                <div class="upload upload--sm" data-upload="">
+                                <div class="upload upload--sm mx-0" data-upload="">
                                     <div class="upload-box-wrapper">
                                         <div class="upload-box {{ empty($sectionContent->custom_review_logo_image) ? 'show' : '' }}"
                                             data-upload-box="">
@@ -322,13 +343,15 @@
                                         upload a
                                         valid image file
                                     </div>
+                                    <div class="dimensions text-center mt-3">
+                                        <strong>Dimensions:</strong> 100 &times; 30
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
     <div class="col-12">
@@ -411,7 +434,11 @@
                                         upload a
                                         valid image file
                                     </div>
+                                    <div class="dimensions text-center mt-3">
+                                        <strong>Dimensions:</strong> 345 &times; 186
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                         <div class="col-lg-12">
@@ -497,6 +524,9 @@
                                         upload a
                                         valid image file
                                     </div>
+                                    <div class="dimensions text-center mt-3">
+                                        <strong>Dimensions:</strong> 1350 &times; 435
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -567,6 +597,9 @@
                                         <div data-error-message class="text-danger mt-2 d-none text-center">
                                             Please
                                             upload a valid image file
+                                        </div>
+                                        <div class="dimensions text-center mt-3">
+                                            <strong>Dimensions:</strong> 1350 &times; 435
                                         </div>
                                     </div>
                                 </div>
@@ -651,6 +684,9 @@
                                     <div data-error-message class="text-danger mt-2 d-none text-center">Please
                                         upload a
                                         valid image file
+                                    </div>
+                                    <div class="dimensions text-center mt-3">
+                                        <strong>Dimensions:</strong> 345 &times; 186
                                     </div>
                                 </div>
                             </div>
