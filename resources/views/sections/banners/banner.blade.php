@@ -261,9 +261,9 @@
         <div class=destinations
             style="background-color: {{ $isBackgroundColor ? $content->destination_background_color : 'transparent' }}">
             @if ($isBackgroundImage)
-                <img src="{{ asset($content->destination_background_image ?? 'admin/assets/images/placeholder.png') }}"
+                <img data-src="{{ asset($content->destination_background_image ?? 'admin/assets/images/placeholder.png') }}"
                     alt="{{ $content->destination_background_alt_text ?? 'destination image' }}"
-                    class="imgFluid destinations__bg">
+                    class="imgFluid lazy destinations__bg">
             @endif
             <div class=container>
                 <div class="row justify-content-between">
