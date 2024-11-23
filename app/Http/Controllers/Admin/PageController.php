@@ -236,45 +236,14 @@ class PageController extends Controller
 
         switch ($sectionKey) {
             case 'water_activities_3_box_layout':
-                return $this->handleActivities($newData, $existingData, $pageSlug, $sectionKey);
+                return $this->handlePromotions($newData, $existingData, $pageSlug, $sectionKey);
             case 'banner':
-                if (isset($newData['right_image'])) {
-                    $newData['right_image'] = $this->simpleUploadImg($newData['right_image'], "Pages/{$pageSlug}/{$sectionKey}");
+                return $this->handleBanner($newData, $existingData, $pageSlug, $sectionKey);
+            case 'cities_with_tour_count_slider':
+                if (isset($newData['destination_background_image'])) {
+                    $newData['destination_background_image'] = $this->simpleUploadImg($newData['destination_background_image'], "Pages/{$pageSlug}/{$sectionKey}");
                 } else {
-                    $newData['right_image'] = $existingData['right_image'] ?? null;
-                }
-                if (isset($newData['background_image'])) {
-                    $newData['background_image'] = $this->simpleUploadImg($newData['background_image'], "Pages/{$pageSlug}/{$sectionKey}");
-                } else {
-                    $newData['background_image'] = $existingData['background_image'] ?? null;
-                }
-                if (isset($newData['custom_review_logo_image'])) {
-                    $newData['custom_review_logo_image'] = $this->simpleUploadImg($newData['custom_review_logo_image'], "Pages/{$pageSlug}/{$sectionKey}");
-                } else {
-                    $newData['custom_review_logo_image'] = $existingData['custom_review_logo_image'] ?? null;
-                }
-                if (isset($newData['right_image_background'])) {
-                    $newData['right_image_background'] = $this->simpleUploadImg($newData['right_image_background'], "Pages/{$pageSlug}/{$sectionKey}");
-                } else {
-                    $newData['right_image_background'] = $existingData['right_image_background'] ?? null;
-                }
-                if (isset($newData['carousel_background_images'])) {
-                    $updatedBackgroundImages = $existingData['carousel_background_images'] ?? [];
-                    foreach ($newData['carousel_background_images'] as $i => $image) {
-                        if (is_uploaded_file($image)) {
-                            $updatedBackgroundImages[$i] = $this->simpleUploadImg($image, "Pages/{$pageSlug}/{$sectionKey}");
-                        } else {
-                            $updatedBackgroundImages[$i] = $existingData['carousel_background_images'][$i] ?? null;
-                        }
-                    }
-                    $newData['carousel_background_images'] = $updatedBackgroundImages;
-                } else {
-                    $newData['carousel_background_images'] = $existingData['carousel_background_images'] ?? [];
-                }
-                if (isset($newData['carousel_alt_text'])) {
-                    foreach ($newData['carousel_alt_text'] as $i => $alt) {
-                        $newData['carousel_alt_text'][$i] = $alt ?: ($existingData['carousel_alt_text'][$i] ?? 'Carousel Image '.($i + 1));
-                    }
+                    $newData['destination_background_image'] = $existingData['destination_background_image'] ?? null;
                 }
 
                 return $newData;
@@ -291,7 +260,7 @@ class PageController extends Controller
         }
     }
 
-    private function handleActivities(array $newData, ?array $existingData, string $pageSlug, string $sectionKey)
+    private function handlePromotions(array $newData, ?array $existingData, string $pageSlug, string $sectionKey)
     {
 
         $updatedActivities = [];
@@ -307,8 +276,57 @@ class PageController extends Controller
 
             $updatedActivities[] = $newSection;
         }
-
         $newData['activities'] = $updatedActivities;
+
+        return $newData;
+    }
+
+    private function handleBanner(array $newData, ?array $existingData, string $pageSlug, string $sectionKey)
+    {
+
+        if (isset($newData['right_image'])) {
+            $newData['right_image'] = $this->simpleUploadImg($newData['right_image'], "Pages/{$pageSlug}/{$sectionKey}");
+        } else {
+            $newData['right_image'] = $existingData['right_image'] ?? null;
+        }
+        if (isset($newData['background_image'])) {
+            $newData['background_image'] = $this->simpleUploadImg($newData['background_image'], "Pages/{$pageSlug}/{$sectionKey}");
+        } else {
+            $newData['background_image'] = $existingData['background_image'] ?? null;
+        }
+        if (isset($newData['custom_review_logo_image'])) {
+            $newData['custom_review_logo_image'] = $this->simpleUploadImg($newData['custom_review_logo_image'], "Pages/{$pageSlug}/{$sectionKey}");
+        } else {
+            $newData['custom_review_logo_image'] = $existingData['custom_review_logo_image'] ?? null;
+        }
+        if (isset($newData['right_image_background'])) {
+            $newData['right_image_background'] = $this->simpleUploadImg($newData['right_image_background'], "Pages/{$pageSlug}/{$sectionKey}");
+        } else {
+            $newData['right_image_background'] = $existingData['right_image_background'] ?? null;
+        }
+        if (isset($newData['destination_background_image'])) {
+            $newData['destination_background_image'] = $this->simpleUploadImg($newData['destination_background_image'], "Pages/{$pageSlug}/{$sectionKey}");
+        } else {
+            $newData['destination_background_image'] = $existingData['destination_background_image'] ?? null;
+        }
+        if (isset($newData['carousel_background_images'])) {
+            $updatedBackgroundImages = $existingData['carousel_background_images'] ?? [];
+            foreach ($newData['carousel_background_images'] as $i => $image) {
+                if (is_uploaded_file($image)) {
+                    $updatedBackgroundImages[$i] = $this->simpleUploadImg($image, "Pages/{$pageSlug}/{$sectionKey}");
+                } else {
+                    $updatedBackgroundImages[$i] = $existingData['carousel_background_images'][$i] ?? null;
+                }
+            }
+            $newData['carousel_background_images'] = $updatedBackgroundImages;
+        } else {
+            $newData['carousel_background_images'] = $existingData['carousel_background_images'] ?? [];
+        }
+        if (isset($newData['carousel_alt_text'])) {
+            foreach ($newData['carousel_alt_text'] as $i => $alt) {
+                $newData['carousel_alt_text'][$i] = $alt ?: ($existingData['carousel_alt_text'][$i] ?? 'Carousel Image '.($i + 1));
+            }
+        }
 
         return $newData;
     }

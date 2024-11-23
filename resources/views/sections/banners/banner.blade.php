@@ -254,7 +254,17 @@
         </div>
     @endif
     @if (isset($content->is_destination_enabled))
-        <div class=destinations style="background-color: {{ $content->destination_background_color ?? '' }}">
+        @php
+            $isBackgroundColor = $content->destination_background_type === 'background_color';
+            $isBackgroundImage = $content->destination_background_type === 'background_image';
+        @endphp
+        <div class=destinations
+            style="background-color: {{ $isBackgroundColor ? $content->destination_background_color : 'transparent' }}">
+            @if ($isBackgroundImage)
+                <img src="{{ asset($content->destination_background_image ?? 'admin/assets/images/placeholder.png') }}"
+                    alt="{{ $content->destination_background_alt_text ?? 'destination image' }}"
+                    class="imgFluid destinations__bg">
+            @endif
             <div class=container>
                 <div class="row justify-content-between">
                     <div class=col-md-4>
@@ -262,10 +272,15 @@
                             <h2 class="heading">
                                 <div class=dst1
                                     style="color: {{ isset($content->destination_title_text_color) ? $content->destination_title_text_color : '' }};">
-                                    {{ $content->destination_title ?? '' }}</div>
+                                    {{ $content->destination_title ?? '' }}
+                                </div>
                                 <div class=dst2
-                                    style="color: {{ isset($content->destination_subtitle_text_color) ? $content->destination_subtitle_text_color : '' }};">
-                                    {{ $content->destination_subtitle ?? '' }}
+                                    style="color: {{ isset($content->destination_subtitle->text_color[0]) ? $content->destination_subtitle->text_color[0] : '' }};">
+                                    {{ isset($content->destination_subtitle->title[0]) ? $content->destination_subtitle->title[0] : '' }}
+                                </div>
+                                <div class="dst2 mt-0"
+                                    style="color: {{ isset($content->destination_subtitle->text_color[1]) ? $content->destination_subtitle->text_color[1] : '' }};">
+                                    {{ isset($content->destination_subtitle->title[1]) ? $content->destination_subtitle->title[1] : '' }}
                                     <div class=darrow>
                                         <img data-src={{ asset('assets/images/darrow.webp') }} alt=image
                                             class="imgFluid lazy" width=100 height=20.36>
