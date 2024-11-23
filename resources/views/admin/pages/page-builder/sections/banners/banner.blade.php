@@ -609,7 +609,7 @@
                 </div>
                 <div class="py-3" x-show="background_type === 'layout_normal_background_color'">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-fields">
                                 <div class="title d-flex align-items-center gap-2">
                                     <div>Background Color <span class="text-danger">*</span>:</div>
@@ -627,11 +627,30 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-fields">
+                                <div class="title d-flex align-items-center gap-2">
+                                    <div>Wave Color <span class="text-danger">*</span>:</div>
+                                    <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get
+                                        Color
+                                        Codes</a>
+                                </div>
+
+                                <div class="field color-picker" data-color-picker-container>
+                                    <label for="color-picker" data-color-picker></label>
+                                    <input id="color-picker" type="text" name="content[background_wave_color]"
+                                        data-color-picker-input
+                                        value="{{ $sectionContent->background_wave_color ?? '#EFF3FF' }}"
+                                        placeholder="#000000" data-error="background Color" inputmode="text">
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="py-3" x-show="background_type === 'background_color_with_right_image'">
                     <div class="row">
-                        <div class="col-md-12 mb-4">
+                        <div class="col-md-6 mb-4">
                             <div class="form-fields">
                                 <div class="title d-flex align-items-center gap-2">
                                     <div>Background Color <span class="text-danger">*</span>:</div>
@@ -645,6 +664,25 @@
                                         name="content[right_image_background_color]" data-color-picker-input
                                         value="{{ $sectionContent->right_image_background_color ?? '#ffffff' }}"
                                         data-error="background Color" inputmode="text">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="form-fields">
+                                <div class="title d-flex align-items-center gap-2">
+                                    <div>Wave Color <span class="text-danger">*</span>:</div>
+                                    <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get
+                                        Color
+                                        Codes</a>
+                                </div>
+
+                                <div class="field color-picker" data-color-picker-container>
+                                    <label for="color-picker" data-color-picker></label>
+                                    <input id="color-picker" type="text" name="content[right_image_wave_color]"
+                                        data-color-picker-input
+                                        value="{{ $sectionContent->right_image_wave_color ?? '#EFF3FF' }}"
+                                        placeholder="#000000" data-error="background Color" inputmode="text">
 
                                 </div>
                             </div>
