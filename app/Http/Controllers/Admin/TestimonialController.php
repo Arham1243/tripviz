@@ -4,20 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Testimonial;
-use App\Models\TestimonialImage;
+use App\Traits\Sluggable;
 use App\Traits\UploadImageTrait;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class TestimonialController extends Controller
 {
-    use UploadImageTrait; // Include the UploadImageTrait
+    use Sluggable;
+    use UploadImageTrait;
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $testimonials = Testimonial::latest()->get();
@@ -38,7 +33,6 @@ class TestimonialController extends Controller
             'content' => 'required|string',
             'rating' => 'required|integer',
             'main_img_path' => 'required|image|mimes:jpeg,png,jpg,webp,gif|max:2048',
-
         ]);
 
         $testimonial = Testimonial::create($request->except('main_img_path'));

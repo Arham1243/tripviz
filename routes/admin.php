@@ -68,4 +68,5 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('countries', CountryController::class);
     Route::resource('cities', CityController::class);
+    Route::resource('testimonials', CityController::class);
 });
