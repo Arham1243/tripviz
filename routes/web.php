@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\FetchReviewController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\SearchSuggestionController;
 use App\Http\Controllers\TourController;
@@ -25,6 +26,8 @@ Route::get('/country/{slug}/details', [IndexController::class, 'country_details'
 Route::get('/make-slug', [IndexController::class, 'make_slug']);
 Route::get('/page/{slug}', [IndexController::class, 'showPage'])->name('page.show');
 Route::get('/search/suggestions', [SearchSuggestionController::class, 'suggest'])->name('search.suggestions');
+
+Route::get('/reviews/fetch', [FetchReviewController::class, 'fetchReview']);
 
 // ---------------------------------------All Pages---------------------------------------
 // web.php

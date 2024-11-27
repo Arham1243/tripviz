@@ -405,14 +405,13 @@ a#loginBtn {
     isolation: isolate;
     z-index: 100;
 }
-.banner--shape::before {
-    background: url("../images/banner-wave.png") no-repeat center;
-    background-size: cover;
-    content: "";
+.banner-shape {
+    width: 140%;
+    --wave-color: #eff3ff;
+    height: 410px;
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
+    right: -15rem;
+    bottom: 0;
     z-index: -1;
 }
 .banner__bg {
@@ -482,7 +481,7 @@ a#loginBtn {
 }
 
 .banner-img {
-    width: 375.89px;
+    width: 334px;
     margin-left: auto;
     height: 246px;
 }
@@ -499,14 +498,14 @@ a#loginBtn {
     object-fit: cover;
 }
 .banner-search {
-    margin: 2.65rem 0 0.25rem;
+    margin: 0 0 0.25rem;
 }
 .banner-search {
     position: relative;
 }
 
 .banner-search {
-    width: 70%;
+    width: 65%;
     border-radius: 100px;
     background-color: #fff;
     padding: 1.85rem 2rem;
@@ -531,7 +530,7 @@ a#loginBtn {
 }
 
 .banner-content {
-    padding-top: 28px;
+    padding: 39px 0;
 }
 
 .banner-rating {
@@ -565,7 +564,9 @@ a#loginBtn {
 .banner-rating__info {
     font-size: 0.8rem;
     font-weight: 600;
-    color: #333333a1;
+    color: var(--review-color);
+    display: flex;
+    gap: 0.3rem;
 }
 
 .banner-rating__custom {
@@ -622,6 +623,16 @@ a#loginBtn {
 .destinations {
     background: #eef1fe;
     padding: 5rem 0;
+    position: relative;
+    isolation: isolate;
+}
+.destinations__bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
+    z-index: -1;
 }
 
 .dst1 {
@@ -636,7 +647,7 @@ a#loginBtn {
     font-weight: 800 !important;
     font-size: 25px;
     color: #243064;
-    line-height: 3rem;
+    line-height: 1.9;
     margin-top: 20px;
 }
 
@@ -5707,8 +5718,8 @@ a.country-card__details {
 
 /* banner date search */
 .date-search {
-    width: 100%;
-    margin: 2.5rem 0 0.5rem;
+    width: 90%;
+    margin: 0 0 0.5rem;
     position: relative;
     isolation: isolate;
     z-index: 1000000;
@@ -5931,7 +5942,7 @@ span.select2-dropdown.select2-dropdown--below {
     display: none;
 }
 
-#destination-wrapper  input.select2-search__field {
+#destination-wrapper input.select2-search__field {
     margin: 0 !important;
 }
 .date-search__btn span.select2.select2-container.select2-container--default {
@@ -5964,4 +5975,8 @@ span.select2-dropdown.select2-dropdown--below {
     outline: none !important;
     padding: 0 !important;
     line-height: 1;
+}
+
+.green {
+    color: green;
 }

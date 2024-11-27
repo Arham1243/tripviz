@@ -208,6 +208,15 @@
         </div>
     @elseif($content->background_type === 'layout_normal_background_color')
         <div class="banner banner--shape" style="background-color: {{ $content->background_color ?? '#fff' }}">
+            <div class="banner-shape" style="--wave-color:{{ $content->background_wave_color ?? '' }};">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
+                    viewBox="0 0 1069 233" preserveAspectRatio="none">
+                    <path
+                        d="M0 0 C0.33 0 0.66 0 1 0 C1 76.23 1 152.46 1 231 C-351.77 231 -704.54 231 -1068 231 C-1068 189.75 -1068 148.5 -1068 106 C-1061.6258648 106 -1056.29609664 106.23000954 -1050.1875 107.5 C-1049.34131104 107.67378174 -1048.49512207 107.84756348 -1047.62329102 108.02661133 C-1011.20350672 115.84549292 -975.41064102 129.19461163 -940.95532227 143.23608398 C-935.68768486 145.3686494 -930.37956641 147.29526141 -925 149.125 C-915.32451729 152.42235862 -905.82681052 156.14475912 -896.3125 159.875 C-876.65711374 167.57160133 -856.94883311 175.03758396 -836.73779297 181.16503906 C-833.59274245 182.12420375 -830.45501943 183.10591885 -827.31640625 184.0859375 C-750.21397875 207.94385253 -668.1114977 219.67059264 -574 201 C-572.30603205 200.64172624 -570.61202602 200.28363244 -568.91796875 199.92578125 C-508.68853224 186.58005984 -453.40822958 155.86112275 -403.625 120.375 C-384.86988298 107.0253175 -369.04642027 101.72539598 -345.76833725 101.69454193 C-343.43951409 101.69130592 -341.1110112 101.67620194 -338.78225708 101.65826416 C-335.46289108 101.63334112 -332.14353877 101.61245296 -328.8241272 101.59463501 C-286.99144636 101.35267617 -246.3928417 99.07451082 -205.06134033 92.3359375 C-203.22746264 92.03706968 -201.39283417 91.74281699 -199.55810547 91.44921875 C-163.34771576 85.58788901 -127.99518174 75.70651988 -94 62 C-93.00822754 61.60135742 -92.01645508 61.20271484 -90.99462891 60.79199219 C-59.04658279 47.83125704 -23.71714223 29.64642779 -1.75 2.1875 C-1.1725 1.465625 -0.595 0.74375 0 0 Z "
+                        fill="var(--wave-color)" transform="translate(1068,2)" />
+                </svg>
+
+            </div>
             <div class="container">
                 <div class="row">
                     @include('sections.banners.content')
@@ -218,7 +227,16 @@
         </div>
     @elseif ($content->background_type === 'background_color_with_right_image')
         <div class="banner banner--shape"
-            style="background-color: {{ $content->right_image_background_color ?? '#fff' }}">
+            style="background-color: {{ $content->right_image_background_color ?? '#fff' }};">
+            <div class="banner-shape" style="--wave-color:{{ $content->right_image_wave_color ?? '' }};">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
+                    viewBox="0 0 1069 233" preserveAspectRatio="none">
+                    <path
+                        d="M0 0 C0.33 0 0.66 0 1 0 C1 76.23 1 152.46 1 231 C-351.77 231 -704.54 231 -1068 231 C-1068 189.75 -1068 148.5 -1068 106 C-1061.6258648 106 -1056.29609664 106.23000954 -1050.1875 107.5 C-1049.34131104 107.67378174 -1048.49512207 107.84756348 -1047.62329102 108.02661133 C-1011.20350672 115.84549292 -975.41064102 129.19461163 -940.95532227 143.23608398 C-935.68768486 145.3686494 -930.37956641 147.29526141 -925 149.125 C-915.32451729 152.42235862 -905.82681052 156.14475912 -896.3125 159.875 C-876.65711374 167.57160133 -856.94883311 175.03758396 -836.73779297 181.16503906 C-833.59274245 182.12420375 -830.45501943 183.10591885 -827.31640625 184.0859375 C-750.21397875 207.94385253 -668.1114977 219.67059264 -574 201 C-572.30603205 200.64172624 -570.61202602 200.28363244 -568.91796875 199.92578125 C-508.68853224 186.58005984 -453.40822958 155.86112275 -403.625 120.375 C-384.86988298 107.0253175 -369.04642027 101.72539598 -345.76833725 101.69454193 C-343.43951409 101.69130592 -341.1110112 101.67620194 -338.78225708 101.65826416 C-335.46289108 101.63334112 -332.14353877 101.61245296 -328.8241272 101.59463501 C-286.99144636 101.35267617 -246.3928417 99.07451082 -205.06134033 92.3359375 C-203.22746264 92.03706968 -201.39283417 91.74281699 -199.55810547 91.44921875 C-163.34771576 85.58788901 -127.99518174 75.70651988 -94 62 C-93.00822754 61.60135742 -92.01645508 61.20271484 -90.99462891 60.79199219 C-59.04658279 47.83125704 -23.71714223 29.64642779 -1.75 2.1875 C-1.1725 1.465625 -0.595 0.74375 0 0 Z "
+                        fill="var(--wave-color)" transform="translate(1068,2)" />
+                </svg>
+
+            </div>
             <div class="container">
                 <div class="row">
                     @include('sections.banners.content')
@@ -236,7 +254,17 @@
         </div>
     @endif
     @if (isset($content->is_destination_enabled))
-        <div class=destinations style="background-color: {{ $content->destination_background_color ?? '' }}">
+        @php
+            $isBackgroundColor = $content->destination_background_type === 'background_color';
+            $isBackgroundImage = $content->destination_background_type === 'background_image';
+        @endphp
+        <div class=destinations
+            style="background-color: {{ $isBackgroundColor ? $content->destination_background_color : 'transparent' }}">
+            @if ($isBackgroundImage)
+                <img data-src="{{ asset($content->destination_background_image ?? 'admin/assets/images/placeholder.png') }}"
+                    alt="{{ $content->destination_background_alt_text ?? 'destination image' }}"
+                    class="imgFluid lazy destinations__bg">
+            @endif
             <div class=container>
                 <div class="row justify-content-between">
                     <div class=col-md-4>
@@ -244,10 +272,15 @@
                             <h2 class="heading">
                                 <div class=dst1
                                     style="color: {{ isset($content->destination_title_text_color) ? $content->destination_title_text_color : '' }};">
-                                    {{ $content->destination_title ?? '' }}</div>
+                                    {{ $content->destination_title ?? '' }}
+                                </div>
                                 <div class=dst2
-                                    style="color: {{ isset($content->destination_subtitle_text_color) ? $content->destination_subtitle_text_color : '' }};">
-                                    {{ $content->destination_subtitle ?? '' }}
+                                    style="color: {{ isset($content->destination_subtitle->text_color[0]) ? $content->destination_subtitle->text_color[0] : '' }};">
+                                    {{ isset($content->destination_subtitle->title[0]) ? $content->destination_subtitle->title[0] : '' }}
+                                </div>
+                                <div class="dst2 mt-0"
+                                    style="color: {{ isset($content->destination_subtitle->text_color[1]) ? $content->destination_subtitle->text_color[1] : '' }};">
+                                    {{ isset($content->destination_subtitle->title[1]) ? $content->destination_subtitle->title[1] : '' }}
                                     <div class=darrow>
                                         <img data-src={{ asset('assets/images/darrow.webp') }} alt=image
                                             class="imgFluid lazy" width=100 height=20.36>

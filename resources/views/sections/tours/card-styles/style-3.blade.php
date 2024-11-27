@@ -43,7 +43,8 @@
                     <div class="baseline-pricing__value baseline-pricing__value--high">
                         <p class=baseline-pricing__from>
                             <span class=baseline-pricing__from--text>From </span>
-                            <span class=baseline-pricing__from--value> {{ formatPrice($tour->regular_price) }}</span>
+                            <span class="baseline-pricing__from--value green">
+                                {{ formatPrice($tour->regular_price) }}</span>
                         </p>
                     </div>
                 </div>

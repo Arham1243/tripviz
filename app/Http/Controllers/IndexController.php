@@ -57,8 +57,22 @@ class IndexController extends Controller
         }
         $page = $query->firstOrFail();
         $sections = $page->sections()->withPivot('content')->orderBy('pivot_order')->get();
+        $bannerSection = $sections->filter(function ($item) {
+            return $item['section_key'] === 'banner';
+        })->first();
+        $bannerContent = json_decode($bannerSection->pivot->content);
+        $reviewDetails = null;
+        if ($bannerContent && isset($bannerContent->is_review_enabled) && $bannerContent->review_type !== 'custom') {
+            $fetchReviewController = new FetchReviewController;
+            $request = app('request');
+            $reviewContent = $fetchReviewController->fetchReview($request, $type = $bannerContent->review_type);
+            if ($reviewContent) {
+                $reviewDetails = $reviewContent->getData(true);
+            }
 
-        return view('page-builder', compact('page', 'sections'));
+        }
+
+        return view('page-builder', compact('page', 'sections', 'reviewDetails'));
     }
 
     public function index()

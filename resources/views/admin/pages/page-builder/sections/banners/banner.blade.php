@@ -123,9 +123,15 @@
                             <div class="d-flex align-items-center gap-2 lh-1">
                                 <div class="mt-1">Button Link </div>
 
+
                                 <button data-bs-placement="top"
-                                    title="<strong>Link:</strong> https://abc.com <br> <strong>Phone:</strong> tel:0325227373"
-                                    type="button" data-tooltip="tooltip">
+                                    title="<div class='d-flex flex-column'>
+ <div class='d-flex gap-1'> <strong>Link:</strong> https://abc.com</div>
+  <div class='d-flex gap-1'><strong>Phone:</strong> tel:+971xxxxxxxxx</div>
+  <div class='d-flex gap-1'><strong>Whatsapp:</strong> https://wa.me/971xxxxxxxxx</div>
+</div>
+"
+                                    type="button" data-tooltip="tooltip" class="tooltip-lg">
                                     <i class='bx bxs-info-circle'></i>
                                 </button>
                             </div>
@@ -218,6 +224,21 @@
                     <label class="form-check-label" for="enable-section">Enabled</label>
                 </div>
             </div>
+            <div class="form-fields mb-4">
+                <div class="title d-flex align-items-center gap-2">
+                    <div>
+                        Text Color <span class="text-danger">*</span>:
+                    </div>
+                    <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get Color
+                        Codes</a>
+                </div>
+                <div class="field color-picker" data-color-picker-container>
+                    <label for="color-picker" data-color-picker></label>
+                    <input id="color-picker" type="text" name="content[review_text_color]" data-color-picker-input
+                        value="{{ $sectionContent->review_text_color ?? '#000000' }}" data-error="background Color"
+                        inputmode="text" />
+                </div>
+            </div>
             <div x-data="{ review_type: '{{ isset($sectionContent->review_type) ? $sectionContent->review_type : 'google' }}' }">
                 <div class="d-flex align-items-center gap-5 px-4 mb-3">
                     <div class="form-check p-0">
@@ -286,7 +307,7 @@
                         <div class="col-md-3">
                             <div class="form-fields">
                                 <label class="title">Logo<span class="text-danger">*</span> :</label>
-                                <div class="upload upload--sm" data-upload="">
+                                <div class="upload upload--sm mx-0" data-upload="">
                                     <div class="upload-box-wrapper">
                                         <div class="upload-box {{ empty($sectionContent->custom_review_logo_image) ? 'show' : '' }}"
                                             data-upload-box="">
@@ -322,13 +343,15 @@
                                         upload a
                                         valid image file
                                     </div>
+                                    <div class="dimensions text-center mt-3">
+                                        <strong>Dimensions:</strong> 100 &times; 30
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
     <div class="col-12">
@@ -411,7 +434,11 @@
                                         upload a
                                         valid image file
                                     </div>
+                                    <div class="dimensions text-center mt-3">
+                                        <strong>Dimensions:</strong> 345 &times; 186
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                         <div class="col-lg-12">
@@ -497,6 +524,9 @@
                                         upload a
                                         valid image file
                                     </div>
+                                    <div class="dimensions text-center mt-3">
+                                        <strong>Dimensions:</strong> 1350 &times; 435
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -568,6 +598,9 @@
                                             Please
                                             upload a valid image file
                                         </div>
+                                        <div class="dimensions text-center mt-3">
+                                            <strong>Dimensions:</strong> 1350 &times; 435
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -576,7 +609,7 @@
                 </div>
                 <div class="py-3" x-show="background_type === 'layout_normal_background_color'">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-fields">
                                 <div class="title d-flex align-items-center gap-2">
                                     <div>Background Color <span class="text-danger">*</span>:</div>
@@ -594,11 +627,30 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-fields">
+                                <div class="title d-flex align-items-center gap-2">
+                                    <div>Wave Color <span class="text-danger">*</span>:</div>
+                                    <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get
+                                        Color
+                                        Codes</a>
+                                </div>
+
+                                <div class="field color-picker" data-color-picker-container>
+                                    <label for="color-picker" data-color-picker></label>
+                                    <input id="color-picker" type="text" name="content[background_wave_color]"
+                                        data-color-picker-input
+                                        value="{{ $sectionContent->background_wave_color ?? '#EFF3FF' }}"
+                                        placeholder="#000000" data-error="background Color" inputmode="text">
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="py-3" x-show="background_type === 'background_color_with_right_image'">
                     <div class="row">
-                        <div class="col-md-12 mb-4">
+                        <div class="col-md-6 mb-4">
                             <div class="form-fields">
                                 <div class="title d-flex align-items-center gap-2">
                                     <div>Background Color <span class="text-danger">*</span>:</div>
@@ -612,6 +664,25 @@
                                         name="content[right_image_background_color]" data-color-picker-input
                                         value="{{ $sectionContent->right_image_background_color ?? '#ffffff' }}"
                                         data-error="background Color" inputmode="text">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="form-fields">
+                                <div class="title d-flex align-items-center gap-2">
+                                    <div>Wave Color <span class="text-danger">*</span>:</div>
+                                    <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get
+                                        Color
+                                        Codes</a>
+                                </div>
+
+                                <div class="field color-picker" data-color-picker-container>
+                                    <label for="color-picker" data-color-picker></label>
+                                    <input id="color-picker" type="text" name="content[right_image_wave_color]"
+                                        data-color-picker-input
+                                        value="{{ $sectionContent->right_image_wave_color ?? '#EFF3FF' }}"
+                                        placeholder="#000000" data-error="background Color" inputmode="text">
 
                                 </div>
                             </div>
@@ -651,6 +722,9 @@
                                     <div data-error-message class="text-danger mt-2 d-none text-center">Please
                                         upload a
                                         valid image file
+                                    </div>
+                                    <div class="dimensions text-center mt-3">
+                                        <strong>Dimensions:</strong> 345 &times; 186
                                     </div>
                                 </div>
                             </div>
@@ -733,49 +807,161 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 mb-4">
+            <div class="col-lg-12 mb-4">
                 <div class="form-fields">
-                    <label class="title">Sub Title
-                        <span class="text-danger">*</span> :</label>
-                    <input type="text" name="content[destination_subtitle]" class="field" placeholder=""
-                        value="{{ $sectionContent->destination_subtitle ?? '' }}" data-error="Destination Sub Title">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-fields">
-                    <div class="title d-flex align-items-center gap-2">
-                        <div>
-                            Sub Title Text Color <span class="text-danger">*</span>:
-                        </div>
-                        <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get Color
-                            Codes</a>
-                    </div>
-                    <div class="field color-picker" data-color-picker-container>
-                        <label for="color-picker" data-color-picker></label>
-                        <input id="color-picker" type="text" name="content[destination_subtitle_text_color]"
-                            data-color-picker-input
-                            value="{{ $sectionContent->destination_subtitle_text_color ?? '#000000' }}"
-                            data-error="background Color" inputmode="text" />
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12 mb-4">
-                <div class="form-fields">
-                    <div class="title d-flex align-items-center gap-2">
-                        <div>Background Color <span class="text-danger">*</span>:</div>
-                        <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get
-                            Color
-                            Codes</a>
-                    </div>
+                    <label class="title">Sub Title<span class="text-danger">*</span> :</label>
+                    @php
+                        $destination_subtitles = $sectionContent->destination_subtitle ?? [''];
+                        $destination_titles = $destination_subtitles->title ?? [];
+                        $destination_text_colors = $destination_subtitles->text_color ?? [];
+                    @endphp
+                    <div x-data="repeater({{ json_encode($destination_titles) }}, {{ json_encode($destination_text_colors) }}, 2)" class="repeater-table">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Sub Title</th>
+                                    <th scope="col">
+                                        <div class="d-flex align-items-center gap-2"> Text color
+                                            <a class="p-0 nav-link" href="//html-color-codes.info"
+                                                target="_blank">Get Color
+                                                Codes</a>
+                                        </div>
 
-                    <div class="field color-picker" data-color-picker-container>
-                        <label for="color-picker" data-color-picker></label>
-                        <input id="color-picker" type="text" name="content[destination_background_color]"
-                            data-color-picker-input value="{{ $sectionContent->destination_background_color ?? '' }}"
-                            placeholder="#000000" data-error="background Color" inputmode="text">
+                                    </th>
+                                    <th class="text-end" scope="col">Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template x-for="(item, index) in items" :key="index">
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="field"
+                                                name="content[destination_subtitle][title][]"
+                                                x-model="item.subTitle.title" maxlength="24" />
+                                        </td>
+                                        <td>
+                                            <div class="field color-picker" data-color-picker-container
+                                                x-init="$nextTick(() => InitializeColorPickers($el))">
+                                                <label :for="'color-picker-' + index" data-color-picker></label>
+                                                <input x-model="item.subTitle.text_color" :id="'color-picker-' + index"
+                                                    type="text" name="content[destination_subtitle][text_color][]"
+                                                    data-color-picker-input inputmode="text">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button :disabled="index === 0"
+                                                class="delete-btn delete-btn--static ms-auto" @click="remove(index)">
+                                                <i class="bx bxs-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                        <button type="button" x-show="items.length < maxItems" type="button"
+                            class="themeBtn ms-auto" @click="addItem">
+                            Add Second Line<i class="bx bx-plus"></i>
+                        </button>
                     </div>
                 </div>
             </div>
+            <div class="col-lg-12 mb-4">
+                <div class="form-fields">
+                    <label class="title title--sm mb-3">Background Style:</label>
+                    <div x-data="{ destination_background_type: '{{ isset($sectionContent->destination_background_type) ? $sectionContent->destination_background_type : 'normal_v1_right_side_image' }}' }">
+                        <div class="d-flex align-items-center gap-5 px-4 mb-3">
+                            <div class="form-check p-0">
+                                <input class="form-check-input" type="radio"
+                                    name="content[destination_background_type]" id="destination_background_color"
+                                    x-model="destination_background_type" name="content[destination_background_type]"
+                                    value="background_color" />
+                                <label class="form-check-label" for="destination_background_color">Background
+                                    Color</label>
+                            </div>
+                            <div class="form-check p-0">
+                                <input class="form-check-input" type="radio"
+                                    name="content[destination_background_type]" id="destination_background_image_type"
+                                    x-model="destination_background_type" name="content[destination_background_type]"
+                                    value="background_image" />
+                                <label class="form-check-label" for="destination_background_image_type">Background
+                                    Image</label>
+                            </div>
+                        </div>
+                        <div class="py-3" x-show="destination_background_type === 'background_color'">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-fields">
+                                        <div class="title d-flex align-items-center gap-2">
+                                            <div>Background Color <span class="text-danger">*</span>:</div>
+                                            <a class="p-0 nav-link" href="//html-color-codes.info"
+                                                target="_blank">Get Color Codes</a>
+                                        </div>
+
+                                        <div class="field color-picker" data-color-picker-container>
+                                            <label for="color-picker" data-color-picker></label>
+                                            <input id="color-picker" type="text"
+                                                name="content[destination_background_color]" data-color-picker-input
+                                                value="{{ $sectionContent->destination_background_color ?? 'transparent' }}"
+                                                data-error="background Color" inputmode="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="py-3" x-show="destination_background_type === 'background_image'">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-fields">
+                                        <label class="title">Background Image <span class="text-danger">*</span>
+                                            :</label>
+                                        <div class="upload upload--sm mx-0" data-upload>
+                                            <div class="upload-box-wrapper">
+                                                <div class="upload-box {{ empty($sectionContent->destination_background_image) ? 'show' : '' }}"
+                                                    data-upload-box>
+                                                    <input type="file" name="content[destination_background_image]"
+                                                        {{ empty($sectionContent->destination_background_image) ? '' : '' }}
+                                                        data-error="Feature Image" id="destination_background_image"
+                                                        class="upload-box__file d-none" accept="image/*"
+                                                        data-file-input>
+                                                    <div class="upload-box__placeholder">
+                                                        <i class="bx bxs-image"></i>
+                                                    </div>
+                                                    <label for="destination_background_image"
+                                                        class="upload-box__btn themeBtn">Upload Image</label>
+                                                </div>
+                                                <div class="upload-box__img {{ !empty($sectionContent->destination_background_image) ? 'show' : '' }}"
+                                                    data-upload-img>
+                                                    <button type="button" class="delete-btn" data-delete-btn="">
+                                                        <i class="bx bxs-edit-alt"></i>
+                                                    </button>
+                                                    <a href="{{ asset($sectionContent->destination_background_image ?? 'admin/assets/images/loading.webp') }}"
+                                                        class="mask" data-fancybox="gallery">
+                                                        <img src="{{ asset($sectionContent->destination_background_image ?? 'admin/assets/images/loading.webp') }}"
+                                                            alt="Uploaded Image" class="imgFluid"
+                                                            data-placeholder="{{ asset('admin/assets/images/loading.webp') }}"
+                                                            data-upload-preview="" />
+                                                    </a>
+                                                    <input type="text"
+                                                        name="content[destination_background_alt_text]" class="field"
+                                                        placeholder="Enter alt text"
+                                                        value="{{ $sectionContent->destination_background_alt_text ?? 'Destination Image' }}" />
+                                                </div>
+                                            </div>
+                                            <div data-error-message class="text-danger mt-2 d-none text-center">
+                                                Please upload a valid image file
+                                            </div>
+                                            <div class="dimensions text-center mt-3">
+                                                <strong>Dimensions:</strong> 1350 &times; 390
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-md-12">
                 <div class="form-fields">
                     <label class="title title--sm mb-2">Items Style:</label>
@@ -1018,9 +1204,9 @@
                                                                 ? $sectionContent->destination_country_ids_carousel
                                                                 : [];
                                                     @endphp
-                                                    <select name="content[destination_country_ids_carousel][]" multiple
-                                                        class="field select2-select" placeholder="Select Countries"
-                                                        data-error="Countries">
+                                                    <select name="content[destination_country_ids_carousel][]"
+                                                        multiple class="field select2-select"
+                                                        placeholder="Select Countries" data-error="Countries">
                                                         @foreach ($countries as $item)
                                                             <option value="{{ $item->id }}"
                                                                 {{ in_array($item->id, $carouselSelectedCountryIds) ? 'selected' : '' }}>

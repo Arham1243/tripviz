@@ -8,6 +8,9 @@
 }
 
 @media only screen and (max-width: 768px) {
+    .banner-shape {
+        display: none;
+    }
     .loginSignup-popup {
         width: 300px;
     }
