@@ -8,6 +8,7 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\News;
 use App\Models\Page;
+use App\Models\Testimonial;
 use App\Models\Tour;
 use App\Models\TourAttribute;
 use App\Models\TourCategory;
@@ -55,6 +56,10 @@ class RecoveryController extends Controller
             'title' => 'Title',
             'deleted_at' => 'Deleted On',
         ],
+        'testimonials' => [
+            'title' => 'Title',
+            'deleted_at' => 'Deleted On',
+        ],
     ];
 
     public function index($resource)
@@ -85,6 +90,10 @@ class RecoveryController extends Controller
                 break;
             case 'pages':
                 $items = Page::onlyTrashed()->get();
+                $primaryColumn = 'id';
+                break;
+            case 'testimonials':
+                $items = Testimonial::onlyTrashed()->get();
                 $primaryColumn = 'id';
                 break;
             default:

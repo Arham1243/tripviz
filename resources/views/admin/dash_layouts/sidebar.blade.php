@@ -14,7 +14,7 @@
                     'icon' => 'bx bxl-blogger',
                     'submenu' => [
                         [
-                            'title' => 'All Blog',
+                            'title' => 'Blogs',
                             'icon' => 'bx bx-list-ul',
                             'route' => route('admin.blogs.index'),
                         ],
@@ -45,7 +45,7 @@
                     'icon' => 'bx bxs-news',
                     'submenu' => [
                         [
-                            'title' => 'All News',
+                            'title' => 'News',
                             'icon' => 'bx bx-list-ul',
                             'route' => route('admin.news.index'),
                         ],
@@ -78,7 +78,7 @@
             'icon' => 'bx bx-file',
             'submenu' => [
                 [
-                    'title' => 'All Page',
+                    'title' => 'Pages',
                     'icon' => 'bx bx-list-ul',
                     'route' => route('admin.pages.index'),
                 ],
@@ -103,7 +103,7 @@
                     'icon' => 'bx bx-flag',
                     'submenu' => [
                         [
-                            'title' => 'All Countries',
+                            'title' => 'Countries',
                             'icon' => 'bx bx-list-ul',
                             'route' => route('admin.countries.index'),
                         ],
@@ -124,7 +124,7 @@
                     'icon' => 'bx bx-buildings',
                     'submenu' => [
                         [
-                            'title' => 'All Cities',
+                            'title' => 'Cities',
                             'icon' => 'bx bx-list-ul',
                             'route' => route('admin.cities.index'),
                         ],
@@ -142,7 +142,6 @@
                 ],
             ],
         ],
-
         [
             'title' => 'Tours',
             'icon' => 'bx bx-world',
@@ -152,7 +151,7 @@
                     'icon' => 'bx bx-world',
                     'submenu' => [
                         [
-                            'title' => 'All Tours',
+                            'title' => 'Tours',
                             'icon' => 'bx bx-list-ul',
                             'route' => route('admin.tours.index'),
                         ],
@@ -173,7 +172,7 @@
                     'icon' => 'bx bx-category',
                     'submenu' => [
                         [
-                            'title' => 'All Categories',
+                            'title' => 'Categories',
                             'icon' => 'bx bx-list-ul',
                             'route' => route('admin.tour-categories.index'),
                         ],
@@ -189,7 +188,7 @@
                     'icon' => 'bx bx-check-circle',
                     'submenu' => [
                         [
-                            'title' => 'All Attributes',
+                            'title' => 'Attributes',
                             'icon' => 'bx bx-list-ul',
                             'route' => route('admin.tour-attributes.index'),
                         ],
@@ -200,11 +199,6 @@
                         ],
                     ],
                 ],
-                // [
-                //     'title' => 'Reviews',
-                //     'icon' => 'bx bxs-chat',
-                //     'route' => route('admin.tour-reviews.index'),
-                // ],
                 [
                     'title' => 'Availability',
                     'icon' => 'bx bx-calendar',
@@ -214,6 +208,27 @@
                     'title' => 'Booking Calendar',
                     'icon' => 'bx bx-calendar-check',
                     'route' => route('admin.tour-bookings.index'),
+                ],
+            ],
+        ],
+        [
+            'title' => 'Testimonial',
+            'icon' => 'bx bxs-chat',
+            'submenu' => [
+                [
+                    'title' => 'Testimonials',
+                    'icon' => 'bx bx-list-ul',
+                    'route' => route('admin.testimonials.index'),
+                ],
+                [
+                    'title' => 'Add Testimonial',
+                    'icon' => 'bx bx-plus',
+                    'route' => route('admin.testimonials.create'),
+                ],
+                [
+                    'title' => 'Recovery',
+                    'icon' => 'bx bx-refresh',
+                    'route' => route('admin.recovery.index', ['resource' => 'testimonials']),
                 ],
             ],
         ],

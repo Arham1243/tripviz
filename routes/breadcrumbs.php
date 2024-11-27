@@ -198,3 +198,18 @@ Breadcrumbs::for('admin.sections.edit', function (BreadcrumbTrail $trail, $item)
     $trail->push($item->name ?? 'N/A', route('admin.sections.edit', $item->id));
 });
 // ---------------Sections---------------
+
+// ---------------Testimonials---------------
+Breadcrumbs::for('admin.testimonials.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Testimonials', route('admin.testimonials.index'));
+});
+Breadcrumbs::for('admin.testimonials.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.testimonials.index');
+    $trail->push('Add Testimonial', route('admin.testimonials.create'));
+});
+Breadcrumbs::for('admin.testimonials.edit', function (BreadcrumbTrail $trail, $item) {
+    $trail->parent('admin.testimonials.index');
+    $trail->push($item->title ?? 'N/A', route('admin.testimonials.edit', $item->id));
+});
+// ---------------Testimonials---------------
