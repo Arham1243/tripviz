@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\BulkActionController;
 use App\Http\Controllers\Admin\IcalController;
 use App\Http\Controllers\Admin\Locations\CityController;
 use App\Http\Controllers\Admin\Locations\CountryController;
+use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\News\CategoriesController as NewsCategoriesController;
 use App\Http\Controllers\Admin\News\NewsController;
 use App\Http\Controllers\Admin\News\TagsController as NewsTagsController;
@@ -70,4 +71,6 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('countries', CountryController::class);
     Route::resource('cities', CityController::class);
     Route::resource('testimonials', TestimonialController::class);
+
+    Route::get('media/{id}/destroy', [MediaController::class, 'destroy'])->name('media.destroy');
 });

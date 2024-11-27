@@ -35,6 +35,10 @@ class TestimonialController extends Controller
             'featured_image' => 'required|image|mimes:jpeg,png,jpg,webp,gif|max:2048',
             'featured_image_alt_text' => 'required|string',
             'status' => 'required|in:active,inactive',
+            'gallery' => 'nullable|array',
+            'gallery.*' => 'image|mimes:jpeg,png,jpg,webp,gif|max:2048',
+            'gallery_alt_texts' => 'nullable|array',
+            'gallery_alt_texts.*' => 'string|max:255',
         ]);
 
         $slug = $this->createSlug($validatedData['title'], 'testimonials');
@@ -44,7 +48,16 @@ class TestimonialController extends Controller
             'featured_image' => $this->simpleUploadImg($validatedData['featured_image'], 'Testimonial/Featured-images'),
         ]);
 
-        Testimonial::create($data);
+        $testimonial = Testimonial::create($data);
+
+        foreach ($request->file('gallery') as $index => $image) {
+            $path = $this->simpleUploadImg($image, 'Testimonial/Other-images');
+
+            $testimonial->media()->create([
+                'file_path' => $path,
+                'alt_text' => $validatedData['gallery_alt_texts'][$index],
+            ]);
+        }
 
         return redirect()->route('admin.testimonials.index')->with('notify_success', 'Testimonial added successfully.');
     }
@@ -67,6 +80,10 @@ class TestimonialController extends Controller
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:2048',
             'featured_image_alt_text' => 'required|string',
             'status' => 'required|in:active,inactive',
+            'gallery' => 'nullable|array',
+            'gallery.*' => 'image|mimes:jpeg,png,jpg,webp,gif|max:2048',
+            'gallery_alt_texts' => 'nullable|array',
+            'gallery_alt_texts.*' => 'string|max:255',
         ]);
         $featuredImage = $testimonial->featured_image;
         if ($request->hasFile('featured_image')) {
@@ -81,6 +98,15 @@ class TestimonialController extends Controller
         ]);
 
         $testimonial->update($data);
+
+        foreach ($request->file('gallery') as $index => $image) {
+            $path = $this->simpleUploadImg($image, 'Testimonial/Other-images');
+
+            $testimonial->media()->create([
+                'file_path' => $path,
+                'alt_text' => $validatedData['gallery_alt_texts'][$index],
+            ]);
+        }
 
         return redirect()->route('admin.testimonials.index')->with('notify_success', 'Testimonial updated successfully.');
     }

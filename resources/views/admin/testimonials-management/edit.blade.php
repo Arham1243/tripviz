@@ -31,7 +31,6 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-
                                     <div class="form-fields">
                                         <label class="title">Content <span class="text-danger">*</span> :</label>
                                         <textarea class="editor" name="content" data-placeholder="content" data-required data-error="Content">
@@ -57,6 +56,48 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                    <div class="form-fields mt-3">
+                                        <div class="multiple-upload" data-upload-multiple>
+                                            <input type="file" class="gallery-input d-none" multiple
+                                                data-upload-multiple-input accept="image/*" id="banners" name="gallery[]">
+                                            <label class="multiple-upload__btn themeBtn" for="banners">
+                                                <i class='bx bx-plus'></i>
+                                                Other images
+                                            </label>
+                                            <div class="dimensions mt-3">
+                                                <strong>Dimensions:</strong> 265 &times; 155
+                                            </div>
+                                            <ul class="multiple-upload__imgs" data-upload-multiple-images>
+                                            </ul>
+                                            <div class="text-danger error-message d-none" data-upload-multiple-error>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @if (!$item->media->isEmpty())
+                                        <div class="form-fields mt-3">
+                                            <label class="title">Current Other images:</label>
+                                            <ul class="multiple-upload__imgs">
+                                                @foreach ($item->media as $media)
+                                                    <li class="single-image">
+                                                        <a href="{{ route('admin.media.destroy', $media->id) }}"
+                                                            onclick="return confirm('Are you sure you want to delete this media?')"
+                                                            class="delete-btn">
+                                                            <i class='bx bxs-trash-alt'></i>
+                                                        </a>
+                                                        <a class="mask" href="{{ asset($media->file_path) }}"
+                                                            data-fancybox="gallery">
+                                                            <img src="{{ asset($media->file_path) }}" class="imgFluid"
+                                                                alt="{{ $media->alt_text }}" />
+                                                        </a>
+                                                        <input type="text" value="{{ $media->alt_text }}" class="field"
+                                                            readonly>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -125,6 +166,11 @@
                                                 upload a
                                                 valid image file
                                             </div>
+                                            @error('featured_image_alt_text')
+                                                <div class="text-danger mt-2 text-center">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                             @error('featured_image')
                                                 <div class="text-danger mt-2 text-center">{{ $message }}
                                                 </div>

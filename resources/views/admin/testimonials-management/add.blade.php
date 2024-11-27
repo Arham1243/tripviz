@@ -53,6 +53,23 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                    <div class="form-fields mt-3">
+                                        <div class="multiple-upload" data-upload-multiple>
+                                            <input type="file" class="gallery-input d-none" multiple
+                                                data-upload-multiple-input accept="image/*" id="banners" name="gallery[]">
+                                            <label class="multiple-upload__btn themeBtn" for="banners">
+                                                <i class='bx bx-plus'></i>
+                                                Other images
+                                            </label>
+                                            <div class="dimensions mt-3">
+                                                <strong>Dimensions:</strong> 265 &times; 155
+                                            </div>
+                                            <ul class="multiple-upload__imgs" data-upload-multiple-images>
+                                            </ul>
+                                            <div class="text-danger error-message d-none" data-upload-multiple-error>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -114,8 +131,14 @@
                                                 upload a
                                                 valid image file
                                             </div>
+                                            @error('featured_image_alt_text')
+                                                <div class="text-danger mt-2 text-center">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                             @error('featured_image')
-                                                <div class="text-danger mt-2 text-center">{{ $message }}
+                                                <div class="text-danger mt-2 text-center">
+                                                    {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
