@@ -34,8 +34,12 @@ trait UploadImageTrait
         }
     }
 
-    public function simpleUploadImg($file, string $folder)
+    public function simpleUploadImg($file, string $folder, $previousImage = null)
     {
+        if ($previousImage && Storage::disk('public')->exists($previousImage)) {
+            Storage::disk('public')->delete($previousImage);
+        }
+
         if ($file instanceof UploadedFile) {
             $filename = Str::uuid().'.'.$file->getClientOriginalExtension();
             $folderPath = 'uploads/'.$folder;

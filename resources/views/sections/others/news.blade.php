@@ -1,18 +1,12 @@
-<div class=latest-stories>
+<div class="latest-stories section-padding">
     <div class=container>
-        <div class=latest-stories__title>TRAVEL STORIES AND NEWS</div>
-        <div class=latest-stories__details>
-            <div class=section-content>
-                <h2 class=subHeading>
-                    Explore our latest stories
-                </h2>
-            </div>
-            <div class=latest-stories__btns>
-                <button class=themeBtn-round>Read more news</button>
-                <button class=themeBtn-round>Read more articles</button>
-            </div>
+        <div class="section-content mb-4 pb-1">
+            <div class=latest-stories__title>TRAVEL STORIES AND NEWS</div>
+            <h2 class=subHeading>
+                Explore our latest stories
+            </h2>
         </div>
-        <div class="row pt-3">
+        <div class="row">
             <div class=col-md-7>
                 <div class=Desti-Pract__details>
                     <div class=Desti-Pract__img>
@@ -70,8 +64,6 @@
                 </div>
             </div>
         </div>
-        <div class="latest-stories__btn pt-4">
-            <button class="app-btn themeBtn">Read More</button>
-        </div>
+        <button class="primary-btn primary-btn--center mt-4">Read More</button>
     </div>
 </div>

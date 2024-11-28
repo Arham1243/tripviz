@@ -60,7 +60,7 @@ class IndexController extends Controller
         $bannerSection = $sections->filter(function ($item) {
             return $item['section_key'] === 'banner';
         })->first();
-        $bannerContent = json_decode($bannerSection->pivot->content);
+        $bannerContent = $bannerSection ? json_decode($bannerSection->pivot->content) : null;
         $reviewDetails = null;
         if ($bannerContent && isset($bannerContent->is_review_enabled) && $bannerContent->review_type !== 'custom') {
             $fetchReviewController = new FetchReviewController;
@@ -69,7 +69,6 @@ class IndexController extends Controller
             if ($reviewContent) {
                 $reviewDetails = $reviewContent->getData(true);
             }
-
         }
 
         return view('page-builder', compact('page', 'sections', 'reviewDetails'));

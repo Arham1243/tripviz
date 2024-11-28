@@ -31,7 +31,7 @@
                         Social Media
                     </div>
                     <div class="sm-text">
-                        Follow Me <span class=thin><img alt="" class="darrow2 imgFluid lazy"
+                        Follow Us <span class=thin><img alt="" class="darrow2 imgFluid lazy"
                                 data-src={{ asset('assets/images/darrow.webp') }} width=37.19 height=7.56></span>
                     </div>
                 </div>

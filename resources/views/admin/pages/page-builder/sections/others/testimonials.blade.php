@@ -1,128 +1,67 @@
-<div class=comment>
-    <img data-src={{ asset('assets/images/comment.webp') }} alt=image class="peoples-img lazy imgFluid" loading="lazy">
-    <div class=ocizgi_imgs>
-        <img data-src={{ asset('assets/images/ocizgi.webp') }} alt=image class="ocizgi imgFluid lazy" loading="lazy">
-    </div>
-    <div class=container>
-        <div class=section-content>
-            <h2 class=subHeading>
-                Comment
-            </h2>
-            <p>What are our customers saying?</p>
+@php
+    $sectionContent = $pageSection ? json_decode($pageSection->content) : null;
+    $testimonialIdsCheck = $sectionContent ? isset($sectionContent->testimonial_ids) : [];
+    $testimonialIds = $testimonialIdsCheck ? $sectionContent->testimonial_ids : [];
+@endphp
+
+<div class="row">
+    <div class="col-lg-6 mb-4">
+        <div class="form-fields">
+            <label class="title">Title<span class="text-danger">*</span> :</label>
+            <input type="text" name="content[title]" class="field" placeholder=""
+                value="{{ $sectionContent->title ?? '' }}" data-error="Destination Title">
         </div>
-        <div class="row pt-3">
-            <div class=col-md-3>
-                <div class=comment-card>
-                    <div class="comment-card__img comment-slider">
-                        <img data-src={{ asset('assets/images/comment1.webp') }} alt=image class="imgFluid lazy"
-                            loading="lazy">
-                        <img data-src={{ asset('assets/images/comment2.webp') }} alt=image class="imgFluid lazy"
-                            loading="lazy">
-                    </div>
-                    <div class=comment-card__content>
-                        <div class=comment-details>
-                            <div class=customer-name>
-                                neurontnP
-                            </div>
-                            <div class=card-rating>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star"></i>
-                            </div>
-                        </div>
-                        <div class=comment-pra>
-                            I am not sure where you’re getting your information, but great topic.
-                        </div>
-                        <button class="app-btn themeBtn">Read</button>
-                    </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="form-fields">
+            <div class="title d-flex align-items-center gap-2">
+                <div>
+                    Title Text Color <span class="text-danger">*</span>:
                 </div>
+                <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get Color
+                    Codes</a>
             </div>
-            <div class=col-md-3>
-                <div class=comment-card>
-                    <div class="comment-card__img comment-slider">
-                        <img data-src={{ asset('assets/images/comment2.webp') }} alt=image class="imgFluid lazy"
-                            loading="lazy">
-                        <img data-src={{ asset('assets/images/comment1.webp') }} alt=image class="imgFluid lazy"
-                            loading="lazy">
-                    </div>
-                    <div class=comment-card__content>
-                        <div class=comment-details>
-                            <div class=customer-name>
-                                neurontnP
-                            </div>
-                            <div class=card-rating>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star"></i>
-                            </div>
-                        </div>
-                        <div class=comment-pra>
-                            I am not sure where you’re getting your information, but great topic.
-                        </div>
-                        <button class="app-btn themeBtn">Read</button>
-                    </div>
+            <div class="field color-picker" data-color-picker-container>
+                <label for="color-picker" data-color-picker></label>
+                <input id="color-picker" type="text" name="content[title_text_color]" data-color-picker-input
+                    value="{{ $sectionContent->title_text_color ?? '#000000' }}" inputmode="text" />
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 mb-4">
+        <div class="form-fields">
+            <label class="title">Sub Title<span class="text-danger">*</span> :</label>
+            <input type="text" name="content[subTitle]" class="field" placeholder=""
+                value="{{ $sectionContent->subTitle ?? '' }}">
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="form-fields">
+            <div class="title d-flex align-items-center gap-2">
+                <div>
+                    sub Title Text Color <span class="text-danger">*</span>:
                 </div>
+                <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get Color
+                    Codes</a>
             </div>
-            <div class=col-md-3>
-                <div class=comment-card>
-                    <div class="comment-card__img comment-slider">
-                        <img data-src={{ asset('assets/images/comment3.webp') }} alt=image class="imgFluid lazy"
-                            loading="lazy">
-                        <img data-src={{ asset('assets/images/comment4.webp') }} alt=image class="imgFluid lazy"
-                            loading="lazy">
-                    </div>
-                    <div class=comment-card__content>
-                        <div class=comment-details>
-                            <div class=customer-name>
-                                neurontnP
-                            </div>
-                            <div class=card-rating>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star"></i>
-                            </div>
-                        </div>
-                        <div class=comment-pra>
-                            I am not sure where you’re getting your information, but great topic.
-                        </div>
-                        <button class="app-btn themeBtn">Read</button>
-                    </div>
-                </div>
+            <div class="field color-picker" data-color-picker-container>
+                <label for="color-picker" data-color-picker></label>
+                <input id="color-picker" type="text" name="content[subTitle_text_color]" data-color-picker-input
+                    value="{{ $sectionContent->subTitle_text_color ?? '#000000' }}" inputmode="text" />
             </div>
-            <div class=col-md-3>
-                <div class=comment-card>
-                    <div class="comment-card__img comment-slider">
-                        <img data-src={{ asset('assets/images/comment4.webp') }} alt=image class="imgFluid lazy"
-                            loading="lazy">
-                        <img data-src={{ asset('assets/images/comment3.webp') }} alt=image class="imgFluid lazy"
-                            loading="lazy">
-                    </div>
-                    <div class=comment-card__content>
-                        <div class=comment-details>
-                            <div class=customer-name>
-                                neurontnP
-                            </div>
-                            <div class=card-rating>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star yellow-star"></i>
-                                <i class="bx bxs-star"></i>
-                            </div>
-                        </div>
-                        <div class=comment-pra>
-                            I am not sure where you’re getting your information, but great topic.
-                        </div>
-                        <button class="app-btn themeBtn">Read</button>
-                    </div>
-                </div>
-            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-fields">
+            <label class="title">Select 4 Testimonials <span class="text-danger">*</span> :</label>
+            <select data-max-items="4" name="content[testimonial_ids][]" multiple class="field select2-select"
+                placeholder="Select Testimonials">
+                @foreach ($testimonials as $item)
+                    <option value="{{ $item->id }}" {{ in_array($item->id, $testimonialIds) ? 'selected' : '' }}>
+                        {{ $item->title }}
+                    </option>
+                @endforeach
+            </select>
         </div>
     </div>
 </div>

@@ -1108,7 +1108,9 @@ form .text-danger {
     background: #fff;
     height: 45px;
 }
-
+.form-fields textarea.field {
+    height: auto;
+}
 .form-fields .field::placeholder,
 .choices__list--single::placeholder,
 .choices__input::placeholder {
@@ -2306,4 +2308,27 @@ button[data-tooltip="tooltip"] {
 .section-preview-image--sm {
     padding: 4px !important;
     border-radius: 7px;
+}
+
+.custom-editor {
+    height: auto !important;
+}
+u{
+    text-decoration: underline !important;
+}
+.tooltip-content {
+    display: flex;
+    flex-direction: column;
+}
+.tooltip-item {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+.tooltip-item kbd {
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 2px 5px;
+    font-family: monospace;
 }

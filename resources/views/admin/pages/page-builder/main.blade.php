@@ -200,29 +200,31 @@
             }
         });
 
-        function repeater(titles, colors, maxItems) {
+        function repeater(initialData, fieldTemplate, maxItems) {
             return {
-                items: titles.map((title, index) => ({
-                    subTitle: {
-                        title: title,
-                        text_color: colors[index] || '#000000'
-                    }
-                })) || [{
-                    subTitle: {
-                        title: '',
-                        text_color: '#000000'
-                    }
-                }],
+                items: initialData.length ?
+                    initialData.map((data) => {
+                        let item = {};
+                        Object.keys(fieldTemplate).forEach(key => {
+                            item[key] = data[key] !== undefined ? data[key] : fieldTemplate[key];
+                        });
+                        return item;
+                    }) : [JSON.parse(JSON.stringify(fieldTemplate))],
+
                 maxItems: maxItems,
+
                 addItem() {
                     if (this.items.length < this.maxItems) {
-                        this.items.push({
-                            subTitle: ''
+                        let newItem = {};
+                        Object.keys(fieldTemplate).forEach(key => {
+                            newItem[key] = fieldTemplate[key];
                         });
+                        this.items.push(newItem);
                     }
                 },
+
                 remove(index) {
-                    if (index !== 0) {
+                    if (this.items.length > 1) {
                         this.items.splice(index, 1);
                     }
                 }

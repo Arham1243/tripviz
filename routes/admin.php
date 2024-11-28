@@ -9,12 +9,14 @@ use App\Http\Controllers\Admin\BulkActionController;
 use App\Http\Controllers\Admin\IcalController;
 use App\Http\Controllers\Admin\Locations\CityController;
 use App\Http\Controllers\Admin\Locations\CountryController;
+use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\News\CategoriesController as NewsCategoriesController;
 use App\Http\Controllers\Admin\News\NewsController;
 use App\Http\Controllers\Admin\News\TagsController as NewsTagsController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\RecoveryController;
 use App\Http\Controllers\Admin\SectionController;
+use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\Tour\AttributesController;
 use App\Http\Controllers\Admin\Tour\AvailabilityController;
 use App\Http\Controllers\Admin\Tour\BookingController;
@@ -68,4 +70,7 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('countries', CountryController::class);
     Route::resource('cities', CityController::class);
+    Route::resource('testimonials', TestimonialController::class);
+
+    Route::get('media/{id}/destroy', [MediaController::class, 'destroy'])->name('media.destroy');
 });
