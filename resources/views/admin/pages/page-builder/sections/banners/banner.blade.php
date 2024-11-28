@@ -47,11 +47,23 @@
         <div class="form-fields">
             <label class="title">Sub Title<span class="text-danger">*</span> :</label>
             @php
-                $subtitles = $sectionContent->subtitle ?? [''];
-                $titles = $subtitles->title ?? [];
-                $text_colors = $subtitles->text_color ?? [];
+                $subtitles = isset($sectionContent->subtitle)
+                    ? json_decode(json_encode($sectionContent->subtitle), true)
+                    : [['title' => '', 'text_color' => '#000000']];
+
+                $subtitleItems = [];
+                if (isset($subtitles['title']) && isset($subtitles['text_color'])) {
+                    foreach ($subtitles['title'] as $index => $title) {
+                        $subtitleItems[] = [
+                            'title' => $title,
+                            'text_color' => $subtitles['text_color'][$index] ?? '#000000',
+                        ];
+                    }
+                } else {
+                    $subtitleItems = $subtitles;
+                }
             @endphp
-            <div x-data="repeater({{ json_encode($titles) }}, {{ json_encode($text_colors) }}, 2)" class="repeater-table">
+            <div x-data="repeater({{ json_encode($subtitleItems) }}, { title: '', text_color: '#000000' }, 2)" class="repeater-table">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -71,14 +83,14 @@
                             <tr>
                                 <td>
                                     <input type="text" class="field" name="content[subtitle][title][]"
-                                        x-model="item.subTitle.title" :maxlength="index === 0 ? 24 : 55" />
+                                        x-model="item.title" :maxlength="index === 0 ? 24 : 55" />
                                 </td>
                                 <td>
                                     <div class="field color-picker" data-color-picker-container x-init="$nextTick(() => InitializeColorPickers($el))">
                                         <label :for="'color-picker-' + index" data-color-picker></label>
-                                        <input x-model="item.subTitle.text_color" :id="'color-picker-' + index"
-                                            type="text" name="content[subtitle][text_color][]"
-                                            data-color-picker-input inputmode="text">
+                                        <input x-model="item.text_color" :id="'color-picker-' + index" type="text"
+                                            name="content[subtitle][text_color][]" data-color-picker-input
+                                            inputmode="text">
                                     </div>
                                 </td>
                                 <td>
@@ -197,13 +209,13 @@
                 <div class="form-check p-0">
                     <input class="form-check-input" type="radio" name="content[form_type]" id="normal-form"
                         name="content[form_type]" value="normal"
-                        {{ $sectionContent ? ($sectionContent->form_type === 'normal' ? 'checked' : '') : '' }} />
+                        {{ isset($sectionContent->form_type) ? ($sectionContent->form_type === 'normal' ? 'checked' : '') : '' }} />
                     <label class="form-check-label" for="normal-form">Normal Search bar</label>
                 </div>
                 <div class="form-check p-0">
                     <input class="form-check-input" type="radio" name="content[form_type]" id="date_selection"
                         name="content[form_type]"
-                        {{ $sectionContent ? ($sectionContent->form_type === 'date_selection' ? 'checked' : '') : '' }}
+                        {{ isset($sectionContent->form_type) ? ($sectionContent->form_type === 'date_selection' ? 'checked' : '') : '' }}
                         value="date_selection" />
                     <label class="form-check-label" for="date_selection">Search Bar with Tour Date Selection</label>
                 </div>
@@ -810,12 +822,25 @@
             <div class="col-lg-12 mb-4">
                 <div class="form-fields">
                     <label class="title">Sub Title<span class="text-danger">*</span> :</label>
+
                     @php
-                        $destination_subtitles = $sectionContent->destination_subtitle ?? [''];
-                        $destination_titles = $destination_subtitles->title ?? [];
-                        $destination_text_colors = $destination_subtitles->text_color ?? [];
+                        $destination_subtitles = isset($sectionContent->destination_subtitle)
+                            ? json_decode(json_encode($sectionContent->destination_subtitle), true)
+                            : [['title' => '', 'text_color' => '#000000']];
+
+                        $destinationSubtitleItems = [];
+                        if (isset($destination_subtitles['title']) && isset($destination_subtitles['text_color'])) {
+                            foreach ($destination_subtitles['title'] as $index => $title) {
+                                $destinationSubtitleItems[] = [
+                                    'title' => $title,
+                                    'text_color' => $destination_subtitles['text_color'][$index] ?? '#000000',
+                                ];
+                            }
+                        } else {
+                            $destinationSubtitleItems = $destination_subtitles;
+                        }
                     @endphp
-                    <div x-data="repeater({{ json_encode($destination_titles) }}, {{ json_encode($destination_text_colors) }}, 2)" class="repeater-table">
+                    <div x-data="repeater({{ json_encode($destinationSubtitleItems) }}, { title: '', text_color: '#000000' }, 2)" class="repeater-table">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -836,14 +861,14 @@
                                     <tr>
                                         <td>
                                             <input type="text" class="field"
-                                                name="content[destination_subtitle][title][]"
-                                                x-model="item.subTitle.title" maxlength="24" />
+                                                name="content[destination_subtitle][title][]" x-model="item.title"
+                                                maxlength="24" />
                                         </td>
                                         <td>
                                             <div class="field color-picker" data-color-picker-container
                                                 x-init="$nextTick(() => InitializeColorPickers($el))">
                                                 <label :for="'color-picker-' + index" data-color-picker></label>
-                                                <input x-model="item.subTitle.text_color" :id="'color-picker-' + index"
+                                                <input x-model="item.text_color" :id="'color-picker-' + index"
                                                     type="text" name="content[destination_subtitle][text_color][]"
                                                     data-color-picker-input inputmode="text">
                                             </div>

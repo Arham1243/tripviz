@@ -5,7 +5,16 @@
                 <div class="col-md-7">
                     <div class="banner-content">
                         <div class="banner-heading">
-                            <h1 class="bannerMain-title">Discover Your <br> <span>Next Adventure</span></h1>
+                            <h1 class="bannerMain-title">
+                                <div class="title">
+                                    WE HELP TO FIND YOUR NEXT</div>
+                                <div class="subTitle subTitle--lg">
+                                    THRILLING ADVENTURE
+                                </div>
+                                <div class="subTitle subTitle--sm">
+                                    Unforgettable memories with "Smile At Every Mile"
+                                </div>
+                            </h1>
                             <a href="#" class="primary-btn mt-3">Learn More</a>
                         </div>
                     </div>
@@ -255,8 +264,12 @@
     @endif
     @if (isset($content->is_destination_enabled))
         @php
-            $isBackgroundColor = $content->destination_background_type === 'background_color';
-            $isBackgroundImage = $content->destination_background_type === 'background_image';
+            $isBackgroundColor = isset($content->destination_background_type)
+                ? $content->destination_background_type === 'background_color'
+                : null;
+            $isBackgroundImage = isset($content->destination_background_type)
+                ? $content->destination_background_type === 'background_image'
+                : null;
         @endphp
         <div class=destinations
             style="background-color: {{ $isBackgroundColor ? $content->destination_background_color : 'transparent' }}">
