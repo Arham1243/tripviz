@@ -13,13 +13,13 @@
     <div class="col-md-12 mb-3">
         <div class="form-fields">
             <label class="title">Description <span class="text-danger">*</span> :</label>
-            <textarea name="content[description]" class="field" rows="2" maxlength="255 ">{{ $sectionContent->description ?? '' }} </textarea>
+            <textarea name="content[description]" class="field" rows="2" maxlength="255">{{ $sectionContent->description ?? '' }} </textarea>
         </div>
     </div>
     <div class="col-md-12 mb-3">
         <div class="form-fields">
             <label class="title">Privacy Statement <span class="text-danger">*</span> :</label>
-            <textarea name="content[privacy_statement]" class="field" rows="2" maxlength="255 ">{{ $sectionContent->privacy_statement ?? '' }} </textarea>
+            <textarea name="content[privacy_statement]" class="field" rows="2" maxlength="255">{{ $sectionContent->privacy_statement ?? '' }} </textarea>
         </div>
     </div>
     <div class="col-md-4 mb-4">

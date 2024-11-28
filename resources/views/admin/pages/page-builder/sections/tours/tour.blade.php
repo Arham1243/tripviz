@@ -190,7 +190,7 @@
     <div class="col-lg-12 mb-4 pt-3">
         <div class="form-fields">
             <label class="title title--sm mb-3">Select style :</label>
-            <div x-data="{ card_style: '{{ isset($sectionContent->card_style) ? $sectionContent->card_style : 'nomral' }}' }">
+            <div x-data="{ card_style: '{{ isset($sectionContent->card_style) ? $sectionContent->card_style : 'style-1' }}' }">
                 <div class="d-flex align-items-center gap-5 px-4">
                     <div class="form-check p-0 ps-1">
                         <input class="form-check-input" type="radio" name="content[card_style]" id="style-1"

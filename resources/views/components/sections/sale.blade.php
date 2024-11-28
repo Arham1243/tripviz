@@ -1,6 +1,6 @@
 <div class=offers-section>
     <div class=container>
-        <div class="sale-card mt-3">
+        <div class="sale-card">
             <div class=sale-card__content>
                 <div class=discount-label>
                     {{ $section->heading ?? '' }}
