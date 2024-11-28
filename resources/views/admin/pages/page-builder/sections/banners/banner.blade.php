@@ -183,7 +183,7 @@
                         <div class="field color-picker" data-color-picker-container>
                             <label for="color-picker" data-color-picker></label>
                             <input id="color-picker" type="text" name="content[btn_text_color]"
-                                data-color-picker-input value="{{ $sectionContent->btn_text_color ?? '#000000' }}"
+                                data-color-picker-input value="{{ $sectionContent->btn_text_color ?? '#ffffff' }}"
                                 data-error="background Color" inputmode="text" />
                         </div>
                     </div>
