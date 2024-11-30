@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
-
+    
 /* Boxicons */
 @font-face {
     font-family: "boxicons";
@@ -939,12 +939,14 @@ a.card-title:hover {
 .activities-img img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 
 .activities-img {
     height: 83px;
     border-radius: 11px;
     overflow: hidden;
+    flex: 0.3;
 }
 
 .activities-content h4 {
@@ -966,6 +968,7 @@ a.card-title:hover {
 
 .activities-content {
     line-height: 2;
+    flex: 1;
 }
 
 .comment-card__img img {
@@ -997,7 +1000,7 @@ a.card-title:hover {
 }
 
 .comment-pra::-webkit-scrollbar {
-    width: 7px;
+    width: 5px;
 }
 
 .comment-pra::-webkit-scrollbar-track {
@@ -1515,11 +1518,8 @@ a.service-wishlis i {
     width: 100%;
     display: flex;
     flex-direction: column;
-    left: 0;
-    top: 0;
     height: 100%;
     padding: 2rem;
-    position: absolute;
 }
 
 span.GroupTourCard_title {
@@ -1547,15 +1547,17 @@ span.GroupTourCard_subtitle {
 
 .offers-section__details {
     position: relative;
+    border-radius: 0.75rem;
+    overflow: hidden;
 }
 
 .offers-section__img {
-    height: 201px;
-    background: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-    /* margin: 0 50px; */
+    height: 100%;
     width: 100%;
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
+    z-index: -1;
 }
 
 .offers-section {
@@ -5601,6 +5603,7 @@ a.country-card__details {
     align-items: center;
     gap: 1rem 23px;
     flex-wrap: wrap;
+    width: 33%;
 }
 
 .contact-sec__social {

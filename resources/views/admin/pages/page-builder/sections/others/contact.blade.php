@@ -8,47 +8,16 @@
                 <div class="form-fields">
                     <label class="title">Title<span class="text-danger">*</span> :</label>
                     <input type="text" name="content[title]" class="field" placeholder=""
-                        value="{{ $sectionContent->title ?? '' }}">
+                        value="{{ $sectionContent->title ?? '' }}" maxlength="30">
                 </div>
             </div>
             <div class="col-md-6 mb-4">
                 <div class="form-fields">
-                    <div class="title d-flex align-items-center gap-2">
-                        <div>
-                            Title Text Color <span class="text-danger">*</span>:
-                        </div>
-                        <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get Color
-                            Codes</a>
-                    </div>
-                    <div class="field color-picker" data-color-picker-container>
-                        <label for="color-picker" data-color-picker></label>
-                        <input id="color-picker" type="text" name="content[title_text_color]" data-color-picker-input
-                            value="{{ $sectionContent->title_text_color ?? '#000000' }}" inputmode="text" />
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-fields">
                     <div class="d-flex align-items-center gap-2 lh-1 mb-2">
                         <div class="title mb-0">Sub Title <span class="text-danger">*</span>:</div>
-                        <button data-bs-placement="top"
-                            title="
-                    <div class='d-flex flex-column'>
-<div class='d-flex gap-1'><span>Press ctrl + b for bold:</span> <b>Text</b></div>
-<div class='d-flex gap-1'><span>Press ctrl + i for italic:</span> <i>Text</i></div>
-<div class='d-flex gap-1'><span>Press ctrl + u for italic:</span> <u>Text</u></div>
-"
-                            type="button" data-tooltip="tooltip" class="tooltip-lg">
-                            <i class='bx bxs-info-circle'></i>
-                        </button>
                     </div>
-                    <div data-editable-field>
-                        <input type="hidden" data-editable-field-input value="{{ $sectionContent->subTitle ?? '' }}"
-                            name="content[subTitle]">
-                        <div data-editable-field-element class="field custom-editor" contenteditable="true"
-                            oninput="syncToInput(this)" onkeydown="handleShortcuts(event)" onpaste="handlePaste(event)">
-                        </div>
-                    </div>
+                    <input type="text" class="field" value="{{ $sectionContent->subTitle ?? '' }}"
+                        name="content[subTitle]" maxlength="44">
                 </div>
             </div>
         </div>

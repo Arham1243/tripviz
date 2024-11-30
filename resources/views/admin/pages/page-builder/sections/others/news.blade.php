@@ -11,7 +11,7 @@
                 <div class="form-fields">
                     <label class="title">Title<span class="text-danger">*</span> :</label>
                     <input type="text" name="content[title]" class="field" placeholder=""
-                        value="{{ $sectionContent->title ?? '' }}" data-error="Destination Title">
+                        value="{{ $sectionContent->title ?? '' }}" data-error="Destination Title" maxlength="60">
                 </div>
             </div>
             <div class="col-md-6 mb-4">
@@ -34,7 +34,7 @@
                 <div class="form-fields">
                     <label class="title">Sub Title<span class="text-danger">*</span> :</label>
                     <input type="text" name="content[subTitle]" class="field" placeholder=""
-                        value="{{ $sectionContent->subTitle ?? '' }}">
+                        value="{{ $sectionContent->subTitle ?? '' }}" maxlength="55">
                 </div>
             </div>
             <div class="col-md-6">
@@ -67,7 +67,7 @@
                     <div class="form-fields">
                         <label class="title">Button Text <span class="text-danger">*</span> :</label>
                         <input type="text" value="{{ $sectionContent->btn_text ?? '' }}" name="content[btn_text]"
-                            class="field" placeholder="" data-error="Button Text" maxlength="40" />
+                            class="field" placeholder="" data-error="Button Text" maxlength="33" />
                     </div>
                 </div>
 

@@ -46,9 +46,9 @@
         <div class=container>
             <div class="sale-card" style="background-color: {{ $isBackgroundColor ? $content->background_color_2 : '' }}">
                 @if ($isBackgroundImage)
-                    <img src="{{ asset($content->background_image_2 ?? 'admin/assets/images/placeholder.png') }}"
+                    <img data-src="{{ asset($content->background_image_2 ?? 'admin/assets/images/placeholder.png') }}"
                         alt="{{ $content->background_image_alt_text_2 ?? 'Cta Background Image' }}"
-                        class="imgFluid sale-card__bg">
+                        class="imgFluid sale-card__bg lazy">
                 @endif
 
                 <div class=sale-card__content>

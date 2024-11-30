@@ -175,7 +175,7 @@ class IndexController extends Controller
         return view('wishlist')->with('title', 'Wishlist');
     }
 
-    public function newsletter_save(Request $request)
+    public function save_newsletter(Request $request)
     {
         $request->validate([
             'email' => 'required|email',
@@ -183,7 +183,7 @@ class IndexController extends Controller
 
         Newsletter::create($request->all());
 
-        return redirect()->route('index')->with('notify_success', 'Newsletter Signup successfully.');
+        return redirect()->back()->with('notify_success', 'Newsletter Signup successfully.');
     }
 
     public function save_review(Request $request)

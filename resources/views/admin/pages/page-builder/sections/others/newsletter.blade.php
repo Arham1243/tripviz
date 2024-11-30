@@ -7,13 +7,13 @@
         <div class="form-fields">
             <label class="title">Title <span class="text-danger">*</span> :</label>
             <input type="text" name="content[title]" class="field" placeholder="" data-error="Title"
-                value="{{ $sectionContent->title ?? '' }}" maxlength="39 ">
+                value="{{ $sectionContent->title ?? '' }}" maxlength="39">
         </div>
     </div>
     <div class="col-md-12 mb-3">
         <div class="form-fields">
             <label class="title">Description <span class="text-danger">*</span> :</label>
-            <textarea name="content[description]" class="field" rows="2" maxlength="255">{{ $sectionContent->description ?? '' }} </textarea>
+            <textarea name="content[description]" class="field" rows="2" maxlength="128">{{ $sectionContent->description ?? '' }} </textarea>
         </div>
     </div>
     <div class="col-md-12 mb-3">

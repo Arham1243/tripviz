@@ -2,7 +2,7 @@
 @section('content')
     <div class="col-md-12">
         <div class="dashboard-content">
-            {{ Breadcrumbs::render('admin.news.create') }}
+            {{ Breadcrumbs::render('admin.testimonials.create') }}
             <div class="custom-sec custom-sec--form">
                 <div class="custom-sec__header">
                     <div class="section-content">
