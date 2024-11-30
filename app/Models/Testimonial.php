@@ -29,6 +29,9 @@ class Testimonial extends Model
         parent::boot();
         static::deleting(function ($item) {
             if ($item->isForceDeleting()) {
+                $item->media()->each(function ($media) {
+                    $media->forceDelete();
+                });
                 self::deleteImage($item->featured_image);
             }
         });

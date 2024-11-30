@@ -254,7 +254,7 @@
                                             <label class="title">Title <span class="text-danger">*</span> :</label>
                                             <input type="text" name="content[title_2]" class="field"
                                                 placeholder="" data-error="title_2"
-                                                value="{{ $sectionContent->title_2 ?? '' }}" maxlength="69">
+                                                value="{{ $sectionContent->title_2 ?? '' }}" maxlength="57">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
@@ -263,7 +263,7 @@
                                                 :</label>
                                             <input type="text" name="content[subTitle_2]" class="field"
                                                 placeholder="" data-error="subTitle_2"
-                                                value="{{ $sectionContent->subTitle_2 ?? '' }}" maxlength="69">
+                                                value="{{ $sectionContent->subTitle_2 ?? '' }}" maxlength="29">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
@@ -272,7 +272,7 @@
                                                 :</label>
                                             <input type="text" name="content[sale_text_2]" class="field"
                                                 placeholder="" data-error="sale_text_2"
-                                                value="{{ $sectionContent->sale_text_2 ?? '' }}" maxlength="40">
+                                                value="{{ $sectionContent->sale_text_2 ?? '' }}" maxlength="19">
                                         </div>
                                     </div>
                                     <div class="col-md-12 mb-3">
@@ -288,7 +288,8 @@
                                                 :</label>
                                             <input type="datetime-local" class="field"
                                                 value="{{ $sectionContent->sale_ends_on_2 ?? '' }}"
-                                                name="content[sale_ends_on_2]" autocomplete="off">
+                                                name="content[sale_ends_on_2]" autocomplete="off"
+                                                min="{{ \Carbon\Carbon::now()->format('Y-m-d\TH:i') }}">
                                         </div>
                                     </div>
                                 </div>

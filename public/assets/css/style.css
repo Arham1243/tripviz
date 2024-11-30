@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
-
+    
 /* Boxicons */
 @font-face {
     font-family: "boxicons";
@@ -939,12 +939,14 @@ a.card-title:hover {
 .activities-img img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 
 .activities-img {
     height: 83px;
     border-radius: 11px;
     overflow: hidden;
+    flex: 0.3;
 }
 
 .activities-content h4 {
@@ -966,6 +968,7 @@ a.card-title:hover {
 
 .activities-content {
     line-height: 2;
+    flex: 1;
 }
 
 .comment-card__img img {
@@ -997,7 +1000,7 @@ a.card-title:hover {
 }
 
 .comment-pra::-webkit-scrollbar {
-    width: 7px;
+    width: 5px;
 }
 
 .comment-pra::-webkit-scrollbar-track {
@@ -1515,11 +1518,8 @@ a.service-wishlis i {
     width: 100%;
     display: flex;
     flex-direction: column;
-    left: 0;
-    top: 0;
     height: 100%;
     padding: 2rem;
-    position: absolute;
 }
 
 span.GroupTourCard_title {
@@ -1547,15 +1547,17 @@ span.GroupTourCard_subtitle {
 
 .offers-section__details {
     position: relative;
+    border-radius: 0.75rem;
+    overflow: hidden;
 }
 
 .offers-section__img {
-    height: 201px;
-    background: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-    /* margin: 0 50px; */
+    height: 100%;
     width: 100%;
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
+    z-index: -1;
 }
 
 .offers-section {
@@ -1590,10 +1592,9 @@ span.GroupTourCard_subtitle {
 }
 
 .enquiry-btn {
-    height: 51px;
-    width: 236px;
-    border-radius: 10px;
-    background: linear-gradient(93deg, #ff7b26, #ec048c);
+    width: fit-content;
+    border-radius: 6px;
+    background: var(--color-primary);
     margin-top: 9px;
     color: #fff;
     font-size: 15px;
@@ -1602,6 +1603,7 @@ span.GroupTourCard_subtitle {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0.85rem 1rem;
 }
 
 .sale-title {
@@ -1631,6 +1633,17 @@ span.GroupTourCard_subtitle {
     height: max-content;
     color: #fff;
     padding: 2rem;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+}
+.sale-card__bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
+    z-index: -1;
 }
 
 .timer-details {
@@ -2417,9 +2430,7 @@ p.baseline-pricing__from {
     padding: 50px;
     box-sizing: border-box;
     opacity: 0;
-    transition:
-        opacity 0.3s ease-in-out,
-        transform 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
     transform: translateY(100%);
     font-size: 16px;
     font-weight: 400;
@@ -3091,9 +3102,7 @@ span.timeline-item__icon {
     background-color: #f53;
     border: 2px solid #fff;
     border-radius: 100%;
-    box-shadow:
-        0 0 32px #0000000f,
-        0 4px 8px #00000029;
+    box-shadow: 0 0 32px #0000000f, 0 4px 8px #00000029;
     display: flex;
     height: 35px;
     justify-content: center;
@@ -3112,9 +3121,7 @@ span.timeline-item__icon {
     background-color: #f53;
     border: 2px solid #fff;
     border-radius: 50%;
-    box-shadow:
-        0 0 32px #0000000f,
-        0 4px 8px #00000029;
+    box-shadow: 0 0 32px #0000000f, 0 4px 8px #00000029;
     display: flex;
     height: 35px;
     justify-content: center;
@@ -3162,9 +3169,7 @@ p.timeline-subitems-info--primary {
     border-radius: 100%;
     height: 31px;
     margin-right: 9px;
-    box-shadow:
-        0 0 32px #0000000f,
-        0 4px 8px #00000029;
+    box-shadow: 0 0 32px #0000000f, 0 4px 8px #00000029;
 }
 
 .timeline-item__staricon {
@@ -3602,9 +3607,7 @@ p.main-blog__pra {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 90%;
-    transition:
-        background-color 0.3s,
-        color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
     font-size: 11px;
     font-weight: 600;
 }
@@ -3846,9 +3849,7 @@ a h5.blogDet-card__title:hover {
     background-color: white;
     border-radius: 16px;
     padding: 1.35rem 1.5rem;
-    box-shadow:
-        0 0 64px #00000014,
-        0 8px 16px #00000029;
+    box-shadow: 0 0 64px #00000014, 0 8px 16px #00000029;
     width: 460px;
     /* right: 0; */
     /* top: 105px; */
@@ -5602,6 +5603,7 @@ a.country-card__details {
     align-items: center;
     gap: 1rem 23px;
     flex-wrap: wrap;
+    width: 33%;
 }
 
 .contact-sec__social {

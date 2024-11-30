@@ -9,7 +9,7 @@
         <div class="form-fields">
             <label class="title">Title<span class="text-danger">*</span> :</label>
             <input type="text" name="content[title]" class="field" placeholder=""
-                value="{{ $sectionContent->title ?? '' }}" data-error="Destination Title">
+                value="{{ $sectionContent->title ?? '' }}" maxlength="34">
         </div>
     </div>
     <div class="col-md-6 mb-4">
@@ -32,7 +32,7 @@
         <div class="form-fields">
             <label class="title">Sub Title<span class="text-danger">*</span> :</label>
             <input type="text" name="content[subTitle]" class="field" placeholder=""
-                value="{{ $sectionContent->subTitle ?? '' }}">
+                value="{{ $sectionContent->subTitle ?? '' }}" maxlength="44">
         </div>
     </div>
     <div class="col-md-6 mb-4">

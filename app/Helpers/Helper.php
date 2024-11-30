@@ -1,6 +1,7 @@
 <?php
 
 use App\Helpers\SeoHelper;
+use Carbon\Carbon;
 
 if (! function_exists('buildUrl')) {
     function buildUrl($base, $resource = null, $slug = null)
@@ -41,7 +42,13 @@ if (! function_exists('handleSeoData')) {
 if (! function_exists('formatDateTime')) {
     function formatDateTime($date)
     {
-        return \Carbon\Carbon::parse($date)->format('M j, Y - g:i A');
+        return Carbon::parse($date)->format('M j, Y - g:i A');
+    }
+}
+if (! function_exists('formatDate')) {
+    function formatDate($date)
+    {
+        return Carbon::parse($date)->format('M j, Y');
     }
 }
 if (! function_exists('renderCategories')) {
