@@ -178,6 +178,7 @@
         </div>
     @elseif($content->background_type === 'normal_v2_full_screen_background')
         <div class="banner {{ isset($content->background_image_is_banner_overlay_enabled) ? 'banner--overlay' : '' }}">
+            @include('sections.banners.moto')
             <img data-src="{{ asset($content->background_image ?? 'admin/assets/images/placeholder.png') }}"
                 alt="{{ $content->background_alt_text ?? 'Banner image' }}" class="imgFluid lazy banner__bg">
             <div class="container">
