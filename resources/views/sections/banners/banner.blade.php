@@ -370,7 +370,7 @@
                         @endphp
 
                         <div
-                            class="row g-0 {{ $content->destination_style_type === 'carousel' ? 'destinations-slider' : '' }}">
+                            class="row g-0 {{ $content->destination_style_type === 'carousel' ? 'destinations-slider' : '' }}  {{ $content->destination_style_type === 'normal' && $content->destination_box_style === 'normal' ? 'row-cols-1 row-cols-md-3 row-cols-lg-3 row-cols-xl-5' : '' }}">
                             @foreach ($resourcesToShow as $resource)
                                 @php
                                     $resourceType = '';
@@ -382,7 +382,7 @@
                                         $resourceType = 'tour';
                                     }
                                 @endphp
-                                <div class=col-md>
+                                <div class=col>
                                     <a href="{{ route($columns['route'], $resource->{$columns['slug']}) }}"
                                         class=dst-card>
                                         <div class=destinations-img>
@@ -394,9 +394,9 @@
                                         </div>
                                         @if ($resourceType !== 'tour')
                                             <div class="dst-num">
-                                                @if ($resourceType === 'city')
+                                                @if ($resourceType === 'city' && $resource->tours_count > 0)
                                                     {{ $resource->tours_count }}
-                                                @elseif ($resourceType === 'country')
+                                                @elseif ($resourceType === 'country' && $resource->toursCount() > 0)
                                                     {{ $resource->toursCount() }}
                                                 @endif
                                             </div>

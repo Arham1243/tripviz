@@ -12,7 +12,8 @@
     @elseif($content->form_type === 'date_selection')
         <div class="col-md-9">
             <div class="date-search">
-                <form action="{{ route('tours.search.results') }}" class="date-search__btns">
+                <form action="{{ route('tours.search.results') }}" class="date-search__btns"
+                    style="background-color: {{ $content->date_selection_background_color ?? '' }}">
                     <input type="hidden" name="resource_type" id="resource_type">
                     <label for="destination" id="destination-wrapper" class="date-search__btn">
                         <div class="first-half">

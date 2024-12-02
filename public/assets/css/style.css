@@ -661,6 +661,7 @@ a#loginBtn {
 .dst-card {
     padding: 0 5px;
     width: 100%;
+    margin-bottom: 1rem;
 }
 
 .destinations-img img {
@@ -5718,7 +5719,7 @@ a.country-card__details {
 }
 .date-search__btn {
     width: 100%;
-    background: #cccccc40;
+    background: #EDEDED;
     border-radius: 7px;
     line-height: 1.2;
     padding: 12px 13px;

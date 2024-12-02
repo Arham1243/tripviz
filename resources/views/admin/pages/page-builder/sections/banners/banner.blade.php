@@ -205,19 +205,41 @@
                     <label class="form-check-label" for="enable-section-form">Enabled</label>
                 </div>
             </div>
-            <div class="d-flex align-items-center gap-5 px-4 mb-1">
-                <div class="form-check p-0">
-                    <input class="form-check-input" type="radio" name="content[form_type]" id="normal-form"
-                        name="content[form_type]" value="normal"
-                        {{ isset($sectionContent->form_type) ? ($sectionContent->form_type === 'normal' ? 'checked' : '') : '' }} />
-                    <label class="form-check-label" for="normal-form">Normal Search bar</label>
+            <div x-data="{ form_type: '{{ isset($sectionContent->form_type) ? $sectionContent->form_type : 'normal' }}' }">
+                <div class="d-flex align-items-center gap-5 px-4 mb-1">
+                    <div class="form-check p-0">
+                        <input class="form-check-input" type="radio" name="content[form_type]" id="normal-form"
+                            name="content[form_type]" x-model="form_type" value="normal" />
+                        <label class="form-check-label" for="normal-form">Normal Search bar</label>
+                    </div>
+                    <div class="form-check p-0">
+                        <input class="form-check-input" type="radio" name="content[form_type]" id="date_selection"
+                            name="content[form_type]" x-model="form_type" value="date_selection" />
+                        <label class="form-check-label" for="date_selection">Search Bar with Tour Date
+                            Selection</label>
+                    </div>
                 </div>
-                <div class="form-check p-0">
-                    <input class="form-check-input" type="radio" name="content[form_type]" id="date_selection"
-                        name="content[form_type]"
-                        {{ isset($sectionContent->form_type) ? ($sectionContent->form_type === 'date_selection' ? 'checked' : '') : '' }}
-                        value="date_selection" />
-                    <label class="form-check-label" for="date_selection">Search Bar with Tour Date Selection</label>
+                <div class="pt-4" x-show="form_type === 'date_selection'">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-fields">
+                                <div class="title d-flex align-items-center gap-2">
+                                    <div>
+                                        Background Color <span class="text-danger">*</span>:
+                                    </div>
+                                    <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get Color
+                                        Codes</a>
+                                </div>
+                                <div class="field color-picker" data-color-picker-container>
+                                    <label for="color-picker" data-color-picker></label>
+                                    <input id="color-picker" type="text"
+                                        name="content[date_selection_background_color]" data-color-picker-input
+                                        value="{{ $sectionContent->date_selection_background_color ?? '#ffffff' }}"
+                                        data-error="background Color" inputmode="text" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1009,6 +1031,29 @@
                         </div>
                         <div class="py-3 mt-2" x-show="destination_style_type === 'normal'">
                             <div class="form-fields">
+                                <label class="title title--sm mb-2">Box Style:</label>
+                                <div x-data="{ destination_box_style: '{{ isset($sectionContent->destination_box_style) ? $sectionContent->destination_box_style : 'normal' }}' }">
+                                    <div class="d-flex align-items-center gap-5 px-4 mb-1">
+                                        <div class="form-check p-0">
+                                            <input class="form-check-input" type="radio"
+                                                name="content[destination_box_style]"
+                                                id="destination_box_style_normal" x-model="destination_box_style"
+                                                name="content[destination_box_style]" value="normal" />
+                                            <label class="form-check-label"
+                                                for="destination_box_style_normal">normal</label>
+                                        </div>
+                                        <div class="form-check p-0">
+                                            <input class="form-check-input" type="radio"
+                                                name="content[destination_box_style]" id="destination_box_style_full"
+                                                x-model="destination_box_style" name="content[destination_box_style]"
+                                                value="full" />
+                                            <label class="form-check-label" for="destination_box_style_full">full
+                                                width</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-fields mt-4">
                                 <label class="title title--sm mb-2">Content Type:</label>
                                 <div x-data="{ destination_content_type_normal: '{{ isset($sectionContent->destination_content_type_normal) ? $sectionContent->destination_content_type_normal : 'city' }}' }">
                                     <div class="d-flex align-items-center gap-5 px-4 mb-1">
