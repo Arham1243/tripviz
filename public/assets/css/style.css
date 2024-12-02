@@ -623,7 +623,7 @@ a#loginBtn {
 }
 .banner-moto {
     position: absolute;
-    top: 72%;
+    top: 84%;
     left: 79%;
     transform: translate(-50%, -50%);
     z-index: 10;
