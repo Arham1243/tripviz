@@ -1,16 +1,5 @@
 @php
-    $sectionContent = $pageSection
-        ? json_decode($pageSection->content)
-        : (object) [
-            'title' => null,
-            'subtitle' => null,
-            'btn_text' => null,
-            'btn_link' => null,
-            'alt_text' => null,
-            'review_type' => null,
-            'right_image' => null,
-            'custom_review_logo_image' => null,
-        ];
+    $sectionContent = $pageSection ? json_decode($pageSection->content) : (object) [];
 
 @endphp
 
@@ -137,12 +126,7 @@
 
 
                                 <button data-bs-placement="top"
-                                    title="<div class='d-flex flex-column'>
- <div class='d-flex gap-1'> <strong>Link:</strong> https://abc.com</div>
-  <div class='d-flex gap-1'><strong>Phone:</strong> tel:+971xxxxxxxxx</div>
-  <div class='d-flex gap-1'><strong>Whatsapp:</strong> https://wa.me/971xxxxxxxxx</div>
-</div>
-"
+                                    title="<div class='d-flex flex-column'><div class='d-flex gap-1'> <strong>Link:</strong> https://abc.com</div> <div class='d-flex gap-1'><strong>Phone:</strong> tel:+971xxxxxxxxx</div> <div class='d-flex gap-1'><strong>Whatsapp:</strong> https://wa.me/971xxxxxxxxx</div> </div>"
                                     type="button" data-tooltip="tooltip" class="tooltip-lg">
                                     <i class='bx bxs-info-circle'></i>
                                 </button>
@@ -393,6 +377,96 @@
     </div>
     <div class="col-lg-12 pt-3 pb-2">
         <div class="form-fields">
+            <div class="d-flex align-items-center gap-3 mb-3">
+                <label class="title title--sm mb-0">Moto:</label>
+                <div class="form-check form-switch" data-enabled-text="Enabled" data-disabled-text="Disabled">
+                    <input class="form-check-input" data-toggle-switch=""
+                        {{ isset($sectionContent->is_moto_enabled) ? 'checked' : '' }} type="checkbox"
+                        id="enable-section-moto" value="1" name="content[is_moto_enabled]">
+                    <label class="form-check-label" for="enable-section-moto">Enabled</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 mb-4">
+                    <div class="form-fields">
+                        <label class="title">Title<span class="text-danger">*</span> :</label>
+                        @php
+                            $moto_titles = isset($sectionContent->moto_title)
+                                ? json_decode(json_encode($sectionContent->moto_title), true)
+                                : [['title' => '', 'text_color' => '#000000']];
+
+                            $destinationtitleItems = [];
+                            if (isset($moto_titles['title']) && isset($moto_titles['text_color'])) {
+                                foreach ($moto_titles['title'] as $index => $title) {
+                                    $destinationtitleItems[] = [
+                                        'title' => $title,
+                                        'text_color' => $moto_titles['text_color'][$index] ?? '#000000',
+                                    ];
+                                }
+                            } else {
+                                $destinationtitleItems = $moto_titles;
+                            }
+                        @endphp
+                        <div x-data="repeater({{ json_encode($destinationtitleItems) }}, { title: '', text_color: '#000000' }, 2)" class="repeater-table">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">
+                                            <div class="d-flex align-items-center gap-2"> Text color
+                                                <a class="p-0 nav-link" href="//html-color-codes.info"
+                                                    target="_blank">Get
+                                                    Color
+                                                    Codes</a>
+                                            </div>
+
+                                        </th>
+                                        <th class="text-end" scope="col">Remove</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template x-for="(item, index) in items" :key="index">
+                                        <tr>
+                                            <td>
+                                                <input type="text" class="field"
+                                                    name="content[moto_title][title][]" x-model="item.title"
+                                                    maxlength="20" />
+                                            </td>
+                                            <td>
+                                                <div class="field color-picker" data-color-picker-container
+                                                    x-init="$nextTick(() => InitializeColorPickers($el))">
+                                                    <label :for="'color-picker-' + index" data-color-picker></label>
+                                                    <input x-model="item.text_color" :id="'color-picker-' + index"
+                                                        type="text" name="content[moto_title][text_color][]"
+                                                        data-color-picker-input inputmode="text">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <button :disabled="index === 0"
+                                                    class="delete-btn delete-btn--static ms-auto"
+                                                    @click="remove(index)">
+                                                    <i class="bx bxs-trash-alt"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                            <button type="button" x-show="items.length < maxItems" type="button"
+                                class="themeBtn ms-auto" @click="addItem">
+                                Add Second Line<i class="bx bx-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <hr />
+    </div>
+    <div class="col-lg-12 pt-3 pb-2">
+        <div class="form-fields">
             <label class="title title--sm mb-3">Background Style:</label>
             <div x-data="{ background_type: '{{ isset($sectionContent->background_type) ? $sectionContent->background_type : 'normal_v1_right_side_image' }}' }">
                 <div class="d-flex align-items-center gap-5 px-4 mb-3">
@@ -418,22 +492,21 @@
                     </div>
                     <div class="form-check p-0">
                         <input class="form-check-input" type="radio" name="content[background_type]"
-                            id="layout_normal_background_color" x-model="background_type"
-                            name="content[background_type]" value="layout_normal_background_color">
-                        <label class="form-check-label" for="layout_normal_background_color">Background
-                            Color</label>
+                            id="normal_wave_background" x-model="background_type" name="content[background_type]"
+                            value="normal_wave_background">
+                        <label class="form-check-label" for="normal_wave_background">Wave Background</label>
                     </div>
                     <div class="form-check p-0">
                         <input class="form-check-input" type="radio" name="content[background_type]"
-                            id="background_color_with_right_image" x-model="background_type"
-                            name="content[background_type]" value="background_color_with_right_image">
-                        <label class="form-check-label" for="background_color_with_right_image">Right side
-                            Image (with Background)</label>
+                            id="right_image_wave_background" x-model="background_type"
+                            name="content[background_type]" value="right_image_wave_background">
+                        <label class="form-check-label" for="right_image_wave_background">Right side
+                            Image (with Wave Background)</label>
                     </div>
                 </div>
                 <div class="py-3" x-show="background_type === 'normal_v1_right_side_image'">
                     <div class="row">
-                        <div class="col-md-4 mb-4">
+                        <div class="col-md-3 mb-4">
                             <div class="form-fields">
                                 <label class="title">Right Side Image <span class="text-danger">*</span>:</label>
                                 <div class="upload upload--sm mx-0" data-upload>
@@ -475,22 +548,22 @@
 
                             </div>
                         </div>
-                        <div class="col-lg-12">
+                        <div class="col-lg-9 mt-5">
                             <div class="form-fields">
                                 <label class="title">Image Position <span class="text-danger">*</span>:</label>
                                 <div class="d-flex align-items-center gap-5 px-4 mb-1">
-                                    <div class="form-check p-0">
-                                        <input class="form-check-input" type="radio"
-                                            name="content[right_image_position]" id="center-image-1" value="center"
-                                            {{ isset($sectionContent->right_image_position) ? ($sectionContent->right_image_position === 'center' ? 'checked' : '') : '' }} />
-                                        <label class="form-check-label" for="center-image-1">Center</label>
-                                    </div>
                                     <div class="form-check p-0">
                                         <input class="form-check-input" type="radio"
                                             name="content[right_image_position]" id="top-image-1"
                                             {{ isset($sectionContent->right_image_position) ? ($sectionContent->right_image_position === 'top' ? 'checked' : '') : '' }}
                                             value="top" />
                                         <label class="form-check-label" for="top-image-1">Top</label>
+                                    </div>
+                                    <div class="form-check p-0">
+                                        <input class="form-check-input" type="radio"
+                                            name="content[right_image_position]" id="center-image-1" value="center"
+                                            {{ isset($sectionContent->right_image_position) ? ($sectionContent->right_image_position === 'center' ? 'checked' : '') : '' }} />
+                                        <label class="form-check-label" for="center-image-1">Center</label>
                                     </div>
                                     <div class="form-check p-0">
                                         <input class="form-check-input" type="radio"
@@ -641,87 +714,131 @@
                         @endfor
                     </div>
                 </div>
-                <div class="py-3" x-show="background_type === 'layout_normal_background_color'">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-fields">
-                                <div class="title d-flex align-items-center gap-2">
-                                    <div>Background Color <span class="text-danger">*</span>:</div>
-                                    <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get
-                                        Color
-                                        Codes</a>
-                                </div>
-
-                                <div class="field color-picker" data-color-picker-container>
-                                    <label for="color-picker" data-color-picker></label>
-                                    <input id="color-picker" type="text" name="content[background_color]"
-                                        data-color-picker-input value="{{ $sectionContent->background_color ?? '' }}"
-                                        placeholder="#000000" data-error="background Color" inputmode="text">
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-fields">
-                                <div class="title d-flex align-items-center gap-2">
-                                    <div>Wave Color <span class="text-danger">*</span>:</div>
-                                    <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get
-                                        Color
-                                        Codes</a>
-                                </div>
-
-                                <div class="field color-picker" data-color-picker-container>
-                                    <label for="color-picker" data-color-picker></label>
-                                    <input id="color-picker" type="text" name="content[background_wave_color]"
-                                        data-color-picker-input
-                                        value="{{ $sectionContent->background_wave_color ?? '#EFF3FF' }}"
-                                        placeholder="#000000" data-error="background Color" inputmode="text">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="py-3" x-show="background_type === 'background_color_with_right_image'">
+                <div class="py-3" x-show="background_type === 'normal_wave_background'">
                     <div class="row">
                         <div class="col-md-6 mb-4">
                             <div class="form-fields">
                                 <div class="title d-flex align-items-center gap-2">
-                                    <div>Background Color <span class="text-danger">*</span>:</div>
-                                    <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get
-                                        Color
+                                    <div>Wave Color <span class="text-danger">*</span>:</div>
+                                    <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get Color
                                         Codes</a>
                                 </div>
                                 <div class="field color-picker" data-color-picker-container>
                                     <label for="color-picker" data-color-picker></label>
                                     <input id="color-picker" type="text"
-                                        name="content[right_image_background_color]" data-color-picker-input
-                                        value="{{ $sectionContent->right_image_background_color ?? '#ffffff' }}"
-                                        data-error="background Color" inputmode="text">
-
+                                        name="content[normal_background_wave_color]" data-color-picker-input
+                                        value="{{ $sectionContent->normal_background_wave_color ?? '#EFF3FF' }}"
+                                        data-error="background Color" inputmode="text" />
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 mb-4">
+                        <div class="col-md-12">
                             <div class="form-fields">
-                                <div class="title d-flex align-items-center gap-2">
-                                    <div>Wave Color <span class="text-danger">*</span>:</div>
-                                    <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get
-                                        Color
-                                        Codes</a>
-                                </div>
+                                <label class="title title--sm mb-3">Wave Background Style:</label>
+                                <div x-data="{ normal_wave_background_type: '{{ isset($sectionContent->normal_wave_background_type) ? $sectionContent->normal_wave_background_type : 'background_color' }}' }">
+                                    <div class="d-flex align-items-center gap-5 px-4 mb-3">
+                                        <div class="form-check p-0">
+                                            <input class="form-check-input" type="radio"
+                                                name="content[normal_wave_background_type]"
+                                                id="normal_wave_background_color_type"
+                                                x-model="normal_wave_background_type"
+                                                name="content[normal_wave_background_type]" value="background_color"
+                                                checked />
+                                            <label class="form-check-label"
+                                                for="normal_wave_background_color_type">Background color</label>
+                                        </div>
+                                        <div class="form-check p-0">
+                                            <input class="form-check-input" type="radio"
+                                                name="content[normal_wave_background_type]"
+                                                id="normal_wave_background_image_type"
+                                                x-model="normal_wave_background_type"
+                                                name="content[normal_wave_background_type]"
+                                                value="background_image" />
+                                            <label class="form-check-label"
+                                                for="normal_wave_background_image_type">Background image</label>
+                                        </div>
+                                    </div>
 
-                                <div class="field color-picker" data-color-picker-container>
-                                    <label for="color-picker" data-color-picker></label>
-                                    <input id="color-picker" type="text" name="content[right_image_wave_color]"
-                                        data-color-picker-input
-                                        value="{{ $sectionContent->right_image_wave_color ?? '#EFF3FF' }}"
-                                        placeholder="#000000" data-error="background Color" inputmode="text">
+                                    <div class="pt-3" x-show="normal_wave_background_type === 'background_color'">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-fields">
+                                                    <div class="title d-flex align-items-center gap-2">
+                                                        <div>Background Color <span class="text-danger">*</span>:</div>
+                                                        <a class="p-0 nav-link" href="//html-color-codes.info"
+                                                            target="_blank">Get Color Codes</a>
+                                                    </div>
 
+                                                    <div class="field color-picker" data-color-picker-container>
+                                                        <label for="color-picker" data-color-picker></label>
+                                                        <input id="color-picker" type="text"
+                                                            name="content[normal_wave_background_color]"
+                                                            data-color-picker-input
+                                                            value="{{ $sectionContent->normal_wave_background_color ?? '#ffffff' }}"
+                                                            data-error="background Color" inputmode="text" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pt-3" x-show="normal_wave_background_type === 'background_image'">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-fields">
+                                                    <label class="title">background Image <span
+                                                            class="text-danger">*</span>:</label>
+                                                    <div class="upload upload--sm mx-0" data-upload>
+                                                        <div class="upload-box-wrapper">
+                                                            <div class="upload-box {{ empty($sectionContent->normal_wave_background_image) ? 'show' : '' }}"
+                                                                data-upload-box>
+                                                                <input type="file"
+                                                                    name="content[normal_wave_background_image]"
+                                                                    data-error="Feature Image"
+                                                                    id="normal_wave_background_image"
+                                                                    class="upload-box__file d-none" accept="image/*"
+                                                                    data-file-input />
+                                                                <div class="upload-box__placeholder">
+                                                                    <i class="bx bxs-image"></i>
+                                                                </div>
+                                                                <label for="normal_wave_background_image"
+                                                                    class="upload-box__btn themeBtn">Upload
+                                                                    Image</label>
+                                                            </div>
+                                                            <div class="upload-box__img {{ !empty($sectionContent->normal_wave_background_image) ? 'show' : '' }}"
+                                                                data-upload-img>
+                                                                <button type="button" class="delete-btn"
+                                                                    data-delete-btn="">
+                                                                    <i class="bx bxs-edit-alt"></i>
+                                                                </button>
+                                                                <a href="{{ asset($sectionContent->normal_wave_background_image ?? 'admin/assets/images/loading.webp') }}"
+                                                                    class="mask" data-fancybox="gallery">
+                                                                    <img src="{{ asset($sectionContent->normal_wave_background_image ?? 'admin/assets/images/loading.webp') }}"
+                                                                        alt="Uploaded Image" class="imgFluid"
+                                                                        data-placeholder="{{ asset('admin/assets/images/loading.webp') }}"
+                                                                        data-upload-preview="" />
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div data-error-message
+                                                            class="text-danger mt-2 d-none text-center">
+                                                            Please upload a valid image file
+                                                        </div>
+                                                        <div class="dimensions text-center mt-3">
+                                                            <strong>Dimensions:</strong> 1350 &times; 435
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 mb-4">
+                    </div>
+                </div>
+                <div class="py-3" x-show="background_type === 'right_image_wave_background'">
+                    <div class="row">
+                        <div class="col-md-3 mb-4">
                             <div class="form-fields">
                                 <label class="title">Right Side Image <span class="text-danger">*</span> :</label>
                                 <div class="upload upload--sm mx-0" data-upload>
@@ -763,17 +880,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12">
+                        <div class="col-lg-9 mt-5">
                             <div class="form-fields">
                                 <label class="title">Image Position <span class="text-danger">*</span>:</label>
                                 <div class="d-flex align-items-center gap-5 px-4 mb-1">
-                                    <div class="form-check p-0">
-                                        <input class="form-check-input" type="radio"
-                                            name="content[right_image_position_background]" id="center-image-2"
-                                            value="center"
-                                            {{ isset($sectionContent->right_image_position_background) ? ($sectionContent->right_image_position_background === 'center' ? 'checked' : '') : '' }} />
-                                        <label class="form-check-label" for="center-image-2">Center</label>
-                                    </div>
                                     <div class="form-check p-0">
                                         <input class="form-check-input" type="radio"
                                             name="content[right_image_position_background]" id="top-image-2"
@@ -783,10 +893,137 @@
                                     </div>
                                     <div class="form-check p-0">
                                         <input class="form-check-input" type="radio"
+                                            name="content[right_image_position_background]" id="center-image-2"
+                                            value="center"
+                                            {{ isset($sectionContent->right_image_position_background) ? ($sectionContent->right_image_position_background === 'center' ? 'checked' : '') : '' }} />
+                                        <label class="form-check-label" for="center-image-2">Center</label>
+                                    </div>
+                                    <div class="form-check p-0">
+                                        <input class="form-check-input" type="radio"
                                             name="content[right_image_position_background]" id="full-image-2"
                                             {{ isset($sectionContent->right_image_position_background) ? ($sectionContent->right_image_position_background === 'full' ? 'checked' : '') : '' }}
                                             value="full" />
                                         <label class="form-check-label" for="full-image-2">Full</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="form-fields">
+                                <div class="title d-flex align-items-center gap-2">
+                                    <div>Wave Color <span class="text-danger">*</span>:</div>
+                                    <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get Color
+                                        Codes</a>
+                                </div>
+                                <div class="field color-picker" data-color-picker-container>
+                                    <label for="color-picker" data-color-picker></label>
+                                    <input id="color-picker" type="text"
+                                        name="content[right_image_background_wave_color]" data-color-picker-input
+                                        value="{{ $sectionContent->right_image_background_wave_color ?? '#EFF3FF' }}"
+                                        data-error="background Color" inputmode="text" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-fields">
+                                <label class="title title--sm mb-3">Wave Background Style:</label>
+                                <div x-data="{ right_image_wave_background_type: '{{ isset($sectionContent->right_image_wave_background_type) ? $sectionContent->right_image_wave_background_type : 'background_color' }}' }">
+                                    <div class="d-flex align-items-center gap-5 px-4 mb-3">
+                                        <div class="form-check p-0">
+                                            <input class="form-check-input" type="radio"
+                                                name="content[right_image_wave_background_type]"
+                                                id="right_image_wave_background_color_type"
+                                                x-model="right_image_wave_background_type"
+                                                name="content[right_image_wave_background_type]"
+                                                value="background_color" checked />
+                                            <label class="form-check-label"
+                                                for="right_image_wave_background_color_type">Background color</label>
+                                        </div>
+                                        <div class="form-check p-0">
+                                            <input class="form-check-input" type="radio"
+                                                name="content[right_image_wave_background_type]"
+                                                id="right_image_wave_background_image_type"
+                                                x-model="right_image_wave_background_type"
+                                                name="content[right_image_wave_background_type]"
+                                                value="background_image" />
+                                            <label class="form-check-label"
+                                                for="right_image_wave_background_image_type">Background image</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="pt-3"
+                                        x-show="right_image_wave_background_type === 'background_color'">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-fields">
+                                                    <div class="title d-flex align-items-center gap-2">
+                                                        <div>Background Color <span class="text-danger">*</span>:</div>
+                                                        <a class="p-0 nav-link" href="//html-color-codes.info"
+                                                            target="_blank">Get Color Codes</a>
+                                                    </div>
+
+                                                    <div class="field color-picker" data-color-picker-container>
+                                                        <label for="color-picker" data-color-picker></label>
+                                                        <input id="color-picker" type="text"
+                                                            name="content[right_image_wave_background_color]"
+                                                            data-color-picker-input
+                                                            value="{{ $sectionContent->right_image_wave_background_color ?? '#ffffff' }}"
+                                                            data-error="background Color" inputmode="text" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pt-3"
+                                        x-show="right_image_wave_background_type === 'background_image'">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-fields">
+                                                    <label class="title">background Image <span
+                                                            class="text-danger">*</span>:</label>
+                                                    <div class="upload upload--sm mx-0" data-upload>
+                                                        <div class="upload-box-wrapper">
+                                                            <div class="upload-box {{ empty($sectionContent->right_image_wave_background_image) ? 'show' : '' }}"
+                                                                data-upload-box>
+                                                                <input type="file"
+                                                                    name="content[right_image_wave_background_image]"
+                                                                    data-error="Feature Image"
+                                                                    id="right_image_wave_background_image"
+                                                                    class="upload-box__file d-none" accept="image/*"
+                                                                    data-file-input />
+                                                                <div class="upload-box__placeholder">
+                                                                    <i class="bx bxs-image"></i>
+                                                                </div>
+                                                                <label for="right_image_wave_background_image"
+                                                                    class="upload-box__btn themeBtn">Upload
+                                                                    Image</label>
+                                                            </div>
+                                                            <div class="upload-box__img {{ !empty($sectionContent->right_image_wave_background_image) ? 'show' : '' }}"
+                                                                data-upload-img>
+                                                                <button type="button" class="delete-btn"
+                                                                    data-delete-btn="">
+                                                                    <i class="bx bxs-edit-alt"></i>
+                                                                </button>
+                                                                <a href="{{ asset($sectionContent->right_image_wave_background_image ?? 'admin/assets/images/loading.webp') }}"
+                                                                    class="mask" data-fancybox="gallery">
+                                                                    <img src="{{ asset($sectionContent->right_image_wave_background_image ?? 'admin/assets/images/loading.webp') }}"
+                                                                        alt="Uploaded Image" class="imgFluid"
+                                                                        data-placeholder="{{ asset('admin/assets/images/loading.webp') }}"
+                                                                        data-upload-preview="" />
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div data-error-message
+                                                            class="text-danger mt-2 d-none text-center">
+                                                            Please upload a valid image file
+                                                        </div>
+                                                        <div class="dimensions text-center mt-3">
+                                                            <strong>Dimensions:</strong> 1350 &times; 435
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -927,9 +1164,9 @@
                             </div>
                             <div class="form-check p-0">
                                 <input class="form-check-input" type="radio"
-                                    name="content[destination_background_type]" id="destination_background_image_type"
-                                    x-model="destination_background_type" name="content[destination_background_type]"
-                                    value="background_image" />
+                                    name="content[destination_background_type]"
+                                    id="destination_background_image_type" x-model="destination_background_type"
+                                    name="content[destination_background_type]" value="background_image" />
                                 <label class="form-check-label" for="destination_background_image_type">Background
                                     Image</label>
                             </div>
@@ -965,7 +1202,8 @@
                                             <div class="upload-box-wrapper">
                                                 <div class="upload-box {{ empty($sectionContent->destination_background_image) ? 'show' : '' }}"
                                                     data-upload-box>
-                                                    <input type="file" name="content[destination_background_image]"
+                                                    <input type="file"
+                                                        name="content[destination_background_image]"
                                                         {{ empty($sectionContent->destination_background_image) ? '' : '' }}
                                                         data-error="Feature Image" id="destination_background_image"
                                                         class="upload-box__file d-none" accept="image/*"
@@ -989,8 +1227,8 @@
                                                             data-upload-preview="" />
                                                     </a>
                                                     <input type="text"
-                                                        name="content[destination_background_alt_text]" class="field"
-                                                        placeholder="Enter alt text"
+                                                        name="content[destination_background_alt_text]"
+                                                        class="field" placeholder="Enter alt text"
                                                         value="{{ $sectionContent->destination_background_alt_text ?? 'Destination Image' }}" />
                                                 </div>
                                             </div>
@@ -1008,23 +1246,24 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-md-12">
                 <div class="form-fields">
                     <label class="title title--sm mb-2">Items Style:</label>
                     <div x-data="{ destination_style_type: '{{ isset($sectionContent->destination_style_type) ? $sectionContent->destination_style_type : 'normal' }}' }">
                         <div class="d-flex align-items-center gap-5 px-4">
                             <div class="form-check p-0">
-                                <input class="form-check-input" type="radio" name="content[destination_style_type]"
-                                    id="normal" x-model="destination_style_type"
-                                    name="content[destination_style_type]" value="normal" checked />
+                                <input class="form-check-input" type="radio"
+                                    name="content[destination_style_type]" id="normal"
+                                    x-model="destination_style_type" name="content[destination_style_type]"
+                                    value="normal" checked />
                                 <label class="form-check-label" for="normal">Normal (up to
                                     5)</label>
                             </div>
                             <div class="form-check p-0">
-                                <input class="form-check-input" type="radio" name="content[destination_style_type]"
-                                    id="carousel" x-model="destination_style_type"
-                                    name="content[destination_style_type]" value="carousel" />
+                                <input class="form-check-input" type="radio"
+                                    name="content[destination_style_type]" id="carousel"
+                                    x-model="destination_style_type" name="content[destination_style_type]"
+                                    value="carousel" />
                                 <label class="form-check-label" for="carousel">Slider Carousel
                                 </label>
                             </div>
@@ -1044,9 +1283,9 @@
                                         </div>
                                         <div class="form-check p-0">
                                             <input class="form-check-input" type="radio"
-                                                name="content[destination_box_style]" id="destination_box_style_full"
-                                                x-model="destination_box_style" name="content[destination_box_style]"
-                                                value="full" />
+                                                name="content[destination_box_style]"
+                                                id="destination_box_style_full" x-model="destination_box_style"
+                                                name="content[destination_box_style]" value="full" />
                                             <label class="form-check-label" for="destination_box_style_full">full
                                                 width</label>
                                         </div>

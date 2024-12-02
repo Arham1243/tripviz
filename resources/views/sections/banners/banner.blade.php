@@ -160,6 +160,7 @@
 @else
     @if ($content->background_type === 'normal_v1_right_side_image')
         <div class="banner banner--shape" style="background-color: #fff">
+            @include('sections.banners.moto')
             <div class="container">
                 <div class="row">
                     @include('sections.banners.content')
@@ -206,6 +207,7 @@
                 @endfor
             </div>
             <div class="banner">
+                @include('sections.banners.moto')
                 <div class="container">
                     <div class="row">
                         @include('sections.banners.content')
@@ -215,9 +217,25 @@
                 </div>
             </div>
         </div>
-    @elseif($content->background_type === 'layout_normal_background_color')
-        <div class="banner banner--shape" style="background-color: {{ $content->background_color ?? '#fff' }}">
-            <div class="banner-shape" style="--wave-color:{{ $content->background_wave_color ?? '' }};">
+    @elseif($content->background_type === 'normal_wave_background')
+        @php
+            $normalWavebackgroundStyle = '';
+            if (
+                $content->normal_wave_background_type === 'background_color' &&
+                isset($content->normal_wave_background_color)
+            ) {
+                $normalWavebackgroundStyle = "background-color: {$content->normal_wave_background_color};";
+            } elseif (
+                $content->normal_wave_background_type === 'background_image' &&
+                isset($content->normal_wave_background_image)
+            ) {
+                $normalWavebackgroundStyle =
+                    'background-image: url(' . asset($content->normal_wave_background_image) . ');';
+            }
+        @endphp
+        <div class="banner banner--shape" style="{{ $normalWavebackgroundStyle }}">
+            @include('sections.banners.moto')
+            <div class="banner-shape" style="--wave-color:{{ $content->normal_background_wave_color ?? '' }};">
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
                     viewBox="0 0 1069 233" preserveAspectRatio="none">
                     <path
@@ -234,10 +252,26 @@
                 </div>
             </div>
         </div>
-    @elseif ($content->background_type === 'background_color_with_right_image')
-        <div class="banner banner--shape"
-            style="background-color: {{ $content->right_image_background_color ?? '#fff' }};">
-            <div class="banner-shape" style="--wave-color:{{ $content->right_image_wave_color ?? '' }};">
+    @elseif ($content->background_type === 'right_image_wave_background')
+        @php
+            $rightImageWavebackgroundStyle = '';
+            if (
+                $content->right_image_wave_background_type === 'background_color' &&
+                isset($content->right_image_wave_background_color)
+            ) {
+                $rightImageWavebackgroundStyle = "background-color: {$content->right_image_wave_background_color};";
+            } elseif (
+                $content->right_image_wave_background_type === 'background_image' &&
+                isset($content->right_image_wave_background_image)
+            ) {
+                $rightImageWavebackgroundStyle =
+                    'background-image: url(' . asset($content->right_image_wave_background_image) . ');';
+            }
+        @endphp
+
+        <div class="banner banner--shape" style="{{ $rightImageWavebackgroundStyle }}">
+            @include('sections.banners.moto')
+            <div class="banner-shape" style="--wave-color:{{ $content->right_image_background_wave_color ?? '' }};">
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
                     viewBox="0 0 1069 233" preserveAspectRatio="none">
                     <path
@@ -287,18 +321,23 @@
                                     style="color: {{ isset($content->destination_title_text_color) ? $content->destination_title_text_color : '' }};">
                                     {{ $content->destination_title ?? '' }}
                                 </div>
-                                <div class=dst2
-                                    style="color: {{ isset($content->destination_subtitle->text_color[0]) ? $content->destination_subtitle->text_color[0] : '' }};">
-                                    {{ isset($content->destination_subtitle->title[0]) ? $content->destination_subtitle->title[0] : '' }}
-                                </div>
-                                <div class="dst2 mt-0"
-                                    style="color: {{ isset($content->destination_subtitle->text_color[1]) ? $content->destination_subtitle->text_color[1] : '' }};">
-                                    {{ isset($content->destination_subtitle->title[1]) ? $content->destination_subtitle->title[1] : '' }}
-                                    <div class=darrow>
-                                        <img data-src={{ asset('assets/images/darrow.webp') }} alt=image
-                                            class="imgFluid lazy" width=100 height=20.36>
+                                @if (isset($content->destination_subtitle->title[0]))
+                                    <div class="dst2"
+                                        style="color: {{ isset($content->destination_subtitle->text_color[0]) ? $content->destination_subtitle->text_color[0] : '' }};">
+                                        {{ $content->destination_subtitle->title[0] }}
                                     </div>
-                                </div>
+                                @endif
+
+                                @if (isset($content->destination_subtitle->title[1]))
+                                    <div class="dst2 mt-0"
+                                        style="color: {{ isset($content->destination_subtitle->text_color[1]) ? $content->destination_subtitle->text_color[1] : '' }};">
+                                        {{ $content->destination_subtitle->title[1] }}
+                                        <div class="darrow">
+                                            <img data-src="{{ asset('assets/images/darrow.webp') }}" alt="image"
+                                                class="imgFluid lazy" width="100" height="20.36">
+                                        </div>
+                                    </div>
+                                @endif
                             </h2>
                         </div>
                     </div>

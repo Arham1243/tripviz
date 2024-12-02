@@ -111,18 +111,23 @@
                             <div class=dst1
                                 style="color: {{ isset($content->destination_title_text_color) ? $content->destination_title_text_color : '' }};">
                                 {{ $content->destination_title ?? '' }}</div>
-                            <div class=dst2
-                                style="color: {{ isset($content->destination_subtitle->text_color[0]) ? $content->destination_subtitle->text_color[0] : '' }};">
-                                {{ isset($content->destination_subtitle->title[0]) ? $content->destination_subtitle->title[0] : '' }}
-                            </div>
-                            <div class="dst2 mt-0"
-                                style="color: {{ isset($content->destination_subtitle->text_color[1]) ? $content->destination_subtitle->text_color[1] : '' }};">
-                                {{ isset($content->destination_subtitle->title[1]) ? $content->destination_subtitle->title[1] : '' }}
-                                <div class=darrow>
-                                    <img data-src={{ asset('assets/images/darrow.webp') }} alt=image
-                                        class="imgFluid lazy" width=100 height=20.36>
+                            @if (isset($content->destination_subtitle->title[0]))
+                                <div class="dst2"
+                                    style="color: {{ isset($content->destination_subtitle->text_color[0]) ? $content->destination_subtitle->text_color[0] : '' }};">
+                                    {{ $content->destination_subtitle->title[0] }}
                                 </div>
-                            </div>
+                            @endif
+
+                            @if (isset($content->destination_subtitle->title[1]))
+                                <div class="dst2 mt-0"
+                                    style="color: {{ isset($content->destination_subtitle->text_color[1]) ? $content->destination_subtitle->text_color[1] : '' }};">
+                                    {{ $content->destination_subtitle->title[1] }}
+                                    <div class="darrow">
+                                        <img data-src="{{ asset('assets/images/darrow.webp') }}" alt="image"
+                                            class="imgFluid lazy" width="100" height="20.36">
+                                    </div>
+                                </div>
+                            @endif
                         </h2>
                     </div>
                 </div>

@@ -296,6 +296,8 @@ class PageController extends Controller
         $newData['custom_review_logo_image'] = $this->handleImageField($newData, $existingData, $pageSlug, $sectionKey, 'custom_review_logo_image');
         $newData['right_image_background'] = $this->handleImageField($newData, $existingData, $pageSlug, $sectionKey, 'right_image_background');
         $newData['destination_background_image'] = $this->handleImageField($newData, $existingData, $pageSlug, $sectionKey, 'destination_background_image');
+        $newData['normal_wave_background_image'] = $this->handleImageField($newData, $existingData, $pageSlug, $sectionKey, 'normal_wave_background_image');
+        $newData['right_image_wave_background_image'] = $this->handleImageField($newData, $existingData, $pageSlug, $sectionKey, 'right_image_wave_background_image');
         if (isset($newData['carousel_background_images'])) {
             $updatedBackgroundImages = $existingData['carousel_background_images'] ?? [];
             foreach ($newData['carousel_background_images'] as $i => $image) {

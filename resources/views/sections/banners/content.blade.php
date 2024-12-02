@@ -4,14 +4,19 @@
             <h1 class="bannerMain-title">
                 <div class="title" style="color: {{ isset($content->title_color) ? $content->title_color : '' }};">
                     {{ $content->title }}</div>
-                <div class="subTitle subTitle--lg"
-                    style="color: {{ isset($content->subtitle->text_color[0]) ? $content->subtitle->text_color[0] : '' }};">
-                    {{ isset($content->subtitle->title[0]) ? $content->subtitle->title[0] : '' }}
-                </div>
-                <div class="subTitle subTitle--sm"
-                    style="color: {{ isset($content->subtitle->text_color[1]) ? $content->subtitle->text_color[1] : '' }};">
-                    {{ isset($content->subtitle->title[1]) ? $content->subtitle->title[1] : '' }}
-                </div>
+                @if (isset($content->subtitle->title[0]))
+                    <div class="subTitle subTitle--lg"
+                        style="color: {{ isset($content->subtitle->text_color[0]) ? $content->subtitle->text_color[0] : '' }};">
+                        {{ $content->subtitle->title[0] }}
+                    </div>
+                @endif
+
+                @if (isset($content->subtitle->title[1]))
+                    <div class="subTitle subTitle--sm"
+                        style="color: {{ isset($content->subtitle->text_color[1]) ? $content->subtitle->text_color[1] : '' }};">
+                        {{ $content->subtitle->title[1] }}
+                    </div>
+                @endif
             </h1>
             @if (isset($content->is_button_enabled))
                 <a style="background: {{ $content->btn_background_color ?? 'var(--color-primary)' }};color: {{ $content->btn_text_color ?? '#fff' }};"

@@ -404,6 +404,9 @@ a#loginBtn {
     padding: 4rem 0;
     isolation: isolate;
     z-index: 100;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
 }
 .banner-shape {
     width: 140%;
@@ -617,6 +620,22 @@ a#loginBtn {
 
 .banner-slider .slick-track {
     height: 100%;
+}
+.banner-moto {
+    position: absolute;
+    top: 72%;
+    left: 79%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    width: max-content;
+    line-height: 1.25;
+}
+
+.banner-moto-title {
+    color: #000;
+    font-size: 3rem;
+    font-weight: 400;
+    font-family: "Patrick Hand", sans-serif;
 }
 /* banner */
 
@@ -1410,7 +1429,7 @@ a.service-wishlis i {
     position: fixed;
     right: 2rem;
     bottom: 3.25rem;
-    z-index: 100;
+    z-index: 100000000;
     animation: goUp 5s infinite linear;
     padding: 0.55rem 1.5rem;
     gap: 10px;
