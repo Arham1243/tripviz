@@ -401,21 +401,23 @@ a#loginBtn {
 /* banner */
 .banner {
     position: relative;
-    padding: 4rem 0;
+    padding: 2rem 0 4rem;
     isolation: isolate;
     z-index: 100;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+    overflow: hidden;
 }
+.banner > .container >.row {position: relative;}
 .banner-shape {
     width: 140%;
     --wave-color: #eff3ff;
-    height: 410px;
+    height: 520px;
     position: absolute;
-    right: -15rem;
-    bottom: 0;
+    right: -24%;
     z-index: -1;
+    bottom: 0;
 }
 .banner__bg {
     width: 100%;
@@ -484,9 +486,15 @@ a#loginBtn {
 }
 
 .banner-img {
-    width: 334px;
     margin-left: auto;
-    height: 246px;
+    width: 75%;
+}
+.banner-img.bottom {
+    position: absolute;
+    left: 84%;
+    transform: translate(-50%,-50%);
+    top: 47%;
+    width: 350px;
 }
 .banner-img.top {
     position: relative;

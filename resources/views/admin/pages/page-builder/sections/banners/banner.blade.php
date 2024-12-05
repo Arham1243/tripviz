@@ -568,9 +568,9 @@
                                     <div class="form-check p-0">
                                         <input class="form-check-input" type="radio"
                                             name="content[right_image_position]" id="full-image-1"
-                                            {{ isset($sectionContent->right_image_position) ? ($sectionContent->right_image_position === 'full' ? 'checked' : '') : '' }}
-                                            value="full" />
-                                        <label class="form-check-label" for="full-image-1">Full</label>
+                                            {{ isset($sectionContent->right_image_position) ? ($sectionContent->right_image_position === 'bottom' ? 'checked' : '') : '' }}
+                                            value="bottom" />
+                                        <label class="form-check-label" for="full-image-1">Bottom</label>
                                     </div>
                                 </div>
                             </div>
@@ -901,9 +901,9 @@
                                     <div class="form-check p-0">
                                         <input class="form-check-input" type="radio"
                                             name="content[right_image_position_background]" id="full-image-2"
-                                            {{ isset($sectionContent->right_image_position_background) ? ($sectionContent->right_image_position_background === 'full' ? 'checked' : '') : '' }}
-                                            value="full" />
-                                        <label class="form-check-label" for="full-image-2">Full</label>
+                                            {{ isset($sectionContent->right_image_position_background) ? ($sectionContent->right_image_position_background === 'bottom' ? 'checked' : '') : '' }}
+                                            value="bottom" />
+                                        <label class="form-check-label" for="full-image-2">Bottom</label>
                                     </div>
                                 </div>
                             </div>
@@ -1285,7 +1285,7 @@
                                             <input class="form-check-input" type="radio"
                                                 name="content[destination_box_style]"
                                                 id="destination_box_style_full" x-model="destination_box_style"
-                                                name="content[destination_box_style]" value="full" />
+                                                name="content[destination_box_style]" value="bottom" />
                                             <label class="form-check-label" for="destination_box_style_full">full
                                                 width</label>
                                         </div>
