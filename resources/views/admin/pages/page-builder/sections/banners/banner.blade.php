@@ -542,7 +542,7 @@
                                         valid image file
                                     </div>
                                     <div class="dimensions text-center mt-3">
-                                        <strong>Dimensions:</strong> 345 &times; 186
+                                        <strong>Dimensions:</strong> 340 &times; 340
                                     </div>
                                 </div>
 
@@ -875,7 +875,7 @@
                                         valid image file
                                     </div>
                                     <div class="dimensions text-center mt-3">
-                                        <strong>Dimensions:</strong> 345 &times; 186
+                                        <strong>Dimensions:</strong> 340 &times; 340
                                     </div>
                                 </div>
                             </div>
