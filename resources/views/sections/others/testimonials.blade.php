@@ -144,7 +144,9 @@
                 <p style="color: {{ $content->subTitle_text_color ?? '' }};">{{ $content->subTitle ?? '' }}</p>
             </div>
             @php
-                $testimonials = App\Models\Testimonial::whereIn('id', $content->testimonial_ids)->get();
+                $testimonials = App\Models\Testimonial::whereIn('id', $content->testimonial_ids)
+                    ->latest()
+                    ->get();
             @endphp
             <div class="row pt-3">
                 @if ($testimonials->isNotEmpty())
@@ -164,7 +166,8 @@
                                 </div>
                                 <div class=comment-card__content>
                                     <div class=comment-details>
-                                        <div class=customer-name>
+                                        <div class="customer-name" title="{{ $testimonial->title ?? '' }}"
+                                            @if (strlen($testimonial->title ?? '') > 19) data-tooltip="tooltip" @endif>
                                             {{ $testimonial->title ?? '' }}
                                         </div>
                                         <div class=card-rating>
@@ -174,7 +177,11 @@
                                     <div class=comment-pra>
                                         {!! $testimonial->content ?? '' !!}
                                     </div>
-                                    <button class="app-btn themeBtn">Read</button>
+                                    @if (isset($content->is_button_enabled))
+                                        <a style="background: {{ $content->btn_background_color ?? 'var(--color-primary)' }};color: {{ $content->btn_text_color ?? '#fff' }};"
+                                            href="javascript:void(0)" class="app-btn themeBtn">{{ $content->btn_text }}
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                         </div>

@@ -1008,10 +1008,14 @@ a.card-title:hover {
 .customer-name {
     font-size: 16px;
     font-weight: 900;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
 }
 
 .comment {
-    padding: 7rem 0 4rem;
+    padding: 12rem 0 4rem;
     position: relative;
 }
 
@@ -1318,7 +1322,7 @@ a.service-wishlis i {
     width: 15%;
     position: absolute;
     left: 80%;
-    top: 21%;
+    top: 20%;
     transform: translate(-50%, -50%);
     z-index: 1;
 }
@@ -1956,6 +1960,7 @@ img.ocizgi.imgFluid {
 }
 
 .app-btn {
+    width: fit-content;
     background: var(--color-primary);
     color: #fff;
     border: none;
@@ -5988,4 +5993,7 @@ span.select2-dropdown.select2-dropdown--below {
 
 .green {
     color: green;
+}
+.darrow img {
+    filter: brightness(0);
 }

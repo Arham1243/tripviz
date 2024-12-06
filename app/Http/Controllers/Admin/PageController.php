@@ -201,6 +201,7 @@ class PageController extends Controller
             $countries = Country::where('status', 'publish')
                 ->get();
             $testimonials = Testimonial::where('status', 'active')
+                ->where('rating', '5')
                 ->get();
             $news = News::where('status', 'publish')
                 ->get();

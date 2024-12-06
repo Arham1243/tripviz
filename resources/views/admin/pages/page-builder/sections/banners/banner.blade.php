@@ -194,12 +194,19 @@
                     <div class="form-check p-0">
                         <input class="form-check-input" type="radio" name="content[form_type]" id="normal-form"
                             name="content[form_type]" x-model="form_type" value="normal" />
-                        <label class="form-check-label" for="normal-form">Normal Search bar</label>
+                        <label class="form-check-label" for="normal-form">Normal</label>
                     </div>
                     <div class="form-check p-0">
                         <input class="form-check-input" type="radio" name="content[form_type]" id="date_selection"
                             name="content[form_type]" x-model="form_type" value="date_selection" />
-                        <label class="form-check-label" for="date_selection">Search Bar with Tour Date
+                        <label class="form-check-label" for="date_selection">Range Date
+                            Selection</label>
+                    </div>
+                    <div class="form-check p-0">
+                        <input class="form-check-input" type="radio" name="content[form_type]"
+                            id="single_date_selection" name="content[form_type]" x-model="form_type"
+                            value="single_date_selection" />
+                        <label class="form-check-label" for="single_date_selection">Single Date
                             Selection</label>
                     </div>
                 </div>
@@ -219,6 +226,28 @@
                                     <input id="color-picker" type="text"
                                         name="content[date_selection_background_color]" data-color-picker-input
                                         value="{{ $sectionContent->date_selection_background_color ?? '#ffffff' }}"
+                                        data-error="background Color" inputmode="text" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-4" x-show="form_type === 'single_date_selection'">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-fields">
+                                <div class="title d-flex align-items-center gap-2">
+                                    <div>
+                                        Background Color <span class="text-danger">*</span>:
+                                    </div>
+                                    <a class="p-0 nav-link" href="//html-color-codes.info" target="_blank">Get Color
+                                        Codes</a>
+                                </div>
+                                <div class="field color-picker" data-color-picker-container>
+                                    <label for="color-picker" data-color-picker></label>
+                                    <input id="color-picker" type="text"
+                                        name="content[single_date_selection_background_color]" data-color-picker-input
+                                        value="{{ $sectionContent->single_date_selection_background_color ?? '#ffffff' }}"
                                         data-error="background Color" inputmode="text" />
                                 </div>
                             </div>
@@ -1134,7 +1163,8 @@
                                         </td>
                                         <td>
                                             <button :disabled="index === 0"
-                                                class="delete-btn delete-btn--static ms-auto" @click="remove(index)">
+                                                class="delete-btn delete-btn--static ms-auto"
+                                                @click="remove(index)">
                                                 <i class="bx bxs-trash-alt"></i>
                                             </button>
                                         </td>
@@ -1157,8 +1187,8 @@
                             <div class="form-check p-0">
                                 <input class="form-check-input" type="radio"
                                     name="content[destination_background_type]" id="destination_background_color"
-                                    x-model="destination_background_type" name="content[destination_background_type]"
-                                    value="background_color" />
+                                    x-model="destination_background_type"
+                                    name="content[destination_background_type]" value="background_color" />
                                 <label class="form-check-label" for="destination_background_color">Background
                                     Color</label>
                             </div>

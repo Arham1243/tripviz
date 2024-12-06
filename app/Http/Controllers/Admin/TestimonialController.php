@@ -49,14 +49,15 @@ class TestimonialController extends Controller
         ]);
 
         $testimonial = Testimonial::create($data);
+        if ($request->gallery) {
+            foreach ($request->file('gallery') as $index => $image) {
+                $path = $this->simpleUploadImg($image, 'Testimonial/Other-images');
 
-        foreach ($request->file('gallery') as $index => $image) {
-            $path = $this->simpleUploadImg($image, 'Testimonial/Other-images');
-
-            $testimonial->media()->create([
-                'file_path' => $path,
-                'alt_text' => $validatedData['gallery_alt_texts'][$index],
-            ]);
+                $testimonial->media()->create([
+                    'file_path' => $path,
+                    'alt_text' => $validatedData['gallery_alt_texts'][$index],
+                ]);
+            }
         }
 
         return redirect()->route('admin.testimonials.index')->with('notify_success', 'Testimonial added successfully.');
@@ -98,14 +99,15 @@ class TestimonialController extends Controller
         ]);
 
         $testimonial->update($data);
+        if ($request->gallery) {
+            foreach ($request->file('gallery') as $index => $image) {
+                $path = $this->simpleUploadImg($image, 'Testimonial/Other-images');
 
-        foreach ($request->file('gallery') as $index => $image) {
-            $path = $this->simpleUploadImg($image, 'Testimonial/Other-images');
-
-            $testimonial->media()->create([
-                'file_path' => $path,
-                'alt_text' => $validatedData['gallery_alt_texts'][$index],
-            ]);
+                $testimonial->media()->create([
+                    'file_path' => $path,
+                    'alt_text' => $validatedData['gallery_alt_texts'][$index],
+                ]);
+            }
         }
 
         return redirect()->route('admin.testimonials.index')->with('notify_success', 'Testimonial updated successfully.');

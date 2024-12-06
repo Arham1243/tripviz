@@ -51,6 +51,44 @@
                 </form>
             </div>
         </div>
+    @elseif($content->form_type === 'single_date_selection')
+        <div class="col-md-9">
+            <div class="date-search">
+                <form action="{{ route('tours.search.results') }}" class="date-search__btns"
+                    style="background-color: {{ $content->single_date_selection_background_color ?? '' }}">
+                    <input type="hidden" name="resource_type" id="resource_type">
+                    <label for="destination" id="destination-wrapper" class="date-search__btn">
+                        <div class="first-half">
+                            <i class='bx bxs-map'></i>
+                        </div>
+                        <div class="second-half">
+                            <span class="top-label">Going to</span>
+                            <div class="content">
+                                <select multiple placeholder="Where are you going?" name="resource_id" id="destination"
+                                    style="width: 100%"> </select>
+                            </div>
+                        </div>
+                    </label>
+                    <button class="date-search__btn date-single-picker" type="button">
+                        <div class="first-half">
+                            <i class='bx bxs-calendar'></i>
+                        </div>
+                        <div class="second-half">
+                            <span class="top-label">Tour Date</span>
+                            <div class="content d-flex align-items-center">
+                                <div class="date-wrapper">
+                                    <input readonly="" type="text" class="date" name="start_date"
+                                        id="startDate" />
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                    <button type="submit" class="primary-btn">
+                        <i class="bx bx-search"></i><span>Search</span>
+                    </button>
+                </form>
+            </div>
+        </div>
     @endif
 @endif
 
@@ -81,6 +119,23 @@
                     $("#endDate").val(picker.endDate.format("MMM D, YYYY"));
                 });
         }
+
+        function initializeSingleDatePicker(selectedDate) {
+            $("#startDate").val(selectedDate);
+            $(".date-single-picker")
+                .daterangepicker({
+                    singleDatePicker: true,
+                    autoApply: true,
+                    locale: {
+                        format: "MMM D, YYYY",
+                    },
+                    opens: "center",
+                })
+                .on("apply.daterangepicker", function(ev, picker) {
+                    $("#startDate").val(picker.startDate.format("MMM D, YYYY"));
+                });
+        }
+
         const today = new Date();
         const formattedDate = today.toLocaleDateString("en-US", {
             year: "numeric",
@@ -90,7 +145,9 @@
 
         document.addEventListener("DOMContentLoaded", function() {
             initializeDateRangePicker(formattedDate);
+            initializeSingleDatePicker(formattedDate);
         });
+
         $('#destination').select2({
             placeholder: 'Where are you going?',
             dropdownParent: $('#destination-wrapper'),
