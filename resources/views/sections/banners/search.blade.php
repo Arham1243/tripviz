@@ -130,6 +130,7 @@
                         format: "MMM D, YYYY",
                     },
                     opens: "center",
+                    parentEl: ".date-single-picker",
                 })
                 .on("apply.daterangepicker", function(ev, picker) {
                     $("#startDate").val(picker.startDate.format("MMM D, YYYY"));

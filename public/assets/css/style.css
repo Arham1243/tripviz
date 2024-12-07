@@ -407,7 +407,6 @@ a#loginBtn {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-    overflow: hidden;
 }
 .banner > .container >.row {position: relative;}
 .banner-shape {
@@ -5953,3 +5952,13 @@ span.select2-dropdown.select2-dropdown--below {
 .download-details__btn img {
     filter: grayscale(1);
 }
+/* full calendar */
+.daterangepicker.ltr.auto-apply.single.openscenter.show-calendar {
+    width: 100%;
+}
+
+.daterangepicker.ltr.auto-apply.single.openscenter.show-calendar .drp-calendar.left.single {
+    width: 100%;
+    max-width: 100%;
+}
+/* full calendar */
