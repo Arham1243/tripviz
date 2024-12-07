@@ -48,13 +48,16 @@
                     </div>
                 </div>
                 <div class=col-md-6>
-                    <div class=newsletter__content>
+                    <div class=newsletter__content
+                        @if ($content->right_background_color) style="background-color: {{ $content->right_background_color }};" @endif>
                         <div class=section-content>
-                            <h2 class=subHeading>
+                            <h2 class=subHeading
+                                @if ($content->title_text_color) style="color: {{ $content->title_text_color }};" @endif>
                                 {{ $content->title ?? '' }}
                             </h2>
                         </div>
-                        <p>
+                        <p
+                            @if ($content->description_text_color) style="color: {{ $content->description_text_color }};" @endif>
                             {{ $content->description ?? '' }}
                         </p>
                         <form class=line-form method="POST" action="{{ route('save-newsletter') }}">
@@ -63,13 +66,19 @@
                                 <input id=email type=email name=email placeholder="Email" required>
                                 <i class="bx bx-envelope"></i>
                             </div>
-                            <button type=submit class="primary-btn">Sign up</button>
+                            <button
+                                style="
+                            @if ($content->btn_background_color) background: {{ $content->btn_background_color }}; @else background: var(--color-primary); @endif
+                            @if ($content->btn_text_color) color: {{ $content->btn_text_color }}; @else color: #fff; @endif
+                        "
+                                type=submit class="primary-btn">{{ $content->btn_text ?? 'Sign up' }}</button>
                         </form>
                     </div>
                 </div>
             </div>
             <div class=privacy-content>
-                <p class="mb-0">
+                <p class="mb-0"
+                    @if ($content->privacy_statement_text_color) style="color: {{ $content->privacy_statement_text_color }};" @endif>
                     {{ $content->privacy_statement ?? '' }}
                 </p>
             </div>

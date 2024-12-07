@@ -1049,29 +1049,7 @@ a.card-title:hover {
     color: #bdc2de;
 }
 
-.qr-code {
-    width: 21%;
-    height: 100%;
-}
 
-.link-title {
-    font-size: 18px;
-    font-weight: 600;
-    width: 65%;
-    margin: 0;
-}
-
-.download-details {
-    margin-top: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.app-link a {
-    width: 34%;
-    height: 100%;
-}
 
 .code-details {
     display: flex;
@@ -1221,9 +1199,7 @@ a.card-title:hover {
     padding: 17px 0px;
 }
 
-.qr-code img {
-    border-radius: 0.95rem;
-}
+.qr-code img {width: 100%;height: 100%;}
 
 .for-apSt {
     width: 100%;
@@ -1326,25 +1302,13 @@ a.service-wishlis i {
     transform: translate(-50%, -50%);
     z-index: 1;
 }
-
-.input-details {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fff;
-    padding: 0.5rem;
-    border-radius: 0.45rem;
-    padding-left: 2rem;
-    width: 100%;
+.input-details .app-btn.themeBtn {
+    flex: 0.15;
 }
 
 .input-details input {
-    width: 100%;
-    background: none;
-    outline: none;
-    border: none;
+    flex: 1;
 }
-
 .app-search {
     width: 80%;
 }
@@ -1526,7 +1490,7 @@ a.service-wishlis i {
 
 .newsletter__img {
     width: 100%;
-    height: 100%;
+    height: 325px;
 }
 
 .newsletter__img img {
@@ -1921,8 +1885,12 @@ img.ocizgi.imgFluid {
 }
 
 .qr-code {
-    width: 21%;
-    height: 100%;
+    width: 134px;
+    aspect-ratio: 1/1;
+    border-radius: 0.85rem;
+    padding: 0;
+    background: #fff;
+    overflow: hidden;
 }
 
 .link-title {
@@ -1942,21 +1910,6 @@ img.ocizgi.imgFluid {
 .app-link a {
     width: 34%;
     height: 100%;
-}
-
-.code-details {
-    display: flex;
-    gap: 28px;
-    border: 1px solid #ccccccd6;
-    border-inline: none;
-    align-items: center;
-    padding: 1.5rem 0;
-}
-
-.app-search h3 {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 0.85rem;
 }
 
 .app-btn {
@@ -2022,12 +1975,12 @@ img.ocizgi.imgFluid {
 }
 
 .download-details__btn {
-    border-radius: 0.85rem;
+    border-radius: 0.65rem;
     overflow: hidden;
 }
 
-.download-app__details h2 {
-    color: #fff !important;
+.download-app__details.download-app__details h2 {
+    color: #fff;
 }
 
 .header-form__content {
@@ -5996,4 +5949,7 @@ span.select2-dropdown.select2-dropdown--below {
 }
 .darrow img {
     filter: brightness(0);
+}
+.download-details__btn img {
+    filter: grayscale(1);
 }

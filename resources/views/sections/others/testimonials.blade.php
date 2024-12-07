@@ -144,7 +144,7 @@
                 <p style="color: {{ $content->subTitle_text_color ?? '' }};">{{ $content->subTitle ?? '' }}</p>
             </div>
             @php
-                $testimonials = App\Models\Testimonial::whereIn('id', $content->testimonial_ids)
+                $testimonials = App\Models\Testimonial::whereIn('id', $content->testimonial_ids ?? [])
                     ->latest()
                     ->get();
             @endphp
@@ -178,8 +178,12 @@
                                         {!! $testimonial->content ?? '' !!}
                                     </div>
                                     @if (isset($content->is_button_enabled))
-                                        <a style="background: {{ $content->btn_background_color ?? 'var(--color-primary)' }};color: {{ $content->btn_text_color ?? '#fff' }};"
-                                            href="javascript:void(0)" class="app-btn themeBtn">{{ $content->btn_text }}
+                                        <a style="
+                                        @if ($content->btn_background_color) background: {{ $content->btn_background_color }}; @else background: var(--color-primary); @endif
+                                        @if ($content->btn_text_color) color: {{ $content->btn_text_color }}; @else color: #fff; @endif
+                                    "
+                                            href="javascript:void(0)" class="app-btn themeBtn">
+                                            {{ $content->btn_text ?? 'Read' }}
                                         </a>
                                     @endif
                                 </div>

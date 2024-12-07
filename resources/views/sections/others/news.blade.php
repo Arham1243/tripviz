@@ -81,7 +81,7 @@
             </div>
             @php
                 $featured_news = App\Models\News::find($content->featured_news_id)->first();
-                $news_list = App\Models\News::whereIn('id', $content->news_list_ids)->get();
+                $news_list = App\Models\News::whereIn('id', $content->news_list_ids ?? [])->get();
             @endphp
 
             <div class="row">

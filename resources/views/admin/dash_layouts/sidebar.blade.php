@@ -212,7 +212,7 @@
             ],
         ],
         [
-            'title' => 'Testimonial',
+            'title' => 'Testimonials',
             'icon' => 'bx bxs-chat',
             'submenu' => [
                 [

@@ -115,7 +115,7 @@
                     <div class="form-fields">
                         <label class="title">Button Text <span class="text-danger">*</span> :</label>
                         <input type="text" value="{{ $sectionContent->btn_text ?? '' }}" name="content[btn_text]"
-                            class="field" placeholder="" data-error="Button Text" maxlength="40">
+                            class="field" placeholder="" data-error="Button Text" maxlength="28">
                     </div>
                 </div>
                 <div class="col-lg-6 mb-4">

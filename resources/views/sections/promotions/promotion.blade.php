@@ -90,7 +90,7 @@
 
         // Additional conditions like 'custom' filters or categories
         if ($content->filter_type === 'custom') {
-            $toursQuery->whereIn('id', $content->custom_tour_ids);
+            $toursQuery->whereIn('id', $content->custom_tour_ids ?? []);
         } else {
             if (isset($content->filter_category_id)) {
                 $toursQuery->where('category_id', $content->filter_category_id);

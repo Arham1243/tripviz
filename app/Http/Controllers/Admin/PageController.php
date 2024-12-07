@@ -261,6 +261,7 @@ class PageController extends Controller
                 return $newData;
             case 'app_download':
                 $newData['background_image'] = $this->handleImageField($newData, $existingData, $pageSlug, $sectionKey, 'background_image');
+                $newData['qr_code_image'] = $this->handleImageField($newData, $existingData, $pageSlug, $sectionKey, 'qr_code_image');
 
                 return $newData;
             default:
