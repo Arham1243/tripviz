@@ -561,131 +561,127 @@
         </div>
     </div>
     <div class="col-md-3">
-        <div class="recent-act">
-            <div class="recent-act__header">
-                <div class="title">Recent Inquiry</div>
-            </div>
-            <ul class="activity-log">
-                <li class="activity-log__item ">
-                    <span class="icon"><i class='bx bx-calendar'></i></span>
-                    <div class="info">
-                        <a href="#" class="title line-hide-1">Bill Trevor (admin) updated the - Bill Trevor </a>
-                        <div class="date">23 May 2024</div>
-                    </div>
-                </li>
-                <li class="activity-log__item ">
-                    <span class="icon"><i class='bx bx-calendar'></i></span>
-                    <div class="info">
-                        <a href="#" class="title line-hide-1">Bill Trevor (admin) updated the - Bill Trevor </a>
-                        <div class="date">23 May 2024</div>
-                    </div>
-                </li>
-                <li class="activity-log__item ">
-                    <span class="icon"><i class='bx bx-calendar'></i></span>
-                    <div class="info">
-                        <a href="#" class="title line-hide-1">Bill Trevor (admin) updated the - Bill Trevor </a>
-                        <div class="date">23 May 2024</div>
-                    </div>
-                </li>
-                <li class="activity-log__item ">
-                    <span class="icon"><i class='bx bx-calendar'></i></span>
-                    <div class="info">
-                        <a href="#" class="title line-hide-1">Bill Trevor (admin) updated the - Bill Trevor </a>
-                        <div class="date">23 May 2024</div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="custom-box mt-4">
-            <div class="custom-box__header">
-                <div class="title">Top Destinations</div>
-                <div class="dropstart bootsrap-dropdown">
-                    <button type="button" class="recent-act__icon dropdown-toggle" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <i class='bx bx-dots-horizontal-rounded'></i>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a class="dropdown-item" href="javascript:void(0)">
-                                <i class='bx bx-list-ul'></i>
-                                Show by Orders
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="javascript:void(0)">
-
-                                <i class='bx bxs-group'></i>Show by Inquiries
-                            </a>
-                        </li>
-                    </ul>
+        <div class="pe-2">
+            <div class="recent-act">
+                <div class="recent-act__header">
+                    <div class="title">Recent Inquiry</div>
                 </div>
-            </div>
-            <div class="custom-box__body">
-                <div class="customers">
-                    <div class="info-wrapper">
-                        <div class="customers-count">245,930</div>
-                        <span>Total Customers</span>
-                    </div>
-                    <a href="#" class="go-arrow"><i class='bx bx-right-arrow-alt'></i></a>
-                </div>
-                <ul class="chips">
-                    <li class="chip">
-                        <div class="chip__img">
-                            <img src="{{ asset('admin/assets/images/quad.jpg') }}" alt="Image" class="imgFluid">
-                        </div>
-                        <div class="chip-content">
-                            <div class="chip-content__title  line-hide-1">Bali, Indonesia</div>
-                            <div class="progress-wrapper">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="55" style="width: 55%"
-                                        aria-valuemin="0" aria-valuemax="100">
-                                    </div>
-                                </div>
-                                <div class="progress-value">55%</div>
-                            </div>
+                <ul class="activity-log">
+                    <li class="activity-log__item ">
+                        <span class="icon"><i class='bx bx-calendar'></i></span>
+                        <div class="info">
+                            <a href="#" class="title line-hide-1">Bill Trevor (admin) updated the - Bill Trevor </a>
+                            <div class="date">23 May 2024</div>
                         </div>
                     </li>
-                    <li class="chip">
-                        <div class="chip__img">
-                            <img src="{{ asset('admin/assets/images/quad.jpg') }}" alt="Image" class="imgFluid">
-                        </div>
-                        <div class="chip-content">
-                            <div class="chip-content__title  line-hide-1">Bali, Indonesia</div>
-                            <div class="progress-wrapper">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="35" style="width: 35%"
-                                        aria-valuemin="0" aria-valuemax="100">
-                                    </div>
-                                </div>
-                                <div class="progress-value">35%</div>
-                            </div>
+                    <li class="activity-log__item ">
+                        <span class="icon"><i class='bx bx-calendar'></i></span>
+                        <div class="info">
+                            <a href="#" class="title line-hide-1">Bill Trevor (admin) updated the - Bill Trevor </a>
+                            <div class="date">23 May 2024</div>
                         </div>
                     </li>
-                    <li class="chip">
-                        <div class="chip__img">
-                            <img src="{{ asset('admin/assets/images/quad.jpg') }}" alt="Image" class="imgFluid">
+                    <li class="activity-log__item ">
+                        <span class="icon"><i class='bx bx-calendar'></i></span>
+                        <div class="info">
+                            <a href="#" class="title line-hide-1">Bill Trevor (admin) updated the - Bill Trevor </a>
+                            <div class="date">23 May 2024</div>
                         </div>
-                        <div class="chip-content">
-                            <div class="chip-content__title  line-hide-1">Bali, Indonesia</div>
-                            <div class="progress-wrapper">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="29" style="width: 29%"
-                                        aria-valuemin="0" aria-valuemax="100">
-                                    </div>
-                                </div>
-                                <div class="progress-value">29%</div>
-                            </div>
+                    </li>
+                    <li class="activity-log__item ">
+                        <span class="icon"><i class='bx bx-calendar'></i></span>
+                        <div class="info">
+                            <a href="#" class="title line-hide-1">Bill Trevor (admin) updated the - Bill Trevor </a>
+                            <div class="date">23 May 2024</div>
                         </div>
                     </li>
                 </ul>
-                <a href="#" class="custom-link mt-3 text-center d-block">View All</a>
+            </div>
+            <div class="custom-box mt-4">
+                <div class="custom-box__header">
+                    <div class="title">Top Destinations</div>
+                    <div class="dropstart bootsrap-dropdown">
+                        <button type="button" class="recent-act__icon dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class='bx bx-dots-horizontal-rounded'></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    <i class='bx bx-list-ul'></i>
+                                    Show by Orders
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:void(0)">
+
+                                    <i class='bx bxs-group'></i>Show by Inquiries
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="custom-box__body">
+                    <div class="customers">
+                        <div class="info-wrapper">
+                            <div class="customers-count">245,930</div>
+                            <span>Total Customers</span>
+                        </div>
+                        <a href="#" class="go-arrow"><i class='bx bx-right-arrow-alt'></i></a>
+                    </div>
+                    <ul class="chips">
+                        <li class="chip">
+                            <div class="chip__img">
+                                <img src="{{ asset('admin/assets/images/quad.jpg') }}" alt="Image" class="imgFluid">
+                            </div>
+                            <div class="chip-content">
+                                <div class="chip-content__title  line-hide-1">Bali, Indonesia</div>
+                                <div class="progress-wrapper">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="55"
+                                            style="width: 55%" aria-valuemin="0" aria-valuemax="100">
+                                        </div>
+                                    </div>
+                                    <div class="progress-value">55%</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="chip">
+                            <div class="chip__img">
+                                <img src="{{ asset('admin/assets/images/quad.jpg') }}" alt="Image" class="imgFluid">
+                            </div>
+                            <div class="chip-content">
+                                <div class="chip-content__title  line-hide-1">Bali, Indonesia</div>
+                                <div class="progress-wrapper">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="35"
+                                            style="width: 35%" aria-valuemin="0" aria-valuemax="100">
+                                        </div>
+                                    </div>
+                                    <div class="progress-value">35%</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="chip">
+                            <div class="chip__img">
+                                <img src="{{ asset('admin/assets/images/quad.jpg') }}" alt="Image" class="imgFluid">
+                            </div>
+                            <div class="chip-content">
+                                <div class="chip-content__title  line-hide-1">Bali, Indonesia</div>
+                                <div class="progress-wrapper">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="29"
+                                            style="width: 29%" aria-valuemin="0" aria-valuemax="100">
+                                        </div>
+                                    </div>
+                                    <div class="progress-value">29%</div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <a href="#" class="custom-link mt-3 text-center d-block">View All</a>
+                </div>
             </div>
         </div>
-
-
     </div>
-@endsection
-
-@section('js')
-    <script type="text/javascript"></script>
 @endsection

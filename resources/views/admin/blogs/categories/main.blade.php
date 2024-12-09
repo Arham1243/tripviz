@@ -23,7 +23,3 @@
     <style type="text/css">
     </style>
 @endsection
-
-@section('js')
-    <script type="text/javascript"></script>
-@endsection
