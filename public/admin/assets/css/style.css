@@ -464,7 +464,7 @@ a.custom-card__img img {
 }
 
 .user-image-icon i {
-    font-size: 2.75rem;
+    font-size: 2.85rem;
     color: var(--color-primary);
     opacity: 0.65;
 }
@@ -481,7 +481,7 @@ a.custom-card__img img {
 }
 
 .user-profile .name1 {
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 600;
     color: #49424d;
 }
@@ -941,7 +941,7 @@ img {
 /* revenue */
 .revenue-card {
     width: 100%;
-    margin: 1rem 0;
+    margin: 1.6rem 0 1rem;
     background: var(--color-primary);
     color: #fff;
     border-radius: 0.5rem;
