@@ -30,7 +30,6 @@ Route::get('/search/suggestions', [SearchSuggestionController::class, 'suggest']
 Route::get('/reviews/fetch', [FetchReviewController::class, 'fetchReview']);
 
 // ---------------------------------------All Pages---------------------------------------
-// web.php
 Route::get('/dump-intended-urls', function (Illuminate\Http\Request $request) {
     $intendedUrls = $request->session()->get('url.intended', []);
     dd($intendedUrls);
