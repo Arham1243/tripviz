@@ -38,6 +38,7 @@ Route::middleware('guest')->prefix('admin')->namespace('Admin')->group(function 
 Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashController::class, 'dashboard'])->name('dashboard');
     Route::get('/showLogo', [SiteSettingsController::class, 'showLogo'])->name('showLogo');
+    Route::get('/saveLogo', [SiteSettingsController::class, 'saveLogo'])->name('saveLogo');
     Route::get('/logout', [AdminLoginController::class, 'logout'])->name('logout');
 
     Route::post('bulk-actions/{resource}', [BulkActionController::class, 'handle'])->name('bulk-actions');
