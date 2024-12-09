@@ -2,6 +2,7 @@
 @php
     $seo = $page->seo ?? null;
 @endphp
+{{-- test 1 --}}
 @section('content')
     @foreach ($sections as $section)
         @include('sections.' . $section->template_path, [
