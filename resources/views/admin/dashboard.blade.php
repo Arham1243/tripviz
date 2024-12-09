@@ -36,7 +36,7 @@
             <div class="custom-sec">
                 <div class="custom-sec__header">
                     <div class="section-content">
-                        <h3 class="heading">recent posts</h3>
+                        <h3 class="heading">recent posts 123</h3>
                     </div>
                     <div class="custom-filters">
                         <div class="view-all">Sort by:</div>
