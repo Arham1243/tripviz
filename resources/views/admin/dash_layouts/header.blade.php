@@ -17,7 +17,7 @@
         </div>
         <div class="col-md-3">
             <div class="dashboard-header  d-flex justify-content-between pe-2"
-                style="  padding-left: 0 !important;  padding-right: 0.5rem !important; ">
+                style=" padding-left: 0 !important;  padding-right: 0.5rem !important; padding-bottom: 0 !important;">
                 <div class="notifi-icon">
                     <i class='bx bxs-bell-ring bx-tada'></i>
                     <div class="notification-count">5</div>
