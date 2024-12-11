@@ -147,7 +147,8 @@ i.bx {
     font-size: 1.25rem;
     font-weight: 600;
     text-transform: capitalize;
-    color: #49424d;
+    /* color: #49424d; */
+    color: red;
 }
 
 .section-content .subHeading {
