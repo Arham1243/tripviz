@@ -15,10 +15,9 @@
                                 <div class="title">Permalink:</div>
                                 <div class="title">
                                     <div class="full-url">{{ buildUrl(url('/'), 'news/tag/') }}</div>
-                                    <input value="{{ $tag->slug ?? 'edit-slug' }}" type="button"
-                                        class="link permalink-input" data-field-id="slug">
-                                    <input type="hidden" id="slug" value="{{ $tag->slug ?? 'edit-slug' }}"
-                                        name="slug">
+                                    <input value="{{ $tag->slug ?? '#' }}" type="button" class="link permalink-input"
+                                        data-field-id="slug">
+                                    <input type="hidden" id="slug" value="{{ $tag->slug ?? '#' }}" name="slug">
                                 </div>
                             </div>
                         </div>
@@ -37,8 +36,7 @@
                                     <div class="form-fields">
                                         <label class="title">Name <span class="text-danger">*</span> :</label>
                                         <input type="text" name="name" class="field"
-                                            value="{{ old('name', $tag->name) }}" placeholder="Name" data-required
-                                            data-error="Name">
+                                            value="{{ old('name', $tag->name) }}" placeholder="Name" data-error="Name">
                                         @error('name')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror

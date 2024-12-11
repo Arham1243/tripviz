@@ -32,9 +32,9 @@ class PromotionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'link' => 'required|url',
-            'img_path' => 'required|image|mimes:jpeg,png,webp,jpg,gif|max:2048',
+            'title' => 'nullable|string|max:255',
+            'link' => 'nullable|url',
+            'img_path' => 'nullable|image|mimes:jpeg,png,webp,jpg,gif|max:2048',
         ]);
 
         $promotion = Promotion::create($request->except('img_path'));
@@ -90,8 +90,8 @@ class PromotionController extends Controller
             $promotion = Promotion::findOrFail($id);
 
             $request->validate([
-                'title' => 'required|string|max:255',
-                'link' => 'required|url',
+                'title' => 'nullable|string|max:255',
+                'link' => 'nullable|url',
                 'img_path' => 'nullable|image|mimes:jpeg,png,webp,jpg,gif|max:2048',
             ]);
 

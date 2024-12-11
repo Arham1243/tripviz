@@ -31,8 +31,8 @@ class AdminLoginController extends Controller
     {
         // Validate the request input
         $validated = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
+            'email' => 'nullable|email',
+            'password' => 'nullable',
         ]);
 
         // Attempt to authenticate the user

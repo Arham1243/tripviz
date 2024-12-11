@@ -33,42 +33,42 @@ class BulkActionController extends Controller
         switch ($resource) {
             case 'blogs':
                 $modelClass = Blog::class;
-                $column = 'slug';
+                $column = 'id';
                 $redirectRoute = 'admin.blogs.index';
                 break;
             case 'blogs-tags':
                 $modelClass = BlogTag::class;
-                $column = 'slug';
+                $column = 'id';
                 $redirectRoute = 'admin.blogs-tags.index';
                 break;
             case 'blogs-categories':
                 $modelClass = BlogCategory::class;
-                $column = 'slug';
+                $column = 'id';
                 $redirectRoute = 'admin.blogs-categories.index';
                 break;
             case 'news':
                 $modelClass = News::class;
-                $column = 'slug';
+                $column = 'id';
                 $redirectRoute = 'admin.news.index';
                 break;
             case 'news-tags':
                 $modelClass = NewsTag::class;
-                $column = 'slug';
+                $column = 'id';
                 $redirectRoute = 'admin.news-tags.index';
                 break;
             case 'news-categories':
                 $modelClass = NewsCategory::class;
-                $column = 'slug';
+                $column = 'id';
                 $redirectRoute = 'admin.news-categories.index';
                 break;
             case 'countries':
                 $modelClass = Country::class;
-                $column = 'slug';
+                $column = 'id';
                 $redirectRoute = 'admin.countries.index';
                 break;
             case 'cities':
                 $modelClass = City::class;
-                $column = 'slug';
+                $column = 'id';
                 $redirectRoute = 'admin.cities.index';
                 break;
             case 'tours':
@@ -78,7 +78,7 @@ class BulkActionController extends Controller
                 break;
             case 'tour-categories':
                 $modelClass = TourCategory::class;
-                $column = 'slug';
+                $column = 'id';
                 $redirectRoute = 'admin.tour-categories.index';
                 break;
             case 'tour-attributes':

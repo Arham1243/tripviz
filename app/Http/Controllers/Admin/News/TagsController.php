@@ -38,7 +38,7 @@ class TagsController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|min:3|max:255',
+            'name' => 'nullable|min:3|max:255',
             'slug' => 'nullable|string|max:255',
         ]);
         $slugText = $validatedData['slug'] != '' ? $validatedData['slug'] : $validatedData['name'];
@@ -77,7 +77,7 @@ class TagsController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'name' => 'required|min:3|max:255',
+            'name' => 'nullable|min:3|max:255',
             'slug' => 'nullable|string|max:255',
         ]);
         $tag = NewsTag::where('id', $id)->firstOrFail();

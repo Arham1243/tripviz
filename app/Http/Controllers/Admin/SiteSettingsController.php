@@ -30,7 +30,7 @@ class SiteSettingsController extends Controller
     {
         // Validate the request input
         $request->validate([
-            'logo' => 'required|file|max:2048',
+            'logo' => 'nullable|file|max:2048',
         ]);
 
         // Get the existing or create a new ImageTable instance

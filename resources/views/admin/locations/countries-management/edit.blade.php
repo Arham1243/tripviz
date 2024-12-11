@@ -15,10 +15,9 @@
                                 <div class="title">Permalink:</div>
                                 <div class="title">
                                     <div class="full-url">{{ buildUrl(url('/'), 'country/') }}</div>
-                                    <input value="{{ $item->slug ?? 'edit-slug' }}" type="button"
-                                        class="link permalink-input" data-field-id="slug">
-                                    <input type="hidden" id="slug" value="{{ $item->slug ?? 'edit-slug' }}"
-                                        name="slug">
+                                    <input value="{{ $item->slug ?? '#' }}" type="button" class="link permalink-input"
+                                        data-field-id="slug">
+                                    <input type="hidden" id="slug" value="{{ $item->slug ?? '#' }}" name="slug">
                                 </div>
                             </div>
                         </div>
@@ -38,15 +37,14 @@
                                     <div class="form-fields">
                                         <label class="title">Name <span class="text-danger">*</span> :</label>
                                         <input type="text" name="name" class="field"
-                                            value="{{ old('name', $item->name) }}" placeholder="Name" data-required
-                                            data-error="Name">
+                                            value="{{ old('name', $item->name) }}" placeholder="Name" data-error="Name">
                                         @error('name')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-fields">
                                         <label class="title">Content <span class="text-danger">*</span> :</label>
-                                        <textarea class="editor" name="content" data-placeholder="content" data-required data-error="Content">
+                                        <textarea class="editor" name="content" data-placeholder="content" data-error="Content">
                                             {!! old('content', $item->content) !!}
                                         </textarea>
                                         @error('content')
@@ -95,7 +93,7 @@
                                                 <div class="upload-box {{ empty($item->featured_image) ? 'show' : '' }}"
                                                     data-upload-box>
                                                     <input type="file" name="featured_image"
-                                                        {{ empty($item->featured_image) ? 'data-required' : '' }}
+                                                        {{ empty($item->featured_image) ? '' : '' }}
                                                         data-error="Feature Image" id="featured_image"
                                                         class="upload-box__file d-none" accept="image/*" data-file-input>
                                                     <div class="upload-box__placeholder"><i class='bx bxs-image'></i>

@@ -29,12 +29,12 @@ class TestimonialController extends Controller
     {
 
         $validatedData = $request->validate([
-            'title' => 'required|string|min:5|max:60',
-            'content' => 'required',
-            'rating' => 'required',
-            'featured_image' => 'required|image|mimes:jpeg,png,jpg,webp,gif|max:2048',
-            'featured_image_alt_text' => 'required|string',
-            'status' => 'required|in:active,inactive',
+            'title' => 'nullable|string|min:5|max:60',
+            'content' => 'nullable',
+            'rating' => 'nullable',
+            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:2048',
+            'featured_image_alt_text' => 'nullable|string',
+            'status' => 'nullable|in:active,inactive',
             'gallery' => 'nullable|array',
             'gallery.*' => 'image|mimes:jpeg,png,jpg,webp,gif|max:2048',
             'gallery_alt_texts' => 'nullable|array',
@@ -75,12 +75,12 @@ class TestimonialController extends Controller
         $testimonial = Testimonial::findOrFail($id);
 
         $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'rating' => 'required|integer',
+            'title' => 'nullable|string|max:255',
+            'content' => 'nullable|string',
+            'rating' => 'nullable|integer',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:2048',
-            'featured_image_alt_text' => 'required|string',
-            'status' => 'required|in:active,inactive',
+            'featured_image_alt_text' => 'nullable|string',
+            'status' => 'nullable|in:active,inactive',
             'gallery' => 'nullable|array',
             'gallery.*' => 'image|mimes:jpeg,png,jpg,webp,gif|max:2048',
             'gallery_alt_texts' => 'nullable|array',

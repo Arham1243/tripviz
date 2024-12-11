@@ -45,14 +45,14 @@ class NewsController extends Controller
     {
 
         $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required',
-            'status' => 'required|in:publish,draft',
-            'user_id' => 'required|integer|exists:users,id',
-            'category_id' => 'required|integer|exists:news_categories,id',
+            'title' => 'nullable|string|max:255',
+            'content' => 'nullable',
+            'status' => 'nullable|in:publish,draft',
+            'user_id' => 'nullable|integer|exists:users,id',
+            'category_id' => 'nullable|integer|exists:news_categories,id',
             'tags_ids' => 'array',
             'tags_ids.*' => 'integer|exists:news_tags,id',
-            'featured_image' => 'required|image',
+            'featured_image' => 'nullable|image',
             'feature_image_alt_text' => 'nullable|string|max:255',
         ]);
 
@@ -90,12 +90,12 @@ class NewsController extends Controller
     {
 
         $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'nullable|string|max:255',
             'slug' => 'nullable|string|max:255',
-            'content' => 'required',
-            'status' => 'required|in:publish,draft',
-            'user_id' => 'required|integer|exists:users,id',
-            'category_id' => 'required|integer|exists:news_categories,id',
+            'content' => 'nullable',
+            'status' => 'nullable|in:publish,draft',
+            'user_id' => 'nullable|integer|exists:users,id',
+            'category_id' => 'nullable|integer|exists:news_categories,id',
             'tags_ids' => 'array',
             'tags_ids.*' => 'integer|exists:news_tags,id',
             'featured_image' => 'nullable|image',

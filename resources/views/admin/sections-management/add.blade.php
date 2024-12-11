@@ -24,7 +24,7 @@
                                     <div class="form-fields">
                                         <label class="title">Name <span class="text-danger">*</span> :</label>
                                         <input type="text" name="name" class="field" value="{{ old('name') }}"
-                                            placeholder="" data-required data-error="Name">
+                                            placeholder="" data-error="Name">
                                         @error('name')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -32,8 +32,7 @@
                                     <div class="form-fields">
                                         <label class="title">Section key<span class="text-danger">*</span> :</label>
                                         <input type="text" name="section_key" class="field"
-                                            value="{{ old('section_key') }}" placeholder="" data-required
-                                            data-error="Section Key">
+                                            value="{{ old('section_key') }}" placeholder="" data-error="Section Key">
                                         <p><em>This field specifies which section fields will be displayed on the <mark>Page
                                                     Builder</mark> page</em></p>
                                         @error('section_key')
@@ -43,8 +42,7 @@
                                     <div class="form-fields">
                                         <label class="title">Template Path <span class="text-danger">*</span> :</label>
                                         <input type="text" name="template_path" class="field"
-                                            value="{{ old('template_path') }}" placeholder="" data-required
-                                            data-error="Template Path">
+                                            value="{{ old('template_path') }}" placeholder="" data-error="Template Path">
                                         @error('template_path')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -54,7 +52,7 @@
                                             $sectionCategories = config('sectionCategories');
                                         @endphp
                                         <label class="title">Category <span class="text-danger">*</span> :</label>
-                                        <select class="field" name="category" data-required data-error="Name">
+                                        <select class="field" name="category" data-error="Name">
                                             <option value="">Select</option>
                                             @foreach ($sectionCategories as $index => $value)
                                                 <option value="{{ $index }}"
@@ -104,9 +102,9 @@
                                         <div class="upload" data-upload>
                                             <div class="upload-box-wrapper">
                                                 <div class="upload-box show" data-upload-box>
-                                                    <input type="file" name="preview_image" data-required
-                                                        data-error="Preview Image" id="preview_image"
-                                                        class="upload-box__file d-none" accept="image/*" data-file-input>
+                                                    <input type="file" name="preview_image" data-error="Preview Image"
+                                                        id="preview_image" class="upload-box__file d-none" accept="image/*"
+                                                        data-file-input>
                                                     <div class="upload-box__placeholder"><i class='bx bxs-image'></i>
                                                     </div>
                                                     <label for="preview_image" class="upload-box__btn themeBtn">Upload

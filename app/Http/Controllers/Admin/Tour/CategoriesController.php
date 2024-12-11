@@ -37,7 +37,7 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|min:3|max:255',
+            'name' => 'nullable|min:3|max:255',
             'slug' => 'nullable|string|max:255',
             'parent_category_id' => 'nullable|exists:tour_categories,id',
         ]);
@@ -80,19 +80,24 @@ class CategoriesController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'nullable|string|max:255',
             'parent_category_id' => 'nullable|exists:tour_categories,id',
-            'status' => 'required|in:publish,draft',
+            'status' => 'nullable|in:publish,draft',
             'slug' => 'nullable|string|max:255',
             'bottom_featured_tour_ids' => 'nullable|array',
             'top_featured_tour_ids' => 'nullable|array',
             'recommended_tour_ids' => 'nullable|array',
             'tour_reviews_ids' => 'nullable|array',
             'tour_count_heading' => 'nullable|string|max:255',
+            'tour_count_btn_text' => 'nullable|string|max:255',
             'tour_count_btn_link' => 'nullable|string|max:255',
             'tour_count_image' => 'nullable|image|max:2048',
             'featured_image_alt_text' => 'nullable|string|max:255',
             'featured_image' => 'nullable|image|max:2048',
+            'gallery' => 'nullable|array',
+            'gallery.*' => 'image|mimes:jpeg,png,jpg,webp,gif|max:2048',
+            'gallery_alt_texts' => 'nullable|array',
+            'gallery_alt_texts.*' => 'string|max:255',
         ]);
 
         $category = TourCategory::findOrFail($id);
@@ -111,6 +116,17 @@ class CategoriesController extends Controller
         handleSeoData($request, $category, 'Tours/Categories');
         $this->uploadImg('featured_image', 'Tours/Categories/Featured-image', $category, 'featured_image');
         $this->uploadImg('tour_count_image', 'Tours/Categories/Count-Section/Bg', $category, 'tour_count_image');
+
+        if ($request->gallery) {
+            foreach ($request->file('gallery') as $index => $image) {
+                $path = $this->simpleUploadImg($image, 'Testimonial/Other-images');
+
+                $category->media()->create([
+                    'file_path' => $path,
+                    'alt_text' => $validatedData['gallery_alt_texts'][$index],
+                ]);
+            }
+        }
 
         return redirect()->route('admin.tour-categories.index')->with('notify_success', 'Category updated successfully.');
     }

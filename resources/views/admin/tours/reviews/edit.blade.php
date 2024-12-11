@@ -25,7 +25,7 @@
                                     <div class="form-fields">
                                         <label class="title">Title <span class="text-danger">*</span> :</label>
                                         <input type="text" name="title" class="field"
-                                            value="{{ old('title', $review->title) }}" placeholder="Title" data-required
+                                            value="{{ old('title', $review->title) }}" placeholder="Title"
                                             data-error="Title">
                                         @error('title')
                                             <div class="text-danger">{{ $message }}</div>
@@ -33,7 +33,7 @@
                                     </div>
                                     <div class="form-fields">
                                         <label class="title">Review <span class="text-danger">*</span> :</label>
-                                        <textarea name="review" class="field" rows="5" placeholder="Review" data-required data-error="Review">{{ old('review', $review->review) }}</textarea>
+                                        <textarea name="review" class="field" rows="5" placeholder="Review" data-error="Review">{{ old('review', $review->review) }}</textarea>
 
                                         @error('review')
                                             <div class="text-danger">{{ $message }}</div>

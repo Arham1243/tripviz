@@ -23,14 +23,14 @@
                                     <div class="form-fields">
                                         <label class="title">Title <span class="text-danger">*</span> :</label>
                                         <input type="text" name="title" class="field" value="{{ old('title') }}"
-                                            placeholder="" data-required data-error="Title">
+                                            placeholder="" data-error="Title">
                                         @error('title')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-fields">
                                         <label class="title">Content <span class="text-danger">*</span> :</label>
-                                        <textarea class="editor" name="content" data-placeholder="content" data-required data-error="Content">
+                                        <textarea class="editor" name="content" data-placeholder="content" data-error="Content">
                                             {{ old('content') }}
                                         </textarea>
                                         @error('content')
@@ -73,7 +73,7 @@
                                 <div class="form-box__body">
                                     <div class="form-fields">
                                         <label class="title">Author <span class="text-danger">*</span> :</label>
-                                        <select class="select2-select" name="user_id" data-required data-error="Author">
+                                        <select class="select2-select" name="user_id" data-error="Author">
                                             <option value="" selected>Select</option>
                                             @foreach ($users as $users)
                                                 <option value="{{ $users->id }}"
@@ -95,8 +95,7 @@
                                 <div class="form-box__body">
                                     <div class="form-fields">
                                         <label class="title">Categories <span class="text-danger">*</span> :</label>
-                                        <select name="category_id" class="select2-select" data-required
-                                            data-error="Category">
+                                        <select name="category_id" class="select2-select" data-error="Category">
                                             <option value="" selected>Select Category</option>
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}"
@@ -136,7 +135,7 @@
                                         <div class="upload" data-upload>
                                             <div class="upload-box-wrapper">
                                                 <div class="upload-box show" data-upload-box>
-                                                    <input type="file" name="featured_image" data-required
+                                                    <input type="file" name="featured_image"
                                                         data-error="Feature Image" id="featured_image"
                                                         class="upload-box__file d-none" accept="image/*" data-file-input>
                                                     <div class="upload-box__placeholder"><i class='bx bxs-image'></i>

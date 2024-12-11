@@ -17,9 +17,9 @@
                                 <div class="title">Permalink:</div>
                                 <div class="title">
                                     <div class="full-url">{{ buildUrl(url('/'), 'tours/') }}</div>
-                                    <input value="{{ $tour->slug ?? 'edit-slug' }}" type="button"
-                                        class="link permalink-input" data-field-id="slug">
-                                    <input type="hidden" id="slug" value="{{ $tour->slug ?? 'edit-slug' }}"
+                                    <input value="{{ $tour->slug ?? '#' }}" type="button" class="link permalink-input"
+                                        data-field-id="slug">
+                                    <input type="hidden" id="slug" value="{{ $tour->slug ?? '#' }}"
                                         name="tour[general][slug]">
                                 </div>
                             </div>
@@ -477,7 +477,7 @@
                                                         <div class="upload-box {{ empty($tour->banner_image) ? 'show' : '' }}"
                                                             data-upload-box>
                                                             <input type="file" name="banner_image"
-                                                                {{ empty($tour->banner_image) ? 'data-required' : '' }}
+                                                                {{ empty($tour->banner_image) ? '' : '' }}
                                                                 data-error="Banner Feature Image"
                                                                 id="banner_featured_image" class="upload-box__file d-none"
                                                                 accept="image/*" data-file-input>
@@ -2111,7 +2111,7 @@
                                                         <div class="upload-box {{ empty($tour->featured_image) ? 'show' : '' }}"
                                                             data-upload-box>
                                                             <input type="file" name="featured_image"
-                                                                {{ empty($tour->featured_image) ? 'data-required' : '' }}
+                                                                {{ empty($tour->featured_image) ? '' : '' }}
                                                                 data-error="Feature Image" id="featured_image"
                                                                 class="upload-box__file d-none" accept="image/*"
                                                                 data-file-input>
@@ -2160,7 +2160,7 @@
                                                         <div class="upload-box {{ empty($tour->promotional_image) ? 'show' : '' }}"
                                                             data-upload-box>
                                                             <input type="file" name="promotional_image"
-                                                                {{ empty($tour->promotional_image) ? 'data-required' : '' }}
+                                                                {{ empty($tour->promotional_image) ? '' : '' }}
                                                                 data-error="Feature Image" id="promotional_image"
                                                                 class="upload-box__file d-none" accept="image/*"
                                                                 data-file-input>

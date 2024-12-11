@@ -37,12 +37,12 @@ class PageController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'title' => 'required|min:3|max:255',
-            'content' => 'required',
-            'content' => 'required',
-            'header_style' => 'required',
-            'footer_style' => 'required',
-            'status' => 'required|in:publish,draft',
+            'title' => 'nullable|min:3|max:255',
+            'content' => 'nullable',
+            'content' => 'nullable',
+            'header_style' => 'nullable',
+            'footer_style' => 'nullable',
+            'status' => 'nullable|in:publish,draft',
         ]);
 
         $slug = $this->createSlug($validatedData['title'], 'pages');
@@ -69,13 +69,13 @@ class PageController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'title' => 'required|min:3|max:255',
-            'content' => 'required',
-            'slug' => 'required',
-            'content' => 'required',
-            'header_style' => 'required',
-            'footer_style' => 'required',
-            'status' => 'required|in:publish,draft',
+            'title' => 'nullable|min:3|max:255',
+            'content' => 'nullable',
+            'slug' => 'nullable',
+            'content' => 'nullable',
+            'header_style' => 'nullable',
+            'footer_style' => 'nullable',
+            'status' => 'nullable|in:publish,draft',
         ]);
 
         $page = Page::where('id', $id)->firstOrFail();
@@ -127,8 +127,8 @@ class PageController extends Controller
     public function storeTemplate(Request $request, $pageId)
     {
         $request->validate([
-            'sections.section_id' => 'required|array',
-            'sections.order' => 'required|array',
+            'sections.section_id' => 'nullable|array',
+            'sections.order' => 'nullable|array',
             'sections.id' => 'nullable|array',
         ]);
 

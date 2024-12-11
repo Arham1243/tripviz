@@ -147,8 +147,7 @@ i.bx {
     font-size: 1.25rem;
     font-weight: 600;
     text-transform: capitalize;
-    /* color: #49424d; */
-    color: red;
+    color: #49424d;
 }
 
 .section-content .subHeading {
@@ -799,7 +798,6 @@ a.custom-dropdown__active .start-icon {
     font-size: 15px;
     color: #000;
     font-weight: 700;
-    opacity: 0.35;
 }
 
 .custom-table tbody tr {
@@ -1220,7 +1218,20 @@ form .text-danger {
     width: max-content;
     padding: 0.6rem 0.9rem;
 }
-
+.upload .upload-box__img input {
+    margin-top: 0.5rem;
+    border: 2px solid #cccc ;
+}
+.upload .upload-box__img input:focus {
+    border-color: var(--color-primary);
+}
+.upload-box__img .filename,.single-image .filename {
+    margin: 0.75rem 0;
+    font-weight: 600;
+    font-size: 0.85rem;
+    opacity: 0.7;
+    text-align: center;
+}
 /* .upload-box */
 /* tabs */
 .tabs-wrapper {
@@ -1694,9 +1705,15 @@ a.custom-dropdown__active {
 
 .multiple-upload__imgs .single-image .field {
     font-size: 0.75rem;
-    padding: 0.65rem 1rem;
+    padding: 0.5rem 1rem !important;!i;!;
+    margin-top: 0.5rem;
+    border-color: var(--color-primary);
+    height: auto;
 }
-
+.single-image .filename {
+    font-size: 0.7rem;
+    padding-inline: 0.75rem;
+}
 .multiple-upload__imgs .single-image {
     position: relative;
     isolation: isolate;
@@ -1704,6 +1721,7 @@ a.custom-dropdown__active {
     border-radius: 0.35rem;
     overflow: hidden;
     box-shadow: 0 0 15px 1px #00000020;
+    height: fit-content;
 }
 
 [data-upload-multiple-images] li {

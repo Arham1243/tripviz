@@ -35,7 +35,7 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|min:3|max:255',
+            'name' => 'nullable|min:3|max:255',
             'slug' => 'nullable|string|max:255',
             'parent_category_id' => 'nullable|exists:blog_categories,id',
         ]);
@@ -76,7 +76,7 @@ class CategoriesController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'nullable|string|max:255',
             'slug' => 'nullable|string|max:255',
             'parent_category_id' => 'nullable|exists:blog_categories,id',
         ]);

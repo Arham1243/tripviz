@@ -28,12 +28,12 @@ class SectionController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'category' => 'required',
-            'name' => 'required',
-            'section_key' => 'required',
-            'template_path' => 'required',
-            'preview_image' => 'required',
-            'status' => 'required|in:active,inactive',
+            'category' => 'nullable',
+            'name' => 'nullable',
+            'section_key' => 'nullable',
+            'template_path' => 'nullable',
+            'preview_image' => 'nullable',
+            'status' => 'nullable|in:active,inactive',
         ]);
 
         $sectionKey = Str::slug($validatedData['section_key']);
@@ -58,12 +58,12 @@ class SectionController extends Controller
     public function update(Request $request, Section $section)
     {
         $validatedData = $request->validate([
-            'category' => 'required',
-            'name' => 'required',
-            'section_key' => 'required',
-            'template_path' => 'required',
+            'category' => 'nullable',
+            'name' => 'nullable',
+            'section_key' => 'nullable',
+            'template_path' => 'nullable',
             'preview_image' => 'nullable',
-            'status' => 'required|in:active,inactive',
+            'status' => 'nullable|in:active,inactive',
         ]);
 
         $sectionKey = Str::slug($validatedData['section_key']);

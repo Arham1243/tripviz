@@ -34,7 +34,7 @@
                             <tr>
                                 <td>
                                     <div class="selection item-select-container"><input type="checkbox"
-                                            class="bulk-item" name="bulk_select[]" value="{{ $category->slug }}"></div>
+                                            class="bulk-item" name="bulk_select[]" value="{{ $category->id }}"></div>
                                 </td>
                                 <td>
                                     <a href="{{ route('admin.blogs-categories.edit', $category->id) }}"

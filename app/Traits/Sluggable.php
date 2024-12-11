@@ -17,11 +17,14 @@ trait Sluggable
      */
     public function createSlug($title, $table, $currentSlug = null)
     {
+        if (! $title || str_contains($title, '#')) {
+            return '#';
+        }
+
         $slug = Str::slug($title);
         $originalSlug = $slug;
         $counter = 1;
 
-        // Check if the slug exists in the table, excluding the current slug if provided
         while (DB::table($table)->where('slug', $slug)
             ->when($currentSlug, function ($query) use ($currentSlug) {
                 return $query->where('slug', '!=', $currentSlug);

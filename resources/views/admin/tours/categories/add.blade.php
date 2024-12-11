@@ -32,8 +32,8 @@
         </div>
         <div class="form-fields">
             <label class="title">Parent <span class="text-danger">*</span> :</label>
-            <select name="parent_category_id" class="select2-select"
-                {{ !$categories->isEmpty() ? 'data-required' : '' }} data-error="Category">
+            <select name="parent_category_id" class="select2-select" {{ !$categories->isEmpty() ? '' : '' }}
+                data-error="Category">
                 <option value="" selected>Parent Category</option>
                 @php
                     renderCategories($categories);

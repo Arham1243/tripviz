@@ -15,10 +15,9 @@
                                 <div class="title">Permalink:</div>
                                 <div class="title">
                                     <div class="full-url">{{ buildUrl(url('/'), 'blogs/') }}</div>
-                                    <input value="{{ $blog->slug ?? 'edit-slug' }}" type="button"
-                                        class="link permalink-input" data-field-id="slug">
-                                    <input type="hidden" id="slug" value="{{ $blog->slug ?? 'edit-slug' }}"
-                                        name="slug">
+                                    <input value="{{ $blog->slug ?? '#' }}" type="button" class="link permalink-input"
+                                        data-field-id="slug">
+                                    <input type="hidden" id="slug" value="{{ $blog->slug ?? '#' }}" name="slug">
                                 </div>
                             </div>
                         </div>
@@ -37,7 +36,7 @@
                                     <div class="form-fields">
                                         <label class="title">Title <span class="text-danger">*</span> :</label>
                                         <input type="text" name="title" class="field"
-                                            value="{{ old('title', $blog->title) }}" placeholder="New Blog" data-required
+                                            value="{{ old('title', $blog->title) }}" placeholder="New Blog"
                                             data-error="Title">
                                         @error('title')
                                             <div class="text-danger">{{ $message }}</div>
@@ -46,7 +45,7 @@
 
                                     <div class="form-fields">
                                         <label class="title">Content <span class="text-danger">*</span> :</label>
-                                        <textarea class="editor" name="content" data-placeholder="content" data-required data-error="Content">
+                                        <textarea class="editor" name="content" data-placeholder="content" data-error="Content">
                                             {!! old('content', $blog->content) !!}
                                         </textarea>
                                         @error('content')
@@ -101,7 +100,7 @@
                                             <span class="text-danger">*</span> :
                                         </label>
                                         <select name="top_highlighted_tour_id" class="select2-select"
-                                            {{ !$tours->isEmpty() ? 'data-required' : '' }}
+                                            {{ !$tours->isEmpty() ? '' : '' }}
                                             data-error="Right Side Top Highlighted Tour Card">
                                             <option value="" selected disabled>Select</option>
                                             @foreach ($tours as $tour)
@@ -125,8 +124,7 @@
                                             :</label>
                                         <select name="featured_tours_ids[]" multiple class="select2-select"
                                             data-max-items="4" placeholder="Select Tours"
-                                            {{ !$tours->isEmpty() ? 'data-required' : '' }}
-                                            data-error="Below Blog Slider Tour Card">
+                                            {{ !$tours->isEmpty() ? '' : '' }} data-error="Below Blog Slider Tour Card">
                                             @foreach ($tours as $tour)
                                                 <option value="{{ $tour->id }}"
                                                     {{ in_array($tour->id, old('featured_tours_ids', $selectedTours)) ? 'selected' : '' }}>
@@ -179,7 +177,7 @@
                                 <div class="form-box__body">
                                     <div class="form-fields">
                                         <label class="title">Author <span class="text-danger">*</span> :</label>
-                                        <select class="select2-select" name="user_id" data-required data-error="Author">
+                                        <select class="select2-select" name="user_id" data-error="Author">
                                             <option value="" selected disabled>Select</option>
                                             @foreach ($users as $users)
                                                 <option value="{{ $users->id }}"
@@ -201,8 +199,7 @@
                                 <div class="form-box__body">
                                     <div class="form-fields">
                                         <label class="title">Categories <span class="text-danger">*</span> :</label>
-                                        <select name="category_id" class="select2-select" data-required
-                                            data-error="Category">
+                                        <select name="category_id" class="select2-select" data-error="Category">
                                             <option value="" selected disabled>Select</option>
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}"
@@ -247,7 +244,7 @@
                                                 <div class="upload-box {{ empty($blog->featured_image) ? 'show' : '' }}"
                                                     data-upload-box>
                                                     <input type="file" name="featured_image"
-                                                        {{ empty($blog->featured_image) ? 'data-required' : '' }}
+                                                        {{ empty($blog->featured_image) ? '' : '' }}
                                                         data-error="Feature Image" id="featured_image"
                                                         class="upload-box__file d-none" accept="image/*" data-file-input>
                                                     <div class="upload-box__placeholder"><i class='bx bxs-image'></i>

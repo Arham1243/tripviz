@@ -24,14 +24,14 @@
                                     <div class="form-fields">
                                         <label class="title">Title <span class="text-danger">*</span> :</label>
                                         <input type="text" name="title" class="field" value="{{ old('title') }}"
-                                            placeholder="" data-required data-error="Title">
+                                            placeholder="" data-error="Title">
                                         @error('title')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-fields">
                                         <label class="title">Content <span class="text-danger">*</span> :</label>
-                                        <textarea class="editor" name="content" data-placeholder="content" data-required data-error="Content">
+                                        <textarea class="editor" name="content" data-placeholder="content" data-error="Content">
                                             {{ old('content') }}
                                         </textarea>
                                         @error('content')
@@ -108,9 +108,9 @@
                                         <div class="upload" data-upload>
                                             <div class="upload-box-wrapper">
                                                 <div class="upload-box show" data-upload-box>
-                                                    <input type="file" name="featured_image" data-required
-                                                        data-error="Feature Image" id="featured_image"
-                                                        class="upload-box__file d-none" accept="image/*" data-file-input>
+                                                    <input type="file" name="featured_image" data-error="Feature Image"
+                                                        id="featured_image" class="upload-box__file d-none" accept="image/*"
+                                                        data-file-input>
                                                     <div class="upload-box__placeholder"><i class='bx bxs-image'></i>
                                                     </div>
                                                     <label for="featured_image" class="upload-box__btn themeBtn">Upload

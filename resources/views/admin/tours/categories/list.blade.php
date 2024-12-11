@@ -18,8 +18,8 @@
                     </div>
                 </div>
             </div>
-            <div class="table-responsive">
-                <table class="data-table">
+            <div class="table-container table-responsive mt-5 mb-3">
+                <table class="custom-table">
                     <thead>
                         <tr>
                             <th class="no-sort">
@@ -36,13 +36,13 @@
                             <tr>
                                 <td>
                                     <div class="selection item-select-container"><input type="checkbox"
-                                            class="bulk-item" name="bulk_select[]" value="{{ $category->slug }}"></div>
+                                            class="bulk-item" name="bulk_select[]" value="{{ $category->id }}"></div>
                                 </td>
                                 <td>
                                     <a href="{{ route('admin.tour-categories.edit', $category->id) }}"
                                         class="link">{{ $category->name }}</a>
                                 </td>
-                                <td>
+                                <td class="p-0">
                                     <span
                                         class="badge rounded-pill bg-{{ $category->status == 'publish' ? 'success' : 'warning' }} ">
                                         {{ $category->status }}

@@ -21,19 +21,19 @@ class AvailabilityController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'tour_id' => 'required|exists:tours,id',
-                'start_date' => 'required|date',
-                'end_date' => 'required|date|after_or_equal:start_date',
+                'tour_id' => 'nullable|exists:tours,id',
+                'start_date' => 'nullable|date',
+                'end_date' => 'nullable|date|after_or_equal:start_date',
                 'available_for_booking' => 'nullable|boolean',
-                'max_guest' => 'required|integer|min:0',
-                'adult' => 'required|array',
-                'adult.min' => 'required|integer|min:0',
-                'adult.max' => 'required|integer|min:0',
-                'adult.price' => 'required|numeric|min:0',
-                'child' => 'required|array',
-                'child.min' => 'required|integer|min:0',
-                'child.max' => 'required|integer|min:0',
-                'child.price' => 'required|numeric|min:0',
+                'max_guest' => 'nullable|integer|min:0',
+                'adult' => 'nullable|array',
+                'adult.min' => 'nullable|integer|min:0',
+                'adult.max' => 'nullable|integer|min:0',
+                'adult.price' => 'nullable|numeric|min:0',
+                'child' => 'nullable|array',
+                'child.min' => 'nullable|integer|min:0',
+                'child.max' => 'nullable|integer|min:0',
+                'child.price' => 'nullable|numeric|min:0',
             ]);
 
             $startDate = \Carbon\Carbon::parse($validatedData['start_date']);

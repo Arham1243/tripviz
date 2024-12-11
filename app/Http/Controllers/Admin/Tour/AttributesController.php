@@ -28,7 +28,7 @@ class AttributesController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|string|min:3|max:255',
+            'name' => 'nullable|string|min:3|max:255',
         ]);
         $attribute = TourAttribute::create($validatedData);
 
@@ -52,11 +52,11 @@ class AttributesController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'name' => 'required|string|min:3|max:255',
+            'name' => 'nullable|string|min:3|max:255',
             'items' => 'nullable|array',
             'items.*.id' => 'nullable|integer|exists:tour_attribute_items,id',
             'items.*.item' => 'nullable|string|min:3',
-            'status' => 'required|in:active,inactive',
+            'status' => 'nullable|in:active,inactive',
         ]);
 
         $attribute = TourAttribute::findOrFail($id);

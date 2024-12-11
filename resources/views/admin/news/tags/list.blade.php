@@ -33,7 +33,7 @@
                             <tr>
                                 <td>
                                     <div class="selection item-select-container"><input type="checkbox"
-                                            class="bulk-item" name="bulk_select[]" value="{{ $tag->slug }}"></div>
+                                            class="bulk-item" name="bulk_select[]" value="{{ $tag->id }}"></div>
                                 </td>
                                 <td>
                                     <a href="{{ route('admin.news-tags.edit', $tag->id) }}"

@@ -68,7 +68,12 @@ document
     ?.addEventListener("blur", function () {
         const hiddenField = document.getElementById(this.dataset.fieldId);
         if (this.type === "text") {
-            hiddenField.value = this.value;
+            if (this.value.trim() === "") {
+                this.value = "#";
+                hiddenField.value = "#";
+            } else {
+                hiddenField.value = this.value.trim();
+            }
             this.type = "button";
         }
     });
@@ -283,6 +288,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                     <a class="mask" href="${e.target.result}" data-fancybox="gallery"><img src="${e.target.result}" class="imgFluid" /></a>
                      <input type="text" name="gallery_alt_texts[]" value="gallery" class="field" placeholder="Enter alt text" required>
+                     <div class="filename">${file.name}</div>
                 `;
 
                     // Append the list item to the image container
@@ -571,6 +577,10 @@ function initializeUploadComponent(uploadComponent) {
     const deleteBtn = uploadComponent.querySelector("[data-delete-btn]");
     const errorMessage = uploadComponent.querySelector("[data-error-message]");
 
+    const fileNameDiv = document.createElement("div");
+    fileNameDiv.className = "filename";
+    uploadImgBox.appendChild(fileNameDiv, uploadPreview);
+
     fileInput.addEventListener("change", function (event) {
         const file = event.target.files[0];
 
@@ -580,6 +590,7 @@ function initializeUploadComponent(uploadComponent) {
             reader.onload = function (e) {
                 uploadPreview.src = e.target.result;
                 uploadImgBox.querySelector(".mask").href = e.target.result;
+                uploadImgBox.querySelector(".filename").textContent = file.name;
             };
 
             reader.readAsDataURL(file);
@@ -587,6 +598,9 @@ function initializeUploadComponent(uploadComponent) {
             uploadBox.classList.remove("show");
             uploadImgBox.classList.add("show");
             errorMessage.classList.add("d-none");
+            if (uploadImgBox.querySelector("input")) {
+                uploadImgBox.querySelector("input").focus();
+            }
         } else {
             errorMessage.classList.remove("d-none");
             fileInput.value = "";
@@ -597,6 +611,7 @@ function initializeUploadComponent(uploadComponent) {
         fileInput.value = "";
         uploadBox.classList.add("show");
         uploadImgBox.classList.remove("show");
+        fileNameDiv.textContent = "";
     });
 }
 

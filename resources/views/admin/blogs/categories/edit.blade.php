@@ -15,9 +15,9 @@
                                 <div class="title">Permalink:</div>
                                 <div class="title">
                                     <div class="full-url">{{ buildUrl(url('/'), 'blogs/category/') }}</div>
-                                    <input value="{{ $category->slug ?? 'edit-slug' }}" type="button"
-                                        class="link permalink-input" data-field-id="slug">
-                                    <input type="hidden" id="slug" value="{{ $category->slug ?? 'edit-slug' }}"
+                                    <input value="{{ $category->slug ?? '#' }}" type="button" class="link permalink-input"
+                                        data-field-id="slug">
+                                    <input type="hidden" id="slug" value="{{ $category->slug ?? '#' }}"
                                         name="slug">
                                 </div>
                             </div>
@@ -37,8 +37,7 @@
                                     <div class="form-fields">
                                         <label class="title">Name <span class="text-danger">*</span> :</label>
                                         <input type="text" name="name" class="field"
-                                            value="{{ old('name', $category->name) }}" placeholder="Name" data-required
-                                            data-error="Name">
+                                            value="{{ old('name', $category->name) }}" placeholder="Name" data-error="Name">
                                         @error('name')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -54,7 +53,7 @@
                                     <div class="form-fields">
                                         <label class="title">Parent <span class="text-danger">*</span> :</label>
                                         <select name="parent_category_id" class="select2-select"
-                                            {{ !$categories->isEmpty() ? 'data-required' : '' }} data-error="Category">
+                                            {{ !$categories->isEmpty() ? '' : '' }} data-error="Category">
                                             <option value="" selected>Parent Category</option>
                                             @php
                                                 renderCategories($categories, $category->parent_category_id ?? null);

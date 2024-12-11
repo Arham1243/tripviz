@@ -25,10 +25,10 @@ class ReviewController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'status' => 'required|in:active,inactive',
-            'review' => 'required|string|max:255',
-            'rating' => 'required|int',
+            'title' => 'nullable|string|max:255',
+            'status' => 'nullable|in:active,inactive',
+            'review' => 'nullable|string|max:255',
+            'rating' => 'nullable|int',
         ]);
 
         $review = TourReview::findOrFail($id);

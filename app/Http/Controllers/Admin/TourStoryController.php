@@ -38,10 +38,10 @@ class TourStoryController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'city_id' => 'required|exists:cities,id',
-            'title' => 'required|string|max:255',
-            'estimated_read_time' => 'required|integer|min:1',
-            'short_desc' => 'required|string',
+            'city_id' => 'nullable|exists:cities,id',
+            'title' => 'nullable|string|max:255',
+            'estimated_read_time' => 'nullable|integer|min:1',
+            'short_desc' => 'nullable|string',
             'long_desc' => 'nullable|string',
             'img_path' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:2048',
             'show_on_homepage' => 'nullable|boolean',
@@ -106,10 +106,10 @@ class TourStoryController extends Controller
             $tourStory = TourStory::findOrFail($id);
 
             $request->validate([
-                'city_id' => 'required|exists:cities,id',
-                'title' => 'required|string|max:255',
-                'estimated_read_time' => 'required|integer|min:1',
-                'short_desc' => 'required|string',
+                'city_id' => 'nullable|exists:cities,id',
+                'title' => 'nullable|string|max:255',
+                'estimated_read_time' => 'nullable|integer|min:1',
+                'short_desc' => 'nullable|string',
                 'long_desc' => 'nullable|string',
                 'img_path' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:2048',
                 'show_on_homepage' => 'nullable|boolean',

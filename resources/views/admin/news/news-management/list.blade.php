@@ -51,7 +51,7 @@
                                         <tr>
                                             <td>
                                                 <div class="selection item-select-container"><input type="checkbox"
-                                                        class="bulk-item" name="bulk_select[]" value="{{ $item->slug }}">
+                                                        class="bulk-item" name="bulk_select[]" value="{{ $item->id }}">
                                                 </div>
                                             </td>
                                             <td>

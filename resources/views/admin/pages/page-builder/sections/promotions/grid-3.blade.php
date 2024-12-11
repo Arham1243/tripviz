@@ -118,7 +118,7 @@
                                                     class="upload-box__btn themeBtn">Upload
                                                     Image</label>
                                                 <input type="file" data-error="Image {{ $i + 1 }}"
-                                                    {{ empty($activity->image) ? 'data-required' : '' }}
+                                                    {{ empty($activity->image) ? '' : '' }}
                                                     name="content[activities][{{ $i }}][image]"
                                                     id="activities_bg_img_{{ $i }}"
                                                     class="upload-box__file d-none" accept="image/*"

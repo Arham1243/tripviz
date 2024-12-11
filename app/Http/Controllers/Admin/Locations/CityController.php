@@ -31,12 +31,12 @@ class CityController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|min:3|max:255',
+            'name' => 'nullable|min:3|max:255',
             'slug' => 'nullable|string|max:255',
-            'content' => 'required',
-            'status' => 'required|in:publish,draft',
+            'content' => 'nullable',
+            'status' => 'nullable|in:publish,draft',
             'country_id' => 'nullable|int',
-            'featured_image' => 'required|image',
+            'featured_image' => 'nullable|image',
             'featured_image_alt_text' => 'nullable|string|max:255',
         ]);
         $slug = $this->createSlug($validatedData['name'], 'cities');
@@ -62,11 +62,11 @@ class CityController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'name' => 'required|min:3|max:255',
+            'name' => 'nullable|min:3|max:255',
             'slug' => 'nullable|string|max:255',
             'country_id' => 'nullable|int',
-            'content' => 'required',
-            'status' => 'required|in:publish,draft',
+            'content' => 'nullable',
+            'status' => 'nullable|in:publish,draft',
             'featured_image' => 'nullable|image',
             'featured_image_alt_text' => 'nullable|string|max:255',
         ]);

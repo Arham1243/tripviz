@@ -28,7 +28,7 @@ Breadcrumbs::for('admin.blogs-categories.index', function (BreadcrumbTrail $trai
 });
 Breadcrumbs::for('admin.blogs-categories.edit', function (BreadcrumbTrail $trail, $item) {
     $trail->parent('admin.blogs-categories.index');
-    $trail->push($item->name, route('admin.blogs-categories.edit', $item->id));
+    $trail->push($item->name ?? 'N/A', route('admin.blogs-categories.edit', $item->id));
 });
 Breadcrumbs::for('admin.blogs-tags.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.blogs.index');
@@ -36,7 +36,7 @@ Breadcrumbs::for('admin.blogs-tags.index', function (BreadcrumbTrail $trail) {
 });
 Breadcrumbs::for('admin.blogs-tags.edit', function (BreadcrumbTrail $trail, $item) {
     $trail->parent('admin.blogs-tags.index');
-    $trail->push($item->name, route('admin.blogs-tags.edit', $item->id));
+    $trail->push($item->name ?? 'N/A', route('admin.blogs-tags.edit', $item->id));
 });
 // ---------------Blogs---------------
 
@@ -60,7 +60,7 @@ Breadcrumbs::for('admin.news.edit', function (BreadcrumbTrail $trail, $item) {
 });
 Breadcrumbs::for('admin.news-categories.edit', function (BreadcrumbTrail $trail, $item) {
     $trail->parent('admin.news-categories.index');
-    $trail->push($item->name, route('admin.news-categories.edit', $item->id));
+    $trail->push($item->name ?? 'N/A', route('admin.news-categories.edit', $item->id));
 });
 Breadcrumbs::for('admin.news-categories.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.news.index');
@@ -72,7 +72,7 @@ Breadcrumbs::for('admin.news-tags.index', function (BreadcrumbTrail $trail) {
 });
 Breadcrumbs::for('admin.news-tags.edit', function (BreadcrumbTrail $trail, $item) {
     $trail->parent('admin.news-tags.index');
-    $trail->push($item->name, route('admin.news-tags.edit', $item->id));
+    $trail->push($item->name ?? 'N/A', route('admin.news-tags.edit', $item->id));
 });
 // ---------------News---------------
 
@@ -87,7 +87,7 @@ Breadcrumbs::for('admin.countries.create', function (BreadcrumbTrail $trail) {
 });
 Breadcrumbs::for('admin.countries.edit', function (BreadcrumbTrail $trail, $item) {
     $trail->parent('admin.countries.index');
-    $trail->push($item->name, route('admin.countries.edit', $item->id));
+    $trail->push($item->name ?? 'N/A', route('admin.countries.edit', $item->id));
 });
 // ---------------countries---------------
 
@@ -102,7 +102,7 @@ Breadcrumbs::for('admin.cities.create', function (BreadcrumbTrail $trail) {
 });
 Breadcrumbs::for('admin.cities.edit', function (BreadcrumbTrail $trail, $item) {
     $trail->parent('admin.cities.index');
-    $trail->push($item->name, route('admin.cities.edit', $item->id));
+    $trail->push($item->name ?? 'N/A', route('admin.cities.edit', $item->id));
 });
 // ---------------cities---------------
 
@@ -131,7 +131,7 @@ Breadcrumbs::for('admin.tour-categories.create', function (BreadcrumbTrail $trai
 });
 Breadcrumbs::for('admin.tour-categories.edit', function (BreadcrumbTrail $trail, $item) {
     $trail->parent('admin.tour-categories.index');
-    $trail->push($item->name, route('admin.tour-categories.edit', $item->id));
+    $trail->push($item->name ?? 'N/A', route('admin.tour-categories.edit', $item->id));
 });
 
 Breadcrumbs::for('admin.tour-attributes.index', function (BreadcrumbTrail $trail) {
@@ -140,7 +140,7 @@ Breadcrumbs::for('admin.tour-attributes.index', function (BreadcrumbTrail $trail
 });
 Breadcrumbs::for('admin.tour-attributes.edit', function (BreadcrumbTrail $trail, $item) {
     $trail->parent('admin.tour-attributes.index');
-    $trail->push($item->name, route('admin.tour-attributes.edit', $item->id));
+    $trail->push($item->name ?? 'N/A', route('admin.tour-attributes.edit', $item->id));
 });
 Breadcrumbs::for('admin.tour-reviews.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.tours.index');

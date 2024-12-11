@@ -25,7 +25,7 @@
                                     <div class="form-fields">
                                         <label class="title">Title <span class="text-danger">*</span> :</label>
                                         <input type="text" name="title" class="field"
-                                            value="{{ old('title', $item->title) }}" placeholder="New Blog" data-required
+                                            value="{{ old('title', $item->title) }}" placeholder="New Blog"
                                             data-error="Title">
                                         @error('title')
                                             <div class="text-danger">{{ $message }}</div>
@@ -33,7 +33,7 @@
                                     </div>
                                     <div class="form-fields">
                                         <label class="title">Content <span class="text-danger">*</span> :</label>
-                                        <textarea class="editor" name="content" data-placeholder="content" data-required data-error="Content">
+                                        <textarea class="editor" name="content" data-placeholder="content" data-error="Content">
                                             {!! old('content', $item->content) !!}
                                         </textarea>
                                         @error('content')
@@ -139,7 +139,7 @@
                                                 <div class="upload-box {{ empty($item->featured_image) ? 'show' : '' }}"
                                                     data-upload-box>
                                                     <input type="file" name="featured_image"
-                                                        {{ empty($item->featured_image) ? 'data-required' : '' }}
+                                                        {{ empty($item->featured_image) ? '' : '' }}
                                                         data-error="Feature Image" id="featured_image"
                                                         class="upload-box__file d-none" accept="image/*" data-file-input>
                                                     <div class="upload-box__placeholder"><i class='bx bxs-image'></i>

@@ -15,10 +15,9 @@
                                 <div class="title">Permalink:</div>
                                 <div class="title">
                                     <div class="full-url">{{ buildUrl(url('/'), 'page/') }}</div>
-                                    <input value="{{ $page->slug ?? 'edit-slug' }}" type="button"
-                                        class="link permalink-input" data-field-id="slug">
-                                    <input type="hidden" id="slug" value="{{ $page->slug ?? 'edit-slug' }}"
-                                        name="slug">
+                                    <input value="{{ $page->slug ?? '#' }}" type="button" class="link permalink-input"
+                                        data-field-id="slug">
+                                    <input type="hidden" id="slug" value="{{ $page->slug ?? '#' }}" name="slug">
                                 </div>
                             </div>
                         </div>
@@ -41,7 +40,7 @@
                                     <div class="form-fields">
                                         <label class="title">Title <span class="text-danger">*</span> :</label>
                                         <input type="text" name="title" class="field"
-                                            value="{{ old('title', $page->title) }}" placeholder="New Blog" data-required
+                                            value="{{ old('title', $page->title) }}" placeholder="New Blog"
                                             data-error="Title">
                                         @error('title')
                                             <div class="text-danger">{{ $message }}</div>
@@ -50,7 +49,7 @@
 
                                     <div class="form-fields">
                                         <label class="title">Content <span class="text-danger">*</span> :</label>
-                                        <textarea class="editor" name="content" data-placeholder="content" data-required data-error="Content">
+                                        <textarea class="editor" name="content" data-placeholder="content" data-error="Content">
                                             {!! old('content', $page->content) !!}
                                         </textarea>
                                         @error('content')
@@ -99,7 +98,7 @@
                                 <div class="form-box__body">
                                     <div class="form-fields">
                                         <label class="title">Header <span class="text-danger">*</span> :</label>
-                                        <select name="header_style" class="field" data-required data-error="Header Style">
+                                        <select name="header_style" class="field" data-error="Header Style">
                                             <option value="" selected>Select</option>
                                             @foreach ($headerStyles as $headerStyle)
                                                 <option value="{{ $headerStyle }}"
@@ -114,7 +113,7 @@
                                     </div>
                                     <div class="form-fields">
                                         <label class="title">Footer <span class="text-danger">*</span> :</label>
-                                        <select name="footer_style" class="field" data-required data-error="Footer Style">
+                                        <select name="footer_style" class="field" data-error="Footer Style">
                                             <option value="" selected>Select</option>
                                             @foreach ($footerStyles as $footerStyle)
                                                 <option value="{{ $footerStyle }}"
