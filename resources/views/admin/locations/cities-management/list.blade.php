@@ -9,7 +9,7 @@
                     <div class="custom-sec">
                         <div class="custom-sec__header">
                             <div class="section-content">
-                                <h3 class="heading">{{ isset($title) ? $title : '' }}</h3>
+                                <h3 class="heading">{{ isset($title) ? $title : '' }} asd</h3>
                             </div>
                             <a href="{{ route('admin.cities.create') }}" class="themeBtn">Add new</a>
                         </div>
