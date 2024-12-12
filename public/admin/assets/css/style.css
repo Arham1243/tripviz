@@ -41,8 +41,7 @@ html {
 }
 
 body {
-    /* background-color: var(--color-bg); */
-    background-color: red;
+    background-color: var(--color-bg);
 }
 
 a {
