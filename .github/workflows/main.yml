@@ -22,5 +22,3 @@ jobs:
         protocol: 'ftps'
         port: 21
         timeout: 120000
-        passive: true
-        verbose: true
