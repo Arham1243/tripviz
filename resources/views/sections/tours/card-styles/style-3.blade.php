@@ -21,7 +21,7 @@
                 </a>
                 <div class=tour-activity-card__details>
                     <div class=vertical-activity-card__header>
-                        @if ($tour->category->name)
+                        @if ($tour->category)
                             <div><span> {{ $tour->category->name }}</span></div>
                         @endif
                         <div class="tour-activity-card__details--title">{{ $tour->title }}</div>
