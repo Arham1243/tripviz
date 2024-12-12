@@ -21,6 +21,16 @@ class NewsCategory extends Model
         return $this->morphOne(Seo::class, 'seoable');
     }
 
+    public function parentCategory()
+    {
+        return $this->belongsTo(NewsCategory::class, 'parent_category_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(NewsCategory::class, 'parent_category_id');
+    }
+
     protected static function boot()
     {
         parent::boot();

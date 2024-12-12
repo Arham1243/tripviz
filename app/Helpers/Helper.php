@@ -59,7 +59,7 @@ if (! function_exists('renderCategories')) {
                 $selected = (old('category_id', $selectedCategory) == $category->id) ? 'selected' : '';
 
                 echo '<option value="'.$category->id.'" '.$selected.'>';
-                echo str_repeat('-', $level).' '.$category->name;
+                echo str_repeat('&nbsp;&nbsp;', $level).str_repeat('-', $level).' '.$category->name;
                 echo '</option>';
 
                 renderCategories($categories, $selectedCategory, $category->id, $level + 1);

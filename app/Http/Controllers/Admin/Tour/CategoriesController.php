@@ -20,8 +20,13 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = TourCategory::latest()->get();
-        $data = compact('categories');
+        $categories = TourCategory::whereNull('parent_category_id')
+            ->orderBy('name', 'asc')
+            ->get();
+
+        $dropdownCategories = TourCategory::get();
+
+        $data = compact('categories', 'dropdownCategories');
 
         return view('admin.tours.categories.main')->with('title', 'Tour Categories')->with($data);
     }
@@ -66,10 +71,10 @@ class CategoriesController extends Controller
     {
         $category = TourCategory::findOrFail($id);
         $tours = Tour::where('status', 'publish')->get();
-        $categories = TourCategory::whereNotIn('id', [$id])->get();
+        $dropdownCategories = TourCategory::whereNotIn('id', [$id])->get();
         $toursReviews = TourReview::where('status', 'active')->get();
         $seo = $category->seo()->first();
-        $data = compact('category', 'seo', 'tours', 'toursReviews', 'categories');
+        $data = compact('category', 'seo', 'tours', 'toursReviews', 'dropdownCategories');
 
         return view('admin.tours.categories.edit')->with('title', ucfirst(strtolower($category->name)))->with($data);
     }

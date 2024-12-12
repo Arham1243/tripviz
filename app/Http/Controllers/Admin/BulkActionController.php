@@ -30,6 +30,8 @@ class BulkActionController extends Controller
         if (empty($selectedIds)) {
             return Redirect::back()->with('notify_error', 'No items selected for the bulk action.');
         }
+
+        $isParent = false;
         switch ($resource) {
             case 'blogs':
                 $modelClass = Blog::class;
@@ -45,6 +47,7 @@ class BulkActionController extends Controller
                 $modelClass = BlogCategory::class;
                 $column = 'id';
                 $redirectRoute = 'admin.blogs-categories.index';
+                $isParent = true;
                 break;
             case 'news':
                 $modelClass = News::class;
@@ -60,6 +63,7 @@ class BulkActionController extends Controller
                 $modelClass = NewsCategory::class;
                 $column = 'id';
                 $redirectRoute = 'admin.news-categories.index';
+                $isParent = true;
                 break;
             case 'countries':
                 $modelClass = Country::class;
@@ -80,6 +84,7 @@ class BulkActionController extends Controller
                 $modelClass = TourCategory::class;
                 $column = 'id';
                 $redirectRoute = 'admin.tour-categories.index';
+                $isParent = true;
                 break;
             case 'tour-attributes':
                 $modelClass = TourAttribute::class;
@@ -110,14 +115,19 @@ class BulkActionController extends Controller
                 return Redirect::back()->with('notify_error', 'Resource not found.');
         }
 
-        return $this->handleBulkActions($modelClass, $column, $action, $selectedIds, $redirectRoute);
+        return $this->handleBulkActions($modelClass, $column, $action, $selectedIds, $redirectRoute, $isParent);
     }
 
-    protected function handleBulkActions($modelClass, $idColumn, $action, $selectedIds, $redirectRoute)
+    protected function handleBulkActions($modelClass, $idColumn, $action, $selectedIds, $redirectRoute, $isParent = false)
     {
         switch ($action) {
             case 'delete':
-                $modelClass::whereIn($idColumn, $selectedIds)->each(function ($model) {
+                $modelClass::whereIn($idColumn, $selectedIds)->each(function ($model) use ($modelClass, $isParent) {
+                    if ($isParent) {
+                        $modelClass::where('parent_category_id', $model->id)
+                            ->update(['parent_category_id' => null]);
+                    }
+
                     $model->delete();
                 });
                 break;
@@ -139,7 +149,12 @@ class BulkActionController extends Controller
                 $modelClass::whereIn($idColumn, $selectedIds)->update(['status' => 'inactive']);
                 break;
             case 'permanent_delete':
-                $modelClass::onlyTrashed()->whereIn($idColumn, $selectedIds)->each(function ($model) {
+                $modelClass::onlyTrashed()->whereIn($idColumn, $selectedIds)->each(function ($model) use ($modelClass, $isParent) {
+                    if ($isParent) {
+                        $modelClass::where('parent_category_id', $model->id)
+                            ->update(['parent_category_id' => null]);
+                    }
+
                     $model->forceDelete();
                 });
                 break;

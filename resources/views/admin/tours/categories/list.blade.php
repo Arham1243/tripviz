@@ -33,23 +33,10 @@
                     </thead>
                     <tbody>
                         @foreach ($categories as $category)
-                            <tr>
-                                <td>
-                                    <div class="selection item-select-container"><input type="checkbox"
-                                            class="bulk-item" name="bulk_select[]" value="{{ $category->id }}"></div>
-                                </td>
-                                <td>
-                                    <a href="{{ route('admin.tour-categories.edit', $category->id) }}"
-                                        class="link">{{ $category->name }}</a>
-                                </td>
-                                <td class="p-0">
-                                    <span
-                                        class="badge rounded-pill bg-{{ $category->status == 'publish' ? 'success' : 'warning' }} ">
-                                        {{ $category->status }}
-                                    </span>
-                                </td>
-                                <td>{{ formatDateTime($category->deleted_at) }}</td>
-                            </tr>
+                            @include('admin.tours.categories.partials.category-row', [
+                                'category' => $category,
+                                'level' => 0,
+                            ])
                         @endforeach
                     </tbody>
                 </table>

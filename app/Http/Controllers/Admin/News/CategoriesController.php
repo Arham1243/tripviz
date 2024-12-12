@@ -18,8 +18,12 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = NewsCategory::latest()->get();
-        $data = compact('categories');
+        $categories = NewsCategory::whereNull('parent_category_id')
+            ->orderBy('name', 'asc')
+            ->get();
+
+        $dropdownCategories = NewsCategory::get();
+        $data = compact('categories', 'dropdownCategories');
 
         return view('admin.news.categories.main')->with('title', 'News Categories')->with($data);
     }
@@ -66,9 +70,9 @@ class CategoriesController extends Controller
     public function edit($id)
     {
         $category = NewsCategory::findOrFail($id);
-        $categories = NewsCategory::whereNotIn('id', [$id])->get();
+        $dropdownCategories = NewsCategory::whereNotIn('id', [$id])->get();
         $seo = $category->seo()->first();
-        $data = compact('category', 'categories', 'seo');
+        $data = compact('category', 'dropdownCategories', 'seo');
 
         return view('admin.news.categories.edit')->with('title', ucfirst(strtolower($category->name)))->with($data);
     }

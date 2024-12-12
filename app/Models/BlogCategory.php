@@ -21,6 +21,16 @@ class BlogCategory extends Model
         return $this->morphOne(Seo::class, 'seoable');
     }
 
+    public function parentCategory()
+    {
+        return $this->belongsTo(BlogCategory::class, 'parent_category_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(BlogCategory::class, 'parent_category_id');
+    }
+
     protected static function boot()
     {
         parent::boot();

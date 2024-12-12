@@ -208,7 +208,6 @@ const getSelect2Config = (select, maxItems, shouldSort) => {
     };
 };
 
-// Initialize Select2
 const initializeSelect2 = () => {
     const selectElements = document.querySelectorAll(".select2-select");
     selectElements.forEach((select) => {
@@ -221,9 +220,12 @@ const initializeSelect2 = () => {
             ? parseInt(select.getAttribute("data-max-items"))
             : -1;
 
-        const shouldSort = select.hasAttribute("should-sort")
-            ? select.getAttribute("should-sort") === "true"
-            : true;
+        // Disable sorting for categories dropdown (you can adjust this condition as needed)
+        const shouldSort = select.classList.contains("category-select") 
+            ? false  // Disable sorting for category select
+            : (select.hasAttribute("should-sort")
+                ? select.getAttribute("should-sort") === "true"
+                : true);
 
         const config = getSelect2Config(select, maxItems, shouldSort);
         // Initialize Select2

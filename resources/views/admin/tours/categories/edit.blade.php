@@ -46,11 +46,11 @@
                                     </div>
                                     <div class="form-fields">
                                         <label class="title">Parent <span class="text-danger">*</span> :</label>
-                                        <select name="parent_category_id" class="select2-select"
-                                            {{ !$categories->isEmpty() ? '' : '' }} data-error="Category">
+                                        <select name="parent_category_id" class="select2-select category-select"
+                                            {{ !$dropdownCategories->isEmpty() ? '' : '' }} data-error="Category">
                                             <option value="" selected>Parent Category</option>
                                             @php
-                                                renderCategories($categories, $category->parent_category_id);
+                                                renderCategories($dropdownCategories, $category->parent_category_id);
                                             @endphp
                                         </select>
                                         @error('parent_category_id')

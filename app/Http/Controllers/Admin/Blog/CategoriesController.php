@@ -18,8 +18,13 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = BlogCategory::latest()->get();
-        $data = compact('categories');
+        $categories = BlogCategory::whereNull('parent_category_id')
+            ->orderBy('name', 'asc')
+            ->get();
+
+        $dropdownCategories = BlogCategory::get();
+
+        $data = compact('categories', 'dropdownCategories');
 
         return view('admin.blogs.categories.main')->with('title', 'Blogs Categories')->with($data);
     }
@@ -63,9 +68,9 @@ class CategoriesController extends Controller
     public function edit($id)
     {
         $category = BlogCategory::findOrFail($id);
-        $categories = BlogCategory::whereNotIn('id', [$id])->get();
+        $dropdownCategories = BlogCategory::whereNotIn('id', [$id])->get();
         $seo = $category->seo()->first();
-        $data = compact('category', 'categories', 'seo');
+        $data = compact('category', 'dropdownCategories', 'seo');
 
         return view('admin.blogs.categories.edit')->with('title', ucfirst(strtolower($category->name)))->with($data);
     }
