@@ -1,8 +1,7 @@
 @if (isset($content->is_form_enabled))
     @if ($content->form_type === 'normal')
         <div class="col-md-12">
-            <form action="{{ route('tours.search.results') }}" class="banner-search auto-submit-form"
-                id="destination-wrapper">
+            <form action="{{ route('tours.search') }}" class="banner-search auto-submit-form" id="destination-wrapper">
                 <i class="bx bx-search"></i>
                 <select multiple placeholder="Where are you going?" class="banner-search__input" name="resource_id"
                     id="destination" style="width: 100%"></select>
@@ -12,7 +11,7 @@
     @elseif($content->form_type === 'date_selection')
         <div class="col-md-9">
             <div class="date-search">
-                <form action="{{ route('tours.search.results') }}" class="date-search__btns"
+                <form action="{{ route('tours.search') }}" class="date-search__btns"
                     style="background-color: {{ $content->date_selection_background_color ?? '' }}">
                     <input type="hidden" name="resource_type" id="resource_type">
                     <label for="destination" id="destination-wrapper" class="date-search__btn">
@@ -54,7 +53,7 @@
     @elseif($content->form_type === 'single_date_selection')
         <div class="col-md-9">
             <div class="date-search">
-                <form action="{{ route('tours.search.results') }}" class="date-search__btns"
+                <form action="{{ route('tours.search') }}" class="date-search__btns"
                     style="background-color: {{ $content->single_date_selection_background_color ?? '' }}">
                     <input type="hidden" name="resource_type" id="resource_type">
                     <label for="destination" id="destination-wrapper" class="date-search__btn">

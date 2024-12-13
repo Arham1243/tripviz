@@ -9,7 +9,7 @@ use App\Http\Controllers\Frontend\Locations\CountryController;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\SearchSuggestionController;
 use App\Http\Controllers\Frontend\Tour\CategoryController;
-use App\Http\Controllers\Frontend\TourController;
+use App\Http\Controllers\Frontend\Tour\TourController;
 use Illuminate\Support\Facades\Route;
 
 // ---------------------------------------All Pages---------------------------------------
@@ -47,6 +47,7 @@ Route::prefix('page')->name('page.')->group(function () {
 Route::prefix('tours')->name('tours.')->group(function () {
 
     Route::get('/', [TourController::class, 'listing'])->name('index');
+    Route::get('/search', [TourController::class, 'search'])->name('search');
     Route::get('/{slug}', [TourController::class, 'details'])->name('details');
 
     Route::prefix('category')->name('category.')->group(function () {

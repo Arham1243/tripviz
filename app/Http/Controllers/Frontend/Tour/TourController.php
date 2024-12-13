@@ -3,16 +3,11 @@
 namespace App\Http\Controllers\Frontend\Tour;
 
 use App\Http\Controllers\Controller;
-use App\Models\AdditionalItem;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Tour;
-use App\Models\TourAttribute;
 use App\Models\TourCategory;
-use App\Models\TourExclusion;
-use App\Models\TourInclusion;
-use App\Models\TourItinerary;
-use App\Models\ToursFaq;
+use App\Models\TourFaq;
 use Illuminate\Http\Request;
 
 class TourController extends Controller
@@ -25,20 +20,12 @@ class TourController extends Controller
 
     public function details($slug)
     {
+
         $tour = Tour::where('slug', $slug)->with('categories', 'cities')->first();
-        $tourFaqs = ToursFaq::where('tour_id', $tour->id)->where('is_active', 1)->with('tour')->get();
-        $itineraries = TourItinerary::where('tour_id', $tour->id)->orderBy('day', 'asc')->where('is_active', 1)->get();
-        $attributes = TourAttribute::where('tour_id', $tour->id)->where('is_active', 1)->get();
-        $exclusions = TourExclusion::where('tour_id', $tour->id)->where('is_active', 1)->get();
-        $inclusions = TourInclusion::where('tour_id', $tour->id)->where('is_active', 1)->get();
-        $groupedAdditionalItems = AdditionalItem::where('tour_id', $tour->id)
-            ->where('is_active', 1)
-            ->with('additional')
-            ->get()
-            ->groupBy('additional.name');
+        $tourFaqs = TourFaq::where('tour_id', $tour->id)->get();
 
         if ($tour) {
-            $data = compact('tour', 'tourFaqs', 'itineraries', 'attributes', 'exclusions', 'inclusions', 'groupedAdditionalItems');
+            $data = compact('tour', 'tourFaqs');
 
             return view('frontend.tour.index')->with('title', $tour->title)->with($data);
         }
@@ -46,12 +33,7 @@ class TourController extends Controller
         return redirect()->back()->with('notify_error', 'Page Not Available');
     }
 
-    public function searchResults()
-    {
-        return view('frontend.tour.search-results')->with('title', 'Search Results');
-    }
-
-    public function showSearchResults(Request $request)
+    public function search(Request $request)
     {
         $resourceId = $request->input('resource_id');
         $resourceType = $request->input('resource_type');
@@ -89,7 +71,7 @@ class TourController extends Controller
                 break;
         }
 
-        return view('tours.search-results', compact('tours', 'resourceType', 'resourceName'))
+        return view('frontend.tour.search-results', compact('tours', 'resourceType', 'resourceName'))
             ->with('title', 'Tour Search Results');
     }
 }
