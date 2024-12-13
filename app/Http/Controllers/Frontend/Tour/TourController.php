@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend\Tour;
 
+use App\Http\Controllers\Controller;
 use App\Models\AdditionalItem;
 use App\Models\City;
 use App\Models\Country;
@@ -16,6 +17,12 @@ use Illuminate\Http\Request;
 
 class TourController extends Controller
 {
+    public function index()
+    {
+        return view('frontend.tour.index')
+            ->with('title', 'Top Tours');
+    }
+
     public function details($slug)
     {
         $tour = Tour::where('slug', $slug)->with('categories', 'cities')->first();
@@ -33,7 +40,7 @@ class TourController extends Controller
         if ($tour) {
             $data = compact('tour', 'tourFaqs', 'itineraries', 'attributes', 'exclusions', 'inclusions', 'groupedAdditionalItems');
 
-            return view('tours.details')->with('title', $tour->title)->with($data);
+            return view('frontend.tour.index')->with('title', $tour->title)->with($data);
         }
 
         return redirect()->back()->with('notify_error', 'Page Not Available');
@@ -41,7 +48,7 @@ class TourController extends Controller
 
     public function searchResults()
     {
-        return view('tours.search-results')->with('title', 'Search Results');
+        return view('frontend.tour.search-results')->with('title', 'Search Results');
     }
 
     public function showSearchResults(Request $request)
@@ -84,18 +91,5 @@ class TourController extends Controller
 
         return view('tours.search-results', compact('tours', 'resourceType', 'resourceName'))
             ->with('title', 'Tour Search Results');
-    }
-
-    public function loadMore(Request $request)
-    {
-        $page = $request->input('page', 1); // Get the current page, default to 1 if not provided
-
-        $tours = Tour::where('is_active', '1')->with('categories', 'cities', 'reviews')->latest()->paginate(8, ['*'], 'page', $page);
-
-        return response()->json([
-            'status' => 200,
-            'tours' => $tours->items(),
-            'next_page_url' => $tours->nextPageUrl(),
-        ]);
     }
 }

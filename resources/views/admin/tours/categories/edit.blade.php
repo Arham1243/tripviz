@@ -23,8 +23,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="{{ buildUrl(url('/'), 'tours/category', $category->slug) }}" target="_blank"
-                            class="themeBtn">View</a>
+                        <a href="{{ route('tours.category.show', $category->slug) }}" target="_blank" class="themeBtn">View
+                            Category</a>
                     </div>
                 </div>
 
@@ -132,6 +132,9 @@
                                                                 <img src="{{ asset($category->tour_count_image) }}"
                                                                     class="imgFluid" data-upload-preview>
                                                             </a>
+                                                            <input type="text" name="tour_count_image_alt_text"
+                                                                class="field" placeholder="Enter alt text"
+                                                                value="{{ $category->tour_count_image_alt_text ?? '' }}">
                                                         </div>
                                                     </div>
                                                     <div data-error-message class="text-danger mt-2 d-none text-center">

@@ -21,7 +21,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="{{ buildUrl(url('/'), 'city', $item->slug) }}" target="_blank" class="themeBtn">View
+                        <a href="{{ route('city.details', $item->slug) }}" target="_blank" class="themeBtn">View
                             City</a>
                     </div>
                 </div>

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
 
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\ImageTable;
 use App\Models\Newsletter;
-use App\Models\Page;
 use App\Models\Promotion;
 use App\Models\Section;
 use App\Models\Testimonial;
@@ -46,32 +46,6 @@ class IndexController extends Controller
     public function blog()
     {
         return view('blog')->with('title', 'Blog');
-    }
-
-    public function showPage($slug)
-    {
-        $query = Page::where('slug', $slug);
-
-        if (request()->query('viewer') !== 'admin') {
-            $query->where('status', 'publish');
-        }
-        $page = $query->firstOrFail();
-        $sections = $page->sections()->withPivot('content')->orderBy('pivot_order')->get();
-        $bannerSection = $sections->filter(function ($item) {
-            return $item['section_key'] === 'banner';
-        })->first();
-        $bannerContent = $bannerSection ? json_decode($bannerSection->pivot->content) : null;
-        $reviewDetails = null;
-        if ($bannerContent && isset($bannerContent->is_review_enabled) && $bannerContent->review_type !== 'custom') {
-            $fetchReviewController = new FetchReviewController;
-            $request = app('request');
-            $reviewContent = $fetchReviewController->fetchReview($request, $type = $bannerContent->review_type);
-            if ($reviewContent) {
-                $reviewDetails = $reviewContent->getData(true);
-            }
-        }
-
-        return view('page-builder', compact('page', 'sections', 'reviewDetails'));
     }
 
     public function index()
@@ -135,18 +109,6 @@ class IndexController extends Controller
     public function country()
     {
         return view('country')->with('title', 'Country');
-    }
-
-    public function city_details($slug)
-    {
-        $city = City::where('slug', $slug)->with('country')->first();
-        $country = $city->country;
-        $relatedCities = City::where('country_id', $country->id)->whereNot('id', $city->id)->get();
-        $stories = TourStory::where('is_active', 1)->where('city_id', $city->id)->where('show_on_homepage', 1)->with('city')->latest()->get();
-        $tours = $city->tours()->get()->sortByDesc('average_rating');
-        $data = compact('city', 'tours', 'relatedCities', 'stories');
-
-        return view('city-details')->with('title', $city->name)->with($data);
     }
 
     public function country_details($slug)

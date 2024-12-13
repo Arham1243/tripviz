@@ -55,7 +55,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <x-seo-options :seo="$seo ?? null" :resource="'country'" />
+                            <x-seo-options :seo="$seo ?? null" :resource="'city'" />
                         </div>
                     </div>
                     <div class="col-md-3">

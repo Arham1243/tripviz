@@ -160,10 +160,10 @@
 @else
     @if ($content->background_type === 'normal_v1_right_side_image')
         <div class="banner banner--shape" style="background-color: #fff">
-            @include('sections.banners.moto')
+            @include('frontend.page-builder.sections.banners.moto')
             <div class="container">
                 <div class="row">
-                    @include('sections.banners.content')
+                    @include('frontend.page-builder.sections.banners.content')
                     <div class="col-md-5">
                         <div class="banner-img {{ $content->right_image_position ?? '' }}">
                             <img data-src="{{ asset($content->right_image ?? 'admin/assets/images/placeholder.png') }}"
@@ -171,21 +171,21 @@
                                 class="imgFluid lazy" width="345.89" height="186">
                         </div>
                     </div>
-                    @include('sections.banners.search')
-                    @include('sections.banners.review')
+                    @include('frontend.page-builder.sections.banners.search')
+                    @include('frontend.page-builder.sections.banners.review')
                 </div>
             </div>
         </div>
     @elseif($content->background_type === 'normal_v2_full_screen_background')
         <div class="banner {{ isset($content->background_image_is_banner_overlay_enabled) ? 'banner--overlay' : '' }}">
-            @include('sections.banners.moto')
+            @include('frontend.page-builder.sections.banners.moto')
             <img data-src="{{ asset($content->background_image ?? 'admin/assets/images/placeholder.png') }}"
                 alt="{{ $content->background_alt_text ?? 'Banner image' }}" class="imgFluid lazy banner__bg">
             <div class="container">
                 <div class="row">
-                    @include('sections.banners.content')
-                    @include('sections.banners.search')
-                    @include('sections.banners.review')
+                    @include('frontend.page-builder.sections.banners.content')
+                    @include('frontend.page-builder.sections.banners.search')
+                    @include('frontend.page-builder.sections.banners.review')
                 </div>
             </div>
         </div>
@@ -208,12 +208,12 @@
                 @endfor
             </div>
             <div class="banner">
-                @include('sections.banners.moto')
+                @include('frontend.page-builder.sections.banners.moto')
                 <div class="container">
                     <div class="row">
-                        @include('sections.banners.content')
-                        @include('sections.banners.search')
-                        @include('sections.banners.review')
+                        @include('frontend.page-builder.sections.banners.content')
+                        @include('frontend.page-builder.sections.banners.search')
+                        @include('frontend.page-builder.sections.banners.review')
                     </div>
                 </div>
             </div>
@@ -235,7 +235,7 @@
             }
         @endphp
         <div class="banner banner--shape" style="{{ $normalWavebackgroundStyle }}">
-            @include('sections.banners.moto')
+            @include('frontend.page-builder.sections.banners.moto')
             <div class="banner-shape" style="--wave-color:{{ $content->normal_background_wave_color ?? '' }};">
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
                     viewBox="0 0 1069 233" preserveAspectRatio="none">
@@ -247,9 +247,9 @@
             </div>
             <div class="container">
                 <div class="row">
-                    @include('sections.banners.content')
-                    @include('sections.banners.search')
-                    @include('sections.banners.review')
+                    @include('frontend.page-builder.sections.banners.content')
+                    @include('frontend.page-builder.sections.banners.search')
+                    @include('frontend.page-builder.sections.banners.review')
                 </div>
             </div>
         </div>
@@ -271,7 +271,7 @@
         @endphp
 
         <div class="banner banner--shape" style="{{ $rightImageWavebackgroundStyle }}">
-            @include('sections.banners.moto')
+            @include('frontend.page-builder.sections.banners.moto')
             <div class="banner-shape" style="--wave-color:{{ $content->right_image_background_wave_color ?? '' }};">
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
                     viewBox="0 0 1069 233" preserveAspectRatio="none">
@@ -283,7 +283,7 @@
             </div>
             <div class="container">
                 <div class="row">
-                    @include('sections.banners.content')
+                    @include('frontend.page-builder.sections.banners.content')
                     <div class="col-md-5">
                         <div class="banner-img {{ $content->right_image_position_background ?? '' }}">
                             <img data-src="{{ asset($content->right_image_background ?? 'admin/assets/images/placeholder.png') }}"
@@ -291,8 +291,8 @@
                                 class="imgFluid lazy" width="345.89" height="186">
                         </div>
                     </div>
-                    @include('sections.banners.search')
-                    @include('sections.banners.review')
+                    @include('frontend.page-builder.sections.banners.search')
+                    @include('frontend.page-builder.sections.banners.review')
                 </div>
             </div>
         </div>

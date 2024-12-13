@@ -75,7 +75,7 @@
                         <div class=heading>Top Tours</div>
                     </div>
                     <div class=more-link>
-                        <a href={{ route('tours.listing') }}>More<i class="bx bx-right-arrow-alt"></i></a>
+                        <a href={{ route('tours.index') }}>More<i class="bx bx-right-arrow-alt"></i></a>
                     </div>
                 </div>
                 <div class="row pt-3">
@@ -147,7 +147,7 @@
                         <div class="heading">Top Tours</div>
                     </div>
                     <div class="more-link">
-                        <a href="{{ route('tours.listing') }}">More<i class="bx bx-right-arrow-alt"></i></a>
+                        <a href="{{ route('tours.index') }}">More<i class="bx bx-right-arrow-alt"></i></a>
                     </div>
                 </div>
                 <div class="row pt-3">
@@ -223,7 +223,7 @@
                         <div class=heading>Top Tours</div>
                     </div>
                     <div class=more-link>
-                        <a href={{ route('tours.listing') }}>More<i class="bx bx-right-arrow-alt"></i></a>
+                        <a href={{ route('tours.index') }}>More<i class="bx bx-right-arrow-alt"></i></a>
                     </div>
                 </div>
                 <div class="row pt-3">
@@ -1266,14 +1266,4 @@
             </div>
         </div>
     </div>
-@endsection
-@section('css')
-    <style type="text/css">
-        /*in page css here*/
-    </style>
-@endsection
-@section('js')
-    <script type="text/javascript">
-        /*in page js here*/
-    </script>
 @endsection

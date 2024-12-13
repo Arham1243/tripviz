@@ -2,10 +2,14 @@
 
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Auth\UserController;
-use App\Http\Controllers\FetchReviewController;
-use App\Http\Controllers\IndexController;
-use App\Http\Controllers\SearchSuggestionController;
-use App\Http\Controllers\TourController;
+use App\Http\Controllers\Frontend\FetchReviewController;
+use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Frontend\Locations\CityController;
+use App\Http\Controllers\Frontend\Locations\CountryController;
+use App\Http\Controllers\Frontend\PageController;
+use App\Http\Controllers\Frontend\SearchSuggestionController;
+use App\Http\Controllers\Frontend\Tour\CategoryController;
+use App\Http\Controllers\Frontend\TourController;
 use Illuminate\Support\Facades\Route;
 
 // ---------------------------------------All Pages---------------------------------------
@@ -24,31 +28,31 @@ Route::get('/city/{slug}/details', [IndexController::class, 'city_details'])->na
 Route::get('/category/listing', [IndexController::class, 'city_details'])->name('category.listing');
 Route::get('/country/{slug}/details', [IndexController::class, 'country_details'])->name('country.details');
 Route::get('/make-slug', [IndexController::class, 'make_slug']);
-Route::get('/page/{slug}', [IndexController::class, 'showPage'])->name('page.show');
-Route::get('/search/suggestions', [SearchSuggestionController::class, 'suggest'])->name('search.suggestions');
 
+Route::get('/search/suggestions', [SearchSuggestionController::class, 'suggest'])->name('search.suggestions');
 Route::get('/reviews/fetch', [FetchReviewController::class, 'fetchReview']);
 
-// ---------------------------------------All Pages---------------------------------------
-Route::get('/dump-intended-urls', function (Illuminate\Http\Request $request) {
-    $intendedUrls = $request->session()->get('url.intended', []);
-    dd($intendedUrls);
+Route::prefix('city')->name('city.')->group(function () {
+    Route::get('{slug}', [CityController::class, 'show'])->name('details');
 });
 
-// ---------------------------------------Tours---------------------------------------
+Route::prefix('country')->name('country.')->group(function () {
+    Route::get('{slug}', [CountryController::class, 'show'])->name('details');
+});
+
+Route::prefix('page')->name('page.')->group(function () {
+    Route::get('{slug}', [PageController::class, 'show'])->name('show');
+});
+
 Route::prefix('tours')->name('tours.')->group(function () {
-    Route::get('/search/results', [TourController::class, 'showSearchResults'])->name('search.results');
-    Route::get('/details/{slug}', [TourController::class, 'details'])->name('details');
-    Route::get('/listing', [TourController::class, 'listing'])->name('listing');
-    Route::get('/show-more', [TourController::class, 'loadMore'])->name('loadMore');
-});
-// ---------------------------------------Tours---------------------------------------
 
-// ---------------------------------------Tours---------------------------------------
-Route::prefix('stories')->name('stories.')->group(function () {
-    Route::get('/details/{slug}', [IndexController::class, 'storyDetails'])->name('details');
+    Route::get('/', [TourController::class, 'listing'])->name('index');
+    Route::get('/{slug}', [TourController::class, 'details'])->name('details');
+
+    Route::prefix('category')->name('category.')->group(function () {
+        Route::get('{slug}', [CategoryController::class, 'show'])->name('show');
+    });
 });
-// ---------------------------------------Tours---------------------------------------
 
 // ---------------------------------------User Actions---------------------------------------
 Route::post('/check-account', [UserController::class, 'check_account'])->name('auth.check_account');

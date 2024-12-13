@@ -17,10 +17,6 @@ trait Sluggable
      */
     public function createSlug($title, $table, $currentSlug = null)
     {
-        if (! $title || str_contains($title, '#')) {
-            return '#';
-        }
-
         $slug = Str::slug($title);
         $originalSlug = $slug;
         $counter = 1;

@@ -124,7 +124,7 @@
                 </div>
                 <div class="header-nav">
                     <ul>
-                        <li><a href="{{ route('tours.listing') }}">Tours</a></li>
+                        <li><a href="{{ route('tours.index') }}">Tours</a></li>
                         <li><a href="#">Local Guide</a></li>
                         <li><a href="#">Help</a></li>
                     </ul>
@@ -223,7 +223,7 @@
         <img alt="Logo" class="imgFluid" src="{{ asset('assets/images/logo (1).webp') }}">
     </a>
     <ul class="sideBar__nav">
-        <li><a href="{{ route('tours.listing') }}">Tours</a></li>
+        <li><a href="{{ route('tours.index') }}">Tours</a></li>
         <li><a href="#">Local Guide</a></li>
         <li><a href="#">Help</a></li>
 

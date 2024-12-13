@@ -19,7 +19,8 @@ class City extends Model
 
     public function tours()
     {
-        return $this->belongsToMany(Tour::class, 'city_tour', 'city_id', 'tour_id');
+        return $this->belongsToMany(Tour::class, 'city_tour', 'city_id', 'tour_id')
+            ->where('tours.status', 'publish');
     }
 
     public function seo()

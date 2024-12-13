@@ -9,7 +9,7 @@
                     <div class="section-content">
                         <h3 class="heading">Edit Template: {{ isset($title) ? $title : '' }}</h3>
                     </div>
-                    <a href="{{ buildUrl(url('/'), 'page', $page->slug) }}?viewer=admin" target="_blank" class="themeBtn">View
+                    <a href="{{ route('page.show', $page->slug) }}?viewer=admin" target="_blank" class="themeBtn">View
                         Page</a>
                 </div>
 

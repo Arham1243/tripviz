@@ -253,7 +253,7 @@
                 </div>
             </div>
             @if (isset($content->card_style))
-                @include('sections.tours.card-styles.' . $content->card_style)
+                @include('frontend.page-builder.sections.tours.card-styles.' . $content->card_style)
             @endif
         </div>
     </div>

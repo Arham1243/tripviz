@@ -440,7 +440,6 @@ a#loginBtn {
     font-size: 1.6em;
     font-weight: 500;
 }
-
 .banner-heading h1 .bannerMain-title {
     color: #000;
 }
@@ -476,6 +475,13 @@ a#loginBtn {
     text-transform: uppercase;
     letter-spacing: 3px;
     margin-bottom: 0.5rem;
+}
+.banner-alt-heading {
+    font-size: 43px;
+    font-weight: 800;
+    color: #243064;
+    text-transform: capitalize;
+    line-height: 1.35;
 }
 
 .banner-img img {
@@ -1014,7 +1020,7 @@ a.card-title:hover {
 }
 
 .comment {
-    padding: 12rem 0 4rem;
+    padding: 10rem 0 4rem;
     position: relative;
 }
 
@@ -2056,7 +2062,7 @@ form.input-details.generic-form i {
 }
 
 .search-header__activity {
-    padding-top: 25px;
+    padding-bottom: 10px;
 }
 
 .search-header__activity {
@@ -2100,9 +2106,6 @@ form.input-details.generic-form i {
     padding: 8px;
 }
 
-.location-banner {
-    padding: 2rem 0;
-}
 
 .location-banner__img {
     width: 100%;
@@ -2164,25 +2167,12 @@ form.input-details.generic-form i {
 }
 
 .highlight__image {
-    width: 284.8px;
-    height: 77%;
+    width: 100%;
+    height: 180px;
     overflow: hidden;
     border-radius: 10px;
 }
 
-.most-recommended {
-    padding: 2rem 0;
-}
-
-.highlight__text-content {
-}
-
-.highlight {
-    display: flex;
-    /* align-items: center; */
-    /* justify-content: center; */
-    gap: 29px;
-}
 
 .highlight__text a {
     font-size: 1.25rem;
@@ -2192,9 +2182,19 @@ form.input-details.generic-form i {
     margin-bottom: 4px;
 }
 
-p.highlight__description {
+.highlight__description {
     font-size: 14px;
     font-weight: 700;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+.highlight__description * {
+    color: inherit !important;
+    font: inherit !important;
+    margin: 0;
 }
 
 .highlight__button-wrapper a {
@@ -2273,8 +2273,7 @@ a.tour-activity-card__details--title:hover {
     font-size: 13px;
     font-weight: 800;
 }
-
-p.baseline-pricing__from {
+.baseline-pricing__from {
     display: flex;
     align-items: center;
 }
@@ -2297,20 +2296,17 @@ input.form-book__date {
     border-bottom: 2px solid #e4e4e4;
     padding: 0.5rem 0;
 }
-
-p.baseline-pricing__category {
+.baseline-pricing__category {
     font-size: 0.875rem;
     line-height: 1.25rem;
     font-weight: 600;
     color: #1a2b49;
     margin-inline-start: 0.3rem;
 }
-
-p.baseline-pricing__from {
+.baseline-pricing__from {
     margin-bottom: 0;
 }
-
-p.baseline-pricing__from {
+.baseline-pricing__from {
     font-size: 13px;
     font-weight: 800;
     gap: 0.5rem;
@@ -3133,8 +3129,7 @@ span.timeline-item__icon {
 .timeline-item__subitems-wrapper {
     display: flex;
 }
-
-p.timeline-subitems-info--primary {
+.timeline-subitems-info--primary {
     margin-bottom: 2px;
     font-size: 0.825rem;
     font-weight: 600;
@@ -3485,8 +3480,7 @@ label.form-guest-search__item-clean input {
     background-color: #000;
     color: #fff;
 }
-
-p.main-blog__pra {
+.main-blog__pra {
     font-size: 13px;
     font-weight: 600;
     margin-top: 13px;
@@ -4935,7 +4929,7 @@ span.booking-assistant__icon {
 
 /* location-banner1 */
 .location-banner1 {
-    padding: 1rem;
+    padding: 1rem 1rem 0;
 }
 
 .location-banner1__img img {
@@ -4952,11 +4946,10 @@ span.booking-assistant__icon {
 }
 
 .location1-content__section {
-    padding: 3rem 0 2rem;
+    
 }
 
 .location1-content__section--heading {
-    /* display: flex; */
     align-items: end;
 }
 
@@ -4971,8 +4964,7 @@ span.booking-assistant__icon {
 a.location1-content__section--btn {
     font-size: 13px;
 }
-
-p.location1-content__section--pra {
+.location1-content__section--pra {
     font-size: 16px;
     font-weight: 400;
     margin-top: 0.55rem;
@@ -5122,8 +5114,8 @@ button.filter-button i {
     margin-bottom: 9px;
 }
 
-.location1-beyond {
-    padding: 2rem 0;
+.blog-more__dest-content {
+    margin-bottom: 1.5rem;
 }
 
 .location1-beyond__img {
