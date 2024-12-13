@@ -246,8 +246,8 @@
                                 <div class="bannerMain-title">{{ $item->tour_count_heading ?? '' }}</div>
                             </h1>
                         </div>
-                        <a href="{{ $item->tour_count_btn_link ?? 'javascript:void(0)' }}" class="app-btn themeBtn"
-                            type="button">{{ $item->tour_count_btn_text ?? 'Click' }} </a>
+                        <a href="{{ sanitizedLink($item->tour_count_btn_link ?? 'javascript:void(0)') }}"
+                            class="app-btn themeBtn" type="button">{{ $item->tour_count_btn_text ?? 'Click' }} </a>
                     </div>
                 </div>
             </div>
