@@ -3,7 +3,8 @@
     @foreach ($tours as $tour)
         <div class="col">
             <div class="card-content trending-products__content">
-                <a href="#" class="card_img trending-products__img" tabindex="0">
+                <a href="{{ route('tours.details', $tour->slug) }} " class="card_img trending-products__img"
+                    tabindex="0">
                     <img data-src={{ asset($tour->featured_image ?? 'admin/assets/images/placeholder.png') }}
                         alt="{{ $tour->featured_image_alt_text ?? 'image' }}" class="imgFluid lazy" loading="lazy">
                     <div class="product-rank">

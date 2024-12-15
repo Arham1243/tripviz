@@ -3,7 +3,7 @@
     @foreach ($tours as $tour)
         <div class="col">
             <div class="card-content normal-card__content">
-                <a href="#" class="card_img normal-card__img">
+                <a href="{{ route('tours.details', $tour->slug) }} " class="card_img normal-card__img">
                     <img data-src={{ asset($tour->featured_image ?? 'admin/assets/images/placeholder.png') }}
                         alt="{{ $tour->featured_image_alt_text ?? 'image' }}" class="imgFluid lazy" loading="lazy">
                     <div class="price-details">
