@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('frontend.layouts.main')
 @section('content')
     <div class="blog-banner__heading">
         <div class="container">

@@ -236,7 +236,7 @@
                                                                 <input type="text"
                                                                     name="content[background_image_alt_text]"
                                                                     class="field" placeholder="Enter alt text"
-                                                                    value="{{ $sectionContent->background_image_alt_text ?? 'Cta Background Image' }}">
+                                                                    value="{{ $sectionContent->background_image_alt_text ?? 'Alt Text' }}">
                                                             </div>
                                                         </div>
                                                         <div data-error-message
@@ -618,7 +618,7 @@
                                                                 <input type="text"
                                                                     name="content[background_image_alt_text_2]"
                                                                     class="field" placeholder="Enter alt text"
-                                                                    value="{{ $sectionContent->background_image_alt_text_2 ?? 'Cta Background Image' }}">
+                                                                    value="{{ $sectionContent->background_image_alt_text_2 ?? 'Alt Text' }}">
                                                             </div>
                                                         </div>
                                                         <div data-error-message

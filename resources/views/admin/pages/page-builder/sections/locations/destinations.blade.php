@@ -178,7 +178,7 @@
                                                     <input type="text"
                                                         name="content[destination_background_alt_text]" class="field"
                                                         placeholder="Enter alt text"
-                                                        value="{{ $sectionContent->destination_background_alt_text ?? 'Destination Image' }}" />
+                                                        value="{{ $sectionContent->destination_background_alt_text ?? 'Alt Text' }}" />
                                                 </div>
                                             </div>
                                             <div data-error-message class="text-danger mt-2 d-none text-center">

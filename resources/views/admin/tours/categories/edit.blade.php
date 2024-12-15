@@ -330,7 +330,7 @@
                                                                                     name="content[tour_count][background_image_alt_text]"
                                                                                     class="field"
                                                                                     placeholder="Enter alt text"
-                                                                                    value="{{ $tourCountContent->background_image_alt_text ?? 'Cta Background Image' }}">
+                                                                                    value="{{ $tourCountContent->background_image_alt_text ?? 'Alt Text' }}">
                                                                             </div>
                                                                         </div>
                                                                         <div data-error-message
@@ -628,7 +628,7 @@
                                                                                     name="content[call_to_action][background_image_alt_text]"
                                                                                     class="field"
                                                                                     placeholder="Enter alt text"
-                                                                                    value="{{ $callToActionContent->background_image_alt_text ?? 'Cta Background Image' }}">
+                                                                                    value="{{ $callToActionContent->background_image_alt_text ?? 'Alt Text' }}">
                                                                             </div>
                                                                         </div>
                                                                         <div data-error-message

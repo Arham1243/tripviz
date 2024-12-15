@@ -107,7 +107,7 @@
                                 </a>
                                 <input type="text" name="content[qr_code_image_alt_text]" class="field"
                                     placeholder="Enter alt text"
-                                    value="{{ $sectionContent->qr_code_image_alt_text ?? 'QR Code Image' }}">
+                                    value="{{ $sectionContent->qr_code_image_alt_text ?? 'Alt Text' }}">
                             </div>
                         </div>
                         <div data-error-message class="text-danger mt-2 d-none text-center">

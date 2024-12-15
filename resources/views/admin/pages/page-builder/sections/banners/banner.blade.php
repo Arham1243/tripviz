@@ -382,7 +382,7 @@
                                             </a>
                                             <input type="text" name="content[custom_review_logo_alt_text]"
                                                 class="field" placeholder="Enter alt text"
-                                                value="{{ $sectionContent->custom_review_logo_alt_text ?? 'Review Logo' }}">
+                                                value="{{ $sectionContent->custom_review_logo_alt_text ?? 'Alt Text' }}">
                                         </div>
                                     </div>
                                     <div data-error-message="" class="text-danger mt-2 d-none text-center">
@@ -563,7 +563,7 @@
                                             </a>
                                             <input type="text" name="content[right_image_alt_text]" class="field"
                                                 placeholder="Enter alt text"
-                                                value="{{ $sectionContent->right_image_alt_text ?? 'Banner Right Image' }}">
+                                                value="{{ $sectionContent->right_image_alt_text ?? 'Alt Text' }}">
                                         </div>
                                     </div>
                                     <div data-error-message class="text-danger mt-2 d-none text-center">Please
@@ -653,7 +653,7 @@
                                             </a>
                                             <input type="text" name="content[background_alt_text]" class="field"
                                                 placeholder="Enter alt text"
-                                                value="{{ $sectionContent->background_alt_text ?? 'Banner Image' }}">
+                                                value="{{ $sectionContent->background_alt_text ?? 'Alt Text' }}">
                                         </div>
                                     </div>
                                     <div data-error-message class="text-danger mt-2 d-none text-center">Please
@@ -727,7 +727,7 @@
                                                 </a>
                                                 <input type="text" name="content[carousel_alt_text][]"
                                                     class="field" placeholder="Enter alt text"
-                                                    value="{{ $alt_text ?? 'Carousel Image ' . $i + 1 }}">
+                                                    value="{{ $alt_text ?? 'Alt Text ' . $i + 1 }}">
                                             </div>
                                         </div>
                                         <div data-error-message class="text-danger mt-2 d-none text-center">
@@ -896,7 +896,7 @@
                                             </a>
                                             <input type="text" name="content[right_image_background_alt_text]"
                                                 class="field" placeholder="Enter alt text"
-                                                value="{{ $sectionContent->right_image_background_alt_text ?? 'Banner Right Image' }}">
+                                                value="{{ $sectionContent->right_image_background_alt_text ?? 'Alt Text' }}">
                                         </div>
                                     </div>
                                     <div data-error-message class="text-danger mt-2 d-none text-center">Please
@@ -1259,7 +1259,7 @@
                                                     <input type="text"
                                                         name="content[destination_background_alt_text]"
                                                         class="field" placeholder="Enter alt text"
-                                                        value="{{ $sectionContent->destination_background_alt_text ?? 'Destination Image' }}" />
+                                                        value="{{ $sectionContent->destination_background_alt_text ?? 'Alt Text' }}" />
                                                 </div>
                                             </div>
                                             <div data-error-message class="text-danger mt-2 d-none text-center">

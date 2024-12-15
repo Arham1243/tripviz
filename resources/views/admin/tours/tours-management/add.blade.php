@@ -442,7 +442,7 @@
                                                             </a>
                                                             <input type="text" name="banner_image_alt_text"
                                                                 class="field" placeholder="Enter alt text"
-                                                                value="Feature Image">
+                                                                value="Alt Text">
                                                         </div>
                                                     </div>
                                                     <div data-error-message class="text-danger mt-2 d-none text-center">
@@ -618,7 +618,7 @@
                                                                                 name="tour[location][normal_itinerary][featured_image_alt_text][]"
                                                                                 class="field"
                                                                                 placeholder="Enter alt text"
-                                                                                value="Feature Image">
+                                                                                value="Alt Text">
                                                                         </div>
                                                                     </div>
                                                                     <div data-error-message
@@ -1675,7 +1675,7 @@
                                                             </a>
                                                             <input type="text" name="featured_image_alt_text"
                                                                 class="field" placeholder="Enter alt text"
-                                                                value="Feature Image">
+                                                                value="Alt Text">
                                                         </div>
                                                     </div>
                                                     <div data-error-message class="text-danger mt-2 d-none text-center">
@@ -1720,7 +1720,7 @@
                                                             </a>
                                                             <input type="text" name="promotional_image_alt_text"
                                                                 class="field" placeholder="Enter alt text"
-                                                                value="Promotional Image">
+                                                                value="Alt Text">
                                                         </div>
                                                     </div>
                                                     <div data-error-message class="text-danger mt-2 d-none text-center">

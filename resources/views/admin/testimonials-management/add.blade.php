@@ -124,7 +124,7 @@
                                                             alt="Uploaded Image" class="imgFluid" data-upload-preview>
                                                     </a>
                                                     <input type="text" name="featured_image_alt_text" class="field"
-                                                        placeholder="Enter alt text" value="Feature Image">
+                                                        placeholder="Enter alt text" value="Alt Text">
                                                 </div>
                                             </div>
                                             <div data-error-message class="text-danger mt-2 d-none text-center">Please
