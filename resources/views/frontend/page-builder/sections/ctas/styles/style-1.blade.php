@@ -34,12 +34,17 @@
                             class="imgFluid lazy offers-section__img" loading="lazy" height="200">
                     @endif
                     <div class=GroupTourCard_content>
-                        <span class=GroupTourCard_title>{{ $content->title ?? '' }}</span>
-                        <span class=GroupTourCard_subtitle>{{ $content->description ?? '' }}</span>
+                        <span class=GroupTourCard_title
+                            @if ($content->title_color) style="color: {{ $content->title_color }};" @endif>{{ $content->title ?? '' }}</span>
+                        <span class=GroupTourCard_subtitle
+                            @if ($content->description_color) style="color: {{ $content->description_color }};" @endif>{{ $content->description ?? '' }}</span>
                         @if (isset($content->is_button_enabled))
                             <div class="GroupTourCard_callBackButton pt-3">
                                 <a href="{{ sanitizedLink($content->btn_link) ?? '' }}"
-                                    style="background-color: {{ $content->btn_background_color ?? '' }};color:{{ $content->btn_text_color ?? '' }};"
+                                    style="
+    {{ $content->btn_background_color ? 'background-color: ' . $content->btn_background_color . ';' : '' }}
+    {{ $content->btn_text_color ? 'color: ' . $content->btn_text_color . ';' : '' }}
+"
                                     target="_blank"
                                     class="GroupTourCard_text app-btn themeBtn">{{ $content->btn_text ?? '' }}</a>
                             </div>

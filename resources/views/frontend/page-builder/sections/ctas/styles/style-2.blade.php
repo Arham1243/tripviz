@@ -52,30 +52,46 @@
                 @endif
 
                 <div class=sale-card__content>
-                    <div class=discount-label>{{ $content->title_2 ?? '' }}</div>
+                    <div class=discount-label
+                        @if ($content->title_2_color) style="color: {{ $content->title_2_color }};" @endif>
+                        {{ $content->title_2 ?? '' }}</div>
                     <div class=sale-info>
-                        <div class=sale-label>{{ $content->subTitle_2 ?? '' }}</div>
-                        <div class=sale-title>{{ $content->sale_text_2 ?? '' }}</div>
+                        <div class=sale-label
+                            @if ($content->subTitle_2_color) style="color: {{ $content->subTitle_2_color }};" @endif>
+                            {{ $content->subTitle_2 ?? '' }}</div>
+                        <div class=sale-title
+                            style="
+                        {{ $content->sale_btn_background_color ? 'background: ' . $content->sale_btn_background_color . ';' : '' }}
+                        {{ $content->sale_btn_text_color ? 'color: ' . $content->sale_btn_text_color . ';' : '' }}
+                    ">
+                            {{ $content->sale_text_2 ?? '' }}</div>
                     </div>
-                    <div class=enquiry-help-text>{{ $content->description_2 ?? '' }}</div>
+                    <div class=enquiry-help-text
+                        @if ($content->description_2_color) style="color: {{ $content->description_2_color }};" @endif>
+                        {{ $content->description_2 ?? '' }}</div>
                     @if (isset($content->is_button_enabled_2))
                         <a href="{{ sanitizedLink($content->btn_link_2) ?? '' }}"
-                            style="background-color: {{ $content->btn_background_color_2 ?? '' }};color:{{ $content->btn_text_color_2 ?? '' }};"
+                            style="
+    {{ $content->btn_background_color_2 ? 'background-color: ' . $content->btn_background_color_2 . ';' : '' }}
+    {{ $content->btn_text_color_2 ? 'color: ' . $content->btn_text_color_2 . ';' : '' }}
+"
                             target="_blank" class=enquiry-btn>{{ $content->btn_text_2 ?? '' }}</a>
                     @endif
                 </div>
                 <div class=timer-details>
-                    <div class=timer-label>Hurry - up Sale ends in!</div>
+                    <div class=timer-label
+                        @if ($content->sale_end_text_color) style="color: {{ $content->sale_end_text_color }};" @endif>
+                        {{ $content->sale_end_text_2 ?? '' }}</div>
                     <div class=SectionSaleCard_tmDivider__CRa30></div>
                     <div class="timer" data-sale-end="{{ $content->sale_ends_on_2 ?? '' }}">
                         <div class="time-box" id="days-tens">0</div>
-                        <div class="time-box" id="days-ones">7</div>
+                        <div class="time-box" id="days-ones">0</div>
                         <div class="SectionSaleCard_tmRatio">:</div>
                         <div class="time-box" id="hours-tens">0</div>
                         <div class="time-box" id="hours-ones">0</div>
                         <div class="SectionSaleCard_tmRatio">:</div>
-                        <div class="time-box" id="minutes-tens">4</div>
-                        <div class="time-box" id="minutes-ones">2</div>
+                        <div class="time-box" id="minutes-tens">0</div>
+                        <div class="time-box" id="minutes-ones">0</div>
                     </div>
                     <ul class="clock-detail">
                         <li class="clock-label">Days</li>
