@@ -15,9 +15,11 @@
                                 <div class="title">Permalink:</div>
                                 <div class="title">
                                     <div class="full-url">{{ buildUrl(url('/'), 'country/') }}</div>
-                                    <input value="{{ $item->slug ?? '#' }}" type="button" class="link permalink-input"
-                                        data-field-id="slug">
-                                    <input type="hidden" id="slug" value="{{ $item->slug ?? '#' }}" name="slug">
+                                    <input value="{{ !empty($item->slug) ? $item->slug : '#' }}" type="button"
+                                        class="link permalink-input" data-field-id="slug">
+                                    <input type="hidden" id="slug"
+                                        value="{{ !empty($item->slug) ? $item->slug : '' }}" name="slug" data-required
+                                        data-error="Slug">
                                 </div>
                             </div>
                         </div>
@@ -127,6 +129,55 @@
                                         </div>
                                         <div class="dimensions text-center mt-3">
                                             <strong>Dimensions:</strong> 270 &times; 260
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-box">
+                                <div class="form-box__header">
+                                    <div class="title">Banner Image</div>
+                                </div>
+                                <div class="form-box__body">
+                                    <div class="form-fields">
+                                        <div class="upload" data-upload>
+                                            <div class="upload-box-wrapper">
+                                                <div class="upload-box {{ empty($item->banner_image) ? 'show' : '' }}"
+                                                    data-upload-box>
+                                                    <input type="file" name="banner_image"
+                                                        {{ empty($item->banner_image) ? '' : '' }}
+                                                        data-error="Feature Image" id="banner_image"
+                                                        class="upload-box__file d-none" accept="image/*" data-file-input>
+                                                    <div class="upload-box__placeholder"><i class='bx bxs-image'></i>
+                                                    </div>
+                                                    <label for="banner_image" class="upload-box__btn themeBtn">Upload
+                                                        Image</label>
+                                                </div>
+                                                <div class="upload-box__img {{ !empty($item->banner_image) ? 'show' : '' }}"
+                                                    data-upload-img>
+                                                    <button type="button" class="delete-btn" data-delete-btn><i
+                                                            class='bx bxs-trash-alt'></i></button>
+                                                    <a href="{{ asset($item->banner_image) }}" class="mask"
+                                                        data-fancybox="gallery">
+                                                        <img src="{{ asset($item->banner_image) }}"
+                                                            alt="{{ $item->banner_image_alt_text }}" class="imgFluid"
+                                                            data-upload-preview>
+                                                    </a>
+                                                    <input type="text" name="banner_image_alt_text" class="field"
+                                                        placeholder="Enter alt text"
+                                                        value="{{ $item->banner_image_alt_text }}">
+                                                </div>
+                                            </div>
+                                            <div data-error-message class="text-danger mt-2 d-none text-center">Please
+                                                upload a
+                                                valid image file
+                                            </div>
+                                            @error('banner_image')
+                                                <div class="text-danger mt-2 text-center">{{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="dimensions text-center mt-3">
+                                            <strong>Dimensions:</strong> 1317 &times; 450
                                         </div>
                                     </div>
                                 </div>

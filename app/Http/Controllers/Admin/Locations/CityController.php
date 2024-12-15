@@ -16,7 +16,7 @@ class CityController extends Controller
 
     public function index()
     {
-        $items = City::get();
+        $items = City::latest()->get();
 
         return view('admin.locations.cities-management.list', compact('items'))->with('title', 'Cities');
     }
@@ -38,12 +38,29 @@ class CityController extends Controller
             'country_id' => 'nullable|int',
             'featured_image' => 'nullable|image',
             'featured_image_alt_text' => 'nullable|string|max:255',
+            'banner_image' => 'nullable|image',
+            'banner_image_alt_text' => 'nullable|string|max:255',
         ]);
         $slug = $this->createSlug($validatedData['name'], 'cities');
-        $data = array_merge($validatedData, ['slug' => $slug]);
-        $item = City::create($data);
 
-        $this->uploadImg('featured_image', 'City/Featured-image', $item, 'featured_image');
+        $featuredImage = null;
+        $bannerImage = null;
+
+        if ($request->hasFile('featured_image')) {
+            $featuredImage = $this->simpleUploadImg($request->file('featured_image'), 'Location/Country/Featured-images');
+        }
+
+        if ($request->hasFile('banner_image')) {
+            $bannerImage = $this->simpleUploadImg($request->file('banner_image'), 'Location/Country/Banner-images');
+        }
+
+        $data = array_merge($validatedData, [
+            'slug' => $slug,
+            'featured_image' => $featuredImage,
+            'banner_image' => $bannerImage,
+        ]);
+
+        $item = City::create($data);
 
         handleSeoData($request, $item, 'City');
 
@@ -69,17 +86,31 @@ class CityController extends Controller
             'status' => 'nullable|in:publish,draft',
             'featured_image' => 'nullable|image',
             'featured_image_alt_text' => 'nullable|string|max:255',
+            'banner_image' => 'nullable|image',
+            'banner_image_alt_text' => 'nullable|string|max:255',
         ]);
         $item = City::find($id);
         $slugText = $validatedData['slug'] != '' ? $validatedData['slug'] : $validatedData['name'];
         $slug = $this->createSlug($slugText, 'cities', $item->slug);
 
+        $featuredImage = $item->featured_image;
+        $bannerImage = $item->banner_image;
+
+        if ($request->hasFile('featured_image')) {
+            $featuredImage = $this->simpleUploadImg($request->file('featured_image'), 'Location/Country/Featured-images', $item->featured_image);
+        }
+
+        if ($request->hasFile('banner_image')) {
+            $bannerImage = $this->simpleUploadImg($request->file('banner_image'), 'Location/Country/Banner-images', $item->banner_image);
+        }
+
         $data = array_merge($validatedData, [
             'slug' => $slug,
+            'featured_image' => $featuredImage,
+            'banner_image' => $bannerImage,
         ]);
 
         $item->update($data);
-        $this->uploadImg('featured_image', 'City/Featured-image', $item, 'featured_image');
         handleSeoData($request, $item, 'City');
 
         return redirect()->route('admin.cities.index')

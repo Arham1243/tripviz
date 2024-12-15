@@ -70,7 +70,7 @@ document
         if (this.type === "text") {
             if (this.value.trim() === "") {
                 this.value = "#";
-                hiddenField.value = "#";
+                hiddenField.value = "";
             } else {
                 hiddenField.value = this.value.trim();
             }

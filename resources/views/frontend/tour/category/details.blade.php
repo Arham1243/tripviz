@@ -26,7 +26,7 @@
                             <h1 class="banner-heading banner-alt-heading">
                                 {{ explode(' ', $item->name)[0] }}
                                 <div class="bannerMain-title">{{ implode(' ', array_slice(explode(' ', $item->name), 1)) }}
-                                </div> <!-- Rest of the name -->
+                                </div>
                             </h1>
                             <div class="highlights-item__container">
                                 <div class="highlights-item__icon">

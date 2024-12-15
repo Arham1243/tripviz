@@ -8,8 +8,8 @@
     <div class="location-banner1">
         <div class="container-Fluid">
             <div class="location-banner1__img">
-                <img data-src="{{ asset($item->featured_image ?? 'assets/images/placeholder.png') }}"
-                    alt='{{ $item->featured_image_alt_text }}' class='imgFluid lazy' loading='lazy'>
+                <img data-src="{{ asset($item->banner_image ?? 'assets/images/placeholder.png') }}"
+                    alt='{{ $item->banner_image_alt_text }}' class='imgFluid lazy' loading='lazy'>
             </div>
         </div>
     </div>

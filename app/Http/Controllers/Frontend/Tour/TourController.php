@@ -13,8 +13,11 @@ class TourController extends Controller
 {
     public function index()
     {
+        $tours = Tour::where('status', 'publish')->get();
+        $data = compact('tours');
+
         return view('frontend.tour.index')
-            ->with('title', 'Top Tours');
+            ->with('title', 'Top Tours')->with($data);
     }
 
     public function details($slug)

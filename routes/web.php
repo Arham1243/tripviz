@@ -46,7 +46,7 @@ Route::prefix('page')->name('page.')->group(function () {
 
 Route::prefix('tours')->name('tours.')->group(function () {
 
-    Route::get('/', [TourController::class, 'listing'])->name('index');
+    Route::get('/', [TourController::class, 'index'])->name('index');
     Route::get('/search', [TourController::class, 'search'])->name('search');
     Route::get('/{slug}', [TourController::class, 'details'])->name('details');
 

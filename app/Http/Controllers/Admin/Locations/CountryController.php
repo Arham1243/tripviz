@@ -15,7 +15,7 @@ class CountryController extends Controller
 
     public function index()
     {
-        $items = Country::get();
+        $items = Country::latest()->get();
 
         return view('admin.locations.countries-management.list', compact('items'))->with('title', 'Countries');
     }
@@ -34,12 +34,29 @@ class CountryController extends Controller
             'status' => 'nullable|in:publish,draft',
             'featured_image' => 'nullable|image',
             'featured_image_alt_text' => 'nullable|string|max:255',
+            'banner_image' => 'nullable|image',
+            'banner_image_alt_text' => 'nullable|string|max:255',
         ]);
         $slug = $this->createSlug($validatedData['name'], 'countries');
-        $data = array_merge($validatedData, ['slug' => $slug]);
-        $item = Country::create($data);
 
-        $this->uploadImg('featured_image', 'Country/Featured-image', $item, 'featured_image');
+        $featuredImage = null;
+        $bannerImage = null;
+
+        if ($request->hasFile('featured_image')) {
+            $featuredImage = $this->simpleUploadImg($request->file('featured_image'), 'Location/Country/Featured-images');
+        }
+
+        if ($request->hasFile('banner_image')) {
+            $bannerImage = $this->simpleUploadImg($request->file('banner_image'), 'Location/Country/Banner-images');
+        }
+
+        $data = array_merge($validatedData, [
+            'slug' => $slug,
+            'featured_image' => $featuredImage,
+            'banner_image' => $bannerImage,
+        ]);
+
+        $item = Country::create($data);
 
         handleSeoData($request, $item, 'Country');
 
@@ -64,17 +81,32 @@ class CountryController extends Controller
             'status' => 'nullable|in:publish,draft',
             'featured_image' => 'nullable|image',
             'featured_image_alt_text' => 'nullable|string|max:255',
+            'banner_image' => 'nullable|image',
+            'banner_image_alt_text' => 'nullable|string|max:255',
         ]);
+
         $item = Country::find($id);
         $slugText = $validatedData['slug'] != '' ? $validatedData['slug'] : $validatedData['name'];
         $slug = $this->createSlug($slugText, 'countries', $item->slug);
+        $featuredImage = $item->featured_image;
+        $bannerImage = $item->banner_image;
+
+        if ($request->hasFile('featured_image')) {
+            $featuredImage = $this->simpleUploadImg($request->file('featured_image'), 'Location/Country/Featured-images', $item->featured_image);
+        }
+
+        if ($request->hasFile('banner_image')) {
+            $bannerImage = $this->simpleUploadImg($request->file('banner_image'), 'Location/Country/Banner-images', $item->banner_image);
+        }
 
         $data = array_merge($validatedData, [
             'slug' => $slug,
+            'featured_image' => $featuredImage,
+            'banner_image' => $bannerImage,
         ]);
 
         $item->update($data);
-        $this->uploadImg('featured_image', 'Country/Featured-image', $item, 'featured_image');
+
         handleSeoData($request, $item, 'Country');
 
         return redirect()->route('admin.countries.index')
