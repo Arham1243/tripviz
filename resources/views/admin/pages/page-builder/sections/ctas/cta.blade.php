@@ -384,7 +384,8 @@
                                             <input type="datetime-local" class="field"
                                                 value="{{ $sectionContent->sale_ends_on_2 ?? '' }}"
                                                 name="content[sale_ends_on_2]" autocomplete="off"
-                                                min="{{ \Carbon\Carbon::now()->format('Y-m-d\TH:i') }}">
+                                                x-bind:min="section_style === 'style-2' ?
+                                                    '{{ \Carbon\Carbon::now()->format('Y-m-d\TH:i') }}' : null">
                                         </div>
                                     </div>
                                     <div class="col-lg-12 mb-4">

@@ -84,51 +84,38 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'name' => 'nullable|string|max:255',
-            'parent_category_id' => 'nullable|exists:tour_categories,id',
-            'status' => 'nullable|in:publish,draft',
-            'slug' => 'nullable|string|max:255',
-            'bottom_featured_tour_ids' => 'nullable|array',
-            'top_featured_tour_ids' => 'nullable|array',
-            'recommended_tour_ids' => 'nullable|array',
-            'tour_reviews_ids' => 'nullable|array',
-            'tour_count_heading' => 'nullable|string|max:255',
-            'tour_count_btn_text' => 'nullable|string|max:255',
-            'tour_count_btn_link' => 'nullable|string|max:255',
-            'tour_count_image' => 'nullable|image|max:2048',
-            'featured_image_alt_text' => 'nullable|string|max:255',
-            'featured_image' => 'nullable|image|max:2048',
-            'gallery' => 'nullable|array',
-            'gallery.*' => 'image|mimes:jpeg,png,jpg,webp,gif|max:2048',
-            'gallery_alt_texts' => 'nullable|array',
-            'gallery_alt_texts.*' => 'string|max:255',
-        ]);
-
         $category = TourCategory::findOrFail($id);
 
-        $slugText = $validatedData['slug'] != '' ? $validatedData['slug'] : $validatedData['name'];
+        $slugText = $request['slug'] != '' ? $request['slug'] : $request['name'];
         $slug = $this->createSlug($slugText, 'tour_categories', $category->slug);
 
-        $data = array_merge($validatedData, ['slug' => $slug]);
+        $data['slug'] = $slug;
 
         // Handle JSON IDs
         $data['bottom_featured_tour_ids'] = json_encode($request->input('bottom_featured_tour_ids', []));
         $data['recommended_tour_ids'] = json_encode($request->input('recommended_tour_ids', []));
         $data['tour_reviews_ids'] = json_encode($request->input('tour_reviews_ids', []));
 
-        $category->update($data);
-        handleSeoData($request, $category, 'Tours/Categories');
-        $this->uploadImg('featured_image', 'Tours/Categories/Featured-image', $category, 'featured_image');
-        $this->uploadImg('tour_count_image', 'Tours/Categories/Count-Section/Bg', $category, 'tour_count_image');
+        $sectionData = $request->all()['content'];
+        foreach ($sectionData as $sectionKey => $content) {
+            $existingSectionContent = $category->section_content ? json_decode($category->section_content, true) : [];
+            $updatedContent[$sectionKey] = $this->handleSectionData($content, $existingSectionContent[$sectionKey] ?? [], $sectionKey);
+        }
 
+        $data['section_content'] = $updatedContent;
+
+        $category->update($data);
+
+        handleSeoData($request, $category, 'Tours/Categories');
+
+        $this->uploadImg('featured_image', 'Tours/Categories/Featured-image', $category, 'featured_image');
         if ($request->gallery) {
             foreach ($request->file('gallery') as $index => $image) {
                 $path = $this->simpleUploadImg($image, 'Testimonial/Other-images');
 
                 $category->media()->create([
                     'file_path' => $path,
-                    'alt_text' => $validatedData['gallery_alt_texts'][$index],
+                    'alt_text' => $request['gallery_alt_texts'][$index],
                 ]);
             }
         }
@@ -136,11 +123,32 @@ class CategoriesController extends Controller
         return redirect()->route('admin.tour-categories.index')->with('notify_success', 'Category updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function handleSectionData(array $newData, ?array $existingData, string $sectionKey)
     {
-        //
+
+        switch ($sectionKey) {
+            case 'tour_count':
+                $newData['background_image'] = $this->handleImageField($newData, $existingData, $sectionKey, 'background_image');
+
+                return $newData;
+
+            case 'call_to_action':
+                $newData['background_image'] = $this->handleImageField($newData, $existingData, $sectionKey, 'background_image');
+
+                return $newData;
+        }
+    }
+
+    protected function handleImageField($newData, $existingData, $sectionKey, $field)
+    {
+        if (isset($newData[$field])) {
+            return $this->simpleUploadImg(
+                $newData[$field],
+                "Tours/Categories/Sections/{$sectionKey}",
+                $existingData[$field] ?? null
+            );
+        }
+
+        return $existingData[$field] ?? null;
     }
 }

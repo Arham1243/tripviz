@@ -244,26 +244,32 @@ class PageController extends Controller
         switch ($sectionKey) {
             case 'water_activities_3_box_layout':
                 return $this->handlePromotions($newData, $existingData, $pageSlug, $sectionKey);
+
             case 'banner':
                 return $this->handleBanner($newData, $existingData, $pageSlug, $sectionKey);
+
             case 'cities_with_tour_count_slider':
                 $newData['destination_background_image'] = $this->handleImageField($newData, $existingData, $pageSlug, $sectionKey, 'destination_background_image');
 
                 return $newData;
+
             case 'call_to_action':
                 $newData['background_image'] = $this->handleImageField($newData, $existingData, $pageSlug, $sectionKey, 'background_image');
                 $newData['background_image_2'] = $this->handleImageField($newData, $existingData, $pageSlug, $sectionKey, 'background_image_2');
 
                 return $newData;
+
             case 'newsletter_signup':
                 $newData['left_image'] = $this->handleImageField($newData, $existingData, $pageSlug, $sectionKey, 'left_image');
 
                 return $newData;
+
             case 'app_download':
                 $newData['background_image'] = $this->handleImageField($newData, $existingData, $pageSlug, $sectionKey, 'background_image');
                 $newData['qr_code_image'] = $this->handleImageField($newData, $existingData, $pageSlug, $sectionKey, 'qr_code_image');
 
                 return $newData;
+
             default:
                 return $newData;
         }

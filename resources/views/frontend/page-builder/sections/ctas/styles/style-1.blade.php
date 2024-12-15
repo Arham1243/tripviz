@@ -27,7 +27,7 @@
         <div class="offers-section section-padding">
             <div class=container>
                 <div class=offers-section__details
-                    style="background-color: {{ $isBackgroundColor ? $content->background_color : '' }}">
+                    style="{{ $isBackgroundColor && $content->background_color ? 'background-color: ' . $content->background_color : '' }}">
                     @if ($isBackgroundImage)
                         <img data-src="{{ asset($content->background_image ?? 'admin/assets/images/placeholder.png') }}"
                             alt="{{ $content->background_image_alt_text ?? 'Cta Background Image' }}"

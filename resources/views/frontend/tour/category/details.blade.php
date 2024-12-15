@@ -5,14 +5,13 @@
 @endphp
 
 @section('content')
-    <div class="header-form" id="tour-listing.php">
+    <div class="header-form mb-5">
         <div class="container">
             <div class="row">
                 <div class="for-generic ">
                     <form action="#" class="input-details generic-form">
                         <i class='bx bx-search'></i>
-                        <input type="text" name="" placeholder="Search generic "
-                            class="mobile-number-app app-input">
+                        <input type="text" name="" placeholder="Search generic " class="mobile-number-app app-input">
                         <button class="app-btn themeBtn">SEND</button>
                     </form>
                 </div>
@@ -53,8 +52,7 @@
     </div>
 
     @if ($featuredTours->isNotEmpty())
-        <div class="section-padding">
-
+        <div class="section-padding pb-4">
             <div class="container">
                 <div class="activity-sorting-block">
                     <div class="search-header__activity">
@@ -140,29 +138,56 @@
         </div>
     @endif
 
-    <div class="offers-section">
-        <div class="container">
-            <div class="offers-section__details">
-                <div class="offers-section__img">
-                    <img src='{{ asset('assets/images/group_tour_desktop_banner_image.webp') }}' alt='image'
-                        class='imgFluid' loading='lazy'>
-                </div>
-                <div class="GroupTourCard_content">
-                    <span class="GroupTourCard_title">Bigger Group? Get special offers up to 50% Off!</span>
-                    <span class="GroupTourCard_subtitle">We create unforgettable adventures, customised for your
-                        group.</span>
-                    <div class="GroupTourCard_callBackButton">
-                        <span class="GroupTourCard_text app-btn themeBtn">Get A Callback</span>
+
+    @php
+        $sectionContent = json_decode($item->section_content);
+        $tourCountContent = $sectionContent->tour_count ?? null;
+        $callToActionContent = $sectionContent->call_to_action ?? null;
+    @endphp
+
+    @if (isset($callToActionContent->is_enabled))
+        @php
+            $isCtaBackgroundColor = isset($callToActionContent->call_to_action_background_type)
+                ? $callToActionContent->call_to_action_background_type === 'background_color'
+                : null;
+            $isCtaBackgroundImage = isset($callToActionContent->call_to_action_background_type)
+                ? $callToActionContent->call_to_action_background_type === 'background_image'
+                : null;
+        @endphp
+        <div class="offers-section section-padding">
+            <div class=container>
+                <div class=offers-section__details
+                    style="{{ $isCtaBackgroundColor && $callToActionContent->background_color ? 'background-color: ' . $callToActionContent->background_color : '' }}">
+                    @if ($isCtaBackgroundImage)
+                        <img data-src="{{ asset($callToActionContent->background_image ?? 'admin/assets/images/placeholder.png') }}"
+                            alt="{{ $callToActionContent->background_image_alt_text ?? 'Cta Background Image' }}"
+                            class="imgFluid lazy offers-section__img" loading="lazy" height="200">
+                    @endif
+                    <div class=GroupTourCard_content>
+                        <span class=GroupTourCard_title
+                            @if ($callToActionContent->title_color) style="color: {{ $callToActionContent->title_color }};" @endif>{{ $callToActionContent->title ?? '' }}</span>
+                        <span class=GroupTourCard_subtitle
+                            @if ($callToActionContent->description_color) style="color: {{ $callToActionContent->description_color }};" @endif>{{ $callToActionContent->description ?? '' }}</span>
+                        @if (isset($callToActionContent->is_button_enabled))
+                            <div class="GroupTourCard_callBackButton pt-3">
+                                <a href="{{ sanitizedLink($callToActionContent->btn_link) ?? '' }}"
+                                    style="
+{{ $callToActionContent->btn_background_color ? 'background-color: ' . $callToActionContent->btn_background_color . ';' : '' }}
+{{ $callToActionContent->btn_text_color ? 'color: ' . $callToActionContent->btn_text_color . ';' : '' }}
+"
+                                    target="_blank"
+                                    class="GroupTourCard_text app-btn themeBtn">{{ $callToActionContent->btn_text ?? '' }}</a>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
-
         </div>
-    </div>
+    @endif
 
 
     @if ($bottomFeaturedTours->isNotEmpty())
-        <div class="section-padding">
+        <div class="section-padding pt-4">
             <div class="container">
                 <div class="row">
                     @foreach ($bottomFeaturedTours as $tour)
@@ -232,22 +257,43 @@
     @endif
 
 
-    @if (!empty($item->tour_count_heading))
-        <div class="location-banner">
+    @if (isset($tourCountContent->is_enabled))
+        @php
+            $isCountBackgroundColor = isset($tourCountContent->tour_count_background_type)
+                ? $tourCountContent->tour_count_background_type === 'background_color'
+                : null;
+            $isCountBackgroundImage = isset($tourCountContent->tour_count_background_type)
+                ? $tourCountContent->tour_count_background_type === 'background_image'
+                : null;
+        @endphp
+        <div class="location-banner mb-3">
             <div class="container">
-                <div class="location-banner__content">
-                    <div class="location-banner__img">
-                        <img data-src="{{ asset($item->tour_count_image ?? 'admin/assets/images/placeholder.png') }}"
-                            alt="{{ $item->tour_count_image_alt_text ?? 'image' }}" class="imgFluid lazy" loading="lazy">
-                    </div>
+                <div class="location-banner__content"
+                    style="{{ $isCountBackgroundColor && $tourCountContent->background_color ? 'background-color: ' . $tourCountContent->background_color : '' }}">
+                    @if ($isCountBackgroundImage)
+                        <div class="location-banner__img">
+                            <img data-src="{{ asset($tourCountContent->background_image ?? 'admin/assets/images/placeholder.png') }}"
+                                alt="{{ $tourCountContent->background_image_alt_text ?? 'image' }}" class="imgFluid lazy"
+                                loading="lazy">
+                        </div>
+                    @endif
                     <div class="location-banner-wrapper">
                         <div class="banner-heading">
                             <h1>
-                                <div class="bannerMain-title">{{ $item->tour_count_heading ?? '' }}</div>
+                                <div class="bannerMain-title"
+                                    @if ($tourCountContent->heading_color) style="color: {{ $tourCountContent->heading_color }} !important;" @endif>
+                                    {{ $tourCountContent->heading ?? '' }}</div>
                             </h1>
                         </div>
-                        <a href="{{ sanitizedLink($item->tour_count_btn_link ?? 'javascript:void(0)') }}"
-                            class="app-btn themeBtn" type="button">{{ $item->tour_count_btn_text ?? 'Click' }} </a>
+                        @if (isset($tourCountContent->is_button_enabled))
+                            <a href="{{ sanitizedLink($tourCountContent->btn_link ?? 'javascript:void(0)') }}"
+                                style="
+    {{ $tourCountContent->btn_background_color ? 'background-color: ' . $tourCountContent->btn_background_color . ';' : '' }}
+    {{ $tourCountContent->btn_text_color ? 'color: ' . $tourCountContent->btn_text_color . ';' : '' }}"
+                                class="app-btn
+                                themeBtn"
+                                type="button">{{ $tourCountContent->btn_text ?? 'Click' }} </a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -256,7 +302,7 @@
 
 
     @if ($recomTours->isNotEmpty())
-        <div class="pt-5">
+        <div class="py-5">
             <div class="container">
                 <div class="section-content">
                     <h2 class="subHeading">
@@ -304,131 +350,69 @@
         </div>
     @endif
 
-    <div class="comment">
-        <img src="{{ asset('assets/images/comment.webp') }}" alt="image" class="peoples-img imgFluid"
-            loading="lazy">
-        <div class="ocizgi_imgs">
-            <img src="{{ asset('assets/images/ocizgi.webp') }}" alt="image" class="ocizgi imgFluid" loading="lazy">
-        </div>
-        <div class="container">
-            <div class="section-content">
-                <h2 class="subHeading">
-                    Comment
-                </h2>
-                <p>What are our customers saying?</p>
+    @if ($featuredReviews->isNotEmpty())
+        <div class="comment">
+            <img src="{{ asset('assets/images/comment.webp') }}" alt="image" class="peoples-img imgFluid"
+                loading="lazy">
+            <div class="ocizgi_imgs">
+                <img src="{{ asset('assets/images/ocizgi.webp') }}" alt="image" class="ocizgi imgFluid"
+                    loading="lazy">
             </div>
+            <div class="container">
+                <div class="section-content">
+                    <h2 class="subHeading">
+                        Comment
+                    </h2>
+                    <p>What are our customers saying?</p>
+                </div>
 
-            <div class="row pt-3">
-                <div class="col-md-3">
-                    <div class="comment-card">
-                        <div class="comment-card__img comment-slider">
-                            <img src="{{ asset('assets/images/comment1.webp') }}" alt="image" class="imgFluid">
-                            <img src="{{ asset('assets/images/comment2.webp') }}" alt="image" class="imgFluid">
-                        </div>
-                        <div class="comment-card__content">
-                            <div class="comment-details">
-                                <div class="customer-name">
-                                    neurontnP
+                <div class="row pt-3">
+                    @foreach ($featuredReviews as $testimonial)
+                        <div class=col-md-3>
+                            <div class=comment-card>
+                                <div class="comment-card__img comment-slider">
+                                    <img data-src="{{ asset($testimonial->featured_image ?? 'admin/assets/images/placeholder.png') }}"
+                                        alt="{{ $testimonial->featured_image_alt_text }}" class="imgFluid lazy"
+                                        loading="lazy">
+                                    @if ($testimonial->media->isNotEmpty())
+                                        @foreach ($testimonial->media as $media)
+                                            <img data-src="{{ asset($media->file_path ?? 'admin/assets/images/placeholder.png') }}"
+                                                alt="{{ $media->alt_text }}" class="imgFluid lazy" loading="lazy">
+                                        @endforeach
+                                    @endif
                                 </div>
-                                <div class="card-rating">
-                                    <i class="bx bxs-star yellow-star"></i>
-                                    <i class="bx bxs-star yellow-star"></i>
-                                    <i class="bx bxs-star yellow-star"></i>
-                                    <i class="bx bxs-star yellow-star"></i>
-                                    <i class="bx bxs-star"></i>
-                                </div>
-                            </div>
-                            <div class="comment-pra">
-                                I am not sure where you’re getting your information, but great topic.
-                            </div>
-                            <button class="app-btn themeBtn">Read</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="comment-card">
-                        <div class="comment-card__img comment-slider">
-                            <img src="{{ asset('assets/images/comment2.webp') }}" alt="image" class="imgFluid">
-                            <img src="{{ asset('assets/images/comment1.webp') }}" alt="image" class="imgFluid">
-                        </div>
-                        <div class="comment-card__content">
-                            <div class="comment-details">
-                                <div class="customer-name">
-                                    neurontnP
-                                </div>
-                                <div class="card-rating">
-                                    <i class="bx bxs-star yellow-star"></i>
-                                    <i class="bx bxs-star yellow-star"></i>
-                                    <i class="bx bxs-star yellow-star"></i>
-                                    <i class="bx bxs-star yellow-star"></i>
-                                    <i class="bx bxs-star"></i>
+                                <div class=comment-card__content>
+                                    <div class=comment-details>
+                                        <div class="customer-name" title="{{ $testimonial->title ?? '' }}"
+                                            @if (strlen($testimonial->title ?? '') > 19) data-tooltip="tooltip" @endif>
+                                            {{ $testimonial->title ?? '' }}
+                                        </div>
+                                        <div class=card-rating>
+                                            <x-star-rating :rating="$testimonial->rating" />
+                                        </div>
+                                    </div>
+                                    <div class=comment-pra>
+                                        {!! $testimonial->content ?? '' !!}
+                                    </div>
+                                    @if (isset($content->is_button_enabled))
+                                        <a style="
+                                        @if ($content->btn_background_color) background: {{ $content->btn_background_color }}; @else background: var(--color-primary); @endif
+                                        @if ($content->btn_text_color) color: {{ $content->btn_text_color }}; @else color: #fff; @endif
+                                    "
+                                            href="javascript:void(0)" class="app-btn themeBtn">
+                                            {{ $content->btn_text ?? 'Read' }}
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
-                            <div class="comment-pra">
-                                I am not sure where you’re getting your information, but great topic.
-                            </div>
-                            <button class="app-btn themeBtn">Read</button>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="comment-card">
-                        <div class="comment-card__img comment-slider">
-                            <img src="{{ asset('assets/images/comment3.webp') }}" alt="image" class="imgFluid">
-                            <img src="{{ asset('assets/images/comment4.webp') }}" alt="image" class="imgFluid">
-                        </div>
-                        <div class="comment-card__content">
-                            <div class="comment-details">
-                                <div class="customer-name">
-                                    neurontnP
-                                </div>
-                                <div class="card-rating">
-                                    <i class="bx bxs-star yellow-star"></i>
-                                    <i class="bx bxs-star yellow-star"></i>
-                                    <i class="bx bxs-star yellow-star"></i>
-                                    <i class="bx bxs-star yellow-star"></i>
-                                    <i class="bx bxs-star"></i>
-                                </div>
-                            </div>
-                            <div class="comment-pra">
-                                I am not sure where you’re getting your information, but great topic.
-                            </div>
-                            <button class="app-btn themeBtn">Read</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="comment-card">
-                        <div class="comment-card__img comment-slider">
-                            <img src="{{ asset('assets/images/comment4.webp') }}" alt="image" class="imgFluid">
-                            <img src="{{ asset('assets/images/comment3.webp') }}" alt="image" class="imgFluid">
-                        </div>
-                        <div class="comment-card__content">
-                            <div class="comment-details">
-                                <div class="customer-name">
-                                    neurontnP
-                                </div>
-                                <div class="card-rating">
-                                    <i class="bx bxs-star yellow-star"></i>
-                                    <i class="bx bxs-star yellow-star"></i>
-                                    <i class="bx bxs-star yellow-star"></i>
-                                    <i class="bx bxs-star yellow-star"></i>
-                                    <i class="bx bxs-star"></i>
-                                </div>
-                            </div>
-                            <div class="comment-pra">
-                                I am not sure where you’re getting your information, but great topic.
-                            </div>
-                            <button class="app-btn themeBtn">Read</button>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 
-
-    <div class="newsletter pt-3 pb-5 mb-4">
+    <div class="newsletter pt-3 pb-5 mb-2">
         <div class=container>
             <div class="row g-0">
                 <div class=col-md-6>
