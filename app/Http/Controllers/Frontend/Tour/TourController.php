@@ -21,13 +21,13 @@ class TourController extends Controller
     public function details($slug)
     {
 
-        $tour = Tour::where('slug', $slug)->with('categories', 'cities')->first();
+        $tour = Tour::where('slug', $slug)->first();
         $tourFaqs = TourFaq::where('tour_id', $tour->id)->get();
 
         if ($tour) {
             $data = compact('tour', 'tourFaqs');
 
-            return view('frontend.tour.index')->with('title', $tour->title)->with($data);
+            return view('frontend.tour.details')->with('title', $tour->title)->with($data);
         }
 
         return redirect()->back()->with('notify_error', 'Page Not Available');

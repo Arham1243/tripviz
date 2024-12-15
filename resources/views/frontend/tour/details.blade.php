@@ -1,8 +1,10 @@
-@extends('layouts.main')
+@extends('frontend.layouts.main')
 @section('content')
 
 
-
+    @php
+        $seo = $tour->seo ?? null;
+    @endphp
 
     <div class=tour-details id=tour-details.php>
         <div class=tour-details_banner>
@@ -176,13 +178,13 @@
                         </ul>
                     </div>
                     <div class=tour-content__line></div>
-                    @if (!$attributes->isEmpty())
+                    @if (json_decode($tour->features))
                         <div class=tour-content__moreDetail>
                             <ul class=tour-content__moreDetail--content>
-                                @foreach ($attributes as $attribute)
+                                @foreach (json_decode($tour->features) as $feature)
                                     <li>
-                                        <i class="{{ $attribute->icon_class }}"></i>
-                                        <div>{{ $attribute->title }}</div>
+                                        <i class="{{ $feature->icon }}"></i>
+                                        <div>{{ $feature->title }}</div>
                                     </li>
                                 @endforeach
                             </ul>
@@ -208,31 +210,31 @@
                             @endif
                         </div>
                         <div class=row>
-                            @if (!$inclusions->isEmpty())
+                            @if (json_decode($tour->inclusions))
                                 <div class="col-md-6 mb-4">
                                     <div class="tour-content__title mb-3">Price Includes</div>
-                                    @foreach ($inclusions as $inclusion)
+                                    @foreach (json_decode($tour->inclusions) as $inclusion)
                                         <div class=Price-Includes__content>
                                             <div class="tour-content__pra-icon check-icon">
                                                 <i class="bx bx-check mr-3"></i>
                                             </div>
                                             <div class=tour-content__pra>
-                                                {{ $inclusion->title }}
+                                                {{ $inclusion }}
                                             </div>
                                         </div>
                                     @endforeach
                                 </div>
                             @endif
-                            @if (!$exclusions->isEmpty())
+                            @if (json_decode($tour->exclusions))
                                 <div class="col-md-6 mb-4">
                                     <div class="tour-content__title mb-3">Price Excludes</div>
-                                    @foreach ($exclusions as $exclusion)
+                                    @foreach (json_decode($tour->exclusions) as $exclusion)
                                         <div class=Price-Includes__content>
                                             <div class="tour-content__pra-icon x-icon">
                                                 <i class="bx bx-x mr-3"></i>
                                             </div>
                                             <div class=tour-content__pra>
-                                                {{ $exclusion->title }}
+                                                {{ $exclusion }}
                                             </div>
                                         </div>
                                     @endforeach
@@ -241,18 +243,17 @@
                         </div>
                         <div class=tour-content__line></div>
                     </div>
-
-                    @if (!$groupedAdditionalItems->isEmpty())
+                    @if ($tour->attributes->isNotEmpty())
                         <div class="tour-content__moreDetail">
-                            @foreach ($groupedAdditionalItems as $additionalName => $items)
+                            @foreach ($tour->attributes as $attribute)
                                 <div class="tour-content__title">
-                                    {{ $additionalName ?? '' }}
+                                    {{ $attribute->name ?? '' }}
                                 </div>
                                 <ul class="tour-content__moreDetail--content">
-                                    @foreach ($items as $item)
+                                    @foreach (json_decode($attribute->items) as $item)
                                         <li>
                                             <i class="bx bx-check-circle"></i>
-                                            <div>{{ $item->title ?? '' }}</div>
+                                            <div>{{ $item ?? '' }}</div>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -263,7 +264,7 @@
                     <div class=tour-content__line></div>
 
 
-                    <div class=itinerary>
+                    {{-- <div class=itinerary>
                         @if ($itineraries->isNotEmpty())
                             <div class=tour-content__SubTitle>
                                 Itinerary
@@ -303,7 +304,7 @@
                                 No Itinerary available for this tour
                             </div>
                         @endif
-                    </div>
+                    </div> --}}
 
 
                     <div class=tour-content__line></div>
