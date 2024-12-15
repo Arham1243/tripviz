@@ -7,7 +7,6 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\Tour;
 use App\Models\TourCategory;
-use App\Models\TourFaq;
 use Illuminate\Http\Request;
 
 class TourController extends Controller
@@ -22,10 +21,9 @@ class TourController extends Controller
     {
 
         $tour = Tour::where('slug', $slug)->first();
-        $tourFaqs = TourFaq::where('tour_id', $tour->id)->get();
 
         if ($tour) {
-            $data = compact('tour', 'tourFaqs');
+            $data = compact('tour');
 
             return view('frontend.tour.details')->with('title', $tour->title)->with($data);
         }

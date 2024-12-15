@@ -465,15 +465,11 @@
                     <div class=tour-content__line></div>
                     <div class="faqs">
 
-                        @if ($tourFaqs->isEmpty())
-                            <div class="tour-content__SubTitle">
-                                No FAQs available
-                            </div>
-                        @else
+                        @if ($tour->faqs->isNotEmpty())
                             <div class="tour-content__SubTitle">
                                 FAQS
                             </div>
-                            @foreach ($tourFaqs as $faq)
+                            @foreach ($tour->faqs as $faq)
                                 <div class="faqs-single accordian {{ $loop->first ? 'active' : '' }}">
                                     <div class="faqs-single__header accordian-header">
                                         <div class="faq-icon"><i class="bx bx-plus"></i></div>
@@ -486,6 +482,10 @@
                                     </div>
                                 </div>
                             @endforeach
+                        @else
+                            <div class="tour-content__SubTitle">
+                                No FAQs available
+                            </div>
                         @endif
                     </div>
 
