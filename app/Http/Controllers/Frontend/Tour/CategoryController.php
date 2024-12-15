@@ -8,7 +8,7 @@ use App\Models\TourCategory;
 
 class CategoryController extends Controller
 {
-    public function show($slug)
+    public function details($slug)
     {
         $item = TourCategory::where('slug', $slug)->firstOrFail();
         $featuredTours = Tour::whereIn('id', json_decode($item->top_featured_tour_ids))->where('status', 'publish')->get();

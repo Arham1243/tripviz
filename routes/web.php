@@ -51,7 +51,7 @@ Route::prefix('tours')->name('tours.')->group(function () {
     Route::get('/{slug}', [TourController::class, 'details'])->name('details');
 
     Route::prefix('category')->name('category.')->group(function () {
-        Route::get('{slug}', [CategoryController::class, 'show'])->name('show');
+        Route::get('{slug}', [CategoryController::class, 'details'])->name('details');
     });
 });
 

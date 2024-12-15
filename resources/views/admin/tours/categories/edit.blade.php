@@ -23,7 +23,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="{{ route('tours.category.show', $category->slug) }}" target="_blank" class="themeBtn">View
+                        <a href="{{ route('tours.category.details', $category->slug) }}" target="_blank"
+                            class="themeBtn">View
                             Category</a>
                     </div>
                 </div>

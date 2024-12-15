@@ -98,7 +98,7 @@
                         'image' => 'featured_image',
                         'alt_text' => 'featured_image_alt_text',
                         'slug' => 'slug',
-                        'route' => 'category.listing',
+                        'route' => 'tours.category.details',
                     ],
                 ];
 
