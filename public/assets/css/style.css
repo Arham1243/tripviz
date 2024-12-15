@@ -2918,6 +2918,7 @@ ul.tour-content__pra li {
     color: #343a40;
     font-size: 16px;
     font-weight: 700;
+    text-transform: capitalize;
     margin: 21px 0;
 }
 

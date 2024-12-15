@@ -1,104 +1,144 @@
 @extends('frontend.layouts.main')
 @section('content')
 
-
     @php
         $seo = $tour->seo ?? null;
     @endphp
 
+    @if (isset($tour->show_phone) && $tour->show_phone === 1)
+        <a href="tel:{{ $tour->phone_dial_code . $tour->phone_number }}" class="goUp d-block">Whatsapp<i
+                class='bx bx-message-rounded'></i></i></a>
+    @endif
+
     <div class=tour-details id=tour-details.php>
         <div class=tour-details_banner>
             <div class=tour-details_img>
-                <img src={{ asset('assets/images/banner-tour-16.webp') }} alt=image class=imgFluid>
+                <img data-src="{{ asset($tour->banner_image ?? 'assets/images/placeholder.png') }}"
+                    alt='{{ $tour->banner_image_alt_text }}' class='imgFluid lazy' loading='lazy'>
             </div>
             <div class=tour-details_btns>
-                <a href=# class="themeBtn themeBtn-white">Video</a>
-                <a href=# class="themeBtn themeBtn-white">Gallery</a>
+                @if ($tour->video_link)
+                    <a href={{ $tour->video_link }} data-fancybox="gallery" class="themeBtn themeBtn-white">Video</a>
+                @endif
+                @if ($tour->media->isNotEmpty())
+                    @foreach ($tour->media as $media)
+                        <a href={{ asset($media->file_path ?? 'assets/images/placeholder.png') }} data-fancybox="gallery-1"
+                            class="themeBtn themeBtn-white {{ $loop->first ? 'd-block' : 'd-none' }}">Gallery</a>
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>
-    <div class="media-gallery--view mt-2">
-        <div class="row g-0">
-            <div class=col-md-6>
-                <a href={{ asset('assets/images/98.webp') }} data-fancybox=gallery class=media-gallery__item--1>
-                    <img src={{ asset('assets/images/98.webp') }} alt=image class=imgFluid width=662.5 height=400>
-                </a>
-            </div>
-            <div class=col-md-3>
-                <a href={{ asset('assets/images/vertical_520_780.webp') }} data-fancybox=gallery
-                    class=media-gallery__item--2>
-                    <img src={{ asset('assets/images/vertical_520_780.webp') }} alt=image class=imgFluid width=225.25
-                        height=400>
-                </a>
-            </div>
-            <div class=col-md-3>
-                <div class="row g-0">
-                    <div class=col-12>
-                        <a href={{ asset('assets/images/97.webp') }} data-fancybox=gallery class=media-gallery__item--3>
-                            <img src={{ asset('assets/images/97.webp') }} alt=image class=imgFluid width=327.25 height=200>
-                        </a>
+
+    @if ($tour->media->isNotEmpty())
+        <div class="media-gallery--view mt-2">
+            <div class="row g-0">
+                <div class="col-lg-6">
+                    <a href="{{ asset($tour->media[0]->file_path ?? 'assets/images/placeholder.png') }}"
+                        data-fancybox="gallery-2" class="media-gallery__item--1">
+                        <img data-src="{{ asset($tour->media[0]->file_path ?? 'assets/images/placeholder.png') }}"
+                            alt="{{ $tour->media[0]->alt_text ?? 'image' }}" class="imgFluid lazy" width="662.5"
+                            height="400">
+                    </a>
+                </div>
+                <div class="col-lg-3">
+                    <a href="{{ asset($tour->media[1]->file_path ?? 'assets/images/placeholder.png') }}"
+                        data-fancybox="gallery-2" class="media-gallery__item--2">
+                        <img data-src="{{ asset($tour->media[1]->file_path ?? 'assets/images/placeholder.png') }}"
+                            alt="{{ $tour->media[1]->alt_text ?? 'image' }}" class="imgFluid lazy" width="662.5"
+                            height="400">
+                    </a>
+                </div>
+                <div class="col-lg-3">
+                    <div class="row g-0">
+                        <div class="col-12">
+                            <a href="{{ asset($tour->media[2]->file_path ?? 'assets/images/placeholder.png') }}"
+                                data-fancybox="gallery-2" class="media-gallery__item--3">
+                                <img data-src="{{ asset($tour->media[2]->file_path ?? 'assets/images/placeholder.png') }}"
+                                    alt="{{ $tour->media[2]->alt_text ?? 'image' }}" class="imgFluid lazy" width="662.5"
+                                    height="400">
+                            </a>
+                        </div>
+                        <div class="col-12">
+                            <a href="{{ asset($tour->media[3]->file_path ?? 'assets/images/placeholder.png') }}"
+                                data-fancybox="gallery-2" class="media-gallery__item--4">
+                                <img data-src="{{ asset($tour->media[3]->file_path ?? 'assets/images/placeholder.png') }}"
+                                    alt="{{ $tour->media[3]->alt_text ?? 'image' }}" class="imgFluid lazy" width="662.5"
+                                    height="400">
+                            </a>
+                            @if (count($tour->media) > 4)
+                                <div class="media-gallery--view__morePics">
+                                    @foreach ($tour->media->slice(4) as $media)
+                                        <a href="{{ asset($media->file_path ?? 'assets/images/placeholder.png') }}"
+                                            type="button" data-fancybox="gallery-4"
+                                            class="{{ $loop->first ? 'd-flex' : 'd-none' }}">
+                                            <span class="media-gallery--view__morePics-icon">
+                                                <i class="bx bx-photo-album"></i>
+                                            </span>
+                                            +{{ count($tour->media) - 4 }}
+                                        </a>
+                                    @endforeach
+                                </div>
+                            @endif
+                        </div>
                     </div>
-                    <div class=col-12>
-                        <a href="{{ asset('assets/images/97 (1).webp') }}" data-fancybox=gallery
-                            class=media-gallery__item--4>
-                            <img src="{{ asset('assets/images/97 (1).webp') }}" alt=image class=imgFluid width=327.25
-                                height=200>
-                        </a>
-                        <div class=media-gallery--view__morePics>
-                            <a href={{ asset('assets/images/98.webp') }} type=button data-fancybox=gallery>
-                                <span class=media-gallery--view__morePics-icon>
-                                    <i class="bx bx-photo-album"></i>
-                                </span>
-                                +21
+                </div>
+            </div>
+        </div>
+    @endif
+    @if ($tour->media->isNotEmpty())
+        <div class="media-gallery--view media-gallery--view2 mt-2">
+            <div class="row g-0">
+                <div class=col-md-8>
+                    <a href={{ asset($tour->media[0]->file_path ?? 'assets/images/placeholder.png') }}
+                        class="media-gallery__item--1 media-gallery--view2" data-fancybox=gallery-3>
+                        <img data-src="{{ asset($tour->media[0]->file_path ?? 'assets/images/placeholder.png') }}"
+                            alt="{{ $tour->media[0]->alt_text ?? 'image' }}" class="imgFluid lazy">
+                    </a>
+                </div>
+                <div class=col-md-4>
+                    <div class="row g-0">
+                        <div class=col-12>
+                            <a href={{ asset($tour->media[1]->file_path ?? 'assets/images/placeholder.png') }}
+                                class="media-gallery__item--3 media-gallery--view2" data-fancybox=gallery-3>
+                                <img data-src="{{ asset($tour->media[1]->file_path ?? 'assets/images/placeholder.png') }}"
+                                    alt="{{ $tour->media[1]->alt_text ?? 'image' }}" class="imgFluid lazy">
+                            </a>
+                            @if (count($tour->media) > 4)
+                                <div class=media-gallery--view2__morePics>
+                                    @foreach ($tour->media as $media)
+                                        <a href={{ asset($media->file_path ?? 'assets/images/placeholder.png') }}
+                                            data-fancybox=gallery-3 class="{{ $loop->first ? 'd-flex' : 'd-none' }}">
+                                            <span class=media-gallery--view2__morePics-icon>
+                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                            </span>
+                                            Show all photos
+                                        </a>
+                                    @endforeach
+
+                                </div>
+                            @endif
+                        </div>
+                        <div class=col-12>
+                            <a href={{ asset($tour->media[2]->file_path ?? 'assets/images/placeholder.png') }}
+                                class="media-gallery__item--4 media-gallery--view2" data-fancybox=gallery-3>
+                                <img data-src="{{ asset($tour->media[2]->file_path ?? 'assets/images/placeholder.png') }}"
+                                    alt="{{ $tour->media[2]->alt_text ?? 'image' }}" class="imgFluid lazy">
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="media-gallery--view media-gallery--view2 mt-2">
-        <div class="row g-0">
-            <div class=col-md-8>
-                <a href={{ asset('assets/images/Dubai-evening.webp') }} class="media-gallery__item--1 media-gallery--view2"
-                    data-fancybox=gallery-2>
-                    <img src={{ asset('assets/images/Dubai-evening.webp') }} alt=image class=imgFluid>
-                </a>
-            </div>
-            <div class=col-md-4>
-                <div class="row g-0">
-                    <div class=col-12>
-                        <a href={{ asset('assets/images/Dubai-Bedouin-tea.webp') }}
-                            class="media-gallery__item--3 media-gallery--view2" data-fancybox=gallery-2>
-                            <img src={{ asset('assets/images/Dubai-Bedouin-tea.webp') }} alt=image class=imgFluid>
-                        </a>
-                        <div class=media-gallery--view2__morePics>
-                            <a href={{ asset('assets/images/Dubai-evening.webp') }} type=button data-fancybox=gallery-2>
-                                <span class=media-gallery--view2__morePics-icon>
-                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                </span>
-                                Show all photos
-                            </a>
-                        </div>
-                    </div>
-                    <div class=col-12>
-                        <a href={{ asset('assets/images/Dubai-desert-sky.webp') }}
-                            class="media-gallery__item--4 media-gallery--view2" data-fancybox=gallery-2>
-                            <img src={{ asset('assets/images/Dubai-desert-sky.webp') }} alt=image class=imgFluid>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @endif
+
     <div class="tour-details_banner2 mt-2 tour-details_banner2-slider">
-        <div class=tour-details_banner2--img>
-            <img src={{ asset('assets/images/29854_28c1f02c6dd2ba7cc97b9c2cab4f2114-0-en1706865947.jpg.webp') }} alt=image
-                class=imgFluid>
-        </div>
-        <div class=tour-details_banner2--img>
-            <img src={{ asset('assets/images/Dubai-lovers-in-desert-with-camel.webp') }} alt=image class=imgFluid>
-        </div>
+        @foreach ($tour->media as $media)
+            <div class=tour-details_banner2--img>
+                <img src={{ asset($media->file_path ?? 'assets/images/placeholder.png') }}
+                    alt={{ $media->alt_text ?? 'image' }} class="imgFluid">
+            </div>
+        @endforeach
     </div>
 
     <div class=tour-content>
@@ -143,10 +183,12 @@
                                 </div>
                                 <div class=tour-content__headerLocation--details>
                                     <span class=pipeDivider></span>
-                                    <div class=badge-of-excellence>
-                                        <i class="bx bx-badge-check"></i>
-                                        Badge of Excellence
-                                    </div>
+                                    @if ($tour->badge_icon_class && $tour->badge_name)
+                                        <div class="badge-of-excellence">
+                                            <i class="{{ $tour->badge_icon_class }}"></i>
+                                            {{ $tour->badge_name }}
+                                        </div>
+                                    @endif
                                     @if ($tour->cities)
                                         <div class=location-headerLocation--details>
                                             <span class=pipeDivider></span>
@@ -177,8 +219,10 @@
                             </li>
                         </ul>
                     </div>
-                    <div class=tour-content__line></div>
+
                     @if (json_decode($tour->features))
+                        <div class=tour-content__line></div>
+
                         <div class=tour-content__moreDetail>
                             <ul class=tour-content__moreDetail--content>
                                 @foreach (json_decode($tour->features) as $feature)
@@ -189,25 +233,17 @@
                                 @endforeach
                             </ul>
                         </div>
-                        <div class=tour-content__line></div>
                     @endif
 
+                    <div class=tour-content__line></div>
                     <div class=tour-content__description>
                         <div class=tour-content__details>
                             <div class=tour-content__SubTitle>
                                 Description
                             </div>
-                            <div class=tour-content__pra>
-                                {{ $tour->short_desc }}
+                            <div class="tour-content__pra editor-content">
+                                {!! $tour->content !!}
                             </div>
-                            @if ($tour->highlights)
-                                <div class=tour-content__title>
-                                    HIGHLIGHTS
-                                </div>
-                                <div class="tour-content__pra highlights-content editor-content">
-                                    {!! $tour->highlights !!}
-                                </div>
-                            @endif
                         </div>
                         <div class=row>
                             @if (json_decode($tour->inclusions))
@@ -241,230 +277,248 @@
                                 </div>
                             @endif
                         </div>
-                        <div class=tour-content__line></div>
                     </div>
-                    @if ($tour->attributes->isNotEmpty())
+                    @if ($tour->tourAttributes->isNotEmpty())
+                        <div class=tour-content__line></div>
                         <div class="tour-content__moreDetail">
-                            @foreach ($tour->attributes as $attribute)
-                                <div class="tour-content__title">
-                                    {{ $attribute->name ?? '' }}
-                                </div>
-                                <ul class="tour-content__moreDetail--content">
-                                    @foreach (json_decode($attribute->items) as $item)
-                                        <li>
-                                            <i class="bx bx-check-circle"></i>
-                                            <div>{{ $item ?? '' }}</div>
-                                        </li>
-                                    @endforeach
-                                </ul>
+                            @foreach ($attributes as $attribute)
+                                @php
+                                    $hasItems = $attribute->attributeItems->isNotEmpty();
+                                    $isAssociatedWithTour = $tour->attributes->contains($attribute->id);
+                                @endphp
+
+                                @if ($hasItems && $isAssociatedWithTour)
+                                    <div class="tour-content__title">
+                                        {{ $attribute->name ?? '' }}
+                                    </div>
+                                    <ul class="tour-content__moreDetail--content">
+                                        @foreach ($attribute->attributeItems as $item)
+                                            @if ($item->tourAttributes->contains($attribute->id))
+                                                <li>
+                                                    <i class="bx bx-check-circle"></i>
+                                                    <div>{{ $item->item ?? '' }}</div>
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                @endif
                             @endforeach
                         </div>
                     @endif
 
-                    <div class=tour-content__line></div>
+                    @if ($tour->location_type === 'normal_itinerary')
+                        <div class=tour-content__line></div>
+                        <div class=itinerary>
+                            @if ($tour->normalItineraries->isNotEmpty())
+                                <div class=tour-content__SubTitle>
+                                    Itinerary
+                                </div>
+                                @foreach ($tour->normalItineraries as $itinerary)
+                                    <div class="itinerary-card accordian-2 {{ $loop->first ? 'active' : '' }} mb-3">
+                                        <div class="itinerary-card__header accordian-2-header border-bottom-0 p-0">
+                                            <h5 class="mb-0">
+                                                <button type="button" class="itinerary-card__header--btn">
+                                                    <div class="tour-content__pra-icon check-icon">
+                                                    </div>
+                                                    <div class="tour-content__title tour-content__title--Blue">
+                                                        Day {{ $itinerary->day }} <span class="px-2">-</span>
+                                                    </div>
+                                                    <h6 class="tour-content__title text-left mb-0">
+                                                        {{ $itinerary->title }}</h6>
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div class="itinerary-card__body accordian-2-content">
+                                            <div class="hidden-wrapper">
+                                                <p class="tour-content__pra mb-1">
+                                                    {{ $itinerary->description }}
+                                                </p>
+                                                @if ($itinerary->featured_image)
+                                                    <div class="itinerary-card__body__img">
+                                                        <img data-src="{{ asset($itinerary->featured_image) }}"
+                                                            alt="{{ $itinerary->featured_image_alt_text }}"
+                                                            class="lazy imgFluid">
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class=tour-content__SubTitle>
+                                    No Itinerary available for this tour
+                                </div>
+                            @endif
+                        </div>
+                    @endif
 
-
-                    {{-- <div class=itinerary>
-                        @if ($itineraries->isNotEmpty())
+                    @if ($tour->location_type === 'itinerary_experience')
+                        <div class=tour-content__line></div>
+                        <div class=activity-experience>
                             <div class=tour-content__SubTitle>
+                                experience
+                            </div>
+                            <div class="timeline-item-info--primary mb-2">
                                 Itinerary
                             </div>
-                            @foreach ($itineraries as $itinerary)
-                                <div class="itinerary-card accordian-2 {{ $loop->first ? 'active' : '' }} mb-3">
-                                    <div class="itinerary-card__header accordian-2-header border-bottom-0 p-0">
-                                        <h5 class="mb-0">
-                                            <button type="button" class="itinerary-card__header--btn">
-                                                <div class="tour-content__pra-icon check-icon">
-                                                </div>
-                                                <div class="tour-content__title tour-content__title--Blue">
-                                                    Day {{ $itinerary->day }} <span class="px-2">-</span>
-                                                </div>
-                                                <h6 class="tour-content__title text-left mb-0">
-                                                    {{ $itinerary->title }}</h6>
-                                            </button>
-                                        </h5>
-                                    </div>
-                                    <div class="itinerary-card__body accordian-2-content">
-                                        <div class="hidden-wrapper">
-                                            <p class="tour-content__pra mb-1">
-                                                {{ $itinerary->short_desc }}
-                                            </p>
-                                            @if ($itinerary->img_path)
-                                                <div class="itinerary-card__body__img">
-                                                    <img src="{{ asset($itinerary->img_path) }}"
-                                                        alt="{{ $itinerary->title }}">
-                                                </div>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        @else
-                            <div class=tour-content__SubTitle>
-                                No Itinerary available for this tour
-                            </div>
-                        @endif
-                    </div> --}}
-
-
-                    <div class=tour-content__line></div>
-                    <div class=activity-experience>
-                        <div class=tour-content__SubTitle>
-                            experience
-                        </div>
-                        <div class="timeline-item-info--primary mb-2">
-                            Itinerary
-                        </div>
-                        <div class=activity-experience-items__content>
-                            <div class=activity-experience__itinerary>
-                                <div class="row mb-4">
-                                    <div class=col-md-4>
-                                        <ul class=experience-itinerary-timeline>
-                                            <li class=activity-itinerary-timeline__item>
-                                                <div class=timeline-item__wrapper>
-                                                    <div class=timeline-item-stop>
-                                                        <span class=timeline-item__icon>
-                                                            <i class='bx bx-location-plus'></i>
-                                                        </span>
-                                                        <div class="timeline-item-info timeline-item__info">
-                                                            <h3 class="timeline-item-info--primary tour-content__title">
-                                                                5 pickup location options:</h3>
-                                                            <section>
-                                                                <div
-                                                                    class="timeline-item-info--secondary tour-content__pra">
-                                                                    <p>Ajman, Sharjah, Ajman, Sharjah, Dubai</p>
-                                                                </div>
-                                                            </section>
+                            <div class=activity-experience-items__content>
+                                <div class=activity-experience__itinerary>
+                                    <div class="row mb-4">
+                                        <div class=col-md-4>
+                                            <ul class=experience-itinerary-timeline>
+                                                <li class=activity-itinerary-timeline__item>
+                                                    <div class=timeline-item__wrapper>
+                                                        <div class=timeline-item-stop>
+                                                            <span class=timeline-item__icon>
+                                                                <i class='bx bx-location-plus'></i>
+                                                            </span>
+                                                            <div class="timeline-item-info timeline-item__info">
+                                                                <h3
+                                                                    class="timeline-item-info--primary tour-content__title">
+                                                                    5 pickup location options:</h3>
+                                                                <section>
+                                                                    <div
+                                                                        class="timeline-item-info--secondary tour-content__pra">
+                                                                        <p>Ajman, Sharjah, Ajman, Sharjah, Dubai</p>
+                                                                    </div>
+                                                                </section>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </li>
-                                            <li class=activity-itinerary-timeline__item>
-                                                <div class=timeline-item__wrapper>
-                                                    <div class=timeline-item-stop>
-                                                        <span class="timeline-item__icon timeline-item__staricon">
-                                                            <i class="bx bx-star"></i>
-                                                        </span>
-                                                        <div class="timeline-item-info timeline-item__info">
-                                                            <h3 class="timeline-item-info--primary tour-content__title">
-                                                                Lahbab Desert
-                                                            </h3>
-                                                            <section>
-                                                                <div
-                                                                    class="timeline-item-info--secondary tour-content__pra">
-                                                                    <p>Ajman, Sharjah, Ajman, Sharjah, Dubai</p>
-                                                                </div>
-                                                            </section>
-                                                            <div class=timeline-item__subitems-wrapper>
-                                                                <div class=grey-circle-icon></div>
-                                                                <div
-                                                                    class="timeline-item-info timeline-item__info timeline-item__info--subitem">
-                                                                    <p class=timeline-subitems-info--primary>Quad
-                                                                        bike ride</p>
-                                                                    <p class=timeline-subitems-info--secondary>
-                                                                        Optional</p>
+                                                </li>
+                                                <li class=activity-itinerary-timeline__item>
+                                                    <div class=timeline-item__wrapper>
+                                                        <div class=timeline-item-stop>
+                                                            <span class="timeline-item__icon timeline-item__staricon">
+                                                                <i class="bx bx-star"></i>
+                                                            </span>
+                                                            <div class="timeline-item-info timeline-item__info">
+                                                                <h3
+                                                                    class="timeline-item-info--primary tour-content__title">
+                                                                    Lahbab Desert
+                                                                </h3>
+                                                                <section>
+                                                                    <div
+                                                                        class="timeline-item-info--secondary tour-content__pra">
+                                                                        <p>Ajman, Sharjah, Ajman, Sharjah, Dubai</p>
+                                                                    </div>
+                                                                </section>
+                                                                <div class=timeline-item__subitems-wrapper>
+                                                                    <div class=grey-circle-icon></div>
+                                                                    <div
+                                                                        class="timeline-item-info timeline-item__info timeline-item__info--subitem">
+                                                                        <p class=timeline-subitems-info--primary>Quad
+                                                                            bike ride</p>
+                                                                        <p class=timeline-subitems-info--secondary>
+                                                                            Optional</p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </li>
-                                            <li class=activity-itinerary-timeline__item>
-                                                <div class=timeline-item__wrapper>
-                                                    <div class=timeline-item-stop>
-                                                        <span class="timeline-item__icon timeline-item__staricon">
-                                                            <i class="bx bx-star"></i> </span>
-                                                        <div class="timeline-item-info timeline-item__info">
-                                                            <h3 class="timeline-item-info--primary tour-content__title">
-                                                                Al Khayma Desert Camp
-                                                            </h3>
-                                                            <section>
-                                                                <div
-                                                                    class="timeline-item-info--secondary tour-content__pra">
-                                                                    <p>Coffee, Camel ride, Local snacks</p>
+                                                </li>
+                                                <li class=activity-itinerary-timeline__item>
+                                                    <div class=timeline-item__wrapper>
+                                                        <div class=timeline-item-stop>
+                                                            <span class="timeline-item__icon timeline-item__staricon">
+                                                                <i class="bx bx-star"></i> </span>
+                                                            <div class="timeline-item-info timeline-item__info">
+                                                                <h3
+                                                                    class="timeline-item-info--primary tour-content__title">
+                                                                    Al Khayma Desert Camp
+                                                                </h3>
+                                                                <section>
+                                                                    <div
+                                                                        class="timeline-item-info--secondary tour-content__pra">
+                                                                        <p>Coffee, Camel ride, Local snacks</p>
+                                                                    </div>
+                                                                </section>
+                                                                <div class=timeline-item__subitems-wrapper>
+                                                                    <div class=grey-circle-icon></div>
+                                                                    <div
+                                                                        class="timeline-item-info timeline-item__info timeline-item__info--subitem">
+                                                                        <p class=timeline-subitems-info--primary>Quad
+                                                                            bike ride</p>
+                                                                        <p class=timeline-subitems-info--secondary>
+                                                                            Optional</p>
+                                                                    </div>
                                                                 </div>
-                                                            </section>
-                                                            <div class=timeline-item__subitems-wrapper>
-                                                                <div class=grey-circle-icon></div>
-                                                                <div
-                                                                    class="timeline-item-info timeline-item__info timeline-item__info--subitem">
-                                                                    <p class=timeline-subitems-info--primary>Quad
-                                                                        bike ride</p>
-                                                                    <p class=timeline-subitems-info--secondary>
-                                                                        Optional</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class=timeline-item__subitems-wrapper>
-                                                                <div class=grey-circle-icon></div>
-                                                                <div
-                                                                    class="timeline-item-info timeline-item__info timeline-item__info--subitem">
-                                                                    <p class=timeline-subitems-info--primary>Quad
-                                                                        bike ride</p>
-                                                                    <p class=timeline-subitems-info--secondary>
-                                                                        Optional</p>
+                                                                <div class=timeline-item__subitems-wrapper>
+                                                                    <div class=grey-circle-icon></div>
+                                                                    <div
+                                                                        class="timeline-item-info timeline-item__info timeline-item__info--subitem">
+                                                                        <p class=timeline-subitems-info--primary>Quad
+                                                                            bike ride</p>
+                                                                        <p class=timeline-subitems-info--secondary>
+                                                                            Optional</p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class=timeline-item__wrapper>
-                                                    <div class=timeline-item-stop>
-                                                        <span class=timeline-item__icon>
-                                                        </span>
-                                                        <div class="timeline-item-info timeline-item__info">
-                                                            <h3 class="timeline-item-info--primary tour-content__title">
-                                                                5 drop-off locations:
-                                                            </h3>
-                                                            <section>
-                                                                <div
-                                                                    class="timeline-item-info--secondary tour-content__pra">
-                                                                    <p>Ajman, Ajman, Dubai, Sharjah, Sharjah</p>
-                                                                </div>
-                                                            </section>
+                                                </li>
+                                                <li>
+                                                    <div class=timeline-item__wrapper>
+                                                        <div class=timeline-item-stop>
+                                                            <span class=timeline-item__icon>
+                                                            </span>
+                                                            <div class="timeline-item-info timeline-item__info">
+                                                                <h3
+                                                                    class="timeline-item-info--primary tour-content__title">
+                                                                    5 drop-off locations:
+                                                                </h3>
+                                                                <section>
+                                                                    <div
+                                                                        class="timeline-item-info--secondary tour-content__pra">
+                                                                        <p>Ajman, Ajman, Dubai, Sharjah, Sharjah</p>
+                                                                    </div>
+                                                                </section>
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class=col-md-8>
+                                            <div class="tour-content-location__map activity-experience__map">
+                                                <iframe
+                                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52938394.04350317!2d-161.92225315781042!3d35.91997508297217!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2sUnited%20States!5e0!3m2!1sen!2s!4v1719698235402!5m2!1sen!2s"
+                                                    width=600 height=450 style=border:0 allowfullscreen
+                                                    referrerpolicy=no-referrer-when-downgrade></iframe>
+                                            </div>
+                                            <div class=activity-experience-itinerary__map-title>
+                                            </div>
+                                            <div class=itinerary__map-title-main>
+                                                <i class="bx bx-star"></i>
+                                                <div class=itinerary__map-label>
+                                                    Main stop
                                                 </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class=col-md-8>
-                                        <div class="tour-content-location__map activity-experience__map">
-                                            <iframe
-                                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52938394.04350317!2d-161.92225315781042!3d35.91997508297217!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2sUnited%20States!5e0!3m2!1sen!2s!4v1719698235402!5m2!1sen!2s"
-                                                width=600 height=450 style=border:0 allowfullscreen
-                                                referrerpolicy=no-referrer-when-downgrade></iframe>
-                                        </div>
-                                        <div class=activity-experience-itinerary__map-title>
-                                        </div>
-                                        <div class=itinerary__map-title-main>
-                                            <i class="bx bx-star"></i>
-                                            <div class=itinerary__map-label>
-                                                Main stop
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class=tour-content__line></div>
-                    <div class=tour-content-location>
-                        <div class=tour-content__SubTitle>
-                            Location
-                        </div>
-                        <div class=tour-content-location__map>
+                    @endif
 
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52938394.04350317!2d-161.92225315781042!3d35.91997508297217!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2sUnited%20States!5e0!3m2!1sen!2s!4v1719698235402!5m2!1sen!2s"
-                                width=600 height=450 style=border:0 allowfullscreen
-                                referrerpolicy=no-referrer-when-downgrade></iframe>
+                    @if ($tour->location_type === 'normal_location')
+                        <div class=tour-content__line></div>
+                        <div class=tour-content-location>
+                            <div class=tour-content__SubTitle>
+                                Location
+                            </div>
+                            <div class=tour-content-location__map>
+
+                                <iframe
+                                    src="https://www.google.com/maps?q={{ $tour->address ?? 'United Arab Emirates' }}&output=embed"
+                                    width=600 height=450 style=border:0 allowfullscreen
+                                    referrerpolicy=no-referrer-when-downgrade></iframe>
+                            </div>
                         </div>
-                    </div>
+                    @endif
+
                     <div class=tour-content__line></div>
                     <div class="faqs">
-
                         @if ($tour->faqs->isNotEmpty())
                             <div class="tour-content__SubTitle">
                                 FAQS
@@ -490,8 +544,7 @@
                     </div>
 
                     <div class=tour-content__line></div>
-
-                    @if (!$tour->reviews->isEmpty())
+                    @if ($tour->reviews->isNotEmpty())
                         <div class=main-reviews__details>
                             <div class=tour-content__SubTitle>
                                 Reviews
@@ -647,7 +700,6 @@
                         <div class=main-reviews__details>
                             <div class=tour-content__SubTitle>
                                 No Review
-
                             </div>
                         </div>
                     @endif
@@ -873,165 +925,73 @@
             </div>
         </div>
     </div>
-    <div class="water-list-tour normal-card">
-        <div class=container>
-            <div class="section-content text-center">
-                <h2 class=subHeading>
-                    You might also like...
-                </h2>
-            </div>
-            <div class="row pt-3 mb-4">
-                <div class=col-md-3>
-                    <div class="card-content normal-card__content">
-                        <a href=# class="card_img normal-card__img">
-                            <img src={{ asset('assets/images/tour-1.webp') }} alt=image class=imgFluid>
-                            <div class=price-details>
-                                <div class=price-location>
-                                    <i class="bx bxs-location-plus"></i>
-                                    Singapore
-                                </div>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="tour-activity-card__details normal-card__details">
-                            <div class=vertical-activity-card__header>
-                                <div class="tour-activity-card__details--title">
-                                    American Parks Trail end Rapid City
-                                </div>
-                            </div>
-                            <div class="card-rating mb-2">
-                                <div class=card-rating__yellow>
-                                    4.8/5
-                                </div>
-                                <span>(4 Reviews)</span>
-                            </div>
-                            <div class="tour-listing__info normal-card__info">
-                                <p class=baseline-pricing__from>
-                                    <span class=baseline-pricing__from--text>From</span>
-                                    <span class=baseline-pricing__from--value>$50.77</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+    @if ($tour->related_tour_ids)
+        <div class="my-5 pb-2">
+            <div class=container>
+                <div class="section-content text-center">
+                    <h2 class=subHeading>
+                        You might also like...
+                    </h2>
                 </div>
-                <div class=col-md-3>
-                    <div class="card-content normal-card__content">
-                        <a href=# class="card_img normal-card__img">
-                            <img src={{ asset('assets/images/tour-1.webp') }} alt=image class=imgFluid>
-                            <div class=price-details>
-                                <div class=price-location>
-                                    <i class="bx bxs-location-plus"></i>
-                                    Singapore
-                                </div>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
+                <div class="row pt-3 mb-4">
+                    @php
+                        $relatedTours = App\Models\Tour::whereIn('id', json_decode($tour->related_tour_ids ?? '[]'))
+                            ->where('status', 'publish')
+                            ->get();
+
+                    @endphp
+                    @foreach ($relatedTours as $relatedTour)
+                        <div class=col-md-3>
+                            <div class="card-content normal-card__content">
+                                <a href={{ route('tours.details', $relatedTour->slug) }}
+                                    class="card_img normal-card__img">
+                                    <img data-src={{ asset($relatedTour->featured_image ?? 'admin/assets/images/placeholder.png') }}
+                                        alt={{ $relatedTour->featured_image_alt_text ?? 'image' }} class='imgFluid lazy'>
+                                    <div class=price-details>
+                                        <div class=price-location data-tooltip="tooltip"
+                                            title="{{ $relatedTour->cities->pluck('name')->implode(', ') }}">
+                                            <i class="bx bxs-location-plus"></i>
+                                            {{ $relatedTour->cities[0]->name }}
+                                        </div>
+                                        <div class=heart-icon>
+                                            <div class=service-wishlis>
+                                                <i class="bx bx-heart"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <div class="tour-activity-card__details normal-card__details">
+                                    <div class=vertical-activity-card__header>
+                                        <div data-tooltip="tooltip" title="{{ $tour->title }}"
+                                            class="tour-activity-card__details--title text-truncate">
+                                            {{ $relatedTour->title }}
+                                        </div>
+                                    </div>
+                                    <div class="card-rating mb-2">
+                                        <div class=card-rating__yellow>
+                                            {{ $relatedTour->average_rating ?? 0 }}/5
+                                        </div>
+                                        <span>
+                                            ({{ count($relatedTour->reviews) === 0
+                                                ? 'No Reviews Yet'
+                                                : count($relatedTour->reviews) . ' Review' . (count($relatedTour->reviews) > 1 ? 's' : '') }})
+                                        </span>
+                                    </div>
+                                    <div class="tour-listing__info normal-card__info">
+                                        <p class=baseline-pricing__from>
+                                            <span class=baseline-pricing__from--text>From</span>
+                                            <span
+                                                class=baseline-pricing__from--value>{{ formatPrice($relatedTour->regular_price) }}</span>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
-                        </a>
-                        <div class="tour-activity-card__details normal-card__details">
-                            <div class=vertical-activity-card__header>
-                                <div class="tour-activity-card__details--title">
-                                    American Parks Trail end Rapid City
-                                </div>
-                            </div>
-                            <div class="card-rating mb-2">
-                                <div class=card-rating__yellow>
-                                    4.8/5
-                                </div>
-                                <span>(4 Reviews)</span>
-                            </div>
-                            <div class="tour-listing__info normal-card__info">
-                                <p class=baseline-pricing__from>
-                                    <span class=baseline-pricing__from--text>From</span>
-                                    <span class=baseline-pricing__from--value>$50.77</span>
-                                </p>
-                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class=col-md-3>
-                    <div class="card-content normal-card__content">
-                        <a href=# class="card_img normal-card__img">
-                            <img src={{ asset('assets/images/tour-1.webp') }} alt=image class=imgFluid>
-                            <div class=price-details>
-                                <div class=price-location>
-                                    <i class="bx bxs-location-plus"></i>
-                                    Singapore
-                                </div>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="tour-activity-card__details normal-card__details">
-                            <div class=vertical-activity-card__header>
-                                <div class="tour-activity-card__details--title">
-                                    American Parks Trail end Rapid City
-                                </div>
-                            </div>
-                            <div class="card-rating mb-2">
-                                <div class=card-rating__yellow>
-                                    4.8/5
-                                </div>
-                                <span>(4 Reviews)</span>
-                            </div>
-                            <div class="tour-listing__info normal-card__info">
-                                <p class=baseline-pricing__from>
-                                    <span class=baseline-pricing__from--text>From</span>
-                                    <span class=baseline-pricing__from--value>$50.77</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class=col-md-3>
-                    <div class="card-content normal-card__content">
-                        <a href=# class="card_img normal-card__img">
-                            <img src={{ asset('assets/images/tour-1.webp') }} alt=image class=imgFluid>
-                            <div class=price-details>
-                                <div class=price-location>
-                                    <i class="bx bxs-location-plus"></i>
-                                    Singapore
-                                </div>
-                                <div class=heart-icon>
-                                    <div class=service-wishlis>
-                                        <i class="bx bx-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="tour-activity-card__details normal-card__details">
-                            <div class=vertical-activity-card__header>
-                                <div class="tour-activity-card__details--title">
-                                    American Parks Trail end Rapid City
-                                </div>
-                            </div>
-                            <div class="card-rating mb-2">
-                                <div class=card-rating__yellow>
-                                    4.8/5
-                                </div>
-                                <span>(4 Reviews)</span>
-                            </div>
-                            <div class="tour-listing__info normal-card__info">
-                                <p class=baseline-pricing__from>
-                                    <span class=baseline-pricing__from--text>From</span>
-                                    <span class=baseline-pricing__from--value>$50.77</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 @endsection
 @section('css')
     <style type="text/css">

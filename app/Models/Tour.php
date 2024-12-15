@@ -91,6 +91,11 @@ class Tour extends Model
             ->withTimestamps();
     }
 
+    public function tourAttributes()
+    {
+        return $this->belongsToMany(TourAttribute::class, 'tour_attribute_tour_attribute_item');
+    }
+
     public function getAverageRatingAttribute()
     {
         $totalReviews = $this->reviews()->count();
@@ -101,7 +106,7 @@ class Tour extends Model
 
     public function media()
     {
-        return $this->hasMany(TourMedia::class, 'tour_id');
+        return $this->morphMany(Media::class, 'mediable');
     }
 
     public function openHours()

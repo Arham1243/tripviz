@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Tour;
+use App\Models\TourAttribute;
 use App\Models\TourCategory;
 use Illuminate\Http\Request;
 
@@ -22,11 +23,11 @@ class TourController extends Controller
 
     public function details($slug)
     {
-
-        $tour = Tour::where('slug', $slug)->first();
-
+        $attributes = TourAttribute::where('status', 'active')
+            ->latest()->get();
+        $tour = Tour::where('slug', $slug)->with('tourAttributes.items')->first();
         if ($tour) {
-            $data = compact('tour');
+            $data = compact('tour', 'attributes');
 
             return view('frontend.tour.details')->with('title', $tour->title)->with($data);
         }

@@ -11,7 +11,6 @@ use App\Models\TourDetail;
 use App\Models\TourExtraPrice;
 use App\Models\TourFaq;
 use App\Models\TourItinerary;
-use App\Models\TourMedia;
 use App\Models\TourOpenHour;
 use App\Models\TourPriceDiscount;
 use App\Models\TourPricing;
@@ -299,18 +298,15 @@ class TourController extends Controller
         $this->uploadImg('featured_image', 'Tour/Featured-images', $tour, 'featured_image');
         $this->uploadImg('promotional_image', 'Tour/Promotional-images', $tour, 'promotional_image');
 
-        // Handle gallery images
-        if (! empty($request['gallery'])) {
-            $this->uploadMultipleImages(
-                'gallery', // Input name for the images
-                'Tour/Banner/Gallery', // Folder to store images
-                new TourMedia, // Pass the model class name here
-                'image_path', // Column name for image path
-                'alt_text', // Column name for alt text
-                $request['gallery_alt_texts'] ?? null, // Pass alt texts if provided
-                'tour_id', // Pass the foreign key column name
-                $tour->id // foreign key value
-            );
+        if ($request->gallery) {
+            foreach ($request->file('gallery') as $index => $image) {
+                $path = $this->simpleUploadImg($image, 'Tour/Gallery-images');
+
+                $tour->media()->create([
+                    'file_path' => $path,
+                    'alt_text' => $request['gallery_alt_texts'][$index],
+                ]);
+            }
         }
 
         // Handle SEO data
@@ -431,6 +427,8 @@ class TourController extends Controller
                     $tour->attributes()->attach($attributeId, ['tour_attribute_item_id' => $itemId]);
                 }
             }
+        } else {
+            $tour->attributes()->detach();
         }
 
         // Handle details
@@ -604,22 +602,17 @@ class TourController extends Controller
                     }
                 }
             }
-
         }
 
-        // Handle images
-        // Handle gallery images
-        if (! empty($request['gallery'])) {
-            $this->uploadMultipleImages(
-                'gallery', // Input name for the images
-                'Tour/Banner/Gallery', // Folder to store images
-                new TourMedia, // Pass the model class name here
-                'image_path', // Column name for image path
-                'alt_text', // Column name for alt text
-                $request['gallery_alt_texts'] ?? null, // Pass alt texts if provided
-                'tour_id', // Pass the foreign key column name
-                $tour->id // foreign key value
-            );
+        if ($request->gallery) {
+            foreach ($request->file('gallery') as $index => $image) {
+                $path = $this->simpleUploadImg($image, 'Tour/Gallery-images');
+
+                $tour->media()->create([
+                    'file_path' => $path,
+                    'alt_text' => $request['gallery_alt_texts'][$index],
+                ]);
+            }
         }
 
         if ($request->hasFile('banner_image')) {
@@ -638,16 +631,5 @@ class TourController extends Controller
         handleSeoData($request, $tour, 'Tour');
 
         return redirect()->route('admin.tours.index')->with('notify_success', 'Tour Added successfully.')->with('active_tab', 'details');
-    }
-
-    public function deleteMedia(TourMedia $media)
-    {
-        if (! $media) {
-            return redirect()->back()->with('notify_error', 'Media not found');
-        }
-        $this->deletePreviousImage($media->image_path ?? null);
-        $media->delete();
-
-        return redirect()->back()->with('notify_success', 'Media deleted successfully');
     }
 }

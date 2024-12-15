@@ -1,4 +1,4 @@
-<a href="#header" class="goUp">Whatsapp<i class='bx bx-message-rounded'></i></i></a>
+<a href="javascript:void(0)" class="goUp">Whatsapp<i class='bx bx-message-rounded'></i></i></a>
 
 <div class="login-wrapper {{ isset($openLoginPopup) ? 'open' : '' }}" id="loginPopup">
     <div class="loginSignup-popup signUpStep show for-check-email">

@@ -28,4 +28,9 @@ class TourAttribute extends Model
             ->withPivot('tour_attribute_item_id')
             ->withTimestamps();
     }
+
+    public function items()
+    {
+        return $this->belongsToMany(TourAttributeItem::class, 'tour_attribute_tour_attribute_item');
+    }
 }

@@ -553,15 +553,15 @@
                                                         <ul class="multiple-upload__imgs">
                                                             @foreach ($tour->media as $media)
                                                                 <li class="single-image">
-                                                                    <a href="{{ route('admin.tour-media.delete', $media->id) }}"
+                                                                    <a href="{{ route('admin.media.destroy', $media->id) }}"
                                                                         onclick="return confirm('Are you sure you want to delete this media?')"
                                                                         class="delete-btn">
                                                                         <i class='bx bxs-trash-alt'></i>
                                                                     </a>
                                                                     <a class="mask"
-                                                                        href="{{ asset($media->image_path) }}"
+                                                                        href="{{ asset($media->file_path) }}"
                                                                         data-fancybox="gallery">
-                                                                        <img src="{{ asset($media->image_path) }}"
+                                                                        <img src="{{ asset($media->file_path) }}"
                                                                             class="imgFluid"
                                                                             alt="{{ $media->alt_text }}" />
                                                                     </a>
