@@ -353,6 +353,9 @@
                     @endif
 
                     @if ($tour->location_type === 'itinerary_experience')
+                        @php
+                            $itineraryExperience = json_decode($tour->itinerary_experience);
+                        @endphp
                         <div class=tour-content__line></div>
                         <div class=activity-experience>
                             <div class=tour-content__SubTitle>
@@ -375,88 +378,110 @@
                                                             <div class="timeline-item-info timeline-item__info">
                                                                 <h3
                                                                     class="timeline-item-info--primary tour-content__title">
-                                                                    5 pickup location options:</h3>
+                                                                    {{ $itineraryExperience->pickup_locations ? count(explode(',', $itineraryExperience->pickup_locations)) : 0 }}
+                                                                    pickup location options:</h3>
                                                                 <section>
                                                                     <div
                                                                         class="timeline-item-info--secondary tour-content__pra">
-                                                                        <p>Ajman, Sharjah, Ajman, Sharjah, Dubai</p>
+                                                                        <p>{{ $itineraryExperience->pickup_locations ?? '' }}
+                                                                        </p>
                                                                     </div>
                                                                 </section>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </li>
-                                                <li class=activity-itinerary-timeline__item>
-                                                    <div class=timeline-item__wrapper>
-                                                        <div class=timeline-item-stop>
-                                                            <span class="timeline-item__icon timeline-item__staricon">
-                                                                <i class="bx bx-star"></i>
-                                                            </span>
-                                                            <div class="timeline-item-info timeline-item__info">
-                                                                <h3
-                                                                    class="timeline-item-info--primary tour-content__title">
-                                                                    Lahbab Desert
-                                                                </h3>
-                                                                <section>
-                                                                    <div
-                                                                        class="timeline-item-info--secondary tour-content__pra">
-                                                                        <p>Ajman, Sharjah, Ajman, Sharjah, Dubai</p>
-                                                                    </div>
-                                                                </section>
-                                                                <div class=timeline-item__subitems-wrapper>
-                                                                    <div class=grey-circle-icon></div>
-                                                                    <div
-                                                                        class="timeline-item-info timeline-item__info timeline-item__info--subitem">
-                                                                        <p class=timeline-subitems-info--primary>Quad
-                                                                            bike ride</p>
-                                                                        <p class=timeline-subitems-info--secondary>
-                                                                            Optional</p>
-                                                                    </div>
+
+                                                @foreach ($itineraryExperience->vehicles as $vehicle)
+                                                    <li class="activity-itinerary-timeline__item">
+                                                        <div class="timeline-item__wrapper">
+                                                            <div class="timeline-item-stop">
+                                                                <span class="timeline-item__icon timeline-item__staricon">
+                                                                    <i class='bx bxs-car'></i>
+                                                                </span>
+                                                                <div class="timeline-item-info timeline-item__info">
+                                                                    <h3
+                                                                        class="timeline-item-info--primary tour-content__title">
+                                                                        {{ $vehicle->name }}
+                                                                    </h3>
+                                                                    <section>
+                                                                        <div
+                                                                            class="timeline-item-info--secondary tour-content__pra">
+                                                                            <p>({{ $vehicle->time }} minutes)</p>
+                                                                        </div>
+                                                                    </section>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </li>
-                                                <li class=activity-itinerary-timeline__item>
-                                                    <div class=timeline-item__wrapper>
-                                                        <div class=timeline-item-stop>
-                                                            <span class="timeline-item__icon timeline-item__staricon">
-                                                                <i class="bx bx-star"></i> </span>
-                                                            <div class="timeline-item-info timeline-item__info">
-                                                                <h3
-                                                                    class="timeline-item-info--primary tour-content__title">
-                                                                    Al Khayma Desert Camp
-                                                                </h3>
-                                                                <section>
-                                                                    <div
-                                                                        class="timeline-item-info--secondary tour-content__pra">
-                                                                        <p>Coffee, Camel ride, Local snacks</p>
-                                                                    </div>
-                                                                </section>
-                                                                <div class=timeline-item__subitems-wrapper>
-                                                                    <div class=grey-circle-icon></div>
-                                                                    <div
-                                                                        class="timeline-item-info timeline-item__info timeline-item__info--subitem">
-                                                                        <p class=timeline-subitems-info--primary>Quad
-                                                                            bike ride</p>
-                                                                        <p class=timeline-subitems-info--secondary>
-                                                                            Optional</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class=timeline-item__subitems-wrapper>
-                                                                    <div class=grey-circle-icon></div>
-                                                                    <div
-                                                                        class="timeline-item-info timeline-item__info timeline-item__info--subitem">
-                                                                        <p class=timeline-subitems-info--primary>Quad
-                                                                            bike ride</p>
-                                                                        <p class=timeline-subitems-info--secondary>
-                                                                            Optional</p>
-                                                                    </div>
+                                                    </li>
+                                                @endforeach
+
+                                                @foreach ($itineraryExperience->stops as $stop)
+                                                    <li class="activity-itinerary-timeline__item">
+                                                        <div class="timeline-item__wrapper">
+                                                            <div class="timeline-item-stop">
+                                                                <span class="timeline-item__icon timeline-item__staricon">
+                                                                    <i class="bx bx-star"></i>
+                                                                </span>
+                                                                <div class="timeline-item-info timeline-item__info">
+                                                                    <h3
+                                                                        class="timeline-item-info--primary tour-content__title">
+                                                                        @if (is_array($stop->title))
+                                                                            {{ implode(', ', $stop->title) }}
+                                                                            <!-- Join array elements with commas -->
+                                                                        @else
+                                                                            {{ $stop->title }}
+                                                                            <!-- If it's already a string, display it directly -->
+                                                                        @endif
+                                                                    </h3>
+                                                                    <section>
+                                                                        <div
+                                                                            class="timeline-item-info--secondary tour-content__pra">
+                                                                            <p>{{ $stop->activities }}</p>
+                                                                        </div>
+                                                                    </section>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </li>
+                                                    </li>
+
+                                                    @if (
+                                                        $itineraryExperience->enable_sub_stops == '1' &&
+                                                            isset($itineraryExperience->stops->sub_stops) &&
+                                                            in_array($stop->title, $itineraryExperience->stops->sub_stops->main_stop))
+                                                        @foreach ($itineraryExperience->stops->sub_stops->title as $index => $subStopTitle)
+                                                            @if ($subStopTitle == $stop->title)
+                                                                <li class="activity-itinerary-timeline__item">
+                                                                    <div class="timeline-item__wrapper">
+                                                                        <div class="timeline-item-stop">
+                                                                            <span
+                                                                                class="timeline-item__icon timeline-item__staricon">
+                                                                                <i class="bx bx-star"></i>
+                                                                            </span>
+                                                                            <div
+                                                                                class="timeline-item-info timeline-item__info">
+                                                                                <h3
+                                                                                    class="timeline-item-info--primary tour-content__title">
+                                                                                    {{ $subStopTitle }}
+                                                                                </h3>
+                                                                                <section>
+                                                                                    <div
+                                                                                        class="timeline-item-info--secondary tour-content__pra">
+                                                                                        <p>{{ $itineraryExperience->stops->sub_stops->activities[$index] }}
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </section>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                @endforeach
+
+
+
                                                 <li>
                                                     <div class=timeline-item__wrapper>
                                                         <div class=timeline-item-stop>
@@ -465,12 +490,14 @@
                                                             <div class="timeline-item-info timeline-item__info">
                                                                 <h3
                                                                     class="timeline-item-info--primary tour-content__title">
-                                                                    5 drop-off locations:
+                                                                    {{ $itineraryExperience->dropoff_locations ? count(explode(',', $itineraryExperience->dropoff_locations)) : 0 }}
+                                                                    drop-off locations:
                                                                 </h3>
                                                                 <section>
                                                                     <div
                                                                         class="timeline-item-info--secondary tour-content__pra">
-                                                                        <p>Ajman, Ajman, Dubai, Sharjah, Sharjah</p>
+                                                                        <p>{{ $itineraryExperience->dropoff_locations ?? '' }}
+                                                                        </p>
                                                                     </div>
                                                                 </section>
                                                             </div>
@@ -482,7 +509,7 @@
                                         <div class=col-md-8>
                                             <div class="tour-content-location__map activity-experience__map">
                                                 <iframe
-                                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52938394.04350317!2d-161.92225315781042!3d35.91997508297217!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2sUnited%20States!5e0!3m2!1sen!2s!4v1719698235402!5m2!1sen!2s"
+                                                    src="{{ $itineraryExperience->map_iframe ?? 'https://www.google.com/maps?qUnited Arab Emirates&output=embed' }}"
                                                     width=600 height=450 style=border:0 allowfullscreen
                                                     referrerpolicy=no-referrer-when-downgrade></iframe>
                                             </div>
